@@ -8,6 +8,7 @@ import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
@@ -126,8 +127,23 @@ public class PlatformDemoScreen extends GameScreen {
                     "Platform", this));
             platformOffset += (random.nextFloat() > 0.5f ?
                     platformWidth : platformWidth + random.nextFloat()*platformWidth);
+            addSound();
+
         }
     }
+
+
+    private void addSound() {
+        getGame().getAssetManager().loadAndAddSound("platformjump","sound/jump_01.wav");
+    }
+
+    private void playSound() {
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.play(getGame().getAssetManager().getSound("platformjump"));
+
+    }
+
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Update and Draw
@@ -141,6 +157,8 @@ public class PlatformDemoScreen extends GameScreen {
     @Override
     public void update(ElapsedTime elapsedTime) {
 
+
+
         // Update the touch buttons checking for player input
         for (PushButton control : mControls)
             control.update(elapsedTime, mDefaultLayerViewport, mDefaultScreenViewport);
@@ -148,6 +166,10 @@ public class PlatformDemoScreen extends GameScreen {
         // Update the player
         mPlayer.update(elapsedTime, moveLeft.isPushed(),
                 moveRight.isPushed(), jumpUp.isPushed(), mPlatforms);
+
+        if (jumpUp.isPushed()) {
+            playSound();
+        }
 
         // Ensure the player cannot leave the confines of the world
         BoundingBox playerBound = mPlayer.getBound();
