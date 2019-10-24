@@ -8,6 +8,7 @@ import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
@@ -129,6 +130,18 @@ public class PlatformDemoScreen extends GameScreen {
         }
     }
 
+
+    private void playMusic() {
+        AudioManager audioManager = getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGame().getAssetManager().getMusic("platformmusic"));
+
+    }
+
+    private void addMusic() {
+        getGame().getAssetManager().loadAndAddMusic("platformmusic", "sound/music.mp3");
+    }
     // /////////////////////////////////////////////////////////////////////////
     // Update and Draw
     // /////////////////////////////////////////////////////////////////////////
@@ -140,6 +153,8 @@ public class PlatformDemoScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
+        addMusic();
+        playMusic();
 
         // Update the touch buttons checking for player input
         for (PushButton control : mControls)
