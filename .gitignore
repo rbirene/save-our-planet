@@ -1,0 +1,13 @@
+*.iml
+gage-master/.gradle
+gage-master/.idea
+gage-master/gradle
+gage-master/build.gradle
+gage-master/gage-master.iml
+gage-master/gradle.properties
+gage-master/local.properties
+gage-master/settings.gradle
+.DS_Store
+/build
+/captures
+.externalNativeBuild
