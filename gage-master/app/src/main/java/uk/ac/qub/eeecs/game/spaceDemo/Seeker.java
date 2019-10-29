@@ -6,7 +6,6 @@ import uk.ac.qub.eeecs.gage.engine.particle.ParticleSystemManager;
 import uk.ac.qub.eeecs.gage.util.MathsHelper;
 import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
 import uk.ac.qub.eeecs.gage.util.Vector2;
-import java.util.Random;
 
 /**
  * AI controlled spaceship that will seek towards the player.
@@ -25,7 +24,7 @@ public class Seeker extends SpaceEntity {
     /**
      * Default size for the Seeker
      */
-    private static float radius = 0;
+    private static final float DEFAULT_RADIUS = 20;
 
     /**
      * Distance at which the spaceship should avoid other game objects
@@ -62,13 +61,7 @@ public class Seeker extends SpaceEntity {
      * @param gameScreen    Gamescreen to which AI belongs
      */
     public Seeker(float startX, float startY, SpaceshipDemoScreen gameScreen) {
-        super(startX, startY, radius, radius, null, gameScreen);
-
-        //generate random size for seeker
-        Random random = new Random();
-        int randomNumber = random.nextInt(5 - 3 + 3) + 3;
-        float randomRadius = (float) randomNumber*10;
-        this.radius = randomRadius;
+        super(startX, startY, DEFAULT_RADIUS*2.0f, DEFAULT_RADIUS*2.0f, null, gameScreen);
 
         // Define movement variables for the seeker
         maxAcceleration = 30.0f;
@@ -76,14 +69,14 @@ public class Seeker extends SpaceEntity {
         maxAngularVelocity = 150.0f;
         maxAngularAcceleration = 300.0f;
 
-        mRadius = randomRadius;
+        mRadius = DEFAULT_RADIUS;
         mMass = 10.0f;
 
         // Define the appearance of the seeker
         mBitmap = gameScreen.getGame().getAssetManager().getBitmap("Spaceship2");
 
         // Create an offset for the movement emitter based on the size of the spaceship
-        movementEmitterOffset = new Vector2(-20, 0.0f);
+        movementEmitterOffset = new Vector2(-DEFAULT_RADIUS, 0.0f);
         movementEmitterLocation = new Vector2(position);
         movementEmitterLocation.add(movementEmitterOffset);
 
