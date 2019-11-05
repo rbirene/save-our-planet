@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.game.spaceDemo;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.Space;
 
 import java.util.ArrayList;
@@ -86,6 +87,12 @@ public class SpaceshipDemoScreen extends GameScreen {
      * Define HUD elements
      */
     private Bar mMovementSpeedBar;
+
+    /**
+     * Define spaceship's current and previous speeds
+     */
+    private float currentSpeed;
+    private float previousSpeed;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -264,6 +271,9 @@ public class SpaceshipDemoScreen extends GameScreen {
 
         // Update the GUI elements
         updateGUIGameObjects(elapsedTime);
+
+        //Update engine start and stop sounds
+        updateSounds();
     }
 
     /**
@@ -274,6 +284,48 @@ public class SpaceshipDemoScreen extends GameScreen {
         if(!audioManager.isMusicPlaying())
             audioManager.playMusic(
                     getGame().getAssetManager().getMusic("SpaceBackgroundMusic"));
+    }
+
+    /**
+     * Play Engine start sound
+     */
+    private void playEngineStartSound(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.play(
+                getGame().getAssetManager().getSound("EngineStart"));
+    }
+
+    /**
+     * Play Engine stop sound
+     */
+    private void playEngineStopSound(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.play(
+                getGame().getAssetManager().getSound("EngineStop"));
+    }
+
+    /**
+     * Updates spaceship start and stop sounds
+     */
+    private void updateSounds() {
+        //Calculate Percentage speed of spaceship
+        float spaceShipPercentageSpeed =
+                mPlayerSpaceship.velocity.length() / mPlayerSpaceship.maxVelocity;
+
+        currentSpeed = spaceShipPercentageSpeed;
+        //System.out.print(currentSpeed);
+
+        //plays start sound if spaceship starts moving
+        if((previousSpeed < 0.2) && (currentSpeed >= 0.2)){
+            playEngineStartSound();
+        }
+
+        //plays stop sound when spaceship stops moving
+        if((previousSpeed >= 0.2) && (currentSpeed < 0.2)){
+            playEngineStopSound();
+        }
+
+        previousSpeed = currentSpeed;
     }
 
     /**
