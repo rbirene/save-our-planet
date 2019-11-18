@@ -61,7 +61,7 @@ public class SplashScreen extends GameScreen {
         delay(y);
     }
     public void stopSprite(int x){
-        if(x == 75){
+        if(x == 40){
             moveText.velocity = new Vector2(0.f, 0.f);
             moveLogo.velocity = new Vector2(0.f, 0.f);
         }
@@ -70,7 +70,7 @@ public class SplashScreen extends GameScreen {
 
     public void setupTitle(){
         Bitmap bmTitle = assetManager.getBitmap("SplashTitle");
-        moveText = new Sprite(1000.0f, gameHeight*1.3f, 1000.0f, 450.0f, bmTitle, this);
+        moveText = new Sprite(1000.0f, gameHeight*1.5f, 1000.0f, 400.0f, bmTitle, this);
         moveText.velocity = new Vector2(0.f, -125.f);
     }
 
@@ -83,7 +83,7 @@ public class SplashScreen extends GameScreen {
     public void setupLogo(){
         Bitmap bmLogo = assetManager.getBitmap("TreeHuggersLogo");
         moveLogo = new Sprite(1000.0f, 450.0f, 1000.0f, 750.0f, bmLogo, this);
-        moveLogo.velocity = new Vector2(0.f, 100.f);
+        moveLogo.velocity = new Vector2(0.f, 150.f);
     }
 
     public void setTimer(int x) {
@@ -91,7 +91,7 @@ public class SplashScreen extends GameScreen {
     }
 
     public void delay(int timer) {
-        if (timer == 1000) {
+        if (timer == 80) {
             game.getScreenManager().addScreen(new MenuScreen(game));
         }
         y++;
