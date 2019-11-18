@@ -1,12 +1,14 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+
 
 /**
  * Starter class for Card game stories

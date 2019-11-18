@@ -59,6 +59,37 @@
       "type": "Bitmap",
       "name": "0",
       "file": "img/0.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "TreeHuggersLogo",
+      "file": "img/TreeHuggersLogo.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "SplashBackground",
+      "file": "img/SplashBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "SplashTitle",
+      "file": "img/SplashTitle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "optionsBackground",
+      "file": "img/optionsBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "toggleOn",
+      "file": "img/toggleOn.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "toggleOff",
+      "file": "img/toggleOff.png"
     }
+
     ]
 }
