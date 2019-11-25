@@ -7,8 +7,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -186,4 +188,29 @@ public class CardStore {
         }
     }
 
+    /**
+     * Return a random Card `value` from a given HashMap
+     *
+     * @param cardPool HashMap containing a number of Cards
+     *
+     *  Created By Niamh McCartney
+     */
+    public Card getRandCard( HashMap<String, Card> cardPool) {
+        int numOfCards = cardPool.size();
+
+        Random rand = new Random();
+        int randNum = rand.nextInt((numOfCards-1) + 1);
+
+        int num = 0;
+        Card value = null;
+
+        for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
+            if(num == randNum){
+                value = entry.getValue();
+                return value;
+            }
+            num++;
+        }
+        return null;
+    }
 }
