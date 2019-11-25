@@ -197,6 +197,10 @@ public class Card extends Sprite {
         return cardType;
     }
 
+    public String getCardName(){
+        return name;
+    }
+
     //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
     public static void setGameScreen(GameScreen gameScreenValue){
         gameScreen = gameScreenValue;
