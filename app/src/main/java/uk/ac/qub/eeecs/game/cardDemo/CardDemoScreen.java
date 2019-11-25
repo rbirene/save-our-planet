@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.util.Log;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.Game;
@@ -12,7 +11,6 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.DemoGame;
 
 /**
  * Starter class for Card game stories
@@ -25,6 +23,7 @@ public class CardDemoScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
     private HashMap<String, Card> heroCardPool;
+    private HashMap<String, Card> screenCardPool = new HashMap<>();
     // Define a card to be displayed
     private Card card;
 
@@ -42,6 +41,8 @@ public class CardDemoScreen extends GameScreen {
 
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        heroCardPool = getGame().getCardStore().getAllHeroCards(this, mDefaultLayerViewport.x, mDefaultLayerViewport.y);
+        generateCards(3);
 
     }
 
@@ -88,15 +89,14 @@ public class CardDemoScreen extends GameScreen {
      */
     private void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
-        heroCardPool = getGame().getCardStore().getAllHeroCards(this, mDefaultLayerViewport.x, mDefaultLayerViewport.y);
         int counterX =0;
 
-        for (Map.Entry<String, Card> entry : heroCardPool.entrySet()) {
-            int w = heroCardPool.size();
+        for (Map.Entry<String, Card> entry : screenCardPool.entrySet()) {
+            int w = screenCardPool.size();
             int q = 1;
             float x1 = mDefaultLayerViewport.x / w;
             float y = mDefaultLayerViewport.y / q;
-            float spacing = 58;
+            float spacing = 70;
             float x = spacing + 2 * x1 * counterX++;
             Card value = entry.getValue();
             value.draw(elapsedTime, graphics2D,
@@ -104,4 +104,25 @@ public class CardDemoScreen extends GameScreen {
             value.setPosition(x, y);
         }
     }
+
+    /**
+     * generates the cards to present to the player
+     *
+     * @param numOfCards the number of cards to be generated
+     *
+     *  Created By Niamh McCartney
+     */
+    private void generateCards(int numOfCards){
+        int num = 0;
+        while(num<numOfCards) {
+            card = getGame().getCardStore().getRandCard(heroCardPool);
+            String name = card.getCardName();
+            //If Card is not already chosen then add to the HashMap
+            if(!screenCardPool.containsKey(name)) {
+                screenCardPool.put(name, card);
+                num++;
+            }
+        }
+    }
+
 }
