@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import uk.ac.qub.eeecs.game.cardDemo.SplashScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
 /**
@@ -44,8 +44,12 @@ public class DemoGame extends Game {
         // Create and add a stub game screen to the screen manager. We don't
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
-        MenuScreen stubMenuScreen = new MenuScreen(this);
-        mScreenManager.addScreen(stubMenuScreen);
+
+        SplashScreen SplashScreen = new SplashScreen(this);
+        mScreenManager.addScreen(SplashScreen);
+
+      //  MenuScreen stubMenuScreen = new MenuScreen(this);
+      //  mScreenManager.addScreen(stubMenuScreen);
 
         return view;
     }
