@@ -32,6 +32,8 @@ public class ScreenManager {
      */
     private Game mGame;
 
+    private GameScreen CurrentScreen;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -44,6 +46,7 @@ public class ScreenManager {
     public ScreenManager(Game game) {
         mGame = game;
         mGameScreens = new Stack<>();
+        CurrentScreen = null;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -93,6 +96,7 @@ public class ScreenManager {
         }
         return null;
     }
+
 
     /**
      * Remove the specified game screen from the manager.

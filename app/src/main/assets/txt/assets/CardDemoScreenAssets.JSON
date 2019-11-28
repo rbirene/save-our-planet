@@ -74,6 +74,82 @@
       "type": "Bitmap",
       "name": "0",
       "file": "img/0.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "TreeHuggersLogo",
+      "file": "img/TreeHuggersLogo.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "SplashBackground",
+      "file": "img/SplashBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BackArrow",
+      "file": "img/BackArrow.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BackArrowSelected",
+      "file": "img/BackArrowSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "SplashTitle",
+      "file": "img/SplashTitle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "optionsBackground",
+      "file": "img/optionsBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "OptionsIcon",
+      "file": "img/OptionsIcon.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "muteOff",
+      "file": "img/muteOff.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "muteOn",
+      "file": "img/muteOn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "btnExit",
+      "file": "img/btnExit.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "btnInstructions",
+      "file": "img/btnInstructions.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "btnOptions",
+      "file": "img/btnOptions.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "btnPlay",
+      "file": "img/btnPlay.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "mockBack",
+      "file": "img/mockBack.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "deckContainer",
+      "file": "img/deckContainer.png"
     }
+
     ]
 }
