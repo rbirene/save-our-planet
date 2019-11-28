@@ -7,8 +7,23 @@
     },
     {
       "type": "Bitmap",
-      "name": "CardPortrait",
-      "file": "img/CardPortrait.png"
+      "name": "Cycle to School",
+      "file": "img/CardPortraits/CyclistPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Recycle",
+      "file": "img/CardPortraits/RecyclingPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Sign a Petition",
+      "file": "img/CardPortraits/PetitionPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Join a Campaign",
+      "file": "img/CardPortraits/CampaignerPortrait.png"
     },
     {
       "type": "Bitmap",

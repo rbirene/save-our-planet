@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IRenderSurface;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.cardDemo.CardStore;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -87,6 +88,20 @@ public abstract class Game extends Fragment {
     // /////////////////////////////////////////////////////////////////////////
     // Properties: Managers and Services
     // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Card Store
+     */
+    protected CardStore mCardStore;
+
+    /**
+     * Get the game's asset manager
+     *
+     * @return Asset manager
+     */
+    public CardStore getCardStore() {
+        return mCardStore;
+    }
 
     /**
      * Asset Manager
@@ -234,6 +249,9 @@ public abstract class Game extends Fragment {
 
         // Create the screen manager
         mScreenManager = new ScreenManager(this);
+
+        //Create the Card Store
+        mCardStore = new CardStore(this);
     }
 
     /*

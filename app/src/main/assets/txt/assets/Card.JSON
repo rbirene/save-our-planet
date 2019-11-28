@@ -1,0 +1,28 @@
+{
+  "assets": [
+    {
+      "name": "Cycle to School",
+      "type": "heroCard",
+      "attackValue": 6,
+      "healthValue": 1
+    },
+    {
+      "name": "Recycle",
+      "type": "heroCard",
+      "attackValue": 5,
+      "healthValue": 9
+    },
+    {
+      "name": "Sign a Petition",
+      "type": "heroCard",
+      "attackValue": 3,
+      "healthValue": 9
+    },
+    {
+      "name": "Join a Campaign",
+      "type": "heroCard",
+      "attackValue": 3,
+      "healthValue": 9
+    }
+  ]
+}

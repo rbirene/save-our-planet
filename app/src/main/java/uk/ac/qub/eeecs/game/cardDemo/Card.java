@@ -13,7 +13,6 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
@@ -34,14 +33,17 @@ public class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
 
     // Define the default card width and height
-    private static final int DEFAULT_CARD_WIDTH = 90;
-    private static final int DEFAULT_CARD_HEIGHT = 130;
+    private static final int DEFAULT_CARD_WIDTH = 108;
+    private static final int DEFAULT_CARD_HEIGHT = 144;
 
     // Define the common card base
     private Bitmap mCardBase;
 
     // Define the card portrait image
-    private Bitmap mCardPortrait;
+    private Bitmap cardPortrait;
+
+    //Define the Card attack Value
+   // private Bitmap mAttackValue;
 
     // Define the card digit images
     private Bitmap[] mCardDigits = new Bitmap[10];
@@ -60,8 +62,16 @@ public class Card extends Sprite {
     private Vector2 mPortraitScale = new Vector2(0.55f, 0.55f);
 
     // Define the health and attack values
-    private int mAttack;
-    private int mHealth;
+    private int attack;
+    private int health;
+
+    private String name;
+    private String cardType;
+
+    private float x;
+    private float y;
+
+    private static GameScreen gameScreen;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -74,26 +84,28 @@ public class Card extends Sprite {
      * @param y          Centre x location of the platform
      * @param gameScreen Gamescreen to which this platform belongs
      */
-    public Card(float x, float y, GameScreen gameScreen) {
+    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, int mAttack, int mHealth) {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
 
-        AssetManager assetManager = gameScreen.getGame().getAssetManager();
+       /* if(gameScreen != null) {
+            AssetManager assetManager = gameScreen.getGame().getAssetManager();
 
-        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+            // Store the common card base image
+            mCardBase = assetManager.getBitmap("CardBackground");
 
-        // Store the common card base image
-        mCardBase = assetManager.getBitmap("CardBackground");
+            // Store the card portrait image
+            mCardPortrait = assetManager.getBitmap("CardPortrait");
 
-        // Store the card portrait image
-        mCardPortrait = assetManager.getBitmap("CardPortrait");
+            // Store each of the damage/health digits
+            for (int digit = 0; digit <= 9; digit++)
+                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+        }*/
 
-        // Store each of the damage/health digits
-        for(int digit = 0; digit <= 9; digit++)
-            mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
-
-        // Set default attack and health values
-        mAttack = 1;
-        mHealth = 2;
+        name = mName;
+        cardType = cardTypeValue;
+        cardPortrait = mCardPortrait;
+        attack = mAttack;
+        health = mHealth;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -113,7 +125,7 @@ public class Card extends Sprite {
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
         // Draw the portrait
-        drawBitmap(mCardPortrait, mPortraitOffset, mPortraitScale,
+        drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                 graphics2D, layerViewport, screenViewport);
 
         // Draw the card base background
@@ -121,11 +133,11 @@ public class Card extends Sprite {
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
         // Draw the attack value
-        drawBitmap(mCardDigits[mAttack], mAttackOffset, mAttackScale,
+        drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
                 graphics2D, layerViewport, screenViewport);
 
         // Draw the attack value
-        drawBitmap(mCardDigits[mHealth], mHealthOffset, mHealthScale,
+        drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
     }
 
@@ -184,4 +196,46 @@ public class Card extends Sprite {
             graphics2D.drawBitmap(bitmap, drawMatrix, null);
         }
     }
+
+    //Getter to return the Card Type of the Card [Niamh McCartney]
+    public String getCardType(){
+        return cardType;
+    }
+
+    public String getCardName(){
+        return name;
+    }
+
+    //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
+    public static void setGameScreen(GameScreen gameScreenValue){
+        gameScreen = gameScreenValue;
+    }
+
+    //Setter to set the width of the layer View Port[Niamh McCartney]
+    public void setLayerViewPortWidth(float xValue){
+        x = xValue;
+    }
+
+    //Setter to set the height of the layer View Port[Niamh McCartney]
+    public void setLayerViewPortHeight(float yValue){
+        y = yValue;
+    }
+
+    public void setCardPortrait(Bitmap cardPortraitBitmap){
+        cardPortrait = cardPortraitBitmap;
+    }
+
+    //Creates the images used by the Card [Niamh McCartney]
+    public void createCardImages(){
+        AssetManager assetManager = gameScreen.getGame().getAssetManager();
+
+        // Store the common card base image
+        mCardBase = assetManager.getBitmap("CardBackground");
+
+        // Store each of the damage/health digits
+        for (int digit = 0; digit <= 9; digit++)
+            mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+    }
+
+
 }
