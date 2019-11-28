@@ -142,11 +142,6 @@
     },
     {
       "type": "Bitmap",
-      "name": "mockBack",
-      "file": "img/mockBack.png"
-    },
-    {
-      "type": "Bitmap",
       "name": "deckContainer",
       "file": "img/deckContainer.png"
     }
