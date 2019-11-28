@@ -1,10 +1,15 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
+import android.util.Log;
+
+import java.util.List;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.gage.engine.input.Input;
+import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
@@ -29,8 +34,8 @@ public class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
 
     // Define the default card width and height
-    private static final int DEFAULT_CARD_WIDTH = 180;
-    private static final int DEFAULT_CARD_HEIGHT = 260;
+    private static final int DEFAULT_CARD_WIDTH = 90;
+    private static final int DEFAULT_CARD_HEIGHT = 130;
 
     // Define the common card base
     private Bitmap mCardBase;
@@ -73,6 +78,8 @@ public class Card extends Sprite {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
 
         AssetManager assetManager = gameScreen.getGame().getAssetManager();
+
+        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
 
         // Store the common card base image
         mCardBase = assetManager.getBitmap("CardBackground");
