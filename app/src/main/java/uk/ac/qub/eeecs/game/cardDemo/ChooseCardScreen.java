@@ -13,12 +13,13 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.DemoGame;
 
+
 /**
  * Starter class for Card game stories
  *
  * @version 1.0
  */
-public class ChooseCardsScreen extends GameScreen {
+public class ChooseCardScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -37,13 +38,13 @@ public class ChooseCardsScreen extends GameScreen {
      *
      * @param game Game to which this screen belongs
      */
-    public ChooseCardsScreen(Game game) {
+    public ChooseCardScreen(Game game) {
         super("CardScreen", game);
 
-        loadScreenAssets();
+        // Load the various images used by the cards
         heroCardPool = getGame().getCardStore().getAllHeroCards(this);
         generateCards(3);
-
+        loadScreenAssets();
     }
 
     // /////////////////////////////////////////////////////////////////////////

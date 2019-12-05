@@ -97,10 +97,14 @@ public class Sprite extends GameObject {
      * @param bitmap     Bitmap used to represent this sprite
      * @param gameScreen Gamescreen to which this sprite belongs
      */
+
+
     public Sprite(float x, float y, float width, float height, Bitmap bitmap,
                   GameScreen gameScreen) {
         super(x, y, width, height, bitmap, gameScreen);
+
     }
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Configuration Methods
