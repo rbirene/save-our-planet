@@ -17,7 +17,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  *
  * @version 1.0
  */
-public class CardDemoScreen extends GameScreen {
+public class ChooseCardsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -36,12 +36,11 @@ public class CardDemoScreen extends GameScreen {
      *
      * @param game Game to which this screen belongs
      */
-    public CardDemoScreen(Game game) {
+    public ChooseCardsScreen(Game game) {
         super("CardScreen", game);
 
-        // Load the various images used by the cards
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-        heroCardPool = getGame().getCardStore().getAllHeroCards(this, mDefaultLayerViewport.x, mDefaultLayerViewport.y);
+        loadScreenAssets();
+        heroCardPool = getGame().getCardStore().getAllHeroCards(this);
         generateCards(3);
 
     }
@@ -49,6 +48,11 @@ public class CardDemoScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+    private void loadScreenAssets(){
+        // Load the various images used by the cards
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+    }
 
     /**
      * Update the card demo screen

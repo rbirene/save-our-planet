@@ -40,7 +40,7 @@ public class CardStore {
     private final float nullFloatValue = 0.0f;
 
     //Define the HashMap to contain the Cards [Niamh McCartney]
-    private HashMap<String, Card> cardPool = new HashMap<>();;
+    private HashMap<String, Card> cardPool = new HashMap<>();
 
     //CardStore Constructor [Niamh McCartney]
     public CardStore(Game game){
@@ -106,17 +106,15 @@ public class CardStore {
      * return all the hero cards in a HashMap
      *
      * @param gameScreen game Screen the cards have been called by
-     * @param LayerViewPortWidth  width/2 of Screen
-     * @param LayerViewPortHeight height/2 of Screen
      *
      *  Created By Niamh McCartney
      */
-    public HashMap<String, Card> getAllHeroCards(GameScreen gameScreen, float LayerViewPortWidth, float LayerViewPortHeight){
+    public HashMap<String, Card> getAllHeroCards(GameScreen gameScreen){
         HashMap<String, Card> heroCardPool = new HashMap<>();
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key, LayerViewPortWidth, LayerViewPortHeight);
+            setGameScreenVariables(value, gameScreen, key);
             if(value.getCardType().equals("heroCard")){
                 heroCardPool.put(key, value);
             }
@@ -128,22 +126,20 @@ public class CardStore {
      * return all the villain cards in a HashMap
      *
      * @param gameScreen game Screen the cards have been called by
-     * @param LayerViewPortWidth  width/2 of Screen
-     * @param LayerViewPortHeight height/2 of Screen
      *
      *  Created By Niamh McCartney
      */
-    public HashMap<String, Card> getAllVillainCards(GameScreen gameScreen, float LayerViewPortWidth, float LayerViewPortHeight){
-        HashMap<String, Card> heroCardPool = new HashMap<>();
+    public HashMap<String, Card> getAllVillainCards(GameScreen gameScreen){
+        HashMap<String, Card> villainCardPool = new HashMap<>();
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key, LayerViewPortWidth, LayerViewPortHeight);
+            setGameScreenVariables(value, gameScreen, key);
             if(value.getCardType().equals("villainCard")){
-                heroCardPool.put(key, value);
+                villainCardPool.put(key, value);
             }
         }
-        return heroCardPool;
+        return villainCardPool;
     }
 
 
@@ -153,12 +149,10 @@ public class CardStore {
      * @param card card instance
      * @param gameScreen game Screen the cards have been called by
      * @param key  of the chosen HashMap
-     * @param LayerViewPortWidth  width/2 of Screen
-     * @param LayerViewPortHeight height/2 of Screen
      *
      *  Created By Niamh McCartney
      */
-    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key, float LayerViewPortWidth, float LayerViewPortHeight){
+    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key){
         Card.setGameScreen(gameScreen);
         card.setLayerViewPortWidth(gameScreen.getDefaultLayerViewport().x);
         card.setLayerViewPortHeight(gameScreen.getDefaultLayerViewport().y);
