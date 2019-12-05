@@ -42,15 +42,19 @@ public class ChooseCardScreen extends GameScreen {
         super("CardScreen", game);
 
         // Load the various images used by the cards
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-        heroCardPool = getGame().getCardStore().getAllHeroCards(this, mDefaultLayerViewport.x, mDefaultLayerViewport.y);
+        heroCardPool = getGame().getCardStore().getAllHeroCards(this);
         generateCards(3);
-
+        loadScreenAssets();
     }
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+    private void loadScreenAssets(){
+        // Load the various images used by the cards
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+    }
 
     /**
      * Update the card demo screen

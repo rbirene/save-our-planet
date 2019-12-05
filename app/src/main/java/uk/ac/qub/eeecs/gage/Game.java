@@ -192,7 +192,7 @@ public abstract class Game extends Fragment {
     /**
      * Width of the game window in pixels
      */
-    private int mScreenWidth = -1;
+    protected int mScreenWidth = -1;
 
     /**
      * Get the width of the game window
@@ -206,7 +206,7 @@ public abstract class Game extends Fragment {
     /**
      * Height of the game window in pixels
      */
-    private int mScreenHeight = -1;
+    protected int mScreenHeight = -1;
 
     /**
      * Get the height of the game window
