@@ -6,6 +6,7 @@ import java.util.Timer;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.Vector2;
@@ -30,6 +31,7 @@ public class SplashScreen extends GameScreen {
     private GameObject splashScreenBackground;
     private int timer =0;
     private AssetManager assetManager;
+    private AudioManager audioManager = mGame.getAudioManager();
     private int gameHeight, gameWidth;
    // private Bitmap bmTitle;
     private Sprite moveLogo, moveText;
@@ -47,7 +49,7 @@ public class SplashScreen extends GameScreen {
 
         assetManager = new AssetManager(mGame);
         assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-
+        assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
         ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
         LayerViewport = new LayerViewport(1000.0f, 1000.0f, 1000.0f, 600.0f);
 
@@ -89,6 +91,7 @@ public class SplashScreen extends GameScreen {
 
     public void delay(int x) {
         if (x == 80) {
+            playMusic();
             mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
     }
@@ -102,13 +105,17 @@ public class SplashScreen extends GameScreen {
             moveLogo.update(elapsedTime);
 
             if (EventList.size() > 0) {
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+                playMusic();
+                mGame.getScreenManager().addScreen(new MenuScreen(mGame))   ;
             }
             delay(timer);
             stopSprite(timer);
             timer++;
         }
 
+public void playMusic(){
+        audioManager.playMusic(assetManager.getMusic("gameMusic"));
+}
         @Override
         public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
             graphics2D.clear(Color.WHITE);
