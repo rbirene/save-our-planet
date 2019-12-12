@@ -4,12 +4,16 @@ import android.graphics.Color;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
+import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.engine.input.TouchHandler;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.DemoGame;
 
@@ -67,6 +71,17 @@ public class ChooseCardScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
+        ScrollandDragCard();
+        BoundingBox cardBoundaries = card.getBound();
+/*
+boundary snippets reedited from platform and spaceship demo - Keith
+ */
+
+        if (cardBoundaries.getBottom() < 0)
+            card.position.y -= cardBoundaries.getBottom();
+        else if (cardBoundaries.getTop() > mGame.getScreenHeight())
+            card.position.y -= (cardBoundaries.getTop() - mGame.getScreenHeight());
+
 
         // Update the card
        // card.angularVelocity = 40.0f;
@@ -132,5 +147,59 @@ public class ChooseCardScreen extends GameScreen {
             }
         }
     }
+
+    public void ScrollandDragCard() {
+        Input input = mGame.getInput();
+
+        TouchHandler touch = new TouchHandler();
+
+        /**
+         * TouchHandler to recognize touch
+         */
+        /**
+         * Add a reset Accumulator to gain latest inputs
+         */
+        touch.resetAccumulator();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+        /**
+         * If there is a touch event happening (more than 0) get the touch event.
+         */
+        if (touchEvents.size() > 0) {
+            TouchEvent cardTouch = input.getTouchEvents().get(0);
+
+
+            /** create a float to get the coordinates and location data before movement
+             *
+             */
+            float cardxpos = card.position.x;
+            float cardypos = card.position.y;
+
+
+            /**
+             * If the touch event is drag or scroll and there exists a touch event, get the card position and update it with
+             * the movement (dx and dy to show the total movement between the touch event and. The delta values are calculated by minusing the touch event position value from the original position
+             * add it to the original position)
+             */
+
+            if ( mGame.getInput().existsTouch(0) && cardTouch.type == 2 || cardTouch.type == 6) {
+
+
+                cardTouch.dx =  cardTouch.x - cardxpos;
+                cardTouch.dy = cardTouch.y - cardypos;
+                card.position.add(cardTouch.dx,cardTouch.dy);
+                cardxpos = card.position.x;
+                cardypos = card.position.y;
+
+                touch.resetAccumulator();
+
+            }
+
+
+
+
+        }
+    }
+
+
 
 }
