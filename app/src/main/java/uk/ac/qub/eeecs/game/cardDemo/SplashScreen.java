@@ -96,6 +96,11 @@ public class SplashScreen extends GameScreen {
         }
     }
 
+    public int getTimer(){
+        return timer;
+    }
+
+
         @Override
         public void update(ElapsedTime elapsedTime){
             Input input = mGame.getInput();

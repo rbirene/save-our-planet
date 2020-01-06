@@ -105,7 +105,6 @@ public void muteButton(){
         audioManager.resumeMusic();
         muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
     }
-
 }
         @Override
         public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){

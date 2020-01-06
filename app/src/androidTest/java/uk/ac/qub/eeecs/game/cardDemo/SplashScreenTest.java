@@ -30,7 +30,7 @@ public class SplashScreenTest {
 
     private TestGame Game;
     private SplashScreen splashDemo;
-
+    private MenuScreen menuScreen;
     @Before
     public void setUp() {
 
@@ -38,8 +38,17 @@ public class SplashScreenTest {
         Game.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 
+
     @Test
-    public void timerTest1() {
+    public void timerTest() {
+        splashDemo = new SplashScreen(Game);
+        Game.getScreenManager().addScreen(splashDemo);
+        splashDemo.setTimer(40);
+        assertTrue(splashDemo.getTimer() == 40);
+    }
+
+    @Test
+    public void timerTest2() {
         splashDemo = new SplashScreen(Game);
         Game.getScreenManager().addScreen(splashDemo);
         splashDemo.setTimer(40);
@@ -47,11 +56,13 @@ public class SplashScreenTest {
     }
 
     @Test
-    public void timerTest2() {
+    public void timerTest3() {
         splashDemo = new SplashScreen(Game);
+        menuScreen = new MenuScreen(Game);
+
         Game.getScreenManager().addScreen(splashDemo);
         splashDemo.setTimer(100);
-        assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "Splash");
+        assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "MenuScreen");
     }
 }
 
