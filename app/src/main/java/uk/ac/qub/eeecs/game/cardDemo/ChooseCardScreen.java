@@ -43,7 +43,9 @@ public class ChooseCardScreen extends GameScreen {
 
         // Load the various images used by the cards
         loadScreenAssets();
+        // get all the cards of type hero
         heroCardPool = getGame().getCardStore().getAllHeroCards(this);
+        // generate 3 random cards
         generateCards(3);
     }
 
