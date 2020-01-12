@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import uk.ac.qub.eeecs.gage.util.Vector2;
+
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -29,6 +31,11 @@ public class CardStore {
     //Define the Card's Health and Attack values [Niamh McCartney]
     private int attackValue;
     private int healthValue;
+
+    //Define the card Portraits scale
+    private String scaleValuex;
+    private String scaleValuey;
+    private Vector2 scaleValue;
 
     //Define the Card's Type [Niamh McCartney]
     private String cardType;
@@ -90,7 +97,10 @@ public class CardStore {
                 cardType = assets.getJSONObject(idx).getString("type");
                 attackValue = assets.getJSONObject(idx).getInt("attackValue");
                 healthValue = assets.getJSONObject(idx).getInt("healthValue");
-                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, attackValue, healthValue);
+                scaleValuex = assets.getJSONObject(idx).getString("scaleValuex");
+                scaleValuey = assets.getJSONObject(idx).getString("scaleValuey");
+                scaleValue = new Vector2(Float.parseFloat(scaleValuex), Float.parseFloat(scaleValuey));
+                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue);
                 if(!cardPool.containsKey(name)){
                     cardPool.put(name, cardName);
                 }
