@@ -33,8 +33,8 @@ public class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
 
     // Define the default card width and height
-    private static final int DEFAULT_CARD_WIDTH = 108;
-    private static final int DEFAULT_CARD_HEIGHT = 144;
+    private static final int DEFAULT_CARD_WIDTH = 180;
+    private static final int DEFAULT_CARD_HEIGHT = 240;
 
     // Define the common card base
     private Bitmap mCardBase;
@@ -52,14 +52,15 @@ public class Card extends Sprite {
     // card attack and card health values - all measured relative
     // to the centre of the object as a percentage of object size
 
-    private Vector2 mAttackOffset = new Vector2(-0.68f, -0.84f);
-    private Vector2 mAttackScale = new Vector2(0.1f, 0.1f);
+    private Vector2 mAttackOffset = new Vector2(0.49f, -0.18f);
+    private Vector2 mAttackScale = new Vector2(0.06f, 0.06f);
 
-    private Vector2 mHealthOffset = new Vector2(0.72f, -0.84f);
-    private Vector2 mHealthScale = new Vector2(0.1f, 0.1f);
+    private Vector2 mHealthOffset = new Vector2(-0.47f, -0.18f);
+    private Vector2 mHealthScale = new Vector2(0.06f, 0.06f);
 
-    private Vector2 mPortraitOffset = new Vector2(0.0f, 0.3f);
-    private Vector2 mPortraitScale = new Vector2(0.55f, 0.55f);
+    private Vector2 mPortraitOffset = new Vector2(0.0f, 0.2f);
+    private Vector2 mPortraitScale;
+    //= new Vector2(0.3f, 0.3f);
 
     // Define the health and attack values
     private int attack;
@@ -84,28 +85,15 @@ public class Card extends Sprite {
      * @param y          Centre x location of the platform
      * @param gameScreen Gamescreen to which this platform belongs
      */
-    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, int mAttack, int mHealth) {
+    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth) {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
-
-       /* if(gameScreen != null) {
-            AssetManager assetManager = gameScreen.getGame().getAssetManager();
-
-            // Store the common card base image
-            mCardBase = assetManager.getBitmap("CardBackground");
-
-            // Store the card portrait image
-            mCardPortrait = assetManager.getBitmap("CardPortrait");
-
-            // Store each of the damage/health digits
-            for (int digit = 0; digit <= 9; digit++)
-                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
-        }*/
 
         name = mName;
         cardType = cardTypeValue;
         cardPortrait = mCardPortrait;
         attack = mAttack;
         health = mHealth;
+        mPortraitScale = scaleValue;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -124,13 +112,13 @@ public class Card extends Sprite {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
-        // Draw the portrait
-        drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
-                graphics2D, layerViewport, screenViewport);
-
         // Draw the card base background
         mBitmap = mCardBase;
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+
+        // Draw the portrait
+        drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
+                graphics2D, layerViewport, screenViewport);
 
         // Draw the attack value
         drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
@@ -202,8 +190,14 @@ public class Card extends Sprite {
         return cardType;
     }
 
+    //Getter to return the Card Name of the Card [Niamh McCartney]
     public String getCardName(){
         return name;
+    }
+
+    //Getter to return the Card portrait of the Card [Niamh McCartney]
+    public Bitmap getCardPortrait(){
+        return cardPortrait;
     }
 
     //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
@@ -227,14 +221,16 @@ public class Card extends Sprite {
 
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(){
-        AssetManager assetManager = gameScreen.getGame().getAssetManager();
+        if(gameScreen != null) {
+            AssetManager assetManager = gameScreen.getGame().getAssetManager();
 
-        // Store the common card base image
-        mCardBase = assetManager.getBitmap("CardBackground");
+            // Store the common card base image
+            mCardBase = assetManager.getBitmap("CardBackground");
 
-        // Store each of the damage/health digits
-        for (int digit = 0; digit <= 9; digit++)
-            mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+            // Store each of the damage/health digits
+            for (int digit = 0; digit <= 9; digit++)
+                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+        }
     }
 
 
