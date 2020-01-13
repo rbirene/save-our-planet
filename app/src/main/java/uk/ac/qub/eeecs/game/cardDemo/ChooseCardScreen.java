@@ -4,14 +4,20 @@ import android.graphics.Color;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
+import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
+import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.DemoGame;
+import uk.ac.qub.eeecs.game.MenuScreen;
 
 
 /**
@@ -29,6 +35,11 @@ public class ChooseCardScreen extends GameScreen {
     // Define a card to be displayed
     private Card card;
 
+    private PushButton BackButton;
+
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -43,6 +54,9 @@ public class ChooseCardScreen extends GameScreen {
 
         // Load the various images used by the cards
         loadScreenAssets();
+
+        AddBackButton();
+
         // get all the cards of type hero
         heroCardPool = getGame().getCardStore().getAllHeroCards(this);
         // generate 3 random cards
@@ -52,6 +66,23 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+    /**
+     * Add a Back Button to the screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void AddBackButton(){
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        BackButton = new PushButton(20.0f, 50.0f,
+                50.0f, 50.0f,
+                "BackArrow", "BackArrowSelected", this);
+    }
 
     private void loadScreenAssets(){
         // Load the various images used by the cards
@@ -67,6 +98,15 @@ public class ChooseCardScreen extends GameScreen {
     public void update(ElapsedTime elapsedTime) {
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+
+        if (touchEvents.size() > 0) {
+
+            BackButton.update(elapsedTime);
+
+            if (BackButton.isPushTriggered())
+                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+        }
 
         // Update the card
        // card.angularVelocity = 40.0f;
@@ -85,6 +125,7 @@ public class ChooseCardScreen extends GameScreen {
         graphics2D.clear(Color.WHITE);
 
         drawCards(elapsedTime, graphics2D);
+        BackButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
     }
 
     /**
