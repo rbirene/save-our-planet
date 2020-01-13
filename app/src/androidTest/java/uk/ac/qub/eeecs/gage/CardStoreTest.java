@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.game.cardDemo.Card;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,7 @@ public class CardStoreTest {
         //loads all hero cards into HashMap
         HashMap<String, Card> cards =  aGame.mCardStore.getAllHeroCards(aScreen);
         //four hero cards expected
-        assertEquals(4, cards.size());
+        assertEquals(16, cards.size());
     }
 
     @Test
@@ -63,9 +64,9 @@ public class CardStoreTest {
     public void Test5_Setup(){
         cardPool = new HashMap<>();
         //create three cards
-        Card card01 = new Card(0.0f, 0.0f, null, "hero01", "heroCard", null, 1, 8);
-        Card card02 = new Card(0.0f, 0.0f, null, "hero02", "heroCard", null, 1, 8);
-        Card card03 = new Card(0.0f, 0.0f, null, "villain01", "heroCard", null, 1, 8);
+        Card card01 = new Card(0.0f, 0.0f, null, "hero01", "heroCard", null, new Vector2(0.03f, 0.03f) ,1, 8);
+        Card card02 = new Card(0.0f, 0.0f, null, "hero02", "heroCard", null,  new Vector2(0.03f, 0.03f) ,1, 8);
+        Card card03 = new Card(0.0f, 0.0f, null, "villain01", "heroCard", null,  new Vector2(0.03f, 0.03f) ,1, 8);
         //adds three cards to HashMap
         cardPool.put(card01.getCardName(), card01);
         cardPool.put(card02.getCardName(), card02);
