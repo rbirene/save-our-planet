@@ -53,10 +53,10 @@ public class Card extends Sprite {
     // to the centre of the object as a percentage of object size
 
     private Vector2 mAttackOffset = new Vector2(0.49f, -0.18f);
-    private Vector2 mAttackScale = new Vector2(0.06f, 0.06f);
+    private Vector2 mAttackScale = new Vector2(0.05f, 0.05f);
 
     private Vector2 mHealthOffset = new Vector2(-0.47f, -0.18f);
-    private Vector2 mHealthScale = new Vector2(0.06f, 0.06f);
+    private Vector2 mHealthScale = new Vector2(0.05f, 0.05f);
 
     private Vector2 mPortraitOffset = new Vector2(0.0f, 0.2f);
     private Vector2 mPortraitScale;
@@ -65,6 +65,9 @@ public class Card extends Sprite {
     // Define the health and attack values
     private int attack;
     private int health;
+
+    private int attackLength;
+    private int healthLength;
 
     private String name;
     private String cardType;
@@ -94,6 +97,10 @@ public class Card extends Sprite {
         attack = mAttack;
         health = mHealth;
         mPortraitScale = scaleValue;
+
+        //calculate the number of digits in the cards attack and health values
+        attackLength = String.valueOf(attack).length();
+        healthLength = String.valueOf(health).length();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -120,13 +127,37 @@ public class Card extends Sprite {
         drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                 graphics2D, layerViewport, screenViewport);
 
-        // Draw the attack value
-        drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
-                graphics2D, layerViewport, screenViewport);
+        // Draw the attack value depending on how many digits it has [Niamh McCartney]
+        if(attackLength == 1){
+            drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
+                    graphics2D, layerViewport, screenViewport);
+        }else if(attackLength == 2){
+            int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
+            mAttackOffset = new Vector2(0.45f, -0.18f);
+            drawBitmap(mCardDigits[firstDigit], mAttackOffset, mAttackScale,
+                    graphics2D, layerViewport, screenViewport);
 
-        // Draw the attack value
+            int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
+            mAttackOffset = new Vector2(0.55f, -0.18f);
+            drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
+                    graphics2D, layerViewport, screenViewport);
+        }
+
+        // Draw the health value[Niamh McCartney]
+        if(healthLength == 1){
         drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
+        }else if(healthLength == 2){
+            int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
+            mHealthOffset = new Vector2(-0.5f, -0.18f);
+            drawBitmap(mCardDigits[firstDigit], mHealthOffset, mHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+
+            int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
+            mHealthOffset = new Vector2(-0.4f, -0.18f);
+            drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+        }
     }
 
     private BoundingBox bound = new BoundingBox();

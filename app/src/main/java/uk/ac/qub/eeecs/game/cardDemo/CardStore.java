@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 
 import android.graphics.Bitmap;
@@ -49,16 +50,18 @@ public class CardStore {
     //Define the HashMap to contain the Cards [Niamh McCartney]
     private HashMap<String, Card> cardPool = new HashMap<>();
 
+    private PushButton BackButton;
+
     //CardStore Constructor [Niamh McCartney]
-    public CardStore(Game game){
+    public CardStore(Game game) {
 
         mGame = game;
         mFileIO = mGame.getFileIO();
         loadCardAssets("txt/assets/Card.JSON");
-    }
 
-    /**
-     * [Niamh McCartney]
+    }
+/**
+ * * [Niamh McCartney]
      * The JSON file assumes the following format:
      *
      {
