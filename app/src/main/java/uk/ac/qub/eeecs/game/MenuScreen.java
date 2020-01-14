@@ -7,6 +7,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -42,6 +43,8 @@ public class MenuScreen extends GameScreen {
     private PushButton options;
     private PushButton exit;
 
+    private AudioManager audioManager = mGame.getAudioManager();
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -74,6 +77,10 @@ public class MenuScreen extends GameScreen {
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+
+        assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
+
+
 
 
 
