@@ -35,7 +35,7 @@ public class OptionsScreen extends GameScreen {
 
     private Paint paint;
 
-    private AudioManager audioManager;
+    private AudioManager audioManager = mGame.getAudioManager();
 
     private int gameHeight, gameWidth;
 
@@ -45,7 +45,6 @@ public class OptionsScreen extends GameScreen {
 
         gameHeight = mGame.getScreenHeight();
         gameWidth = mGame.getScreenWidth();
-        audioManager = new AudioManager(mGame);
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
@@ -84,26 +83,29 @@ public class OptionsScreen extends GameScreen {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
-
         if (touchEvents.size() > 0) {
 
             BackButton.update(elapsedTime);
             muteToggle.update(elapsedTime);
 
-            if (BackButton.isPushTriggered())
+            if (BackButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-
-            if(muteToggle.isPushTriggered()){
-                if (audioManager.isMusicPlaying()) {
-                    audioManager.pauseMusic();
-                    muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOn"));
-                } else if (!audioManager.isMusicPlaying()) {
-                    audioManager.resumeMusic();
-                    muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
-                }
+            }
+            if (muteToggle.isPushTriggered()) {
+               muteButton();
             }
         }
     }
+
+public void muteButton(){
+    if(audioManager.isMusicPlaying()){
+        audioManager.pauseMusic();
+        muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOn"));
+    }else if(!audioManager.isMusicPlaying()){
+        audioManager.resumeMusic();
+        muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
+    }
+}
         @Override
         public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
 

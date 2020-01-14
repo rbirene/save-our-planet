@@ -204,7 +204,21 @@
       "type": "Bitmap",
       "name": "deckContainer",
       "file": "img/deckContainer.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "tempBack",
+      "file": "img/tempBack.jpg"
+    },
+    {
+      "type": "Music",
+      "name": "gameMusic",
+      "file": "sound/InPursuitOfSilence.mp3"
+    },
+    {
+      "type": "Bitmap",
+      "name": "pauseBtn",
+      "file": "img/pauseBtn.png"
     }
-
-    ]
+  ]
 }

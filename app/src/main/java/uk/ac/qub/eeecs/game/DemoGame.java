@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import uk.ac.qub.eeecs.game.cardDemo.BattleScreen;
+import uk.ac.qub.eeecs.game.cardDemo.ChooseCardScreen;
 import uk.ac.qub.eeecs.game.cardDemo.SplashScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
@@ -45,11 +48,12 @@ public class DemoGame extends Game {
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
 
-        SplashScreen SplashScreen = new SplashScreen(this);
-        mScreenManager.addScreen(SplashScreen);
+       // SplashScreen SplashScreen = new SplashScreen(this);
+       // mScreenManager.addScreen(SplashScreen);
 
-      //  MenuScreen stubMenuScreen = new MenuScreen(this);
-      //  mScreenManager.addScreen(stubMenuScreen);
+       BattleScreen battleScreen = new BattleScreen(this);
+        mScreenManager.addScreen(battleScreen);
+
 
         return view;
     }
