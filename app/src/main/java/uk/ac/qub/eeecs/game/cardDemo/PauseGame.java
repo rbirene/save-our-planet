@@ -18,16 +18,16 @@ import uk.ac.qub.eeecs.game.MenuScreen;
 
 public class PauseGame extends GameScreen {
 
-    private ScreenViewport mScreenViewport;
-    private LayerViewport mLayerViewport;
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
     private PushButton Resume,Exit;
     private GameObject background;
 
     public PauseGame(Game game){
         super("pause", game);
 
-        mScreenViewport = new ScreenViewport(0, 0, mGame.getScreenWidth(),
-                mGame.getScreenHeight());
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
 
         int screenWidth = mGame.getScreenWidth()/2;
         int screenHeight = mGame.getScreenHeight()/2;
@@ -60,7 +60,7 @@ public class PauseGame extends GameScreen {
 
         graphics2D.clear(Color.WHITE);
         // splashScreenBackground.draw(elapsedTime, graphics2D,mLayerViewport,mScreenViewport);
-        Resume.draw(elapsedTime, graphics2D,mLayerViewport,mScreenViewport);
+        Resume.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
     }
 }
 
