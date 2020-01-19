@@ -1,15 +1,15 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Canvas;
 import android.util.Log;
-
-import java.util.List;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.gage.engine.input.Input;
-import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
@@ -60,7 +60,6 @@ public class Card extends Sprite {
 
     private Vector2 mPortraitOffset = new Vector2(0.0f, 0.2f);
     private Vector2 mPortraitScale;
-    //= new Vector2(0.3f, 0.3f);
 
     // Define the health and attack values
     private int attack;
@@ -72,10 +71,13 @@ public class Card extends Sprite {
     private String name;
     private String cardType;
 
+    private int textYCoordinate;
+
     private float x;
     private float y;
 
     private static GameScreen gameScreen;
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -114,14 +116,19 @@ public class Card extends Sprite {
      * @param graphics2D     Graphics instance
      * @param layerViewport  Game layer viewport
      * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
         // Draw the card base background
-        mBitmap = mCardBase;
-        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+       // mBitmap = mCardBase;
+        //super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+
+        //Draw the name of the Card
+        drawCardNames(elapsedTime,graphics2D, layerViewport, screenViewport);
 
         // Draw the portrait
         drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
@@ -250,6 +257,17 @@ public class Card extends Sprite {
         cardPortrait = cardPortraitBitmap;
     }
 
+    public void changeCardBackground(){
+        AssetManager assetManager = gameScreen.getGame().getAssetManager();
+        if(mCardBase == assetManager.getBitmap("CardBackground")){
+            mCardBase = assetManager.getBitmap("CardBackgroundSelected");
+            //textYCoordinate = 0;
+        }else if(mCardBase == assetManager.getBitmap("CardBackgroundSelected")){
+            mCardBase = assetManager.getBitmap("CardBackground");
+            //textYCoordinate = 1250;
+        }
+    }
+
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(){
         if(gameScreen != null) {
@@ -263,6 +281,40 @@ public class Card extends Sprite {
                 mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
         }
     }
+
+
+    private void drawCardNames(ElapsedTime elapsedTime, IGraphics2D graphics2D,
+                              LayerViewport layerViewport, ScreenViewport screenViewport){
+        Bitmap newBitmap =  mCardBase.copy(mCardBase.getConfig(), true);
+
+        Canvas canvas = new Canvas(newBitmap);
+
+        //new initialised Paint
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.BLACK);
+
+        int screenHeight = graphics2D.getSurfaceHeight();
+        paint.setTextSize(screenHeight/20.0f);
+
+//        Rect bounds = new Rect();
+//        paint.getTextBounds(getCardName(), 0, getCardName().length(), bounds);
+        //draw text to the Canvas center
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        String text = getCardName();
+        int textXCoordinate = canvas.getWidth() / 2;
+        textYCoordinate = 1250;
+        for (String line: text.split("\n")) {
+            canvas.drawText(line, textXCoordinate, textYCoordinate, paint);
+            textYCoordinate += paint.descent() - paint.ascent();
+        }
+
+        mBitmap = newBitmap.copy(newBitmap.getConfig(), true);
+        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+    }
+
+
+
 
 
 }

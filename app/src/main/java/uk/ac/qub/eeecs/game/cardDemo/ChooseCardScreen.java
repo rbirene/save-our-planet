@@ -9,6 +9,7 @@ import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -16,7 +17,6 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.DemoGame;
 import uk.ac.qub.eeecs.game.MenuScreen;
 
 
@@ -32,13 +32,28 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     private HashMap<String, Card> heroCardPool;
     private HashMap<String, Card> screenCardPool = new HashMap<>();
+    //private Card screenCardPool[] = new Card[3];
     // Define a card to be displayed
     private Card card;
 
     private PushButton BackButton;
+    private Card Card01;
+    private Card Card02;
+    private Card Card03;
 
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
+
+    /**
+     * Define storage of touch points. Up to 5 simultaneous touch
+     * events are tested (an arbitrary value that displays well on ]
+     * screen). An array of booleans is used to determine if a given
+     * touch point exists, alongside this a corresponding 2D array of
+     * x/y points is maintained to hold the location of touch points
+     */
+    private static final int mTouchIdToDisplay = 5;
+    private boolean[] mTouchIdExists = new boolean[mTouchIdToDisplay];
+    private float[][] mTouchLocation = new float[mTouchIdExists.length][2];
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -59,6 +74,7 @@ public class ChooseCardScreen extends GameScreen {
 
         // get all the cards of type hero
         heroCardPool = getGame().getCardStore().getAllHeroCards(this);
+
         // generate 3 random cards
         generateCards(3);
     }
@@ -84,9 +100,17 @@ public class ChooseCardScreen extends GameScreen {
                 "BackArrow", "BackArrowSelected", this);
     }
 
+    /**
+     * Load Assets used by screen
+     *
+     * Created By Niamh McCartney
+     */
     private void loadScreenAssets(){
         // Load the various images used by the cards
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        //mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
+        mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
+        //mGame.getAssetManager().loadAssets("txt/assets/Card.JSON");
     }
 
     /**
@@ -96,22 +120,55 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
+
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
+
+        mGame.getInput().getKeyEvents();
+
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
-        if (touchEvents.size() > 0) {
+        AudioManager audioManager = getGame().getAudioManager();
 
-            BackButton.update(elapsedTime);
+        for (int i = 0; i < touchEvents.size(); i++) {
+            TouchEvent event = touchEvents.get(i);
 
-            if (BackButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+            if (touchEvents.size() > 0) {
+
+                BackButton.update(elapsedTime);
+
+                if (BackButton.isPushTriggered())
+                    mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+                    BackButton.setPlaySounds(true, true);
+
+                // Store touch point information.
+                for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
+                    mTouchLocation[pointerId][0] = event.x;
+                    mTouchLocation[pointerId][1] = event.y;
+                }
+
+                for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
+                    if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
+                        Card01.changeCardBackground();
+                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                    }
+                    if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
+                        Card02.changeCardBackground();
+                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                    }
+                    if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
+                        Card03.changeCardBackground();
+                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                    }
+
+                }
+            }
+
+            // Update the card
+            // card.angularVelocity = 40.0f;
+
+            //card.update(elapsedTime);
         }
-
-        // Update the card
-       // card.angularVelocity = 40.0f;
-
-        //card.update(elapsedTime);
     }
 
     /**
@@ -123,7 +180,6 @@ public class ChooseCardScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.clear(Color.WHITE);
-
         drawCards(elapsedTime, graphics2D);
         BackButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
     }
@@ -138,7 +194,7 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
-        int counterX =0;
+        int counterX = 0;
 
         for (Map.Entry<String, Card> entry : screenCardPool.entrySet()) {
             int w = screenCardPool.size();
@@ -151,6 +207,13 @@ public class ChooseCardScreen extends GameScreen {
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
             value.setPosition(x, y);
+            if(counterX == 1){
+                Card01 = value;
+            }if(counterX == 2){
+                Card02 = value;
+            }if(counterX == 3){
+                Card03 = value;
+            }
         }
     }
 
@@ -173,5 +236,21 @@ public class ChooseCardScreen extends GameScreen {
             }
         }
     }
+
+
+//    private void generateCards(int numOfCards){
+//        int num = 0;
+//        while(num<numOfCards) {
+//            card = getGame().getCardStore().getRandCard(heroCardPool);
+//            String name = card.getCardName();
+//            //If Card is not already chosen then add to the HashMap
+//            if(!screenCardPool.containsKey(name)) {
+//                screenCardPool.put(name, card);
+//                num++;
+//            }
+//        }
+//    }
+
+
 
 }

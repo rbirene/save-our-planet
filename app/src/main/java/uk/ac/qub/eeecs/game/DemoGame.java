@@ -48,11 +48,11 @@ public class DemoGame extends Game {
         // want to do this within the onCreate method as the menu screen
         // will layout the buttons based on the size of the view.
 
-       // SplashScreen SplashScreen = new SplashScreen(this);
-       // mScreenManager.addScreen(SplashScreen);
+        SplashScreen SplashScreen = new SplashScreen(this);
+        mScreenManager.addScreen(SplashScreen);
 
-       BattleScreen battleScreen = new BattleScreen(this);
-        mScreenManager.addScreen(battleScreen);
+       //BattleScreen battleScreen = new BattleScreen(this);
+       //mScreenManager.addScreen(battleScreen);
 
 
         return view;

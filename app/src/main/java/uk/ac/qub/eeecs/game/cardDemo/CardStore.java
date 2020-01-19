@@ -58,6 +58,7 @@ public class CardStore {
         mGame = game;
         mFileIO = mGame.getFileIO();
         loadCardAssets("txt/assets/Card.JSON");
+       // loadCardAssets("txt/assets/CardAssets.JSON");
 
     }
 /**
