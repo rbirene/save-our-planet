@@ -31,7 +31,8 @@ public class ChooseCardScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
     private HashMap<String, Card> heroCardPool;
-    private HashMap<String, Card> screenCardPool = new HashMap<>();
+    //private HashMap<String, Card> screenCardPool = new HashMap<>();
+    private Deck heroDeck;
     //private Card screenCardPool[] = new Card[3];
     // Define a card to be displayed
     private Card card;
@@ -72,11 +73,7 @@ public class ChooseCardScreen extends GameScreen {
 
         AddBackButton();
 
-        // get all the cards of type hero
-        heroCardPool = getGame().getCardStore().getAllHeroCards(this);
-
-        // generate 3 random cards
-        generateCards(3);
+        heroDeck = mGame.getHero().getHeroDeck();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -196,8 +193,8 @@ public class ChooseCardScreen extends GameScreen {
 
         int counterX = 0;
 
-        for (Map.Entry<String, Card> entry : screenCardPool.entrySet()) {
-            int w = screenCardPool.size();
+        for (Map.Entry<String, Card> entry : heroDeck.getDeck(this).entrySet()) {
+            int w = heroDeck.getDeck(this).size();
             int q = 1;
             float x1 = mDefaultLayerViewport.x / w;
             float y = mDefaultLayerViewport.y / q;
@@ -207,50 +204,16 @@ public class ChooseCardScreen extends GameScreen {
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
             value.setPosition(x, y);
-            if(counterX == 1){
+            if (counterX == 1) {
                 Card01 = value;
-            }if(counterX == 2){
+            }
+            if (counterX == 2) {
                 Card02 = value;
-            }if(counterX == 3){
+            }
+            if (counterX == 3) {
                 Card03 = value;
             }
         }
     }
-
-    /**
-     * generates the cards to present to the player
-     *
-     * @param numOfCards the number of cards to be generated
-     *
-     *  Created By Niamh McCartney
-     */
-    private void generateCards(int numOfCards){
-        int num = 0;
-        while(num<numOfCards) {
-            card = getGame().getCardStore().getRandCard(heroCardPool);
-            String name = card.getCardName();
-            //If Card is not already chosen then add to the HashMap
-            if(!screenCardPool.containsKey(name)) {
-                screenCardPool.put(name, card);
-                num++;
-            }
-        }
-    }
-
-
-//    private void generateCards(int numOfCards){
-//        int num = 0;
-//        while(num<numOfCards) {
-//            card = getGame().getCardStore().getRandCard(heroCardPool);
-//            String name = card.getCardName();
-//            //If Card is not already chosen then add to the HashMap
-//            if(!screenCardPool.containsKey(name)) {
-//                screenCardPool.put(name, card);
-//                num++;
-//            }
-//        }
-//    }
-
-
 
 }

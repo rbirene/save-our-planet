@@ -13,6 +13,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
+import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
@@ -53,10 +54,10 @@ public class Card extends Sprite {
     // to the centre of the object as a percentage of object size
 
     private Vector2 mAttackOffset = new Vector2(0.49f, -0.18f);
-    private Vector2 mAttackScale = new Vector2(0.05f, 0.05f);
+    private Vector2 mAttackScale = new Vector2(0.04f, 0.04f);
 
     private Vector2 mHealthOffset = new Vector2(-0.47f, -0.18f);
-    private Vector2 mHealthScale = new Vector2(0.05f, 0.05f);
+    private Vector2 mHealthScale = new Vector2(0.04f, 0.04f);
 
     private Vector2 mPortraitOffset = new Vector2(0.0f, 0.2f);
     private Vector2 mPortraitScale;
@@ -68,15 +69,19 @@ public class Card extends Sprite {
     private int attackLength;
     private int healthLength;
 
+    //Define the Card Name
     private String name;
+    //define Card Type
     private String cardType;
 
-    private int textYCoordinate;
+    //private int textYCoordinate;
 
     private float x;
     private float y;
 
     private static GameScreen gameScreen;
+
+    private Paint mTextPaint;
 
 
     // /////////////////////////////////////////////////////////////////////////
@@ -103,6 +108,9 @@ public class Card extends Sprite {
         //calculate the number of digits in the cards attack and health values
         attackLength = String.valueOf(attack).length();
         healthLength = String.valueOf(health).length();
+
+        //sets paint properties for card text
+        setupTextPaint();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -123,16 +131,25 @@ public class Card extends Sprite {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
-        // Draw the card base background
-       // mBitmap = mCardBase;
-        //super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+        // Draw the card base background[Niamh McCartney]
+        mBitmap = mCardBase;
+        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
-        //Draw the name of the Card
-        drawCardNames(elapsedTime,graphics2D, layerViewport, screenViewport);
 
-        // Draw the portrait
+        // Draw the portrait[Niamh McCartney]
         drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                 graphics2D, layerViewport, screenViewport);
+
+        //Draw the Card text[Niamh McCartney]
+        String text = name;
+        float textXCoordinate = DEFAULT_CARD_WIDTH * 0.0f;
+        float textYCoordinate = DEFAULT_CARD_HEIGHT * 0.1f;
+        for (String line: text.split("\n")) {
+            Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
+            drawText(line, offset, DEFAULT_CARD_WIDTH * 0.7f,
+                    graphics2D, layerViewport, screenViewport);
+            textYCoordinate += 10;
+        }
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
         if(attackLength == 1){
@@ -223,6 +240,45 @@ public class Card extends Sprite {
         }
     }
 
+    /**
+     * Method to draw out a specified bitmap using a specific offset (relative to the
+     * position of this game object) and scaling (relative to the size of this game
+     * object).
+     *
+     * @param text line of text to be drawn on Card
+     * @param offset Offset vector
+     * @param textWidth distance between characters
+     * @param graphics2D Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by [Niamh McCartney]
+     */
+    private void drawText(String text, Vector2 offset, float textWidth,
+                          IGraphics2D graphics2D,
+                          LayerViewport layerViewport, ScreenViewport screenViewport) {
+
+        Vector2 textPosition = new Vector2();
+        ViewportHelper.convertLayerPosIntoScreen(
+                layerViewport, this.position, screenViewport, textPosition);
+
+        //x and y Co-ordinates for text
+        textPosition.x += ViewportHelper.convertXDistanceFromLayerToScreen(offset.x, layerViewport, screenViewport);
+        textPosition.y += ViewportHelper.convertYDistanceFromLayerToScreen(offset.y, layerViewport, screenViewport);
+
+
+        float targetSize
+                = ViewportHelper.convertXDistanceFromLayerToScreen(
+                textWidth, layerViewport, screenViewport);
+        float actualSize = mTextPaint.measureText(text);
+        while( actualSize > targetSize) {
+            mTextPaint.setTextSize(mTextPaint.getTextSize() * 0.9f);
+            actualSize = mTextPaint.measureText(text);
+        }
+
+        graphics2D.drawText(text, textPosition.x, textPosition.y, mTextPaint);
+    }
+
     //Getter to return the Card Type of the Card [Niamh McCartney]
     public String getCardType(){
         return cardType;
@@ -282,36 +338,44 @@ public class Card extends Sprite {
         }
     }
 
-
-    private void drawCardNames(ElapsedTime elapsedTime, IGraphics2D graphics2D,
-                              LayerViewport layerViewport, ScreenViewport screenViewport){
-        Bitmap newBitmap =  mCardBase.copy(mCardBase.getConfig(), true);
-
-        Canvas canvas = new Canvas(newBitmap);
-
-        //new initialised Paint
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
-
-        int screenHeight = graphics2D.getSurfaceHeight();
-        paint.setTextSize(screenHeight/20.0f);
-
-//        Rect bounds = new Rect();
-//        paint.getTextBounds(getCardName(), 0, getCardName().length(), bounds);
-        //draw text to the Canvas center
-        paint.setTextAlign(Paint.Align.CENTER);
-
-        String text = getCardName();
-        int textXCoordinate = canvas.getWidth() / 2;
-        textYCoordinate = 1250;
-        for (String line: text.split("\n")) {
-            canvas.drawText(line, textXCoordinate, textYCoordinate, paint);
-            textYCoordinate += paint.descent() - paint.ascent();
-        }
-
-        mBitmap = newBitmap.copy(newBitmap.getConfig(), true);
-        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+    //sets paint properties for card text[Niamh McCartney]
+    private void setupTextPaint() {
+        mTextPaint = new Paint();
+        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setTextSize(25.0f);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
     }
+
+
+//    private void drawCardNames(ElapsedTime elapsedTime, IGraphics2D graphics2D,
+//                              LayerViewport layerViewport, ScreenViewport screenViewport){
+//        Bitmap newBitmap =  mCardBase.copy(mCardBase.getConfig(), true);
+//
+//        Canvas canvas = new Canvas(newBitmap);
+//
+//        //new initialised Paint
+//        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        paint.setColor(Color.BLACK);
+//
+//        int screenHeight = graphics2D.getSurfaceHeight();
+//        paint.setTextSize(screenHeight/20.0f);
+//
+////        Rect bounds = new Rect();
+////        paint.getTextBounds(getCardName(), 0, getCardName().length(), bounds);
+//        //draw text to the Canvas center
+//        paint.setTextAlign(Paint.Align.CENTER);
+//
+//        String text = getCardName();
+//        int textXCoordinate = canvas.getWidth() / 2;
+//        textYCoordinate = 1250;
+//        for (String line: text.split("\n")) {
+//            canvas.drawText(line, textXCoordinate, textYCoordinate, paint);
+//            textYCoordinate += paint.descent() - paint.ascent();
+//        }
+//
+//        mBitmap = newBitmap.copy(newBitmap.getConfig(), true);
+//        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+//    }
 
 
 
