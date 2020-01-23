@@ -3,7 +3,7 @@ package uk.ac.qub.eeecs.game.cardDemo;
 public class Villain extends Player {
 
     // Constructor
-    public Villain(String playerName, Deck playerDeck){
+    public Hero(){
         super(playerName, playerDeck);
     }
 }
