@@ -175,7 +175,6 @@ public class BattleScreen extends GameScreen {
         if(!paused){
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
 
-
         }
 
         if(paused){
