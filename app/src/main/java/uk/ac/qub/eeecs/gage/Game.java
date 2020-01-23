@@ -10,6 +10,8 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Hero;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -90,14 +92,26 @@ public abstract class Game extends Fragment {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
+     * Hero
+     */
+    protected Hero mHero;
+    /**
+     * Get the game's Hero
+     *
+     * @return hero
+     */
+    public Hero getHero() {
+        return mHero;
+    }
+    /**
      * Card Store
      */
     protected CardStore mCardStore;
 
     /**
-     * Get the game's asset manager
+     * Get the game's Card Store
      *
-     * @return Asset manager
+     * @return mCardStore
      */
     public CardStore getCardStore() {
         return mCardStore;
@@ -252,6 +266,10 @@ public abstract class Game extends Fragment {
 
         //Create the Card Store
         mCardStore = new CardStore(this);
+
+        //Create the Hero
+        mHero = new Hero("Freta", null);
+
     }
 
     /*
