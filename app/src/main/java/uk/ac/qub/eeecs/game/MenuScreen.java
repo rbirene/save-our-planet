@@ -1,7 +1,9 @@
 package uk.ac.qub.eeecs.game;
 
 import android.graphics.Color;
+import android.util.Log;
 
+import java.util.HashMap;
 import java.util.List;
 
 import uk.ac.qub.eeecs.gage.Game;
@@ -13,7 +15,10 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Card;
 import uk.ac.qub.eeecs.game.cardDemo.ChooseCardScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.InstructionsScreen;
 import uk.ac.qub.eeecs.game.cardDemo.OptionsScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
@@ -28,6 +33,20 @@ public class MenuScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
+
+    private HashMap<String, Card> heroCardPool;
+    private HashMap<String, Card> screenCardPool = new HashMap<>();
+
+    private Card randCard;
+
+    private Card Card01;
+    private Card Card02;
+    private Card Card03;
+
+    private Deck deck;
+    private Deck heroDeck = getGame().getHero().getHeroDeck();
+
+    private Hero hero = getGame().getHero();
 
     /**
      * Define the buttons for playing the 'games'
@@ -80,8 +99,12 @@ public class MenuScreen extends GameScreen {
 
         assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
 
-
-
+        //creates hero deck if deck is not already created
+        if(heroDeck == null ) {
+            assetManager.loadAssets("txt/assets/CardAssets.JSON");
+            //Create Hero Deck
+            createHeroDeck();
+        }
 
 
         playGame = new PushButton(
@@ -147,7 +170,7 @@ public class MenuScreen extends GameScreen {
             mCardDemoButton.update(elapsedTime);
             mPlatformDemoButton.update(elapsedTime);
             mDemosButton.update(elapsedTime);
-          mOptionsIcon.update(elapsedTime);
+            mOptionsIcon.update(elapsedTime);
 
             playGame.update(elapsedTime);
             instructions.update(elapsedTime);
@@ -156,7 +179,7 @@ public class MenuScreen extends GameScreen {
 
 
              if (playGame.isPushTriggered())
-                mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
+            mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
             else if (instructions.isPushTriggered())
                 mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
             else if(options.isPushTriggered())
@@ -191,4 +214,53 @@ public class MenuScreen extends GameScreen {
        // mCardDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mOptionsIcon.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
+
+    /**
+     * generates the cards for the heros deck
+     *
+     * @param numOfCards the number of cards to be generated
+     * @param cardPool group of cards the deck will be chosen from
+     *
+     *  Created By Niamh McCartney
+     */
+    private void generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
+        int num = 0;
+        while(num<numOfCards) {
+            randCard = getGame().getCardStore().getRandCard(cardPool);
+            String name = randCard.getCardName();
+            //If Card has not already been chosen then add to the HashMap
+            if(!screenCardPool.containsKey(name)) {
+                screenCardPool.put(name, randCard);
+                num++;
+                if (num == 1) {
+                    Card01 = randCard;
+                }
+                if (num == 2) {
+                    Card02 = randCard;
+                }
+                if (num == 3) {
+                    Card03 = randCard;
+                }
+            }
+
+        }
+    }
+
+
+    /**
+     * Creates a Hero Deck
+     *
+     *  Created By Niamh McCartney
+     */
+    private void createHeroDeck(){
+        // get all the cards of type hero
+        heroCardPool = getGame().getCardStore().getAllHeroCards(this);
+        //generate three random cards
+        generateRandCards(3, heroCardPool);
+        //create a deck with generated cards
+        deck = new Deck(Card01, Card02, Card03);
+        //set this deck as the hero's deck
+        hero.setHeroDeck(deck);
+    }
+
 }
