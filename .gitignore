@@ -1,9 +1,12 @@
 *.iml
 .gradle
-local.properties
 .idea
 gage-master
 gradle
+build.gradle
+gradle.properties
+local.properties
+settings.gradle
 .DS_Store
 /build
 /captures
