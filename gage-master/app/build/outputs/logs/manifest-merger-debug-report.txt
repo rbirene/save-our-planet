@@ -1,0 +1,85 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+	package
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:3:5-35
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:1-32:12
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:5:5-6:68
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:6:9-65
+uses-permission#android.permission.WAKE_LOCK
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:7:5-8:54
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:8:9-52
+uses-feature#android.hardware.touchscreen.multitouch.distinct
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:10:5-11:99
+	android:required
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:11:73-96
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:11:9-72
+application
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:13:5-30:19
+	android:supportsRtl
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:16:9-41
+	android:hardwareAccelerated
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:19:9-43
+	android:icon
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:15:9-43
+	android:allowBackup
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:14:9-35
+	android:theme
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:18:9-40
+activity#uk.ac.qub.eeecs.gage.MainActivity
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:20:9-29:20
+	android:screenOrientation
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:23:13-50
+	android:label
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:22:13-45
+	android:configChanges
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:24:13-72
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:21:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:25:13-28:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:26:17-69
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:26:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:27:17-77
+	android:name
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml:27:27-74
+uses-sdk
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\irene\Google Drive (irene.bhuiyan@googlemail.com)\Computer Science\Year 2\Software Development (CSC2044)\Team-8\gage-master\app\src\main\AndroidManifest.xml
