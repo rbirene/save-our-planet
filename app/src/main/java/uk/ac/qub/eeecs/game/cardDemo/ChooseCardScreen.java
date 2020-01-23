@@ -136,7 +136,7 @@ public class ChooseCardScreen extends GameScreen {
 
         shuffleButton = new PushButton(
                 235.0f, 42.0f, 100.0f, 100.0f,
-                "continueBtn", "continueBtn",this);
+                "shuffleBtn", "shuffleBtn",this);
         shuffleButton.setPlaySounds(true, true);
     }
 
