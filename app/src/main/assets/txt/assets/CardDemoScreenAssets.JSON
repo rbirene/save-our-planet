@@ -28,7 +28,7 @@
     {
       "type": "Bitmap",
       "name": "optionsBackground",
-      "file": "img/optionsBackground.png"
+      "file": "img/optionsBackground.jpg"
     },
     {
       "type": "Bitmap",
@@ -84,31 +84,6 @@
       "type": "Bitmap",
       "name": "pauseBtn",
       "file": "img/pauseBtn.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "resumeBtn",
-      "file": "img/resumeBtn.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "resume2Btn",
-      "file": "img/resume2Btn.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "menu2Btn",
-      "file": "img/menu2Btn.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "menuBtn",
-      "file": "img/menuBtn.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "testCard",
-      "file": "img/testCard.jpg"
     }
   ]
 }
