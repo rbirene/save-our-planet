@@ -49,7 +49,7 @@
       "scaleValuey": "0.3"
     },
     {
-      "name": "Talk About the\nEnvironment",
+      "name": "Talk About the Environment",
       "type": "heroCard",
       "attackValue": 17,
       "healthValue": 29,
@@ -57,7 +57,7 @@
       "scaleValuey": "0.3"
     },
     {
-      "name": "Donate Unwanted\nClothes And Toys",
+      "name": "Donate Unwanted Clothes And Toys",
       "type": "heroCard",
       "attackValue": 38,
       "healthValue": 58,
@@ -65,7 +65,7 @@
       "scaleValuey": "0.3"
     },
     {
-      "name": "Use Paper Instead\nOf Plastic Bags",
+      "name": "Use Paper Instead Of Plastic Bags",
       "type": "heroCard",
       "attackValue": 14,
       "healthValue": 19,
@@ -89,7 +89,7 @@
       "scaleValuey": "0.22"
     },
     {
-      "name": "Put On a Jumper\nInstead of the Heat",
+      "name": "Put On a Jumper Instead of the Heat",
       "type": "heroCard",
       "attackValue": 26,
       "healthValue": 49,
@@ -97,7 +97,7 @@
       "scaleValuey": "0.22"
     },
     {
-      "name": "Drink Tap Water\ninstead of Bottled\nWater",
+      "name": "Drink Tap Water instead of Bottled Water",
       "type": "heroCard",
       "attackValue": 16,
       "healthValue": 35,
@@ -105,7 +105,7 @@
       "scaleValuey": "0.22"
     },
     {
-      "name": "Turn Off the Tap\nWhen Brushing Your\nTeeth",
+      "name": "Turn Off the Tap When Brushing Your Teeth",
       "type": "heroCard",
       "attackValue": 18,
       "healthValue": 32,
@@ -113,7 +113,7 @@
       "scaleValuey": "0.22"
     },
     {
-      "name": "Start A Climate\nChange Club At\nSchool",
+      "name": "Start A Climate Change Club At School",
       "type": "heroCard",
       "attackValue": 54,
       "healthValue": 77,
@@ -121,7 +121,7 @@
       "scaleValuey": "0.25"
     },
     {
-      "name": "Unplug the TV When\nYou're Not Using it",
+      "name": "Unplug the TV When You're Not Using it",
       "type": "heroCard",
       "attackValue": 14,
       "healthValue": 59,
