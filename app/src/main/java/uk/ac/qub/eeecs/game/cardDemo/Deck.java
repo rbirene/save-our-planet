@@ -1,8 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
@@ -56,8 +54,8 @@ public class Deck {
 
     public  ArrayList<Card> getDeck(GameScreen screen){
         for (int i = 0; i< cardDeck.size(); i++) {
-            Card card = cardDeck.get(i);
-            card.setGameScreen(screen);
+           Card card = cardDeck.get(i);
+           card.setGameScreen(screen);
         }
         return cardDeck;
     }
@@ -75,7 +73,7 @@ public class Deck {
     public Card getCard02(GameScreen screen){ Card01.setGameScreen(screen); return Card02;}
     public Card getCard03(GameScreen screen){ Card01.setGameScreen(screen); return Card03;}
 
-    // public  HashMap<String, Card> getCardDeck(){return cardDeck;}
+   // public  HashMap<String, Card> getCardDeck(){return cardDeck;}
 
     public void setCard01(Card newCard){ Card01 = newCard; }
     public void setCard02(Card newCard){ Card02 = newCard;}

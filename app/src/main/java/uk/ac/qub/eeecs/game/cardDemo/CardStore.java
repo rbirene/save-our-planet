@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
+import android.graphics.Bitmap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,15 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.gage.util.Vector2;
-
-import android.graphics.Bitmap;
-import android.util.Log;
-
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
+import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 public class CardStore {
@@ -202,7 +200,7 @@ public class CardStore {
      *
      *  Created By Niamh McCartney
      */
-    public Card getRandCard( HashMap<String, Card> cardPool) {
+    public Card getRandCard(HashMap<String, Card> cardPool) {
         int numOfCards = cardPool.size();
 
         Random rand = new Random();
