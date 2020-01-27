@@ -21,15 +21,11 @@ public abstract class Player {
     public String getPlayerName() {
         return playerName;
     }
-    public Deck getPlayerDeck() {
-        return playerDeck;
-    }
+    public Deck getPlayerDeck(){return playerDeck;}
 
     // Setters
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
-    public void setPlayerDeck(Deck playerDeck) {
-        this.playerDeck = playerDeck;
-    }
+    public void setPlayerDeck(Deck aDeck){playerDeck = aDeck;}
 }
