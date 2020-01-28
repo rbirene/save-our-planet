@@ -32,6 +32,7 @@ public class BattleScreen extends GameScreen {
 
     private AssetManager assetManager = mGame.getAssetManager();
 
+    //Define Users Deck of Cards [Niamh McCartney]
     private Deck heroDeck = getGame().getHero().getPlayerDeck();
 
     public BattleScreen(Game game) {
@@ -40,7 +41,9 @@ public class BattleScreen extends GameScreen {
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
+        //Load Assets to Screen
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+
         board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
                 1700.0f, 1000.0f, game.getAssetManager().getBitmap("tempBack"), this);
 
@@ -94,24 +97,39 @@ public class BattleScreen extends GameScreen {
             drawPause(elapsedTime, graphics2D);
         }
 
+        //Add Player Decks to Screen [Niamh McCartney]
         AddPlayerDecks(elapsedTime, graphics2D);
 
 
     }
 
+    /**
+     * Draw the Cards on the Screen
+     *
+     * @param elapsedTime Elapsed time information
+     * @param graphics2D  Graphics instance
+     *
+     *  {Created By Niamh McCartney}
+     */
     private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
         int counterX = 0;
 
         for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
             Card card = heroDeck.getDeck(this).get(i);
+            //Card X co-ordinate
             float x = graphics2D.getSurfaceHeight() * 0.3f + counterX;
+            //Card Y co-ordinate
             float y = graphics2D.getSurfaceHeight() * 0.04f;
+            //Set Card Background
             card.setCardBase(assetManager.getBitmap("CardBackground"));
+            //Set Card Width and Height
             card.setWidth(60);
             card.setHeight(120);
+            //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
+            //Set Card position on Screen
             card.setPosition(x, y);
             counterX += 50;
         }
