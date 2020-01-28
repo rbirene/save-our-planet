@@ -99,7 +99,7 @@ public class MenuScreen extends GameScreen {
 
         assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
 
-        //creates hero deck if deck is not already created
+        //creates hero deck if deck is not already created [Niamh McCartney]
         if(heroDeck == null ) {
             assetManager.loadAssets("txt/assets/CardAssets.JSON");
             //Create Hero Deck
@@ -216,7 +216,7 @@ public class MenuScreen extends GameScreen {
     }
 
     /**
-     * generates the cards for the heros deck
+     * generates random cards for the player decks
      *
      * @param numOfCards the number of cards to be generated
      * @param cardPool group of cards the deck will be chosen from

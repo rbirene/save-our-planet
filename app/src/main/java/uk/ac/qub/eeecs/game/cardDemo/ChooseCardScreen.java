@@ -29,17 +29,16 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
+
+    //contains all hero cards
     private HashMap<String, Card> heroCardPool = getGame().getCardStore().getAllHeroCards(this);
     private HashMap<String, Card> screenCardPool = new HashMap<>();
-   // private Deck heroDeck;
-    private Deck heroDeck = getGame().getHero().getPlayerDeck();
 
+    //Define Player and Player's Deck
     private Hero hero = getGame().getHero();
-    //private Card screenCardPool[] = new Card[3];
-    // Define a card to be displayed
-    private Card card;
+    private Deck heroDeck = hero.getPlayerDeck();
 
-    private PushButton BackButton;
+    //Define Cards to be displayed on Screen
     private Card Card01;
     private Card Card02;
     private Card Card03;
@@ -47,6 +46,8 @@ public class ChooseCardScreen extends GameScreen {
     private uk.ac.qub.eeecs.gage.world.ScreenViewport ScreenViewport;
     private uk.ac.qub.eeecs.gage.world.LayerViewport LayerViewport;
 
+    //Define Buttons
+    private PushButton BackButton;
     private PushButton continueButton;
     private PushButton shuffleButton;
 
@@ -62,9 +63,6 @@ public class ChooseCardScreen extends GameScreen {
     private float[][] mTouchLocation = new float[mTouchIdExists.length][2];
     private String touchEventType;
 
-    //private Vector2 touchLocation = new Vector2();
-    private final static int GAMEOBJECT_DENSITY = 3;
-    private GameObject[] mGameObjects = new GameObject[GAMEOBJECT_DENSITY];
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -84,11 +82,11 @@ public class ChooseCardScreen extends GameScreen {
         // Load the various images used by the cards
         loadScreenAssets();
 
+        //Add Buttons
         AddBackButton();
         AddContinueButton();
         AddShuffleButton();
 
-        heroDeck = mGame.getHero().getPlayerDeck();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -96,6 +94,7 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     /**
      * Add a Back Button to the screen
+     * that takes you to the previous screen
      *
      * Created By Niamh McCartney
      */
@@ -113,6 +112,12 @@ public class ChooseCardScreen extends GameScreen {
         BackButton.setPlaySounds(true, true);
     }
 
+    /**
+     * Add a Continue Button to the screen
+     * that takes you to the Battle Screen
+     *
+     * Created By Niamh McCartney
+     */
     private void AddContinueButton(){
 
         ScreenViewport = mDefaultScreenViewport;
@@ -124,6 +129,13 @@ public class ChooseCardScreen extends GameScreen {
         continueButton.setPlaySounds(true, true);
     }
 
+    /**
+     * Add a Shuffle Button to the screen
+     * that shuffles any selected cards
+     * and replaces them with new random cards
+     *
+     * Created By Niamh McCartney
+     */
     private void AddShuffleButton(){
 
         ScreenViewport = mDefaultScreenViewport;
@@ -142,10 +154,8 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void loadScreenAssets(){
         // Load the various images used by the cards
-        //mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
-        //mGame.getAssetManager().loadAssets("txt/assets/Card.JSON");
     }
 
     /**
@@ -160,9 +170,9 @@ public class ChooseCardScreen extends GameScreen {
 
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
-
         mGame.getInput().getKeyEvents();
 
+        //List of touch events
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
         AudioManager audioManager = getGame().getAudioManager();
@@ -177,12 +187,17 @@ public class ChooseCardScreen extends GameScreen {
                 continueButton.update(elapsedTime);
                 shuffleButton.update(elapsedTime);
 
+                //if continue button is pushed then load the battle screen
                 if (continueButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new BattleScreen(mGame));
 
+                //if back button is pushed then return to the MenuScreen
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
 
+                /*If shuffle buyton is pushed and deck has not already been shuffled
+                 *then shuffle all selected cards
+                 */
                 if (shuffleButton.isPushTriggered()){
                     if(!heroDeck.getDeckshuffled()){
                     shuffleCards();
@@ -191,14 +206,16 @@ public class ChooseCardScreen extends GameScreen {
                     }
                 }
 
-
                     if(touchEventType.equals("TOUCH_DOWN")){
                         // Store touch point information.
                         for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
+                            //x co-ordinate
                             mTouchLocation[pointerId][0] = event.x;
+                            //y co-ordinate
                             mTouchLocation[pointerId][1] = event.y;
                         }
 
+                        //If a card is touched change the background of the touched card
                         for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
                             if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
                                 Card01.changeCardBackground();
@@ -217,11 +234,6 @@ public class ChooseCardScreen extends GameScreen {
                     }
             }
         }
-
-            // Update the card
-            // card.angularVelocity = 40.0f;
-
-            //card.update(elapsedTime);
 
     }
 
@@ -255,30 +267,42 @@ public class ChooseCardScreen extends GameScreen {
         for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
             int w = heroDeck.getDeck(this).size();
             int q = 1;
-            float x1 = mDefaultLayerViewport.x / w;
+            //Card y co-ordinate
             float y = mDefaultLayerViewport.y / q;
             float spacing = 70;
+            float x1 = mDefaultLayerViewport.x / w;
+            //Card x co-ordinate
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
+            //set Card width
+            value.setWidth(180);
+            //set Card Height
+            value.setHeight(240);
+            //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
+            //set Card postion on screen
             value.setPosition(x, y);
             if (counterX == 1) {
                 Card01 = value;
-                Log.d("bound", Card01.getBound() + "");
-                mGameObjects[0] = Card01;
             }
             if (counterX == 2) {
                 Card02 = value;
-                mGameObjects[1] = Card02;
             }
             if (counterX == 3) {
                 Card03 = value;
-                mGameObjects[2] = Card03;
             }
         }
     }
 
+
+    /**
+     * Removes selected cards from
+     * the players deck and replaces them
+     * with new cards
+     *
+     *  Created By Niamh McCartney
+     */
     private void shuffleCards(){
         screenCardPool.put(Card01.getCardName(), Card01);
         screenCardPool.put(Card02.getCardName(), Card02);
@@ -286,12 +310,15 @@ public class ChooseCardScreen extends GameScreen {
 
         ArrayList<Card> tempCardPool = new ArrayList<>();
 
+        //Iterates through the players current deck of cards
         for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
             Card value = heroDeck.getDeck(this).get(i);
 
+            //Checks for selected cards
             if(value.cardSelected()) {
                 Card randCard;
                 int num = 0;
+                //gets a new random card that isn't in the old deck or the new deck
                 while (num < 1) {
                     randCard = getGame().getCardStore().getRandCard(heroCardPool);
                     String name = randCard.getCardName();
@@ -303,12 +330,15 @@ public class ChooseCardScreen extends GameScreen {
                     }
 
                 }
+            //Adds Cards to new deck if Card is not selected
             }else{
                 tempCardPool.add(i, value);
             }
         }
 
-        heroDeck.setDeck(this, tempCardPool);
+        //Assigns new deck to the player
+        heroDeck.setDeck(tempCardPool);
+        //Deck has now been shuffled
         heroDeck.setDeckshuffled(true);
 
         int counterX = 0;
@@ -317,16 +347,12 @@ public class ChooseCardScreen extends GameScreen {
             counterX++;
             if (counterX == 1) {
                 Card01 = value;
-                Log.d("bound", Card01.getBound() + "");
-                mGameObjects[0] = Card01;
             }
             if (counterX == 2) {
                 Card02 = value;
-                mGameObjects[1] = Card02;
             }
             if (counterX == 3) {
                 Card03 = value;
-                mGameObjects[2] = Card03;
             }
         }
 
@@ -340,7 +366,6 @@ public class ChooseCardScreen extends GameScreen {
      * @param type Touch event type
      * @return Touch event label
      *
-     * [Niamh McCartney]
      */
     private String touchEventTypeToString(int type) {
         switch (type) {
