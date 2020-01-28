@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.qub.eeecs.gage.Game;
+import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
@@ -28,6 +29,10 @@ public class BattleScreen extends GameScreen {
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
     private GameObject pauseMenu;
+
+    private AssetManager assetManager = mGame.getAssetManager();
+
+    private Deck heroDeck = getGame().getHero().getPlayerDeck();
 
     public BattleScreen(Game game) {
         super("Battle", game);
@@ -89,6 +94,27 @@ public class BattleScreen extends GameScreen {
             drawPause(elapsedTime, graphics2D);
         }
 
+        AddPlayerDecks(elapsedTime, graphics2D);
+
 
     }
+
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
+
+        int counterX = 0;
+
+        for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
+            Card card = heroDeck.getDeck(this).get(i);
+            float x = graphics2D.getSurfaceHeight() * 0.3f + counterX;
+            float y = graphics2D.getSurfaceHeight() * 0.04f;
+            card.setCardBase(assetManager.getBitmap("CardBackground"));
+            card.setWidth(60);
+            card.setHeight(120);
+            card.draw(elapsedTime, graphics2D,
+                    mDefaultLayerViewport, mDefaultScreenViewport);
+            card.setPosition(x, y);
+            counterX += 50;
+        }
+    }
+
 }

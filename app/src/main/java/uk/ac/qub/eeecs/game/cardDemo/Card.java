@@ -34,6 +34,9 @@ public class Card extends Sprite {
     private static final int DEFAULT_CARD_WIDTH = 180;
     private static final int DEFAULT_CARD_HEIGHT = 240;
 
+    private float CardWidth = 180;
+    private float CardHeight = 240;
+
     // Define the common card base
     private Bitmap mCardBase;
 
@@ -108,8 +111,6 @@ public class Card extends Sprite {
         attackLength = String.valueOf(attack).length();
         healthLength = String.valueOf(health).length();
 
-        //sets paint properties for card text
-        setupTextPaint();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -140,14 +141,16 @@ public class Card extends Sprite {
                 graphics2D, layerViewport, screenViewport);
 
         //Draw the Card text[Niamh McCartney]
+        //sets paint properties for card text
+        setupTextPaint();
         String text = name;
-        float textXCoordinate = DEFAULT_CARD_WIDTH * 0.0f;
-        float textYCoordinate = DEFAULT_CARD_HEIGHT * 0.1f;
+        float textXCoordinate = getWidth() * 0.0f;
+        float textYCoordinate = getHeight() * 0.1f;
         for (String line: text.split("\n")) {
             Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
-            drawText(line, offset, DEFAULT_CARD_WIDTH * 0.7f,
+            drawText(line, offset, getHeight() * 0.7f,
                     graphics2D, layerViewport, screenViewport);
-            textYCoordinate += 10;
+            textYCoordinate += getHeight() * 0.045;
         }
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
@@ -312,6 +315,12 @@ public class Card extends Sprite {
         cardPortrait = cardPortraitBitmap;
     }
 
+    public void setCardBase(Bitmap cardBase){
+        mCardBase = cardBase;
+    }
+
+
+
     public void changeCardBackground(){
         AssetManager assetManager = gameScreen.getGame().getAssetManager();
         if(mCardBase == assetManager.getBitmap("CardBackground")){
@@ -345,7 +354,7 @@ public class Card extends Sprite {
     private void setupTextPaint() {
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextSize(25.0f);
+        mTextPaint.setTextSize(getWidth() * 0.15f);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 

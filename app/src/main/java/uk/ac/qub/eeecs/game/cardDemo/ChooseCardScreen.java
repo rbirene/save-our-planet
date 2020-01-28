@@ -260,6 +260,9 @@ public class ChooseCardScreen extends GameScreen {
             float spacing = 70;
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
+            //value.setCardSize(180,240);
+            value.setWidth(180);
+            value.setHeight(240);
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
             value.setPosition(x, y);
