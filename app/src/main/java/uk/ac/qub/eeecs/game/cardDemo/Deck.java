@@ -74,10 +74,9 @@ public class Deck {
      *
      *  {Created By Niamh McCartney}
      */
-    public Boolean getDeckshuffled(){
+    public Boolean getDeckShuffled(){
         return deckShuffled;
     }
-
     /**
      * Returns cardDeck
      *
@@ -110,9 +109,14 @@ public class Deck {
      *
      *  {Created By Niamh McCartney}
      */
-    public void setDeck(ArrayList<Card> newCardDeck){ cardDeck = newCardDeck;}
+    public void setDeck(ArrayList<Card> newCardDeck){
+        cardDeck = newCardDeck;
+        Card01 = cardDeck.get(0);
+        Card02 = cardDeck.get(1);
+        Card03 = cardDeck.get(2);
+    }
 
-    public void setDeckshuffled(Boolean bool){
+    public void setDeckShuffled(Boolean bool){
         deckShuffled = bool;
     }
 
