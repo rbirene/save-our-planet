@@ -32,8 +32,11 @@ public class BattleScreen extends GameScreen {
 
     private AssetManager assetManager = mGame.getAssetManager();
 
+    //set up hero [Irene Bhuiyan]
+    private Hero hero = getGame().getHero();
+
     //Define Users Deck of Cards [Niamh McCartney]
-    private Deck heroDeck = getGame().getHero().getPlayerDeck();
+    private Deck heroDeck = hero.getPlayerDeck();
 
     public BattleScreen(Game game) {
         super("Battle", game);

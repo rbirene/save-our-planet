@@ -84,6 +84,16 @@
       "type": "Bitmap",
       "name": "pauseBtn",
       "file": "img/pauseBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "freta",
+      "file": "img/PlayerAvatars/freta.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "ronald",
+      "file": "img/PlayerAvatars/ronald.png"
     }
   ]
 }
