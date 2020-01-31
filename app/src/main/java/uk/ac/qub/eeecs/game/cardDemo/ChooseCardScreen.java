@@ -14,6 +14,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.MenuScreen;
@@ -92,13 +93,14 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Add a Back Button to the screen
      * that takes you to the previous screen
-     *
+     * <p>
      * Created By Niamh McCartney
      */
-    private void AddBackButton(){
+    private void AddBackButton() {
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
@@ -115,17 +117,17 @@ public class ChooseCardScreen extends GameScreen {
     /**
      * Add a Continue Button to the screen
      * that takes you to the Battle Screen
-     *
+     * <p>
      * Created By Niamh McCartney
      */
-    private void AddContinueButton(){
+    private void AddContinueButton() {
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
         continueButton = new PushButton(
                 450.0f, 42.0f, 100.0f, 100.0f,
-                "continueBtn", "continueBtn",this);
+                "continueBtn", "continueBtn", this);
         continueButton.setPlaySounds(true, true);
     }
 
@@ -133,26 +135,26 @@ public class ChooseCardScreen extends GameScreen {
      * Add a Shuffle Button to the screen
      * that shuffles any selected cards
      * and replaces them with new random cards
-     *
+     * <p>
      * Created By Niamh McCartney
      */
-    private void AddShuffleButton(){
+    private void AddShuffleButton() {
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
         shuffleButton = new PushButton(
                 235.0f, 42.0f, 100.0f, 100.0f,
-                "shuffleBtn", "shuffleBtn",this);
+                "shuffleBtn", "shuffleBtn", this);
         shuffleButton.setPlaySounds(true, true);
     }
 
     /**
      * Load Assets used by screen
-     *
+     * <p>
      * Created By Niamh McCartney
      */
-    private void loadScreenAssets(){
+    private void loadScreenAssets() {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
@@ -162,15 +164,17 @@ public class ChooseCardScreen extends GameScreen {
      * Update the card demo screen
      *
      * @param elapsedTime Elapsed time information
-     *
-     *  {Created By Niamh McCartney}
+     *                    <p>
+     *                    {Created By Niamh McCartney}
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
 
+
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
         mGame.getInput().getKeyEvents();
+        dragCard();
 
         //List of touch events
         List<TouchEvent> touchEvents = input.getTouchEvents();
@@ -198,40 +202,40 @@ public class ChooseCardScreen extends GameScreen {
                 /*If shuffle buyton is pushed and deck has not already been shuffled
                  *then shuffle all selected cards
                  */
-                if (shuffleButton.isPushTriggered()){
-                    if(!heroDeck.getDeckshuffled()){
-                    shuffleCards();
-                    }else{
+                if (shuffleButton.isPushTriggered()) {
+                    if (!heroDeck.getDeckShuffled()) {
+                        shuffleCards();
+                    } else {
 
                     }
                 }
 
-                    if(touchEventType.equals("TOUCH_DOWN")){
-                        // Store touch point information.
-                        for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
-                            //x co-ordinate
-                            mTouchLocation[pointerId][0] = event.x;
-                            //y co-ordinate
-                            mTouchLocation[pointerId][1] = event.y;
-                        }
-
-                        //If a card is touched change the background of the touched card
-                        for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
-                                Card01.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
-                                Card02.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
-                                Card03.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
-
-                        }
+                if (touchEventType.equals("TOUCH_DOWN")) {
+                    // Store touch point information.
+                    for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
+                        //x co-ordinate
+                        mTouchLocation[pointerId][0] = event.x;
+                        //y co-ordinate
+                        mTouchLocation[pointerId][1] = event.y;
                     }
+
+                    //If a card is touched change the background of the touched card
+                    for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
+                        if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
+                            Card01.changeCardBackground();
+                            audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                        }
+                        if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
+                            Card02.changeCardBackground();
+                            audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                        }
+                        if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
+                            Card03.changeCardBackground();
+                            audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                        }
+
+                    }
+                }
             }
         }
 
@@ -257,14 +261,14 @@ public class ChooseCardScreen extends GameScreen {
      *
      * @param elapsedTime Elapsed time information
      * @param graphics2D  Graphics instance
-     *
-     *  Created By Niamh McCartney
+     *                    <p>
+     *                    Created By Niamh McCartney
      */
     private void drawCards(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
         int counterX = 0;
 
-        for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
+        for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
             int w = heroDeck.getDeck(this).size();
             int q = 1;
             //Card y co-ordinate
@@ -300,10 +304,10 @@ public class ChooseCardScreen extends GameScreen {
      * Removes selected cards from
      * the players deck and replaces them
      * with new cards
-     *
-     *  Created By Niamh McCartney
+     * <p>
+     * Created By Niamh McCartney
      */
-    private void shuffleCards(){
+    private void shuffleCards() {
         screenCardPool.put(Card01.getCardName(), Card01);
         screenCardPool.put(Card02.getCardName(), Card02);
         screenCardPool.put(Card03.getCardName(), Card03);
@@ -311,11 +315,11 @@ public class ChooseCardScreen extends GameScreen {
         ArrayList<Card> tempCardPool = new ArrayList<>();
 
         //Iterates through the players current deck of cards
-        for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
+        for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
             Card value = heroDeck.getDeck(this).get(i);
 
             //Checks for selected cards
-            if(value.cardSelected()) {
+            if (value.cardSelected()) {
                 Card randCard;
                 int num = 0;
                 //gets a new random card that isn't in the old deck or the new deck
@@ -330,8 +334,8 @@ public class ChooseCardScreen extends GameScreen {
                     }
 
                 }
-            //Adds Cards to new deck if Card is not selected
-            }else{
+                //Adds Cards to new deck if Card is not selected
+            } else {
                 tempCardPool.add(i, value);
             }
         }
@@ -339,10 +343,11 @@ public class ChooseCardScreen extends GameScreen {
         //Assigns new deck to the player
         heroDeck.setDeck(tempCardPool);
         //Deck has now been shuffled
-        heroDeck.setDeckshuffled(true);
+        heroDeck.setDeckShuffled(true);
+
 
         int counterX = 0;
-        for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
+        for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
             Card value = heroDeck.getDeck(this).get(i);
             counterX++;
             if (counterX == 1) {
@@ -355,6 +360,109 @@ public class ChooseCardScreen extends GameScreen {
                 Card03 = value;
             }
         }
+
+    }
+
+    private void dragCard()
+    {
+        Input input = mGame.getInput();
+        //  the first (0) touch event is highlight card as explained above, 1 has been selected as its the next touch event.
+        if (input.getTouchEvents().size() > 1)
+        {
+            TouchEvent touchEvent = input.getTouchEvents().get(1);
+            float OriginalXPos = Card01.position.x;
+            float OriginalYPos = Card01.position.y;
+            // if theres a touch event within the card boundary, execute the following code
+            if (Card01.getBound().contains(touchEvent.x, touchEvent.y))
+            {   // only execute below code if touch event is dragged or scroll.
+                if (touchEvent.type == 6 || touchEvent.type == 2 )
+                {
+                    // find the distanced moved (dx and dy) by removing the original position from the new position.
+                    touchEvent.dx = touchEvent.x - OriginalXPos;
+                    touchEvent.dy = touchEvent.y - OriginalYPos;
+                    // add the distance to the original position.
+                    Card01.position.add(touchEvent.dx,touchEvent.dy);
+                    screenBoundary1();
+
+
+                }
+            }
+
+            else if (Card02.getBound().contains(touchEvent.x, touchEvent.y))
+            {
+                if (touchEvent.type == 6 || touchEvent.type == 2 )
+                {
+
+                    touchEvent.dx = touchEvent.x - OriginalXPos;
+                    touchEvent.dy = touchEvent.y - OriginalYPos;
+
+                    Card02.position.add(touchEvent.dx,touchEvent.dy);
+
+                    screenBoundary2();
+
+                }
+            }
+
+            else if (Card03.getBound().contains(touchEvent.x, touchEvent.y))
+            {
+
+                if (touchEvent.type == 6 || touchEvent.type == 2 )
+                {
+
+                    touchEvent.dx = touchEvent.x - OriginalXPos;
+                    touchEvent.dy = touchEvent.y - OriginalYPos;
+
+                    Card03.position.add(touchEvent.dx,touchEvent.dy);
+                    screenBoundary3();
+
+                }
+            }
+
+        }
+    }
+
+
+    //boundary code reedited from sample game spaceship/platform demos - Keith
+    private void screenBoundary1()
+    {
+        BoundingBox cardBound = Card01.getBound();
+        if (cardBound.getLeft() < 0)
+            Card01.position.x -= cardBound.getLeft();
+        else if (cardBound.getRight() > mGame.getScreenWidth())
+            Card01.position.x += (cardBound.getRight() - mGame.getScreenWidth());
+
+
+        if (cardBound.getBottom() < 0)
+            Card01.position.y -= cardBound.getBottom();
+        else if (cardBound.getTop() > mGame.getScreenHeight())
+            Card01.position.y += (cardBound.getTop() - mGame.getScreenHeight());
+
+    }
+    private void screenBoundary2()
+    {
+        BoundingBox cardBound = Card02.getBound();
+        if (cardBound.getLeft() < 0)
+            Card02.position.x -= cardBound.getLeft();
+        else if (cardBound.getRight() > mGame.getScreenWidth())
+            Card02.position.x -= (cardBound.getRight() - mGame.getScreenWidth());
+
+        if (cardBound.getBottom() < 0)
+            Card02.position.y -= cardBound.getBottom();
+        else if (cardBound.getTop() > mGame.getScreenHeight())
+            Card02.position.y -= (cardBound.getTop() - mGame.getScreenHeight());
+
+    }
+    private void screenBoundary3()
+    {
+        BoundingBox cardBound = Card03.getBound();
+        if (cardBound.getLeft() < 0)
+            Card03.position.x -= cardBound.getLeft();
+        else if (cardBound.getRight() > mGame.getScreenWidth())
+            Card03.position.x -= (cardBound.getRight() - mGame.getScreenWidth());
+        if (cardBound.getBottom() < 0)
+            Card03.position.y -= cardBound.getBottom();
+        else if (cardBound.getTop() > mGame.getScreenHeight())
+            Card03.position.y -= (cardBound.getTop() - mGame.getScreenHeight());
 
     }
 
