@@ -331,11 +331,6 @@ public class Card extends Sprite {
         return name;
     }
 
-    //Getter to return the Card portrait of the Card [Niamh McCartney]
-    public Bitmap getCardPortrait(){
-        return cardPortrait;
-    }
-
 
     // /////////////////////////////////////////////////////////////////////////
     // Setters
@@ -363,40 +358,4 @@ public class Card extends Sprite {
     public void setCardBase(Bitmap cardBase){
         mCardBase = cardBase;
     }
-
-
-//    private void drawCardNames(ElapsedTime elapsedTime, IGraphics2D graphics2D,
-//                              LayerViewport layerViewport, ScreenViewport screenViewport){
-//        Bitmap newBitmap =  mCardBase.copy(mCardBase.getConfig(), true);
-//
-//        Canvas canvas = new Canvas(newBitmap);
-//
-//        //new initialised Paint
-//        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//        paint.setColor(Color.BLACK);
-//
-//        int screenHeight = graphics2D.getSurfaceHeight();
-//        paint.setTextSize(screenHeight/20.0f);
-//
-////        Rect bounds = new Rect();
-////        paint.getTextBounds(getCardName(), 0, getCardName().length(), bounds);
-//        //draw text to the Canvas center
-//        paint.setTextAlign(Paint.Align.CENTER);
-//
-//        String text = getCardName();
-//        int textXCoordinate = canvas.getWidth() / 2;
-//        textYCoordinate = 1250;
-//        for (String line: text.split("\n")) {
-//            canvas.drawText(line, textXCoordinate, textYCoordinate, paint);
-//            textYCoordinate += paint.descent() - paint.ascent();
-//        }
-//
-//        mBitmap = newBitmap.copy(newBitmap.getConfig(), true);
-//        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
-//    }
-
-
-
-
-
 }

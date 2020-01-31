@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 public class CardUnitTest {
 
     private  String cardType;
+    private String cardName;
 
     @Mock
     GameScreen aScreen = Mockito.mock(GameScreen.class);
@@ -27,7 +28,8 @@ public class CardUnitTest {
     public void setUp() {
         // card instance
         cardType =  "cardType";
-        aCard = new Card(5, 8, aScreen, "cardName", cardType , null, 5, 9);
+        cardName = "cardName";
+        aCard = new Card(5, 8, aScreen, cardName, cardType , null, null, 5, 9);
     }
 
     @Test
@@ -35,6 +37,12 @@ public class CardUnitTest {
 
     @Test
     public void getCardType_Failure(){ assertNotEquals("Type", aCard.getCardType());}
+
+    @Test
+    public void getCardName_Success(){ assertEquals(cardName, aCard.getCardName());}
+
+    @Test
+    public void getCardName_Failure(){ assertNotEquals("name", aCard.getCardName());}
 
 
 }
