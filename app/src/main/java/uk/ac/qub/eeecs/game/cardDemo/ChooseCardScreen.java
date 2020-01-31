@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.MenuScreen;
 
@@ -76,17 +74,13 @@ public class ChooseCardScreen extends GameScreen {
     public ChooseCardScreen(Game game) {
         super("CardScreen", game);
 
-        //MessageDialog popUp = new MessageDialog();
-        //popUp.showDialog();
-
-        // Load the various images used by the cards
+        //Load the various images used by the cards
         loadScreenAssets();
 
         //Add Buttons
         AddBackButton();
         AddContinueButton();
         AddShuffleButton();
-
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -170,7 +164,6 @@ public class ChooseCardScreen extends GameScreen {
 
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
-        mGame.getInput().getKeyEvents();
 
         //List of touch events
         List<TouchEvent> touchEvents = input.getTouchEvents();
@@ -194,17 +187,6 @@ public class ChooseCardScreen extends GameScreen {
                 //if back button is pushed then return to the MenuScreen
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-
-                /*If shuffle buyton is pushed and deck has not already been shuffled
-                 *then shuffle all selected cards
-                 */
-                if (shuffleButton.isPushTriggered()){
-                    if(!heroDeck.getDeckshuffled()){
-                    shuffleCards();
-                    }else{
-
-                    }
-                }
 
                     if(touchEventType.equals("TOUCH_DOWN")){
                         // Store touch point information.
@@ -250,6 +232,49 @@ public class ChooseCardScreen extends GameScreen {
         BackButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         continueButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         shuffleButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+        /*If shuffle button is pushed and deck has been shuffled then
+         * display dialog informing user.  If deck has not been shuffled
+         * and cards are selected then shuffle all selected cards.
+         * Created By [Niamh McCartney]
+         */
+        if (shuffleButton.isPushTriggered()){
+            if(heroDeck.getDeckShuffled()){
+                displayDialogs("You can only shuffle your deck once");
+            }
+            else if(noCardsSelected()){
+                displayDialogs("You must select the cards in your\ndeck you wish to shuffle");
+            }else{
+                shuffleCards();
+            }
+        }
+
+    }
+
+    /**
+     * Display PopUp Dialog box
+     * @param text Dialog Box Message
+     *
+     * Created By Niamh McCartney
+     */
+    public void displayDialogs(String text){
+            InfoPopUpDialog popUp = new InfoPopUpDialog();
+            popUp.showDialog(getGame().getActivity(), text);
+    }
+
+    /**
+     * Returns true if no Cards have been selected
+     *
+     * Created By Niamh McCartney
+     */
+    public Boolean noCardsSelected(){
+        for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
+            Card value = heroDeck.getDeck(this).get(i);
+            if(value.cardSelected()){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -339,7 +364,7 @@ public class ChooseCardScreen extends GameScreen {
         //Assigns new deck to the player
         heroDeck.setDeck(tempCardPool);
         //Deck has now been shuffled
-        heroDeck.setDeckshuffled(true);
+        heroDeck.setDeckShuffled(true);
 
         int counterX = 0;
         for (int i =0; i<heroDeck.getDeck(this).size(); i++) {

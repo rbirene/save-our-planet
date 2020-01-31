@@ -44,7 +44,7 @@ public class DeckUnitTest {
     }
 
     @Test
-    public void Deck_getDeck_ContainsCards_Success() {
+    public void Deck_constructor_ContainsCards_Success() {
         Boolean containsCards = aDeck.getDeck(aScreen).contains(Card01)
                 && aDeck.getDeck(aScreen).contains(Card02)
                 && aDeck.getDeck(aScreen).contains(Card03);
