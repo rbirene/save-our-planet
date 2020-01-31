@@ -268,7 +268,7 @@ public abstract class Game extends Fragment {
         mCardStore = new CardStore(this);
 
         //Create the Hero
-        mHero = new Hero("Freta", null);
+        mHero = new Hero(null);
 
     }
 

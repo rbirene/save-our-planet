@@ -1,31 +1,70 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-/**
- * [Irene Bhuiyan]
- * This class represents a player in the game (either human or AI).
- */
+import android.graphics.Bitmap;
+import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.Sprite;
 
-public abstract class Player {
+public abstract class Player extends Sprite {
 
+    // /////////////////////////////////////////////////////////////////////////
     // Properties
-    protected String playerName = "";
-    protected Deck playerDeck;
+    // /////////////////////////////////////////////////////////////////////////
 
-    // Constructor
-    public Player(String playerName, Deck playerDeck){
+    // define the player
+    protected String playerName;
+    protected Deck playerDeck;
+    protected Bitmap playerAvatar;
+
+    // player avatar
+    protected static final float DEFAULT_AVATAR_WIDTH = 0.88f;
+    protected static final float DEFAULT_AVATAR_HEIGHT = 0.88f;
+    protected static final float DEFAULT_AVATAR_X = 0.88f;
+    protected static final float DEFAULT_AVATAR_Y = 0.88f;
+    protected float x;
+    protected float y;
+
+    protected static GameScreen gameScreen;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructors
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Create a new player.
+     *
+     * @param playerName Name of the player
+     * @param playerDeck Decks of cards belonging to the player
+     * @param gameScreen Gamescreen to which this player belongs
+     *
+     */
+    public Player(String playerName, Deck playerDeck, GameScreen gameScreen) {
+        super(DEFAULT_AVATAR_X, DEFAULT_AVATAR_Y, DEFAULT_AVATAR_WIDTH, DEFAULT_AVATAR_HEIGHT, null, gameScreen);
+
         this.playerName = playerName;
         this.playerDeck = playerDeck;
+
     }
 
-    // Getters
-    public String getPlayerName() {
-        return playerName;
-    }
-    public Deck getPlayerDeck(){return playerDeck;}
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
 
-    // Setters
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-    public void setPlayerDeck(Deck aDeck){playerDeck = aDeck;}
+    // getter to return the player name
+    public String getPlayerName(){ return playerName; }
+
+    // getter to return the player deck
+    public Deck getPlayerDeck() { return playerDeck; }
+
+    // getter to return the player avatar
+    public Bitmap getPlayerAvatar(){ return playerAvatar; }
+
+    // setter to set the GameScreen the player has been called in
+    public static void setGameScreen(GameScreen gameScreenValue){ gameScreen = gameScreenValue; }
+
+    // setter to set player deck
+    public void setPlayerDeck(Deck playerDeck) { this.playerDeck = playerDeck; }
+
+    // setter to set player avatar
+    public void setPlayerAvatar(Bitmap playerAvatar){ this.playerAvatar = playerAvatar; }
+
 }
