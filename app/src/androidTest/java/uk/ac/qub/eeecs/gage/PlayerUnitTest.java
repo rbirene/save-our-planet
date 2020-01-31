@@ -27,13 +27,21 @@ public class PlayerUnitTest {
         aHero.setPlayerAvatar(aGame.getAssetManager().getBitmap("freta"));
 
         //set up comparison villain
-        aVillain = new Villain("Ronald Rump", aScreen);
+        aVillain = new Villain(aScreen);
         aVillain.setPlayerAvatar(aGame.getAssetManager().getBitmap("ronald"));
 
     }
 
     @Test
-    public void setUpHeroAvatarSuccess(){
+    public void setUpHeroAvatar(){
+        Hero tHero = new Hero(aScreen);
+        tHero.setPlayerAvatar(aGame.getAssetManager().getBitmap("freta"));
+        // check incorrect avatar has been set for hero
+        System.out.println(tHero.getPlayerAvatar());
+    }
+
+    @Test
+    public void setUpHeroCorrectAvatar(){
         Hero tHero = new Hero(aScreen);
         tHero.setPlayerAvatar(aGame.getAssetManager().getBitmap("freta"));
         // check correct avatar has been set for hero
@@ -41,55 +49,47 @@ public class PlayerUnitTest {
     }
 
     @Test
-    public void setUpHeroAvatarFailure(){
+    public void hasHeroPlayerName(){
         Hero tHero = new Hero(aScreen);
-        tHero.setPlayerAvatar(aGame.getAssetManager().getBitmap("ronald"));
-        // check incorrect avatar has been set for hero
-        assertEquals(aHero.getPlayerAvatar(), tHero.getPlayerAvatar());
+        // check correct name is displayed for hero
+        System.out.println(tHero.getPlayerName());
     }
 
     @Test
-    public void displayHeroNameSuccess(){
+    public void correctHeroPlayerName(){
         Hero tHero = new Hero(aScreen);
         // check correct name is displayed for hero
         assertEquals("Freta Funberg", tHero.getPlayerName());
     }
 
     @Test
-    public void displayHeroNameFailure(){
-        Hero tHero = new Hero(aScreen);
-        // check correct name is displayed for hero
-        assertEquals("Something Something", tHero.getPlayerName());
+    public void setUpVillainAvatar(){
+        Villain tVillain = new Villain(aScreen);
+        tVillain.setPlayerAvatar(aGame.getAssetManager().getBitmap("ronald"));
+        // check incorrect avatar has been set for villain
+        System.out.println(tVillain.getPlayerAvatar());
     }
 
     @Test
-    public void setUpVillainAvatarSuccess(){
-        Villain tVillain = new Villain("Ronald Rump", aScreen);
+    public void setUpVillainCorrectAvatar(){
+        Villain tVillain = new Villain(aScreen);
         tVillain.setPlayerAvatar(aGame.getAssetManager().getBitmap("ronald"));
         // check correct avatar has been set for villain
-        assertEquals(aVillain.getPlayerAvatar(), tVillain.getPlayerAvatar());
+        assertEquals(tVillain.getPlayerAvatar(), tVillain.getPlayerAvatar());
     }
 
     @Test
-    public void setUpVillainAvatarFailure(){
-        Villain tVillain = new Villain("Ronald Rump", aScreen);
-        tVillain.setPlayerAvatar(aGame.getAssetManager().getBitmap("freta"));
-        // check incorrect avatar has been set for villain
-        assertEquals(aVillain.getPlayerAvatar(), tVillain.getPlayerAvatar());
+    public void hasVillainPlayerName(){
+        Villain tVillain = new Villain(aScreen);
+        // check correct name is displayed for villain
+        System.out.println(tVillain.getPlayerName());
     }
 
     @Test
-    public void displayVillainNameSuccess(){
-        Villain tVillain = new Villain("Ronald Rump", aScreen);
+    public void correctVillainPlayerName(){
+        Villain tVillain = new Villain(aScreen);
         // check correct name is displayed for villain
         assertEquals("Ronald Rump", tVillain.getPlayerName());
-    }
-
-    @Test
-    public void displayVillainNameFailure(){
-        Villain tVillain = new Villain("Ronald Rump", aScreen);
-        // check correct name is displayed for villain
-        assertEquals("Something Something", tVillain.getPlayerName());
     }
 
 }

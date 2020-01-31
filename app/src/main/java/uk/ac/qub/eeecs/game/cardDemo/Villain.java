@@ -21,8 +21,8 @@ public class Villain extends Player {
      *
      */
 
-    public Villain(String playerName, GameScreen gameScreen){
-        super("", null, gameScreen);
+    public Villain(GameScreen gameScreen){
+        super("Ronald Rump", null, gameScreen);
     }
 
 }
