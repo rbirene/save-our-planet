@@ -17,12 +17,14 @@ public class QuestionPopUpDialog {
      * type of touch event.
      *
      * @param activity
-     * @param msg Text for Dialog Box
-     *
-     * Created By Niamh McCartney
+     * @param question Text for Dialog Box
+     * @param answer   true of false
+     *                 <p>
+     *                 Created By Niamh McCartney
      */
 
-    public void showDialog(Activity activity, String msg){
+    public void showDialog(Activity activity, String question, String answer) {
+        final Activity mActivity = activity;
         // Flags for full-screen mode:
         int ui_flags =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -39,37 +41,66 @@ public class QuestionPopUpDialog {
 
         //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
-        text.setText(msg);
+        text.setText(question);
 
         //When button is pressed cancel the dialog box
         Button trueButton = dialog.findViewById(R.id.btn_dialog);
-        trueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
 
         //When button is pressed cancel the dialog box
         Button falseButton = dialog.findViewById(R.id.btn_dialog2);
-        falseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { dialog.dismiss();
-            }
-        });
 
-        // Set alertDialog "not focusable" so nav bar still hiding
-        dialog.getWindow().
-                setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
-        // Set full-screen mode
-        dialog.getWindow().getDecorView().setSystemUiVisibility(ui_flags);
+        if (answer == "true") {
+            trueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    CorrectAnswerDialog correctDialog = new CorrectAnswerDialog();
+                    correctDialog.showDialog(mActivity, "That's Correct! Well done!");
+                }
+            });
+            falseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    IncorrectAnswerDialog incorrectDialog = new IncorrectAnswerDialog();
+                    incorrectDialog.showDialog(mActivity, "That's Incorrect! Better luck next time!");
+                }
+            });
+        }
 
-        dialog.show();
+        if (answer == "false") {
+            trueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    IncorrectAnswerDialog incorrectDialog = new IncorrectAnswerDialog();
+                    incorrectDialog.showDialog(mActivity, "That's Incorrect! Better luck next time!");
+                }
+            });
+            falseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    CorrectAnswerDialog correctDialog = new CorrectAnswerDialog();
+                    correctDialog.showDialog(mActivity, "That's Correct! Well done!");
+                }
+            });
+        }
 
-        // Set dialog focusable to avoid touching outside
-        dialog.getWindow().
-                clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+            // Set alertDialog "not focusable" so nav bar still hiding
+            dialog.getWindow().
+                    setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+            // Set full-screen mode
+            dialog.getWindow().getDecorView().setSystemUiVisibility(ui_flags);
+
+            dialog.show();
+
+            // Set dialog focusable to avoid touching outside
+            dialog.getWindow().
+                    clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
     }
-}
