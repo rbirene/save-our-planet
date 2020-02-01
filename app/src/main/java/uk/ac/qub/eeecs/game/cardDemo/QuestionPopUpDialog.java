@@ -13,14 +13,19 @@ import uk.ac.qub.eeecs.gage.R;
 public class QuestionPopUpDialog {
 
     /**
-     * Return a string that holds the corresponding label for the specified
-     * type of touch event.
+     * Displays a pop-up box with a question
+     * and a true and false button.
+     * Depending on which button is pressed
+     * and whether is corresponds to the
+     * answer parameter given. Another pop-up
+     * box will display informing the user whether
+     * they are correct or incorrect
      *
      * @param activity
      * @param question Text for Dialog Box
-     * @param answer   true of false
-     *                 <p>
-     *                 Created By Niamh McCartney
+     * @param answer   answer to question (true of false)
+     *
+     * Created By Niamh McCartney
      */
 
     public void showDialog(Activity activity, String question, String answer) {

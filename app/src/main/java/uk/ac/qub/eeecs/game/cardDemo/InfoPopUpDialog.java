@@ -13,8 +13,8 @@ import uk.ac.qub.eeecs.gage.R;
 public class InfoPopUpDialog {
 
     /**
-     * Return a string that holds the corresponding label for the specified
-     * type of touch event.
+     * Displays a pop-up box
+     * containing an informative message
      *
      * @param activity
      * @param msg Text for Dialog Box

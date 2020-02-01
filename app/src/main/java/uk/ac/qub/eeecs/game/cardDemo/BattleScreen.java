@@ -13,6 +13,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -38,6 +39,10 @@ public class BattleScreen extends GameScreen {
     //Define Users Deck of Cards [Niamh McCartney]
     private Deck heroDeck = hero.getPlayerDeck();
 
+    private Card Card01 = heroDeck.getCard01(this);
+    private Card Card02 = heroDeck.getCard02(this);
+    private Card Card03 = heroDeck.getCard03(this);
+
     public BattleScreen(Game game) {
         super("Battle", game);
 
@@ -60,7 +65,7 @@ public class BattleScreen extends GameScreen {
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-
+ 
             pause.update(elapsedTime);
 
             if(pause.isPushTriggered()){
@@ -117,6 +122,7 @@ public class BattleScreen extends GameScreen {
     private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
         int counterX = 0;
+        int cardNum = 0;
 
         for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
             Card card = heroDeck.getDeck(this).get(i);
@@ -134,8 +140,17 @@ public class BattleScreen extends GameScreen {
                     mDefaultLayerViewport, mDefaultScreenViewport);
             //Set Card position on Screen
             card.setPosition(x, y);
+            cardNum++;
+//            if (cardNum == 1) {
+//                Card01 = value;
+//            }
+//            if (cardNum == 2) {
+//                Card02 = value;
+//            }
+//            if (cardNum == 3) {
+//                Card03 = value;
+//            }
             counterX += 50;
         }
     }
-
 }

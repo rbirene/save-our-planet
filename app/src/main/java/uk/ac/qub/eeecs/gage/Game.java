@@ -93,18 +93,24 @@ public abstract class Game extends Fragment {
 
     /**
      * Hero
+     *
+     * Created by Niamh McCartney
      */
     protected Hero mHero;
     /**
      * Get the game's Hero
      *
      * @return hero
+     *
+     * Created by Niamh McCartney
      */
     public Hero getHero() {
         return mHero;
     }
     /**
      * Card Store
+     *
+     * Created by Niamh McCartney
      */
     protected CardStore mCardStore;
 
@@ -112,6 +118,8 @@ public abstract class Game extends Fragment {
      * Get the game's Card Store
      *
      * @return mCardStore
+     *
+     * Created by Niamh McCartney
      */
     public CardStore getCardStore() {
         return mCardStore;
@@ -264,10 +272,10 @@ public abstract class Game extends Fragment {
         // Create the screen manager
         mScreenManager = new ScreenManager(this);
 
-        //Create the Card Store
+        //Create the Card Store[Niamh McCartney]
         mCardStore = new CardStore(this);
 
-        //Create the Hero
+        //Create the Hero[Niamh McCartney]
         mHero = new Hero(null);
 
     }

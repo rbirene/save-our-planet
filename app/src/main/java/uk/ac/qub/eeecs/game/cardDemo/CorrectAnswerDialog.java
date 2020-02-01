@@ -12,11 +12,11 @@ import uk.ac.qub.eeecs.gage.R;
 
 public class CorrectAnswerDialog {
     /**
-     * Return a string that holds the corresponding label for the specified
-     * type of touch event.
+     * Displays a pop-up box
+     * with a successful message
      *
      * @param activity
-     * @param msg Text for Dialog Box
+     * @param msg Text for pop-up Dialog Box
      *
      * Created By Niamh McCartney
      */
@@ -34,7 +34,7 @@ public class CorrectAnswerDialog {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.info_window);
+        dialog.setContentView(R.layout.correct_answer_window);
 
         //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
