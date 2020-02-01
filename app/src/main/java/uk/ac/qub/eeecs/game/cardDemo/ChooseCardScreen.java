@@ -164,8 +164,6 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
-
-
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
 
@@ -192,29 +190,14 @@ public class ChooseCardScreen extends GameScreen {
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
 
-                    if(touchEventType.equals("TOUCH_DOWN")){
-                        // Store touch point information.
-                        for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
-                            //x co-ordinate
-                            mTouchLocation[pointerId][0] = event.x;
-                            //y co-ordinate
-                            mTouchLocation[pointerId][1] = event.y;
-                        }
-
-                        //If a card is touched change the background of the touched card
-                        for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
-                                Card01.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
-                                Card02.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
-                            if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
-                                Card03.changeCardBackground();
-                                audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                            }
+                if (touchEventType.equals("TOUCH_DOWN")) {
+                    // Store touch point information.
+                    for (int pointerId = 0; pointerId < touchEvents.size(); pointerId++) {
+                        //x co-ordinate
+                        mTouchLocation[pointerId][0] = event.x;
+                        //y co-ordinate
+                        mTouchLocation[pointerId][1] = event.y;
+                    }
 
                     //If a card is touched change the background of the touched card
                     for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
@@ -230,12 +213,11 @@ public class ChooseCardScreen extends GameScreen {
                             Card03.changeCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
-
                     }
                 }
             }
-        }
 
+        }
     }
 
     /**
@@ -277,8 +259,8 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     public void displayDialogs(String text){
-            InfoPopUpDialog popUp = new InfoPopUpDialog();
-            popUp.showDialog(getGame().getActivity(), text);
+            QuestionPopUpDialog popUp = new QuestionPopUpDialog();
+            popUp.showDialog(getGame().getActivity(), text, "true");
     }
 
     /**
