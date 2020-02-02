@@ -65,6 +65,17 @@ public class Deck {
         return -1;
     }
 
+    public void enlargeDeck(float width, float height){
+        for(int i = 0; i<cardDeck.size(); i++){
+            cardDeck.get(i).setWidth(width);
+            cardDeck.get(i).setHeight(height);
+        }
+    }
+
+    public int getSize(){
+       return  cardDeck.size();
+    }
+
     // /////////////////////////////////////////////////////////////////////////
     // Getters
     // /////////////////////////////////////////////////////////////////////////

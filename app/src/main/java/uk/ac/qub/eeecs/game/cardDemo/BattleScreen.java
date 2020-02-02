@@ -18,6 +18,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.MenuScreen;
 
 
 public class BattleScreen extends GameScreen {
@@ -39,9 +40,13 @@ public class BattleScreen extends GameScreen {
     //Define Users Deck of Cards [Niamh McCartney]
     private Deck heroDeck = hero.getPlayerDeck();
 
+    //Define the cards in the deck [Niamh McCartney]
     private Card Card01 = heroDeck.getCard01(this);
     private Card Card02 = heroDeck.getCard02(this);
     private Card Card03 = heroDeck.getCard03(this);
+
+    private PushButton infoButton;
+    private PushButton settingsButton;
 
     public BattleScreen(Game game) {
         super("Battle", game);
@@ -49,8 +54,7 @@ public class BattleScreen extends GameScreen {
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
-        //Load Assets to Screen
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        loadScreenAssets();
 
         board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
                 1700.0f, 1000.0f, game.getAssetManager().getBitmap("tempBack"), this);
@@ -59,14 +63,29 @@ public class BattleScreen extends GameScreen {
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
         pauseGame();
+
+        //Add Buttons
+        addInfoButton();
+        addSettingsButton();
     }
+
     @Override
     public void update(ElapsedTime elapsedTime) {
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
- 
-            pause.update(elapsedTime);
+
+        pause.update(elapsedTime);
+        infoButton.update(elapsedTime);
+        settingsButton.update(elapsedTime);
+
+        //if continue button is pushed then load the battle screen
+        if (infoButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+
+        //if back button is pushed then return to the MenuScreen
+        if (settingsButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
 
             if(pause.isPushTriggered()){
                 paused = true;
@@ -97,6 +116,9 @@ public class BattleScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         board.draw(elapsedTime, graphics2D);
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
         if(!paused){
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
@@ -152,5 +174,53 @@ public class BattleScreen extends GameScreen {
 //            }
             counterX += 50;
         }
+    }
+
+
+    /**
+     * Add a info Button to the screen that
+     * takes you to the instructions screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addInfoButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        infoButton = new PushButton(15.0f, 20.0f,
+                28.0f, 28.0f,
+                "infoBtn", "infoBtnSelected", this);
+        infoButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a settings Button to the screen
+     * that takes you to the settings Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addSettingsButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        settingsButton = new PushButton(
+                50.0f, 20.0f, 30.0f, 30.0f,
+                "settingsBtn", "settingsBtnSelected", this);
+        settingsButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Load Assets used by screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void loadScreenAssets() {
+        // Load the various images used by the cards
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 }
