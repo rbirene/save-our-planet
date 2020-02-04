@@ -14,7 +14,7 @@ public class CardContainer extends GameObject {
     private boolean taken;
 
     public CardContainer(float x, float y, GameScreen gameScreen) {
-        super(x, y, 50.0f, 70.0f,
+        super(x, y, 30.0f, 60.0f,
                 gameScreen.getGame().getAssetManager().getBitmap("deckContainer"), gameScreen);
 
     this.taken = false;

@@ -38,6 +38,11 @@ public class GameBoard extends GameObject {
 
     }
 
+    public ArrayList<CardContainer> heroContainers() { return heroContainers; }
+    public ArrayList<CardContainer> villianContainers() {
+        return villianContainers;
+    }
+
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,LayerViewport LayerViewport,ScreenViewport ScreenViewport) {
         super.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         for (int i = 0; i < heroContainers.size(); i++) {
