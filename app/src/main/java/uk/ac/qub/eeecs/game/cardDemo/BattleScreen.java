@@ -14,6 +14,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -37,9 +38,21 @@ public class BattleScreen extends GameScreen {
     private Villain villain;
     private BattleCard bc1;
 
+    //set up hero [Irene Bhuiyan]
+    private Hero hero = getGame().getHero();
+
     //Define Users Deck of Cards [Niamh McCartney]
     private Deck heroDeck = getGame().getHero().getPlayerDeck();
     private ArrayList<Card> cards = heroDeck.getDeck(this);
+    private Deck heroDeck = hero.getPlayerDeck();
+
+    //Define the cards in the deck [Niamh McCartney]
+    private Card Card01 = heroDeck.getCard01(this);
+    private Card Card02 = heroDeck.getCard02(this);
+    private Card Card03 = heroDeck.getCard03(this);
+
+    private PushButton infoButton;
+    private PushButton settingsButton;
 
     public BattleScreen(Game game) {
         super("Battle", game);
@@ -47,8 +60,7 @@ public class BattleScreen extends GameScreen {
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
-        //Load Assets to Screen
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        loadScreenAssets();
 
         board = new GameBoard(235.0f, 170.0f,
                 475.0f, 280.0f, game.getAssetManager().getBitmap("tempBack"), this);
@@ -60,31 +72,45 @@ public class BattleScreen extends GameScreen {
         paint.setTextSize(90.0f);
         paint.setARGB(255, 0, 0, 0);
 
-        hero = new Hero("player1",heroDeck);
-        villain = new Villain("player2",heroDeck);
-
         setupPause();
 
-        bc1 = new BattleCard(200.0f,150.0f,
-                mGame.getAssetManager().getBitmap("CardBackground"),this);
+        pauseGame();
+
+        //Add Buttons
+        addInfoButton();
+        addSettingsButton();
     }
+
     @Override
     public void update(ElapsedTime elapsedTime) {
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
+
         for (Card c :cards) {
             c.update(elapsedTime);
         }
 
-        bc1.update(elapsedTime);
-        bc1.moveCard(touchEvents);
+      
 
 
         //for (Card c : cards){
           //  if(touchEvents.size() >0){
             //    c.moveCard(touchEvents);
+
+        pause.update(elapsedTime);
+        infoButton.update(elapsedTime);
+        settingsButton.update(elapsedTime);
+
+        //if continue button is pushed then load the battle screen
+        if (infoButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+
+        //if back button is pushed then return to the MenuScreen
+        if (settingsButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
+
 
 
         if (paused) {
@@ -148,8 +174,17 @@ public class BattleScreen extends GameScreen {
 
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+
         board.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
-        bc1.draw(elapsedTime, graphics2D);
+        
+        board.draw(elapsedTime, graphics2D);
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+        if(!paused){
+            pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
+        }
+
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -173,6 +208,7 @@ public class BattleScreen extends GameScreen {
     private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
         int counterX = 0;
+        int cardNum = 0;
 
         for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
             Card card = heroDeck.getDeck(this).get(i);
@@ -190,8 +226,65 @@ public class BattleScreen extends GameScreen {
                     mDefaultLayerViewport, mDefaultScreenViewport);
             //Set Card position on Screen
             card.setPosition(x, y);
+            cardNum++;
+//            if (cardNum == 1) {
+//                Card01 = value;
+//            }
+//            if (cardNum == 2) {
+//                Card02 = value;
+//            }
+//            if (cardNum == 3) {
+//                Card03 = value;
+//            }
             counterX += 50;
         }
     }
 
+
+    /**
+     * Add a info Button to the screen that
+     * takes you to the instructions screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addInfoButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        infoButton = new PushButton(15.0f, 20.0f,
+                28.0f, 28.0f,
+                "infoBtn", "infoBtnSelected", this);
+        infoButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a settings Button to the screen
+     * that takes you to the settings Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addSettingsButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        settingsButton = new PushButton(
+                50.0f, 20.0f, 30.0f, 30.0f,
+                "settingsBtn", "settingsBtnSelected", this);
+        settingsButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Load Assets used by screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void loadScreenAssets() {
+        // Load the various images used by the cards
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+    }
 }

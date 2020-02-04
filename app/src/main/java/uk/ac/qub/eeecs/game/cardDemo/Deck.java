@@ -44,14 +44,36 @@ public class Deck {
         return -1;
     }
 
-    public Boolean getDeckshuffled(){
+    public void enlargeDeck(float width, float height){
+        for(int i = 0; i<cardDeck.size(); i++){
+            cardDeck.get(i).setWidth(width);
+            cardDeck.get(i).setHeight(height);
+        }
+    }
+
+    public int getSize(){
+       return  cardDeck.size();
+    }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Getters
+    // /////////////////////////////////////////////////////////////////////////
+    /**
+     * returns True if Deck has already
+     * been shuffled
+     *
+     *  {Created By Niamh McCartney}
+     */
+    public Boolean getDeckShuffled(){
         return deckShuffled;
     }
-
-    public void setDeckshuffled(Boolean bool){
-        deckShuffled = bool;
-    }
-
+    /**
+     * Returns cardDeck
+     *
+     * @param screen screen trying to access Deck
+     *
+     *  {Created By Niamh McCartney}
+     */
     public  ArrayList<Card> getDeck(GameScreen screen){
         for (int i = 0; i< cardDeck.size(); i++) {
            Card card = cardDeck.get(i);
@@ -73,12 +95,31 @@ public class Deck {
     public Card getCard02(GameScreen screen){ Card01.setGameScreen(screen); return Card02;}
     public Card getCard03(GameScreen screen){ Card01.setGameScreen(screen); return Card03;}
 
-   // public  HashMap<String, Card> getCardDeck(){return cardDeck;}
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Setters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Sets CardDeck equal to a new ArrayList of Cards
+     *
+     * @param newCardDeck ArrayList containing the Deck's new Cards
+     *
+     *  {Created By Niamh McCartney}
+     */
+    public void setDeck(ArrayList<Card> newCardDeck){
+        cardDeck = newCardDeck;
+        Card01 = cardDeck.get(0);
+        Card02 = cardDeck.get(1);
+        Card03 = cardDeck.get(2);
+    }
+
+    public void setDeckShuffled(Boolean bool){
+        deckShuffled = bool;
+    }
 
     public void setCard01(Card newCard){ Card01 = newCard; }
     public void setCard02(Card newCard){ Card02 = newCard;}
     public void setCard03(Card newCard){ Card03 = newCard;}
-
-
 
 }

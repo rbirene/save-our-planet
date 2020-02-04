@@ -149,6 +149,35 @@
       "type": "Bitmap",
       "name": "volDown",
       "file": "img/Buttons/volDown.png"
+      },
+      {
+      "name": "freta",
+      "file": "img/PlayerAvatars/freta.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "ronald",
+      "file": "img/PlayerAvatars/ronald.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "infoBtn",
+      "file": "img/Buttons/infoBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settingsBtn",
+      "file": "img/Buttons/settingsBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "infoBtnSelected",
+      "file": "img/Buttons/infoBtnSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settingsBtnSelected",
+      "file": "img/Buttons/settingsBtnSelected.png"
     }
   ]
 }
