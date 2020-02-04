@@ -166,6 +166,8 @@ public class ChooseCardScreen extends GameScreen {
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
 
+        dragCard();
+
         //List of touch events
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
@@ -392,7 +394,7 @@ public class ChooseCardScreen extends GameScreen {
             TouchEvent touchEvent = input.getTouchEvents().get(1);
             float OriginalXPos = Card01.position.x;
             float OriginalYPos = Card01.position.y;
-            // if theres a touch event within the card boundary, execute the following code
+            // if there's a touch event within the card boundary, execute the following code
             if (Card01.getBound().contains(touchEvent.x, touchEvent.y))
             {   // only execute below code if touch event is dragged or scroll.
                 if (touchEvent.type == 6 || touchEvent.type == 2 )
