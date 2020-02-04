@@ -79,11 +79,11 @@ public class BattleScreen extends GameScreen {
         infoButton.update(elapsedTime);
         settingsButton.update(elapsedTime);
 
-        //if continue button is pushed then load the battle screen
+        //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
 
-        //if back button is pushed then return to the MenuScreen
+        //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
 
