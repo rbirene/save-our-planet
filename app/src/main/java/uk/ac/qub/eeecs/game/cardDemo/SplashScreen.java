@@ -73,8 +73,8 @@ public class SplashScreen extends GameScreen {
     }
 
     public void setupBackground(){
-        Bitmap bmBackground = assetManager.getBitmap("SplashBackground");
-         splashScreenBackground = new GameObject(1000.0f, 1000.0f, gameWidth, gameHeight,
+        Bitmap bmBackground = assetManager.getBitmap("optionsBackground2");
+         splashScreenBackground = new GameObject(1000.0f, 1000.0f, gameWidth*1.2f, gameHeight,
                  bmBackground , this);
     }
 
@@ -100,7 +100,6 @@ public class SplashScreen extends GameScreen {
         return timer;
     }
 
-
         @Override
         public void update(ElapsedTime elapsedTime){
             Input input = mGame.getInput();
@@ -124,7 +123,7 @@ public void playMusic(){
         @Override
         public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
             graphics2D.clear(Color.WHITE);
-           // splashScreenBackground.draw(elapsedTime, graphics2D,mLayerViewport,mScreenViewport);
+            splashScreenBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             moveText.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             moveLogo.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         }
