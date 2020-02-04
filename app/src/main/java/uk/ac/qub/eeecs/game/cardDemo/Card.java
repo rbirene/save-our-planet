@@ -63,15 +63,13 @@ public class Card extends Sprite {
     private int attack;
     private int health;
 
+    //Defines number of digits in the attack and health values
     private int attackLength;
     private int healthLength;
 
-    //Define the Card Name
+    //Define the Card Name and Type
     private String name;
-    //define Card Type
     private String cardType;
-
-    //private int textYCoordinate;
 
     private float x;
     private float y;
@@ -80,6 +78,7 @@ public class Card extends Sprite {
 
     private Paint mTextPaint;
 
+    //Boolean to determine whether the card has been selected
     private Boolean selected = false;
 
 
@@ -108,8 +107,6 @@ public class Card extends Sprite {
         attackLength = String.valueOf(attack).length();
         healthLength = String.valueOf(health).length();
 
-        //sets paint properties for card text
-        setupTextPaint();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -139,15 +136,18 @@ public class Card extends Sprite {
         drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                 graphics2D, layerViewport, screenViewport);
 
+        //sets paint properties for card text
+        setupTextPaint();
+
         //Draw the Card text[Niamh McCartney]
         String text = name;
-        float textXCoordinate = DEFAULT_CARD_WIDTH * 0.0f;
-        float textYCoordinate = DEFAULT_CARD_HEIGHT * 0.1f;
+        float textXCoordinate = getWidth() * 0.0f;
+        float textYCoordinate = getHeight() * 0.1f;
         for (String line: text.split("\n")) {
             Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
-            drawText(line, offset, DEFAULT_CARD_WIDTH * 0.7f,
+            drawText(line, offset, getHeight() * 0.7f,
                     graphics2D, layerViewport, screenViewport);
-            textYCoordinate += 10;
+            textYCoordinate += getHeight() * 0.045;
         }
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
@@ -251,7 +251,6 @@ public class Card extends Sprite {
      * @param layerViewport  Game layer viewport
      * @param screenViewport Screen viewport
      *
-     * Created by [Niamh McCartney]
      */
     private void drawText(String text, Vector2 offset, float textWidth,
                           IGraphics2D graphics2D,
@@ -277,6 +276,50 @@ public class Card extends Sprite {
 
         graphics2D.drawText(text, textPosition.x, textPosition.y, mTextPaint);
     }
+
+    //sets paint properties for card text [Niamh McCartney]
+    private void setupTextPaint() {
+        mTextPaint = new Paint();
+        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setTextSize(getWidth() * 0.15f);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+    }
+
+    //Changes the Card Background [Niamh McCartney]
+    public void changeCardBackground(){
+        AssetManager assetManager = gameScreen.getGame().getAssetManager();
+        if(mCardBase == assetManager.getBitmap("CardBackground")){
+            mCardBase = assetManager.getBitmap("CardBackgroundSelected");
+            selected = true;
+        }else if(mCardBase == assetManager.getBitmap("CardBackgroundSelected")){
+            mCardBase = assetManager.getBitmap("CardBackground");
+            selected = false;
+        }
+    }
+
+    //Returns true if Cards is selected [Niamh McCartney]
+    public Boolean cardSelected(){
+        return selected;
+    }
+
+    //Creates the images used by the Card [Niamh McCartney]
+    public void createCardImages(){
+        if(gameScreen != null) {
+            AssetManager assetManager = gameScreen.getGame().getAssetManager();
+
+            // Store the common card base image
+            mCardBase = assetManager.getBitmap("CardBackground");
+
+            // Store each of the damage/health digits
+            for (int digit = 0; digit <= 9; digit++)
+                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+        }
+    }
+
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Getters
+    // /////////////////////////////////////////////////////////////////////////
 
     //Getter to return the Card Type of the Card [Niamh McCartney]
     public String getCardType(){
@@ -312,40 +355,7 @@ public class Card extends Sprite {
         cardPortrait = cardPortraitBitmap;
     }
 
-    public void changeCardBackground(){
-        AssetManager assetManager = gameScreen.getGame().getAssetManager();
-        if(mCardBase == assetManager.getBitmap("CardBackground")){
-            mCardBase = assetManager.getBitmap("CardBackgroundSelected");
-            selected = true;
-        }else if(mCardBase == assetManager.getBitmap("CardBackgroundSelected")){
-            mCardBase = assetManager.getBitmap("CardBackground");
-            selected = false;
-        }
-    }
-
-    public Boolean cardSelected(){
-        return selected;
-    }
-
-    //Creates the images used by the Card [Niamh McCartney]
-    public void createCardImages(){
-        if(gameScreen != null) {
-            AssetManager assetManager = gameScreen.getGame().getAssetManager();
-
-            // Store the common card base image
-            mCardBase = assetManager.getBitmap("CardBackground");
-
-            // Store each of the damage/health digits
-            for (int digit = 0; digit <= 9; digit++)
-                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
-        }
-    }
-
-    //sets paint properties for card text[Niamh McCartney]
-    private void setupTextPaint() {
-        mTextPaint = new Paint();
-        mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextSize(25.0f);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
+    public void setCardBase(Bitmap cardBase){
+        mCardBase = cardBase;
     }
 }

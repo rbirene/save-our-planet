@@ -1,6 +1,5 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 
@@ -28,28 +27,25 @@ import uk.ac.qub.eeecs.game.MenuScreen;
 public class OptionsScreen extends GameScreen {
 
     private GameObject OptionsBackground;
-    private GameObject volumeBar;
-
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
 
     private PushButton BackButton;
     private PushButton muteToggle;
-    private PushButton volumeUp;
-    private PushButton volumeDown;
 
     private Paint paint;
 
     private AudioManager audioManager = mGame.getAudioManager();
-    private float volume;
-     private int  gameWidth;
 
+    private int gameHeight, gameWidth;
 
     public OptionsScreen(Game game) {
         super("OptionsScreen", game);
 
-        volume = audioManager.getMusicVolume();
-        gameWidth= mGame.getScreenWidth();
+
+        gameHeight = mGame.getScreenHeight();
+        gameWidth = mGame.getScreenWidth();
+
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
@@ -65,12 +61,7 @@ public class OptionsScreen extends GameScreen {
         mGame.getAssetManager().loadAndAddBitmap("muteOff", "img/muteOff.png");
 
         OptionsBackground = new GameObject(1000.0f, 1000.0f, 2000.0f, 2000.0f,
-               this.getGame().getAssetManager().getBitmap("optionsBackground2"), this);
-
-        volumeBar = new GameObject(235.0f, 120.0f,
-                300.0f, 120.0f,
-                this.getGame().getAssetManager().getBitmap("soundBar0"), this);
-
+               this.getGame().getAssetManager().getBitmap("optionsBackground"), this);
         BackButton = new PushButton(20.0f, 50.0f,
                 50.0f, 50.0f,
                 "BackArrow", "BackArrowSelected", this);
@@ -78,15 +69,6 @@ public class OptionsScreen extends GameScreen {
         muteToggle = new PushButton(400.0f, 250.0f, 75.0f, 100.0f,
                 "muteOff","muteOff",this );
 
-        volumeUp = new PushButton(375.0f, 125.0f, 75.0f, 100.0f,
-                "volUp","volUp",this );
-
-        volumeDown = new PushButton(100.0f, 125.0f, 75.0f, 60.0f,
-                "volDown","volDown",this );
-
-
-
-        volChecker();
 
         if (audioManager.isMusicPlaying()) {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
@@ -95,56 +77,23 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
-public void volChecker(){
-
-    if(volume >=0.80f && volume <=1.0f){
-        volumeBar.setBitmap(mGame.getAssetManager().getBitmap("soundBar100"));
-    }else if(volume >= 0.60f && volume <0.80f){
-        volumeBar.setBitmap(mGame.getAssetManager().getBitmap("soundBar75"));
-    }else if(volume >=0.40f  && volume < 0.60f){
-        volumeBar.setBitmap(mGame.getAssetManager().getBitmap("soundBar50"));
-    }else if(volume >=0.20f  && volume < 0.40f){
-        volumeBar.setBitmap(mGame.getAssetManager().getBitmap("soundBar25"));
-    }else if (volume >=0.0f  && volume < 0.20f) {
-        volumeBar.setBitmap(mGame.getAssetManager().getBitmap("soundBar0"));
-    }
-}
-
-//For testing
-public void updateVolumeBar(ElapsedTime elapsedTime){
-    volumeBar.update(elapsedTime);
-    volChecker();
-}
-
     @Override
     public void update(ElapsedTime elapsedTime) {
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
-            if (touchEvents.size() > 0) {
-                BackButton.update(elapsedTime);
-                muteToggle.update(elapsedTime);
-                volumeUp.update(elapsedTime);
-                volumeBar.update(elapsedTime);
-                volumeDown.update(elapsedTime);
+        if (touchEvents.size() > 0) {
+
+            BackButton.update(elapsedTime);
+            muteToggle.update(elapsedTime);
 
             if (BackButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-                mGame.getAudioManager().setMusicVolume(volume);
             }
             if (muteToggle.isPushTriggered()) {
                muteButton();
             }
-            if(volumeUp.isPushTriggered()){
-                volume = volume + 0.25f;
-                mGame.getAudioManager().setMusicVolume(volume);
-            }
-            if(volumeDown.isPushTriggered()){
-                volume = volume - 0.25f;
-                mGame.getAudioManager().setMusicVolume(volume);
-            }
-            volChecker();
         }
     }
 
@@ -163,21 +112,10 @@ public void muteButton(){
             graphics2D.clear(Color.WHITE);
             OptionsBackground.draw(elapsedTime, graphics2D);
             graphics2D.drawText("Volume Control : ", mGame.getScreenWidth() * 0.095f, mGame.getScreenHeight() * 0.28f, paint);
+
             BackButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
             muteToggle.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
-            volumeBar.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
-            volumeDown.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
-            volumeUp.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+
         }
 
-
-        public void setVolume(float vol){
-            this.volume = vol;
-        }
-        public float getVolume(){
-            return volume;
-        }
-        public Bitmap getVolumeBar(){
-        return volumeBar.getBitmap();
-    }
 }

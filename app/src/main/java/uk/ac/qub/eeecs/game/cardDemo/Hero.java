@@ -1,5 +1,4 @@
 package uk.ac.qub.eeecs.game.cardDemo;
-import uk.ac.qub.eeecs.gage.Game;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
