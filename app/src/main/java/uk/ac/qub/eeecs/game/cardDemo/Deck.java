@@ -6,27 +6,13 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 public class Deck {
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Properties
-    // /////////////////////////////////////////////////////////////////////////
-
-    //Define the cards in the Deck
     private Card Card01;
     private Card Card02;
     private Card Card03;
 
-    //Boolean to determine whether deck has een created
     private Boolean deckCreated;
-    //Boolean to determine whether deck has been shuffled
     private Boolean deckShuffled = false;
-
-    //Defines ArrayList to hold the cards in the deck
     private ArrayList<Card> cardDeck;
-
-
-    // /////////////////////////////////////////////////////////////////////////
-    // Constructors
-    // /////////////////////////////////////////////////////////////////////////
 
     public Deck(Card Card1, Card Card2, Card Card3){
         Card01 = Card1;
@@ -38,24 +24,17 @@ public class Deck {
         cardDeck.add(0, Card01);
         cardDeck.add(1, Card02);
         cardDeck.add(2, Card03);
-
         deckCreated = true;
 
     }
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Methods
-    // /////////////////////////////////////////////////////////////////////////
-    /**
-     * Check if given Card exists in Deck
-     * Returns position of Card in Deck if
-     * Deck contains card.
-     * Returns -1 if Deck does not contain Card
-     *
-     * @param card card to be checked
-     *
-     *  {Created By Niamh McCartney}
-     */
+//    public void AddCard(Card newCard, Card cardNum){
+//        cardDeck.remove(cardNum.getCardName());
+//        cardNum = newCard;
+//        cardDeck.put(cardNum.getCardName(), cardNum);
+//
+//    }
+
     public int checkDeck(Card card){
         for(int i = 0; i<cardDeck.size(); i++){
             if(card == cardDeck.get(i)){
@@ -103,6 +82,14 @@ public class Deck {
         return cardDeck;
     }
 
+    public void setDeck(GameScreen screen, ArrayList<Card> newCardDeck){
+        cardDeck = newCardDeck;
+
+        for (int i = 0; i< cardDeck.size(); i++) {
+            Card card = cardDeck.get(i);
+            card.setGameScreen(screen);
+        }
+    }
 
     public Card getCard01(GameScreen screen){ Card01.setGameScreen(screen); return Card01;}
     public Card getCard02(GameScreen screen){ Card01.setGameScreen(screen); return Card02;}

@@ -28,16 +28,17 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
-
-    //contains all hero cards
     private HashMap<String, Card> heroCardPool = getGame().getCardStore().getAllHeroCards(this);
     private HashMap<String, Card> screenCardPool = new HashMap<>();
+   // private Deck heroDeck;
+    private Deck heroDeck = getGame().getHero().getPlayerDeck();
 
-    //Define Player and Player's Deck
     private Hero hero = getGame().getHero();
-    private Deck heroDeck = hero.getPlayerDeck();
+    //private Card screenCardPool[] = new Card[3];
+    // Define a card to be displayed
+    private Card card;
 
-    //Define Cards to be displayed on Screen
+    private PushButton BackButton;
     private Card Card01;
     private Card Card02;
     private Card Card03;
@@ -45,8 +46,6 @@ public class ChooseCardScreen extends GameScreen {
     private uk.ac.qub.eeecs.gage.world.ScreenViewport ScreenViewport;
     private uk.ac.qub.eeecs.gage.world.LayerViewport LayerViewport;
 
-    //Define Buttons
-    private PushButton BackButton;
     private PushButton continueButton;
     private PushButton shuffleButton;
 
@@ -62,6 +61,9 @@ public class ChooseCardScreen extends GameScreen {
     private float[][] mTouchLocation = new float[mTouchIdExists.length][2];
     private String touchEventType;
 
+    //private Vector2 touchLocation = new Vector2();
+    private final static int GAMEOBJECT_DENSITY = 3;
+    private GameObject[] mGameObjects = new GameObject[GAMEOBJECT_DENSITY];
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -78,7 +80,6 @@ public class ChooseCardScreen extends GameScreen {
         //Load the various images used by the cards
         loadScreenAssets();
 
-        //Add Buttons
         AddBackButton();
         AddContinueButton();
         AddShuffleButton();
@@ -150,8 +151,10 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void loadScreenAssets() {
         // Load the various images used by the cards
+        //mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
+        //mGame.getAssetManager().loadAssets("txt/assets/Card.JSON");
     }
 
     /**
@@ -166,7 +169,6 @@ public class ChooseCardScreen extends GameScreen {
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
 
-        //List of touch events
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
         AudioManager audioManager = getGame().getAudioManager();
@@ -181,11 +183,9 @@ public class ChooseCardScreen extends GameScreen {
                 continueButton.update(elapsedTime);
                 shuffleButton.update(elapsedTime);
 
-                //if continue button is pushed then load the battle screen
                 if (continueButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new BattleScreen(mGame));
 
-                //if back button is pushed then return to the MenuScreen
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
 
@@ -292,30 +292,26 @@ public class ChooseCardScreen extends GameScreen {
         for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
             int w = heroDeck.getDeck(this).size();
             int q = 1;
-            //Card y co-ordinate
+            float x1 = mDefaultLayerViewport.x / w;
             float y = mDefaultLayerViewport.y / q;
             float spacing = 70;
-            float x1 = mDefaultLayerViewport.x / w;
-            //Card x co-ordinate
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
-            //set Card width
-            value.setWidth(180);
-            //set Card Height
-            value.setHeight(240);
-            //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
-            //set Card postion on screen
             value.setPosition(x, y);
             if (counterX == 1) {
                 Card01 = value;
+                Log.d("bound", Card01.getBound() + "");
+                mGameObjects[0] = Card01;
             }
             if (counterX == 2) {
                 Card02 = value;
+                mGameObjects[1] = Card02;
             }
             if (counterX == 3) {
                 Card03 = value;
+                mGameObjects[2] = Card03;
             }
         }
     }
@@ -343,7 +339,6 @@ public class ChooseCardScreen extends GameScreen {
             if (value.cardSelected()) {
                 Card randCard;
                 int num = 0;
-                //gets a new random card that isn't in the old deck or the new deck
                 while (num < 1) {
                     randCard = getGame().getCardStore().getRandCard(heroCardPool);
                     String name = randCard.getCardName();
@@ -372,12 +367,16 @@ public class ChooseCardScreen extends GameScreen {
             counterX++;
             if (counterX == 1) {
                 Card01 = value;
+                Log.d("bound", Card01.getBound() + "");
+                mGameObjects[0] = Card01;
             }
             if (counterX == 2) {
                 Card02 = value;
+                mGameObjects[1] = Card02;
             }
             if (counterX == 3) {
                 Card03 = value;
+                mGameObjects[2] = Card03;
             }
         }
 
@@ -494,6 +493,7 @@ public class ChooseCardScreen extends GameScreen {
      * @param type Touch event type
      * @return Touch event label
      *
+     * [Niamh McCartney]
      */
     private String touchEventTypeToString(int type) {
         switch (type) {

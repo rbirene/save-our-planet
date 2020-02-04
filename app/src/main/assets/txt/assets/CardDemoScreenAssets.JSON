@@ -32,6 +32,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "optionsBackground2",
+      "file": "img/optionsBackground.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "OptionsIcon",
       "file": "img/OptionsIcon.png"
     },
@@ -87,6 +92,65 @@
     },
     {
       "type": "Bitmap",
+      "name": "resume2Btn",
+      "file": "img/Buttons/resume2Btn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "resumeBtn",
+      "file": "img/Buttons/resumeBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBtn",
+      "file": "img/Buttons/menuBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menu2Btn",
+      "file": "img/Buttons/menu2Btn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "testCard",
+      "file": "img/testCard.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar0",
+      "file": "img/soundBar0.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar25",
+      "file": "img/soundBar25.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar50",
+      "file": "img/soundBar50.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar75",
+      "file": "img/soundBar75.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar100",
+      "file": "img/soundBar100.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "volUp",
+      "file": "img/Buttons/volUp.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "volDown",
+      "file": "img/Buttons/volDown.png"
+      },
+      {
       "name": "freta",
       "file": "img/PlayerAvatars/freta.png"
     },
