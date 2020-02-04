@@ -68,13 +68,13 @@ public class SplashScreen extends GameScreen {
 
     public void setupTitle(){
         Bitmap bmTitle = assetManager.getBitmap("SplashTitle");
-        moveText = new Sprite(1000.0f, gameHeight*1.4f, 1100.0f, 400.0f, bmTitle, this);
+        moveText = new Sprite(1000.0f, gameHeight*1.4f, 1000.0f, 400.0f, bmTitle, this);
         moveText.velocity = new Vector2(0.f, -125.f);
     }
 
     public void setupBackground(){
-        Bitmap bmBackground = assetManager.getBitmap("optionsBackground2");
-         splashScreenBackground = new GameObject(1000.0f, 1000.0f, gameWidth*2, gameHeight,
+        Bitmap bmBackground = assetManager.getBitmap("SplashBackground");
+         splashScreenBackground = new GameObject(1000.0f, 1000.0f, gameWidth, gameHeight,
                  bmBackground , this);
     }
 
@@ -124,7 +124,7 @@ public void playMusic(){
         @Override
         public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
             graphics2D.clear(Color.WHITE);
-           splashScreenBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+           // splashScreenBackground.draw(elapsedTime, graphics2D,mLayerViewport,mScreenViewport);
             moveText.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             moveLogo.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         }

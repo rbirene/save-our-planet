@@ -10,26 +10,22 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 
 public class CardContainer extends GameObject {
 
-    private Card card;
-    private boolean taken;
+    private ArrayList<Card> cards;
+
 
     public CardContainer(float x, float y, GameScreen gameScreen) {
-        super(x, y, 30.0f, 60.0f,
+        super(x, y, 170.0f, 220.0f,
                 gameScreen.getGame().getAssetManager().getBitmap("deckContainer"), gameScreen);
 
-    this.taken = false;
-    this.card = null;
+
+
+
+
     }
 
 
-    public void setCard(Card card)
-    {
-        this.card = card;
-        taken = true;
+    @Override
+    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        super.draw(elapsedTime, graphics2D);
     }
-    public void removeCard() {
-        card = null;
-        taken = false;
-    }
-
 }
