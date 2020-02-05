@@ -23,12 +23,17 @@
     {
       "type": "Bitmap",
       "name": "SplashTitle",
-      "file": "img/SplashTitle.png"
+      "file": "img/splashTitle.png"
     },
     {
       "type": "Bitmap",
       "name": "optionsBackground",
       "file": "img/optionsBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "optionsBackground2",
+      "file": "img/optionsBackground2.png"
     },
     {
       "type": "Bitmap",
@@ -99,6 +104,61 @@
       "type": "Bitmap",
       "name": "infoBtn",
       "file": "img/Buttons/infoBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "resume2Btn",
+      "file": "img/resume2Btn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "resumeBtn",
+      "file": "img/resumeBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBtn",
+      "file": "img/menuBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menu2Btn",
+      "file": "img/menu2Btn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar0",
+      "file": "img/soundBar0.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar25",
+      "file": "img/soundBar25.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar50",
+      "file": "img/soundBar50.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar75",
+      "file": "img/soundBar75.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "soundBar100",
+      "file": "img/soundBar100.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "volUp",
+      "file": "img/volUp.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "volDown",
+      "file": "img/volDown.png"
     },
     {
       "type": "Bitmap",

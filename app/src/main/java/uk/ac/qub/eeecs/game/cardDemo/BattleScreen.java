@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,13 @@ public class BattleScreen extends GameScreen {
     private ArrayList<Card> cards = new ArrayList<>();
     private PushButton pause;
     private PushButton resume;
+    private PushButton exit;
     private boolean paused = false;
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
     private GameObject pauseMenu;
+    private Paint paint;
+
 
     private AssetManager assetManager = mGame.getAssetManager();
 
@@ -62,7 +66,11 @@ public class BattleScreen extends GameScreen {
         pause = new PushButton(470.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
-        pauseGame();
+        paint = new Paint();
+        paint.setTextSize(90.0f);
+        paint.setARGB(255, 0, 0, 0);
+
+        setupPause();
 
         //Add Buttons
         addInfoButton();
@@ -94,22 +102,43 @@ public class BattleScreen extends GameScreen {
             }
         }
 
+    private void pauseUpdate(ElapsedTime elapsedTime) {
+
+        pauseMenu.update(elapsedTime);
+        resume.update(elapsedTime);
+        exit.update(elapsedTime);
+
+        if(mGame.getInput().getTouchEvents().size() > 0){
+            if(resume.isPushTriggered()){
+                paused = false;
+            }
+            if(exit.isPushTriggered()){
+                paused = false;
+                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+            }
+        }
 
 
-    public void pauseGame(){
-
-        pauseMenu = new GameObject(mGame.getScreenWidth()/2,mGame.getScreenHeight()/2 ,
-        800.0f, 700.0f, mGame.getAssetManager().getBitmap("optionsBackground"), this);
-
-        resume = new PushButton(mGame.getScreenWidth()/2, mGame.getScreenHeight()/2,
-                40.0f, 40.0f, "pauseBtn", "pauseBtn", this);
 
     }
 
+    public void setupPause(){
+
+        pauseMenu = new GameObject(240.0f,170.0f ,
+                200.0f, 175.0f, mGame.getAssetManager().getBitmap("optionsBackground2"), this);
+
+        resume = new PushButton(240.0f, 170.0f,
+                100.0f, 50.0f, "resumeBtn", "resume2Btn", this);
+
+        exit = new PushButton(240.0f, 115.0f,
+                100.0f, 50.0f, "menuBtn", "menu2Btn", this);
+    }
 
     public void drawPause(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        pauseMenu.draw(elapsedTime,graphics2D);
-        resume.draw(elapsedTime,graphics2D);
+        pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
+        resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
+        exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
+        graphics2D.drawText("Game Paused", mGame.getScreenWidth()/3, mGame.getScreenHeight()/3, paint);
 
     }
 
@@ -119,14 +148,12 @@ public class BattleScreen extends GameScreen {
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
-        if(!paused){
-            pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        }
-
         if(paused){
             drawPause(elapsedTime, graphics2D);
+            pauseUpdate(elapsedTime);
+        }else{
+            pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
-
         //Add Player Decks to Screen [Niamh McCartney]
         AddPlayerDecks(elapsedTime, graphics2D);
 
