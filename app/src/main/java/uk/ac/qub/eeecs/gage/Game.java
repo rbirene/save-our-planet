@@ -12,6 +12,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Villain;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -96,11 +97,27 @@ public abstract class Game extends Fragment {
      *
      * Created by Niamh McCartney
      */
+    protected Villain mVillain;
+    /**
+     * Get the game's Villain
+     *
+     * @return mVillain
+     *
+     * Created by Niamh McCartney
+     */
+    public Villain getVillain() {
+        return mVillain;
+    }
+    /**
+     * Hero
+     *
+     * Created by Niamh McCartney
+     */
     protected Hero mHero;
     /**
      * Get the game's Hero
      *
-     * @return hero
+     * @return mHero
      *
      * Created by Niamh McCartney
      */
@@ -277,6 +294,9 @@ public abstract class Game extends Fragment {
 
         //Create the Hero[Niamh McCartney]
         mHero = new Hero(null);
+
+        //Create the Villain[Niamh McCartney]
+        mVillain = new Villain(null);
 
     }
 
