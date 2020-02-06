@@ -49,6 +49,8 @@ public class ChooseCardScreen extends GameScreen {
     private PushButton BackButton;
     private PushButton continueButton;
     private PushButton shuffleButton;
+    private PushButton infoButton;
+    private PushButton settingsButton;
 
     /**
      * Define storage of touch points. Up to 5 simultaneous touch
@@ -82,6 +84,8 @@ public class ChooseCardScreen extends GameScreen {
         AddBackButton();
         AddContinueButton();
         AddShuffleButton();
+        addInfoButton();
+        addSettingsButton();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -142,6 +146,43 @@ public class ChooseCardScreen extends GameScreen {
                 "shuffleBtn", "shuffleBtn", this);
         shuffleButton.setPlaySounds(true, true);
     }
+    /**
+     * Add a info Button to the screen that
+     * takes you to the instructions screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addInfoButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        infoButton = new PushButton(430.0f, 300.0f,
+                28.0f, 28.0f,
+                "infoBtn", "infoBtnSelected", this);
+        infoButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a settings Button to the screen
+     * that takes you to the settings Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addSettingsButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        settingsButton = new PushButton(
+                465.0f, 300.0f, 30.0f, 30.0f,
+                "settingsBtn", "settingsBtnSelected", this);
+        settingsButton.setPlaySounds(true, true);
+    }
+
 
     /**
      * Load Assets used by screen
@@ -152,6 +193,7 @@ public class ChooseCardScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 
     /**
@@ -182,6 +224,8 @@ public class ChooseCardScreen extends GameScreen {
                 BackButton.update(elapsedTime);
                 continueButton.update(elapsedTime);
                 shuffleButton.update(elapsedTime);
+                infoButton.update(elapsedTime);
+                settingsButton.update(elapsedTime);
 
                 //if continue button is pushed then load the battle screen
                 if (continueButton.isPushTriggered())
@@ -190,6 +234,14 @@ public class ChooseCardScreen extends GameScreen {
                 //if back button is pushed then return to the MenuScreen
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+
+                //if information button is pushed then load the instructions screen [Niamh McCartney]
+                if (infoButton.isPushTriggered())
+                    mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+
+                //if settings button is pushed then load the settings screen [Niamh McCartney]
+                if (settingsButton.isPushTriggered())
+                    mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
 
                 if (touchEventType.equals("TOUCH_DOWN")) {
                     // Store touch point information.
@@ -234,6 +286,8 @@ public class ChooseCardScreen extends GameScreen {
         BackButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         continueButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         shuffleButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         /*If shuffle button is pushed and deck has been shuffled then
          * display dialog informing user.  If deck has not been shuffled

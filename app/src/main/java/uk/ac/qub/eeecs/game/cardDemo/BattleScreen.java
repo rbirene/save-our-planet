@@ -63,7 +63,7 @@ public class BattleScreen extends GameScreen {
         board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
                 1700.0f, 1000.0f, game.getAssetManager().getBitmap("tempBack"), this);
 
-        pause = new PushButton(470.0f, 300.0f,
+        pause = new PushButton(465.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
         paint = new Paint();
@@ -218,7 +218,7 @@ public class BattleScreen extends GameScreen {
         mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
 
-        infoButton = new PushButton(15.0f, 20.0f,
+        infoButton = new PushButton(395.0f, 300.0f,
                 28.0f, 28.0f,
                 "infoBtn", "infoBtnSelected", this);
         infoButton.setPlaySounds(true, true);
@@ -236,7 +236,7 @@ public class BattleScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         settingsButton = new PushButton(
-                50.0f, 20.0f, 30.0f, 30.0f,
+                430.0f, 300.0f, 30.0f, 30.0f,
                 "settingsBtn", "settingsBtnSelected", this);
         settingsButton.setPlaySounds(true, true);
     }
