@@ -255,15 +255,15 @@ public class ChooseCardScreen extends GameScreen {
                     //If a card is touched change the background of the touched card
                     for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
-                            Card01.changeCardBackground();
+                            Card01.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
-                            Card02.changeCardBackground();
+                            Card02.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
-                            Card03.changeCardBackground();
+                            Card03.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                     }

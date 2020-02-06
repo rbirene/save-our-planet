@@ -2,12 +2,17 @@
   "assets": [
     {
       "type": "Bitmap",
-      "name": "CardBackground",
+      "name": "HeroCardBackground",
       "file": "img/CardPortraits/CardBackground.png"
     },
     {
       "type": "Bitmap",
-      "name": "CardBackgroundSelected",
+      "name": "VillainCardBackground",
+      "file": "img/CardPortraits/VillainCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HeroCardBackgroundSelected",
       "file": "img/CardPortraits/CardBackgroundSelected.png"
     },
     {

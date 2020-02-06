@@ -286,13 +286,13 @@ public class Card extends Sprite {
     }
 
     //Changes the Card Background [Niamh McCartney]
-    public void changeCardBackground(){
+    public void changeHeroCardBackground(){
         AssetManager assetManager = gameScreen.getGame().getAssetManager();
-        if(mCardBase == assetManager.getBitmap("CardBackground")){
-            mCardBase = assetManager.getBitmap("CardBackgroundSelected");
+        if(mCardBase == assetManager.getBitmap("HeroCardBackground")){
+            mCardBase = assetManager.getBitmap("HeroCardBackgroundSelected");
             selected = true;
-        }else if(mCardBase == assetManager.getBitmap("CardBackgroundSelected")){
-            mCardBase = assetManager.getBitmap("CardBackground");
+        }else if(mCardBase == assetManager.getBitmap("HeroCardBackgroundSelected")){
+            mCardBase = assetManager.getBitmap("HeroCardBackground");
             selected = false;
         }
     }
@@ -303,12 +303,12 @@ public class Card extends Sprite {
     }
 
     //Creates the images used by the Card [Niamh McCartney]
-    public void createCardImages(){
+    public void createCardImages(String cardBackgroundName){
         if(gameScreen != null) {
             AssetManager assetManager = gameScreen.getGame().getAssetManager();
 
             // Store the common card base image
-            mCardBase = assetManager.getBitmap("CardBackground");
+            mCardBase = assetManager.getBitmap(cardBackgroundName);
 
             // Store each of the damage/health digits
             for (int digit = 0; digit <= 9; digit++)

@@ -155,7 +155,7 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D);
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground");
 
 
     }
@@ -168,7 +168,7 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName){
 
         int counterX = 0;
         int cardNum = 0;
@@ -180,7 +180,7 @@ public class BattleScreen extends GameScreen {
             //Card Y co-ordinate
             float y = graphics2D.getSurfaceHeight() * 0.04f;
             //Set Card Background
-            card.setCardBase(assetManager.getBitmap("CardBackground"));
+            card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
             card.setWidth(60);
             card.setHeight(120);

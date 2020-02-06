@@ -125,7 +125,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key);
+            setGameScreenVariables(value, gameScreen, key, "HeroCardBackground");
             if(value.getCardType().equals("heroCard")){
                 heroCardPool.put(key, value);
             }
@@ -145,7 +145,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key);
+            setGameScreenVariables(value, gameScreen, key, "VillainCardBackground");
             if(value.getCardType().equals("villainCard")){
                 villainCardPool.put(key, value);
             }
@@ -163,11 +163,11 @@ public class CardStore {
      *
      *  Created By Niamh McCartney
      */
-    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key){
+    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key, String cardBackgroundName){
         Card.setGameScreen(gameScreen);
         card.setLayerViewPortWidth(gameScreen.getDefaultLayerViewport().x);
         card.setLayerViewPortHeight(gameScreen.getDefaultLayerViewport().y);
-        card.createCardImages();
+        card.createCardImages(cardBackgroundName);
         getCardBitmap(gameScreen, key, card);
         return card;
     }
