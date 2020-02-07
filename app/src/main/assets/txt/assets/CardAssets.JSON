@@ -17,6 +17,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "Use the car.\nEven on short journeys",
+      "file": "img/CardPortraits/VillainCards/CarPortrait.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "Cycle to School",
       "file": "img/CardPortraits/CyclistPortrait.png"
     },

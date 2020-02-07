@@ -21,6 +21,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.InstructionsScreen;
 import uk.ac.qub.eeecs.game.cardDemo.OptionsScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Villain;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 
 /**
@@ -34,7 +35,10 @@ public class MenuScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
+    //define HashMap to contain all hero cards[Niamh McCartney]
     private HashMap<String, Card> heroCardPool;
+    //define HashMap to contain all villain cards[Niamh McCartney]
+    private HashMap<String, Card> villainCardPool = new HashMap<>();
     private HashMap<String, Card> screenCardPool = new HashMap<>();
 
     private Card randCard;
@@ -44,9 +48,12 @@ public class MenuScreen extends GameScreen {
     private Card Card03;
 
     private Deck deck;
-    private Deck heroDeck = getGame().getHero().getPlayerDeck();
 
+    //define Hero and Villains and their Decks [Niamh McCartney]
+    private Deck heroDeck = getGame().getHero().getPlayerDeck();
+    private Deck villainDeck = getGame().getVillain().getPlayerDeck();
     private Hero hero = getGame().getHero();
+    private Villain villain = getGame().getVillain();
 
     /**
      * Define the buttons for playing the 'games'
@@ -105,6 +112,13 @@ public class MenuScreen extends GameScreen {
             //Create Hero Deck
             createHeroDeck();
         }
+
+//        //creates villain deck if deck is not already created [Niamh McCartney]
+//        if(villainDeck == null ) {
+//            assetManager.loadAssets("txt/assets/CardAssets.JSON");
+//            //Create villain Deck
+//            createVillainDeck();
+//        }
 
 
         playGame = new PushButton(
@@ -224,6 +238,7 @@ public class MenuScreen extends GameScreen {
      *  Created By Niamh McCartney
      */
     private void generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
+        screenCardPool = new HashMap<>();
         int num = 0;
         while(num<numOfCards) {
             randCard = getGame().getCardStore().getRandCard(cardPool);
@@ -261,6 +276,22 @@ public class MenuScreen extends GameScreen {
         deck = new Deck(Card01, Card02, Card03);
         //set this deck as the hero's deck
         hero.setPlayerDeck(deck);
+    }
+
+    /**
+     * Creates a Villain Deck
+     *
+     *  Created By Niamh McCartney
+     */
+    private void createVillainDeck(){
+        // get all the cards of type hero
+        villainCardPool = getGame().getCardStore().getAllVillainCards(this);
+        //generate three random cards
+        generateRandCards(3, villainCardPool);
+        //create a deck with generated cards
+        deck = new Deck(Card01, Card02, Card03);
+        //set this deck as the hero's deck
+        villain.setPlayerDeck(deck);
     }
 
 }

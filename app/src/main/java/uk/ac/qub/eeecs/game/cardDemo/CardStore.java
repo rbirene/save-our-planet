@@ -160,6 +160,7 @@ public class CardStore {
      * @param card card instance
      * @param gameScreen game Screen the cards have been called by
      * @param key  of the chosen HashMap
+     * @param cardBackgroundName name of the cardBackground image from the JSON file
      *
      *  Created By Niamh McCartney
      */

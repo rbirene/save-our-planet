@@ -127,6 +127,14 @@
       "healthValue": 59,
       "scaleValuex": "0.22",
       "scaleValuey": "0.22"
+    },
+    {
+      "name": "Use the car.\nEven on short journeys",
+      "type": "villainCard",
+      "attackValue": 14,
+      "healthValue": 59,
+      "scaleValuex": "0.22",
+      "scaleValuey": "0.22"
     }
   ]
 }
