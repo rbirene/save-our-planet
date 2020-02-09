@@ -293,10 +293,10 @@ public abstract class Game extends Fragment {
         mCardStore = new CardStore(this);
 
         //Create the Hero[Niamh McCartney]
-        mHero = new Hero(null);
+        mHero = new Hero();
 
         //Create the Villain[Niamh McCartney]
-        mVillain = new Villain(null);
+        mVillain = new Villain();
 
     }
 

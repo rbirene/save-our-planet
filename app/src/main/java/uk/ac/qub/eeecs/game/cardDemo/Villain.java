@@ -1,10 +1,10 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-import uk.ac.qub.eeecs.gage.world.GameScreen;
-
 /**
+ *
  * Created by [Irene Bhuiyan]
  * This class represents a villain in the game (using traits and behaviours from Player).
+ *
  */
 
 public class Villain extends Player {
@@ -14,15 +14,13 @@ public class Villain extends Player {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create a new villain.
      *
-     * @param playerName Name of the player
-     * @param gameScreen Gamescreen to which this player belongs
+     * Create a new villain.
      *
      */
 
-    public Villain(GameScreen gameScreen){
-        super("Ronald Rump", null, gameScreen);
+    public Villain(){
+        super("Ronald Rump", null);
     }
 
 }

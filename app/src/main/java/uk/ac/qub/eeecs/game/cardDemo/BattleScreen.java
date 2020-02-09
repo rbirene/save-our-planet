@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -32,9 +30,8 @@ public class BattleScreen extends GameScreen {
     private boolean paused = false;
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
-    private GameObject pauseMenu;
+    private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
     private Paint paint;
-
 
     private AssetManager assetManager = mGame.getAssetManager();
 
@@ -157,6 +154,8 @@ public class BattleScreen extends GameScreen {
         //Add Player Decks to Screen [Niamh McCartney]
         AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground");
 
+        // display players [Irene Bhuiyan]
+        displayPlayers(elapsedTime, graphics2D);
 
     }
 
@@ -250,4 +249,25 @@ public class BattleScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
+
+    /**
+     *
+     * Created by [Irene Bhuiyan]
+     * Displays hero and villain on screen.
+     *
+     */
+    private void displayPlayers(ElapsedTime elapsedTime, IGraphics2D graphics2D){
+
+        //display hero
+        Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
+        heroAvatarImg = new GameObject(50.0f, 60.0f, 100.0f, 100.0f, heroAvatar, this);
+        heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+        //display villain
+        Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
+        villainAvatarImg = new GameObject(50.0f, 260.0f, 100.0f, 100.0f, villainAvatar, this);
+        villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+    }
+
 }
