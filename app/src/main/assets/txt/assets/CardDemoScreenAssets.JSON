@@ -77,8 +77,8 @@
     },
     {
       "type": "Bitmap",
-      "name": "tempBack",
-      "file": "img/tempBack.jpg"
+      "name": "battleBackground",
+      "file": "img/battleBackground.png"
     },
     {
       "type": "Music",

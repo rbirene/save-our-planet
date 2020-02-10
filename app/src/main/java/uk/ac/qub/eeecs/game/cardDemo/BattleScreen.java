@@ -58,7 +58,7 @@ public class BattleScreen extends GameScreen {
         loadScreenAssets();
 
         board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
-                1700.0f, 1000.0f, game.getAssetManager().getBitmap("tempBack"), this);
+                2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
 
         pause = new PushButton(465.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
