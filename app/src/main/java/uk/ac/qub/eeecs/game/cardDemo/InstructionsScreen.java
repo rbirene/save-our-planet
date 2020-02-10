@@ -47,7 +47,7 @@ public class InstructionsScreen extends GameScreen {
             BackButton.update(elapsedTime);
 
             if (BackButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+                mGame.getScreenManager().removeScreen(this);
         }
     }
 
