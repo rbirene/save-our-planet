@@ -130,7 +130,7 @@ public class OptionsScreen extends GameScreen {
             volumeDown.update(elapsedTime);
 
             if (BackButton.isPushTriggered()) {
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+                mGame.getScreenManager().removeScreen(this);
                 mGame.getAudioManager().setMusicVolume(volume);
             }
             if (muteToggle.isPushTriggered()) {

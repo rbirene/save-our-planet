@@ -205,6 +205,16 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
+
+        //if information button is pushed then load the instructions screen [Niamh McCartney]
+        if (infoButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+
+        //if settings button is pushed then load the settings screen [Niamh McCartney]
+        if (settingsButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
+
+
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
 
@@ -234,14 +244,6 @@ public class ChooseCardScreen extends GameScreen {
                 //if back button is pushed then return to the MenuScreen
                 if (BackButton.isPushTriggered())
                     mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-
-                //if information button is pushed then load the instructions screen [Niamh McCartney]
-                if (infoButton.isPushTriggered())
-                    mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
-
-                //if settings button is pushed then load the settings screen [Niamh McCartney]
-                if (settingsButton.isPushTriggered())
-                    mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
 
                 if (touchEventType.equals("TOUCH_DOWN")) {
                     // Store touch point information.
