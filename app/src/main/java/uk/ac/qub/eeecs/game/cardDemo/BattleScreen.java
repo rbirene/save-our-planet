@@ -37,9 +37,12 @@ public class BattleScreen extends GameScreen {
 
     //set up hero [Irene Bhuiyan]
     private Hero hero = getGame().getHero();
+    //set up villain [Niamh McCartney]
+    private Villain villain = getGame().getVillain();
 
-    //Define Users Deck of Cards [Niamh McCartney]
+    //Define player decks [Niamh McCartney]
     private Deck heroDeck = hero.getPlayerDeck();
+    private Deck villainDeck = villain.getPlayerDeck();
 
     //Define the cards in the deck [Niamh McCartney]
     private Card Card01 = heroDeck.getCard01(this);
@@ -152,7 +155,8 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground");
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f);
+       // AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.03f, 0.2f);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
@@ -167,17 +171,17 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos){
 
         int counterX = 0;
         int cardNum = 0;
 
-        for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
-            Card card = heroDeck.getDeck(this).get(i);
+        for(int i = 0; i<aDeck.getDeck(this).size(); i++){
+            Card card = aDeck.getDeck(this).get(i);
             //Card X co-ordinate
-            float x = graphics2D.getSurfaceHeight() * 0.3f + counterX;
+            float x = graphics2D.getSurfaceHeight() * xPos + counterX;
             //Card Y co-ordinate
-            float y = graphics2D.getSurfaceHeight() * 0.04f;
+            float y = graphics2D.getSurfaceHeight() * yPos;
             //Set Card Background
             card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height

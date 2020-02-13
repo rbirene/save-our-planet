@@ -22,6 +22,16 @@
     },
     {
       "type": "Bitmap",
+      "name": "Buy items with excess\nplastic packaging",
+      "file": "img/CardPortraits/VillainCards/pileOfPossessions.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Buy stuff you don't need",
+      "file": "img/CardPortraits/VillainCards/plasticPackaging.jpg"
+    },
+    {
+      "type": "Bitmap",
       "name": "Cycle to School",
       "file": "img/CardPortraits/CyclistPortrait.png"
     },

@@ -135,6 +135,22 @@
       "healthValue": 59,
       "scaleValuex": "0.22",
       "scaleValuey": "0.22"
+    },
+    {
+      "name": "Buy items with excess\nplastic packaging",
+      "type": "villainCard",
+      "attackValue": 40,
+      "healthValue": 69,
+      "scaleValuex": "0.22",
+      "scaleValuey": "0.22"
+    },
+    {
+      "name": "Buy stuff you don't need",
+      "type": "villainCard",
+      "attackValue": 30,
+      "healthValue": 52,
+      "scaleValuex": "0.22",
+      "scaleValuey": "0.22"
     }
   ]
 }

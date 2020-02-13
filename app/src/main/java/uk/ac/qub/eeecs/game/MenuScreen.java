@@ -113,12 +113,12 @@ public class MenuScreen extends GameScreen {
             createHeroDeck();
         }
 
-//        //creates villain deck if deck is not already created [Niamh McCartney]
-//        if(villainDeck == null ) {
-//            assetManager.loadAssets("txt/assets/CardAssets.JSON");
-//            //Create villain Deck
-//            createVillainDeck();
-//        }
+        //creates villain deck if deck is not already created [Niamh McCartney]
+        if(villainDeck == null ) {
+            assetManager.loadAssets("txt/assets/CardAssets.JSON");
+            //Create villain Deck
+            createVillainDeck();
+        }
 
 
         playGame = new PushButton(
