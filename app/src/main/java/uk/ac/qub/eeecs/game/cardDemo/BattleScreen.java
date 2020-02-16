@@ -155,8 +155,10 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f, 60, 120, 50);
-        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.23f, 48, 84, 45);
+        //AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f, 60, 120, 50);
+        //AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.23f, 60, 84, 45);
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.215f, 0.036f);
+        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.235f);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
@@ -171,7 +173,7 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos, int width, int height, int spacing){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos){
 
         int counterX = 0;
         int cardNum = 0;
@@ -185,8 +187,8 @@ public class BattleScreen extends GameScreen {
             //Set Card Background
             card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
-            card.setWidth(width);
-            card.setHeight(height);
+            card.setWidth(54);
+            card.setHeight(72);
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
@@ -202,7 +204,7 @@ public class BattleScreen extends GameScreen {
 //            if (cardNum == 3) {
 //                Card03 = value;
 //            }
-            counterX += spacing;
+            counterX += 50;
         }
     }
 

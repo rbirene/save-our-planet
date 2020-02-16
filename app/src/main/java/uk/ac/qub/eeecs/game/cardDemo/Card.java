@@ -152,32 +152,34 @@ public class Card extends Sprite {
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
         if(attackLength == 1){
+            mAttackOffset = new Vector2(0.59f, -0.18f);
             drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
         }else if(attackLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
-            mAttackOffset = new Vector2(0.45f, -0.18f);
+            mAttackOffset = new Vector2(0.54f, -0.18f);
             drawBitmap(mCardDigits[firstDigit], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
-            mAttackOffset = new Vector2(0.55f, -0.18f);
+            mAttackOffset = new Vector2(0.64f, -0.18f);
             drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
         }
 
         // Draw the health value[Niamh McCartney]
         if(healthLength == 1){
+            mHealthOffset = new Vector2(-0.64f, -0.18f);
         drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
         }else if(healthLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
-            mHealthOffset = new Vector2(-0.5f, -0.18f);
+            mHealthOffset = new Vector2(-0.59f, -0.18f);
             drawBitmap(mCardDigits[firstDigit], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
-            mHealthOffset = new Vector2(-0.4f, -0.18f);
+            mHealthOffset = new Vector2(-0.49f, -0.18f);
             drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
         }
