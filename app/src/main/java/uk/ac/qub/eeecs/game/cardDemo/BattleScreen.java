@@ -155,8 +155,8 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f);
-       // AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.03f, 0.2f);
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f, 60, 120, 50);
+        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.23f, 48, 84, 45);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
@@ -171,7 +171,7 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos, int width, int height, int spacing){
 
         int counterX = 0;
         int cardNum = 0;
@@ -185,8 +185,8 @@ public class BattleScreen extends GameScreen {
             //Set Card Background
             card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
-            card.setWidth(60);
-            card.setHeight(120);
+            card.setWidth(width);
+            card.setHeight(height);
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
@@ -202,7 +202,7 @@ public class BattleScreen extends GameScreen {
 //            if (cardNum == 3) {
 //                Card03 = value;
 //            }
-            counterX += 50;
+            counterX += spacing;
         }
     }
 
