@@ -13,13 +13,6 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
-<<<<<<< app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
-import uk.ac.qub.eeecs.gage.util.BoundingBox;
-import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
-import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.gage.util.ViewportHelper;
-=======
->>>>>>> app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -39,10 +32,6 @@ public class BattleScreen extends GameScreen {
     private LayerViewport LayerViewport;
     private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
     private Paint paint;
-<<<<<<< app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
-=======
-    private int turnnumber;
->>>>>>> app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
 
     private AssetManager assetManager = mGame.getAssetManager();
 
