@@ -36,6 +36,8 @@ public class ChooseCardScreen extends GameScreen {
     //Define Player and Player's Deck
     private Hero hero = getGame().getHero();
     private Deck heroDeck = hero.getPlayerDeck();
+//    private Villain hero = getGame().getVillain();
+//    private Deck heroDeck = hero.getPlayerDeck();
 
     //Define Cards to be displayed on Screen
     private Card Card01;
@@ -124,7 +126,7 @@ public class ChooseCardScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         continueButton = new PushButton(
-                450.0f, 42.0f, 100.0f, 100.0f,
+                450.0f, 42.0f, 50.0f, 50.0f,
                 "continueBtn", "continueBtn", this);
         continueButton.setPlaySounds(true, true);
     }
@@ -142,7 +144,7 @@ public class ChooseCardScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         shuffleButton = new PushButton(
-                235.0f, 42.0f, 100.0f, 100.0f,
+                235.0f, 42.0f, 55.0f, 55.0f,
                 "shuffleBtn", "shuffleBtn", this);
         shuffleButton.setPlaySounds(true, true);
     }
@@ -357,6 +359,7 @@ public class ChooseCardScreen extends GameScreen {
             //Card x co-ordinate
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
+            //value.setCardBase(mGame.getAssetManager().getBitmap("VillainCardBackground"));
             //set Card width
             value.setWidth(144);
             //set Card Height

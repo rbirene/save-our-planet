@@ -40,8 +40,11 @@ public class Card extends Sprite {
     // Define the card portrait image
     private Bitmap cardPortrait;
 
-    //Define the Card attack Value
-   // private Bitmap mAttackValue;
+    //Define Bitmap to contain attack Value
+    private Bitmap mAttackContainer;
+
+    //Define Bitmap to contain health Value
+    private Bitmap mHealthContainer;
 
     // Define the card digit images
     private Bitmap[] mCardDigits = new Bitmap[10];
@@ -50,14 +53,22 @@ public class Card extends Sprite {
     // card attack and card health values - all measured relative
     // to the centre of the object as a percentage of object size
 
-    private Vector2 mAttackOffset = new Vector2(0.49f, -0.18f);
+    private float mAttackOffsetXPos;
+    private float mAttackOffsetYPos;
+    private Vector2 mAttackOffset = new Vector2(mAttackOffsetXPos, mAttackOffsetYPos);
     private Vector2 mAttackScale = new Vector2(0.04f, 0.04f);
 
-    private Vector2 mHealthOffset = new Vector2(-0.47f, -0.18f);
+    private Vector2 mHealthOffset;
     private Vector2 mHealthScale = new Vector2(0.04f, 0.04f);
 
-    private Vector2 mPortraitOffset = new Vector2(0.0f, 0.2f);
+    private Vector2 mPortraitOffset;
     private Vector2 mPortraitScale;
+
+    private Vector2 mAttackContainerOffset;
+    private Vector2 mAttackContainerScale;
+
+    private Vector2 mHealthContainerOffset;
+    private Vector2 mHealthContainerScale;
 
     // Define the health and attack values
     private int attack;
@@ -66,6 +77,8 @@ public class Card extends Sprite {
     //Defines number of digits in the attack and health values
     private int attackLength;
     private int healthLength;
+
+    private float textXpos;
 
     //Define the Card Name and Type
     private String name;
@@ -93,7 +106,7 @@ public class Card extends Sprite {
      * @param y          Centre x location of the platform
      * @param gameScreen Gamescreen to which this platform belongs
      */
-    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth) {
+    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
 
         name = mName;
@@ -102,6 +115,7 @@ public class Card extends Sprite {
         attack = mAttack;
         health = mHealth;
         mPortraitScale = scaleValue;
+        mPortraitOffset = new Vector2(0.0f, portraitYPos);
 
         //calculate the number of digits in the cards attack and health values
         attackLength = String.valueOf(attack).length();
@@ -136,13 +150,36 @@ public class Card extends Sprite {
         drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                 graphics2D, layerViewport, screenViewport);
 
+        // Draw the Attack Container[Niamh McCartney]
+//        float attackYCoordinate = mBound.halfHeight*-0.0005f;
+//        float attackXCoordinate = mBound.halfWidth*0.007f;
+//        mAttackContainerOffset = new Vector2(attackXCoordinate,attackYCoordinate);
+        //float attackYScale = mBound.halfHeight*0.0018f;
+        //float attackXScale = mBound.halfWidth*0.0018f;
+        //mAttackContainerScale = new Vector2(attackXScale,attackYScale);
+//        mAttackContainerOffset = new Vector2(0.6f, -0.1f);
+        drawBitmap(mAttackContainer, mAttackContainerOffset, mAttackContainerScale,
+                graphics2D, layerViewport, screenViewport);
+
+        // Draw the Health Container[Niamh McCartney]
+//        float healthYCoordinate = mBound.halfHeight*-0.0005f;
+//        float healthXCoordinate = mBound.halfWidth*-0.009f;
+//        mHealthContainerOffset = new Vector2(healthXCoordinate, healthYCoordinate);
+//        float healthYScale = mBound.halfHeight*0.0018f;
+//        float healthXScale = mBound.halfWidth*0.0018f;
+//        mAttackContainerScale = new Vector2(healthXScale, healthYScale);
+        //mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
+        mHealthContainerScale = new Vector2(0.15f, 0.15f);
+        drawBitmap(mHealthContainer, mHealthContainerOffset, mHealthContainerScale,
+                graphics2D, layerViewport, screenViewport);
+
         //sets paint properties for card text
         setupTextPaint();
 
         //Draw the Card text[Niamh McCartney]
         String text = name;
         float textXCoordinate = getWidth() * 0.0f;
-        float textYCoordinate = getHeight() * 0.1f;
+        float textYCoordinate = getHeight() * textXpos;
         for (String line: text.split("\n")) {
             Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
             drawText(line, offset, getHeight() * 0.7f,
@@ -152,34 +189,40 @@ public class Card extends Sprite {
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
         if(attackLength == 1){
-            mAttackOffset = new Vector2(0.59f, -0.18f);
+            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.59f, -0.1f);}
+            else{mAttackOffset = new Vector2(0.64f, -0.18f);}
             drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
         }else if(attackLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
-            mAttackOffset = new Vector2(0.54f, -0.18f);
+            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.54f, -0.1f);}
+            else{mAttackOffset = new Vector2(0.59f, -0.18f);}
             drawBitmap(mCardDigits[firstDigit], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
-            mAttackOffset = new Vector2(0.64f, -0.18f);
+            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.64f, -0.1f);}
+            else{mAttackOffset = new Vector2(0.69f, -0.18f);}
             drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
         }
 
         // Draw the health value[Niamh McCartney]
         if(healthLength == 1){
-            mHealthOffset = new Vector2(-0.64f, -0.18f);
+            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.7f, -0.11f);}
+            else{mHealthOffset = new Vector2(-0.70f, -0.18f);}
         drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
         }else if(healthLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
-            mHealthOffset = new Vector2(-0.59f, -0.18f);
+            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.75f, -0.1f);}
+            else{mHealthOffset = new Vector2(-0.75f, -0.18f);}
             drawBitmap(mCardDigits[firstDigit], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
-            mHealthOffset = new Vector2(-0.49f, -0.18f);
+            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.65f, -0.1f);}
+            else{mHealthOffset = new Vector2(-0.65f, -0.18f);}
             drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
         }
@@ -315,6 +358,21 @@ public class Card extends Sprite {
             // Store each of the damage/health digits
             for (int digit = 0; digit <= 9; digit++)
                 mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+
+            if(cardType.equals("villainCard")){
+                mAttackContainer = assetManager.getBitmap("VillainAttackContainer");
+                mAttackContainerScale = new Vector2(0.18f, 0.18f);
+                mAttackContainerOffset = new Vector2(0.6f, -0.05f);
+                mHealthContainerOffset = new Vector2(-0.7f, -0.1f);
+                textXpos = 0.1f;
+            }else{
+                mAttackContainer = assetManager.getBitmap("HeroAttackContainer");
+                mAttackContainerScale = new Vector2(0.25f, 0.25f);
+                mAttackContainerOffset = new Vector2(0.6f, -0.15f);
+                mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
+                textXpos = 0.15f;
+            }
+            mHealthContainer = assetManager.getBitmap("HealthContainer");
         }
     }
 

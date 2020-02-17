@@ -36,6 +36,9 @@ public class CardStore {
     private String scaleValuey;
     private Vector2 scaleValue;
 
+    //Define the card portraits Y-position
+    private float portraitYPos;
+
     //Define the Card's Type [Niamh McCartney]
     private String cardType;
 
@@ -101,7 +104,8 @@ public class CardStore {
                 scaleValuex = assets.getJSONObject(idx).getString("scaleValuex");
                 scaleValuey = assets.getJSONObject(idx).getString("scaleValuey");
                 scaleValue = new Vector2(Float.parseFloat(scaleValuex), Float.parseFloat(scaleValuey));
-                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue);
+                portraitYPos = Float.parseFloat(assets.getJSONObject(idx).getString("portraitYPos"));
+                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
                 if(!cardPool.containsKey(name)){
                     cardPool.put(name, cardName);
                 }
