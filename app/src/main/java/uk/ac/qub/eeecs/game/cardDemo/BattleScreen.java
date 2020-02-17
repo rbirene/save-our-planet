@@ -22,22 +22,22 @@ import uk.ac.qub.eeecs.game.MenuScreen;
 
 public class BattleScreen extends GameScreen {
 
-
-    private ArrayList<Card> cards = new ArrayList<>();
-    private PushButton pause;
-    private PushButton resume;
-    private PushButton exit;
-    private boolean paused = false;
+    //Viewports{Niamh McCartney}
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
+
+    private boolean paused = false;
+
     private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
+
     private Paint paint;
+
+    private GameBoard board;
 
     private AssetManager assetManager = mGame.getAssetManager();
 
     //set up hero [Irene Bhuiyan]
     private Hero hero = getGame().getHero();
-    private GameBoard board;
 
     //set up villain [Niamh McCartney]
     private Villain villain = getGame().getVillain();
@@ -52,18 +52,23 @@ public class BattleScreen extends GameScreen {
     private Card Card02 = heroDeck.getCard02(this);
     private Card Card03 = heroDeck.getCard03(this);
 
+    //Buttons[Niamh McCartney]
     private PushButton infoButton;
     private PushButton settingsButton;
+    private PushButton pause;
+    private PushButton resume;
+    private PushButton exit;
     private PushButton endTurnButton;
 
-    private int gameHeight,gameWidth;
+    //Define up game height and width
+    private int gameHeight = getGame().getScreenHeight();
+    private int gameWidth = getGame().getScreenWidth();
+
     public BattleScreen(Game game) {
         super("Battle", game);
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
-
-        gameHeight = game.getScreenHeight();
 
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
@@ -96,8 +101,8 @@ public class BattleScreen extends GameScreen {
         int spacing = 0;
         for(int i=0;i<cards.size();i++){
             //Set the start X and Y co-ordinates for each of the cards
-            cards.get(i).setStartPosX(getGame().getScreenWidth()*xPosScale + spacing);
-            cards.get(i).setStartPosY(getGame().getScreenHeight()*yPosScale);
+            cards.get(i).setStartPosX(gameWidth*xPosScale + spacing);
+            cards.get(i).setStartPosY(gameHeight*yPosScale);
 
             float xPos = cards.get(i).getStartPosX();
             float yPos = cards.get(i).getStartPosY();
