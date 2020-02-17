@@ -123,9 +123,6 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void AddContinueButton() {
 
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
         continueButton = new PushButton(
                 450.0f, 42.0f, 50.0f, 50.0f,
                 "continueBtn", "continueBtn", this);
@@ -141,9 +138,6 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void AddShuffleButton() {
 
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
         shuffleButton = new PushButton(
                 235.0f, 42.0f, 55.0f, 55.0f,
                 "shuffleBtn", "shuffleBtn", this);
@@ -156,12 +150,6 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void addInfoButton() {
-
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
-        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
 
         infoButton = new PushButton(430.0f, 300.0f,
                 28.0f, 28.0f,
@@ -176,9 +164,6 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void addSettingsButton() {
-
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
 
         settingsButton = new PushButton(
                 465.0f, 300.0f, 30.0f, 30.0f,

@@ -63,40 +63,48 @@ public class BattleScreen extends GameScreen {
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
-         gameHeight = game.getScreenHeight();
+        gameHeight = game.getScreenHeight();
 
+        //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
+
         board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,assetManager.getBitmap("battleBackground"),this);
                 
         //board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2, 2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
-
-        pause = new PushButton(465.0f, 300.0f,
-                30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
         paint = new Paint();
         paint.setTextSize(90.0f);
         paint.setARGB(255, 0, 0, 0);
 
-        cards.add(Card01);
-        cards.add(Card02);
-        cards.add(Card03);
-
         hero.setGameScreen(this);
         hero.setGameBoard(board);
-        moveCardsToStartPosition(cards);
+
+        //set start positions of hero and villain Decks[Niamh McCartney]
+        moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f);
+        moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f);
 
         setupPause();
 
-        //Add Buttons
+        //Add Buttons[Niamh McCartney]
         addInfoButton();
         addSettingsButton();
+        addPauseButton();
     }
 
-    public void moveCardsToStartPosition(ArrayList<Card> cards){
+    public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale){
+        //defines the spacing between the cards
+        int spacing = 0;
         for(int i=0;i<cards.size();i++){
-           cards.get(i).setPosition(365.0f + (i*45.0f),50.0f);
-           cards.get(i).setStartPosX(365.0f+(i*45.0f));
-           cards.get(i).setStartPosY(50.0f);
+            //Set the start X and Y co-ordinates for each of the cards
+            cards.get(i).setStartPosX(getGame().getScreenWidth()*xPosScale + spacing);
+            cards.get(i).setStartPosY(getGame().getScreenHeight()*yPosScale);
+
+            float xPos = cards.get(i).getStartPosX();
+            float yPos = cards.get(i).getStartPosY();
+
+            //set the position of the card on rhe screen
+            cards.get(i).setPosition(xPos, yPos);
+            spacing += 50;
         }
     }
 
@@ -112,7 +120,7 @@ public class BattleScreen extends GameScreen {
         board.update(elapsedTime);
 
 
-        for (Card c:cards) {
+        for (Card c:heroDeck.getDeck(this)) {
             c.update(elapsedTime);
         }
 
@@ -190,10 +198,8 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        //AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f, 60, 120, 50);
-        //AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.23f, 60, 84, 45);
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.215f, 0.036f);
-        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.235f);
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck);
+        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
@@ -208,17 +214,10 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos){
-
-        int counterX = 0;
-        int cardNum = 0;
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck){
 
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
-            //Card X co-ordinate
-            float x = graphics2D.getSurfaceHeight() * xPos + counterX;
-            //Card Y co-ordinate
-            float y = graphics2D.getSurfaceHeight() * yPos;
             //Set Card Background
             card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
@@ -227,19 +226,6 @@ public class BattleScreen extends GameScreen {
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
-            //Set Card position on Screen
-           // card.setPosition(x, y);
-            cardNum++;
-//            if (cardNum == 1) {
-//                Card01 = value;
-//            }
-//            if (cardNum == 2) {
-//                Card02 = value;
-//            }
-//            if (cardNum == 3) {
-//                Card03 = value;
-//            }
-            counterX += 50;
         }
     }
 
@@ -251,12 +237,6 @@ public class BattleScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void addInfoButton() {
-
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
-        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
 
         infoButton = new PushButton(395.0f, 300.0f,
                 28.0f, 28.0f,
@@ -272,13 +252,21 @@ public class BattleScreen extends GameScreen {
      */
     private void addSettingsButton() {
 
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
         settingsButton = new PushButton(
                 430.0f, 300.0f, 30.0f, 30.0f,
                 "settingsBtn", "settingsBtnSelected", this);
         settingsButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a pause Button to the screen
+     * that brings up a pause screen
+     *
+     */
+    private void addPauseButton() {
+
+        pause = new PushButton(465.0f, 300.0f,
+                30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
     }
 
     /**
