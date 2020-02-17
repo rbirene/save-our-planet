@@ -20,6 +20,8 @@ public abstract class Player extends Sprite {
     // define the player
     protected String playerName;
     protected Deck playerDeck;
+    protected boolean hasAttacked;
+    protected boolean hasPlayedCard;
 
     protected GameScreen gameScreen;
 
@@ -57,5 +59,16 @@ public abstract class Player extends Sprite {
 
     // setter to set player deck
     public void setPlayerDeck(Deck playerDeck) { this.playerDeck = playerDeck; }
+
+
+
+
+
+
+
+
+
+
+
 
 }

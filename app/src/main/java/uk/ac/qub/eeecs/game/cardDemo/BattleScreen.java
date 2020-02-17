@@ -32,6 +32,7 @@ public class BattleScreen extends GameScreen {
     private LayerViewport LayerViewport;
     private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
     private Paint paint;
+    private int turnnumber;
 
     private AssetManager assetManager = mGame.getAssetManager();
 
@@ -275,5 +276,15 @@ public class BattleScreen extends GameScreen {
         villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
     }
+
+    /**public int getTurnNumber(int turnnumber) {
+        return turnnumber;
+    }
+
+    public void setTurnNumber(int turnNumber)
+    {
+        this.turnnumber = turnnumber;
+    }
+     **/
 
 }
