@@ -15,6 +15,9 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
+import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
+import uk.ac.qub.eeecs.gage.util.Vector2;
+import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -24,7 +27,7 @@ import uk.ac.qub.eeecs.game.MenuScreen;
 
 public class BattleScreen extends GameScreen {
 
-    private GameBoard board;
+
     private ArrayList<Card> cards = new ArrayList<>();
     private PushButton pause;
     private PushButton resume;
@@ -35,14 +38,15 @@ public class BattleScreen extends GameScreen {
     private GameObject pauseMenu;
     private Paint paint;
 
-
     private AssetManager assetManager = mGame.getAssetManager();
 
     //set up hero [Irene Bhuiyan]
     private Hero hero = getGame().getHero();
+    private GameBoard board;
 
     //Define Users Deck of Cards [Niamh McCartney]
     private Deck heroDeck = hero.getPlayerDeck();
+
 
     //Define the cards in the deck [Niamh McCartney]
     private Card Card01 = heroDeck.getCard01(this);
@@ -51,17 +55,23 @@ public class BattleScreen extends GameScreen {
 
     private PushButton infoButton;
     private PushButton settingsButton;
+    private PushButton endTurnButton;
 
+    private int gameHeight,gameWidth;
     public BattleScreen(Game game) {
         super("Battle", game);
 
         ScreenViewport = mDefaultScreenViewport;
         LayerViewport = mDefaultLayerViewport;
 
-        loadScreenAssets();
+         gameHeight = game.getScreenHeight();
 
-        board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
-                1700.0f, 1000.0f, game.getAssetManager().getBitmap("tempBack"), this);
+        loadScreenAssets();
+        board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,
+                assetManager.getBitmap("optionsBackground2"),this);
+
+        endTurnButton = new PushButton(470.0f, 300.0f,
+                30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
         pause = new PushButton(470.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
@@ -70,11 +80,27 @@ public class BattleScreen extends GameScreen {
         paint.setTextSize(90.0f);
         paint.setARGB(255, 0, 0, 0);
 
+        cards.add(Card01);
+        cards.add(Card02);
+        cards.add(Card03);
+
+        hero.setGameScreen(this);
+        hero.setGameBoard(board);
+        moveCardsToStartPosition(cards);
+
         setupPause();
 
         //Add Buttons
         addInfoButton();
         addSettingsButton();
+    }
+
+    public void moveCardsToStartPosition(ArrayList<Card> cards){
+        for(int i=0;i<cards.size();i++){
+           cards.get(i).setPosition(365.0f + (i*45.0f),50.0f);
+           cards.get(i).setStartPosX(365.0f+(i*45.0f));
+           cards.get(i).setStartPosY(50.0f);
+        }
     }
 
     @Override
@@ -86,6 +112,17 @@ public class BattleScreen extends GameScreen {
         pause.update(elapsedTime);
         infoButton.update(elapsedTime);
         settingsButton.update(elapsedTime);
+        board.update(elapsedTime);
+
+
+        for (Card c:cards) {
+            c.update(elapsedTime);
+        }
+
+        if(touchEvents.size() > 0){
+            hero.ProcessTouchInput(touchEvents);
+        }
+
 
         //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
@@ -144,7 +181,8 @@ public class BattleScreen extends GameScreen {
 
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        board.draw(elapsedTime, graphics2D);
+
+        board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
@@ -156,7 +194,6 @@ public class BattleScreen extends GameScreen {
         }
         //Add Player Decks to Screen [Niamh McCartney]
         AddPlayerDecks(elapsedTime, graphics2D);
-
 
     }
 
@@ -188,7 +225,7 @@ public class BattleScreen extends GameScreen {
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
             //Set Card position on Screen
-            card.setPosition(x, y);
+           // card.setPosition(x, y);
             cardNum++;
 //            if (cardNum == 1) {
 //                Card01 = value;
@@ -250,4 +287,6 @@ public class BattleScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
+
+
 }

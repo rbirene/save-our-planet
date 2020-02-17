@@ -117,9 +117,11 @@ public class SplashScreen extends GameScreen {
             timer++;
         }
 
-public void playMusic(){
-        audioManager.playMusic(assetManager.getMusic("gameMusic"));
-}
+
+
+    public void playMusic(){ audioManager.playMusic(assetManager.getMusic("gameMusic")); }
+
+
         @Override
         public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
             graphics2D.clear(Color.WHITE);

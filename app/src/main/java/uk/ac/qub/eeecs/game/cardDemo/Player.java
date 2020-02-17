@@ -1,6 +1,8 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
+
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
@@ -23,8 +25,8 @@ public abstract class Player extends Sprite {
     protected float x;
     protected float y;
 
-    protected static GameScreen gameScreen;
-
+    protected GameScreen gameScreen;
+    protected GameBoard gameBoard;
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -43,11 +45,19 @@ public abstract class Player extends Sprite {
         this.playerName = playerName;
         this.playerDeck = playerDeck;
 
+
+
     }
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+
+    public GameBoard getGameBoard(){return gameBoard; }
+
+    public void setGameBoard(GameBoard gameBoard){this.gameBoard = gameBoard;}
+
 
     // getter to return the player name
     public String getPlayerName(){ return playerName; }
@@ -59,7 +69,8 @@ public abstract class Player extends Sprite {
     public Bitmap getPlayerAvatar(){ return playerAvatar; }
 
     // setter to set the GameScreen the player has been called in
-    public static void setGameScreen(GameScreen gameScreenValue){ gameScreen = gameScreenValue; }
+    public  void setGameScreen(GameScreen gameScreenValue){
+        this.gameScreen = gameScreenValue; }
 
     // setter to set player deck
     public void setPlayerDeck(Deck playerDeck) { this.playerDeck = playerDeck; }

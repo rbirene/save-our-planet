@@ -156,6 +156,7 @@ public class GameObject {
         mBound.x = position.x = x;
         mBound.y = position.y = y;
     }
+  
 
     /**
      * Return the width of this game object
