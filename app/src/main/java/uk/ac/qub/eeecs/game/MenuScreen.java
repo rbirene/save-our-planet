@@ -201,7 +201,7 @@ public class MenuScreen extends GameScreen {
             else if(mOptionsIcon.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
             else if(exit.isPushTriggered())
-                mGame.getScreenManager().removeAllScreens();
+                System.exit(1);
         }
     }
 

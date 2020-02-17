@@ -94,6 +94,8 @@ public class Card extends Sprite {
     //Boolean to determine whether the card has been selected
     private Boolean selected = false;
 
+    private float startPosX;
+    private float startPosY;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -347,7 +349,9 @@ public class Card extends Sprite {
     public Boolean cardSelected(){
         return selected;
     }
-
+    public void setSelected(boolean selected){
+        this.selected = selected;
+    }
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(String cardBackgroundName){
         if(gameScreen != null) {
@@ -376,6 +380,12 @@ public class Card extends Sprite {
             mHealthContainer = assetManager.getBitmap("HealthContainer");
         }
     }
+    @Override
+    public void update(ElapsedTime elapsedTime){
+
+        super.update(elapsedTime);
+
+    }
 
 
     // /////////////////////////////////////////////////////////////////////////
@@ -392,10 +402,17 @@ public class Card extends Sprite {
         return name;
     }
 
+    public float getStartPosX(){return startPosX;}
+
+    public float getStartPosY(){return startPosY;}
 
     // /////////////////////////////////////////////////////////////////////////
     // Setters
     // /////////////////////////////////////////////////////////////////////////
+
+    public void setStartPosX(float xValue){startPosX = xValue;}
+
+    public void setStartPosY(float yValue){startPosY = yValue;}
 
     //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
     public static void setGameScreen(GameScreen gameScreenValue){
@@ -419,4 +436,12 @@ public class Card extends Sprite {
     public void setCardBase(Bitmap cardBase){
         mCardBase = cardBase;
     }
+
+    float getxPos() {
+        return x;
+    }
+    float getYPos() {
+        return y;
+    }
+
 }

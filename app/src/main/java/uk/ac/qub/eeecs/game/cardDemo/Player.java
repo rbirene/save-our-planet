@@ -1,5 +1,8 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
+import android.graphics.Bitmap;
+
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
@@ -24,7 +27,7 @@ public abstract class Player extends Sprite {
     protected boolean hasPlayedCard;
 
     protected GameScreen gameScreen;
-
+    protected GameBoard gameBoard;
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -42,11 +45,19 @@ public abstract class Player extends Sprite {
         this.playerName = playerName;
         this.playerDeck = playerDeck;
 
+
+
     }
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+
+    public GameBoard getGameBoard(){return gameBoard; }
+
+    public void setGameBoard(GameBoard gameBoard){this.gameBoard = gameBoard;}
+
 
     // getter to return the player name
     public String getPlayerName(){ return playerName; }
