@@ -97,14 +97,17 @@ public class CardStore {
 
             // Load in each asset
             for (int idx = 0; idx < assets.length(); idx++){
+                //get values from JSON file
                 name = assets.getJSONObject(idx).getString("name");
                 cardType = assets.getJSONObject(idx).getString("type");
-                attackValue = assets.getJSONObject(idx).getInt("attackValue");
-                healthValue = assets.getJSONObject(idx).getInt("healthValue");
                 scaleValuex = assets.getJSONObject(idx).getString("scaleValuex");
                 scaleValuey = assets.getJSONObject(idx).getString("scaleValuey");
                 scaleValue = new Vector2(Float.parseFloat(scaleValuex), Float.parseFloat(scaleValuey));
                 portraitYPos = Float.parseFloat(assets.getJSONObject(idx).getString("portraitYPos"));
+                //randomise health and attack values
+                attackValue = getRandNum(1, 99);
+                healthValue = getRandNum(10,99);
+                //create card
                 Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
                 if(!cardPool.containsKey(name)){
                     cardPool.put(name, cardName);
@@ -222,5 +225,21 @@ public class CardStore {
             num++;
         }
         return null;
+    }
+
+    /**
+     * Return a random number between two given values
+     *
+     * @param min minimum number value can be
+     * @param max maximum number value can be
+     *
+     *  Created By Niamh McCartney
+     */
+    public int getRandNum(int min, int max){
+
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 }

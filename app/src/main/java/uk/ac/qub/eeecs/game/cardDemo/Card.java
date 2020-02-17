@@ -339,6 +339,7 @@ public class Card extends Sprite {
         }else if(mCardBase == assetManager.getBitmap("HeroCardBackgroundSelected")){
             mCardBase = assetManager.getBitmap("HeroCardBackground");
             selected = false;
+
         }
     }
 
@@ -364,7 +365,7 @@ public class Card extends Sprite {
                 mAttackContainerScale = new Vector2(0.18f, 0.18f);
                 mAttackContainerOffset = new Vector2(0.6f, -0.05f);
                 mHealthContainerOffset = new Vector2(-0.7f, -0.1f);
-                textXpos = 0.1f;
+                textXpos = 0.08f;
             }else{
                 mAttackContainer = assetManager.getBitmap("HeroAttackContainer");
                 mAttackContainerScale = new Vector2(0.25f, 0.25f);

@@ -7,42 +7,42 @@
       "healthValue": 41,
       "scaleValuex": "0.3",
       "scaleValuey": "0.3",
-      "portraitYPos": "0.2"
+      "portraitYPos": "0.25"
     },
     {
       "name": "Recycle",
       "type": "heroCard",
       "attackValue": 35,
       "healthValue": 65,
-      "scaleValuex": "0.25",
-      "scaleValuey": "0.25",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.26",
+      "scaleValuey": "0.26",
+      "portraitYPos": "0.23"
     },
     {
       "name": "Sign a Petition",
       "type": "heroCard",
       "attackValue": 9,
       "healthValue": 19,
-      "scaleValuex": "0.23",
-      "scaleValuey": "0.23",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.25",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.25"
     },
     {
       "name": "Join a Campaign",
       "type": "heroCard",
       "attackValue": 13,
       "healthValue": 36,
-      "scaleValuex": "0.25",
-      "scaleValuey": "0.25",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.28",
+      "scaleValuey": "0.28",
+      "portraitYPos": "0.24"
     },
     {
       "name": "Turn Off the Lights!",
       "type": "heroCard",
       "attackValue": 25,
       "healthValue": 48,
-      "scaleValuex": "0.35",
-      "scaleValuey": "0.35",
+      "scaleValuex": "0.4",
+      "scaleValuey": "0.4",
       "portraitYPos": "0.2"
     },
     {
@@ -50,18 +50,18 @@
       "type": "heroCard",
       "attackValue": 37,
       "healthValue": 80,
-      "scaleValuex": "0.3",
-      "scaleValuey": "0.3",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.33",
+      "scaleValuey": "0.33",
+      "portraitYPos": "0.27"
     },
     {
       "name": "Talk About the\nEnvironment",
       "type": "heroCard",
       "attackValue": 17,
       "healthValue": 29,
-      "scaleValuex": "0.3",
-      "scaleValuey": "0.3",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.33",
+      "scaleValuey": "0.33",
+      "portraitYPos": "0.28"
     },
     {
       "name": "Donate Unwanted\nClothes And Toys",
@@ -86,63 +86,63 @@
       "type": "heroCard",
       "attackValue": 30,
       "healthValue": 72,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.25",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.26"
     },
     {
       "name": "Pick Up Litter",
       "type": "heroCard",
       "attackValue": 12,
       "healthValue": 55,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.25",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.22"
     },
     {
       "name": "Put On a Jumper\nInstead of the Heat",
       "type": "heroCard",
       "attackValue": 26,
       "healthValue": 49,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.24",
+      "scaleValuey": "0.24",
+      "portraitYPos": "0.23"
     },
     {
       "name": "Drink Tap Water\ninstead of Bottled\nWater",
       "type": "heroCard",
       "attackValue": 16,
       "healthValue": 35,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.25",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.22"
     },
     {
       "name": "Turn Off the Tap\nWhen Brushing Your\nTeeth",
       "type": "heroCard",
       "attackValue": 18,
       "healthValue": 32,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.28",
+      "scaleValuey": "0.28",
+      "portraitYPos": "0.22"
     },
     {
       "name": "Start A Climate\nChange Club At\nSchool",
       "type": "heroCard",
       "attackValue": 54,
       "healthValue": 77,
-      "scaleValuex": "0.25",
-      "scaleValuey": "0.25",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.3",
+      "scaleValuey": "0.3",
+      "portraitYPos": "0.25"
     },
     {
       "name": "Unplug the TV When\nYou're Not Using it",
       "type": "heroCard",
       "attackValue": 14,
       "healthValue": 59,
-      "scaleValuex": "0.22",
-      "scaleValuey": "0.22",
-      "portraitYPos": "0.2"
+      "scaleValuex": "0.25",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.25"
     },
     {
       "name": "Use the car.Even on\nshort journeys",

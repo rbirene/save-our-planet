@@ -359,7 +359,6 @@ public class ChooseCardScreen extends GameScreen {
             //Card x co-ordinate
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
-            //value.setCardBase(mGame.getAssetManager().getBitmap("VillainCardBackground"));
             //set Card width
             value.setWidth(144);
             //set Card Height
