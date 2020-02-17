@@ -29,7 +29,7 @@ public class CardUnitTest {
         // card instance
         cardType =  "cardType";
         cardName = "cardName";
-        aCard = new Card(5, 8, aScreen, cardName, cardType , null, null, 5, 9);
+        aCard = new Card(5, 8, aScreen, cardName, cardType , null, null, 5, 9, 0.3f);
     }
 
     @Test

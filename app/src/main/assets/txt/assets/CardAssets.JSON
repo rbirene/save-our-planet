@@ -2,13 +2,58 @@
   "assets": [
     {
       "type": "Bitmap",
-      "name": "CardBackground",
+      "name": "HeroCardBackground",
       "file": "img/CardPortraits/CardBackground.png"
     },
     {
       "type": "Bitmap",
-      "name": "CardBackgroundSelected",
+      "name": "VillainCardBackground",
+      "file": "img/CardPortraits/VillainCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HeroCardBackgroundSelected",
       "file": "img/CardPortraits/CardBackgroundSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HeroAttackContainer",
+      "file": "img/CardPortraits/HeroAttackContainer.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "VillainAttackContainer",
+      "file": "img/CardPortraits/VillainAttackContainer.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HealthContainer",
+      "file": "img/CardPortraits/HealthContainer.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Use the car.Even on\nshort journeys",
+      "file": "img/CardPortraits/VillainCards/CarPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Buy items with excess\nplastic packaging",
+      "file": "img/CardPortraits/VillainCards/plasticPackaging.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Litter",
+      "file": "img/CardPortraits/VillainCards/litterPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Buy stuff you don't need",
+      "file": "img/CardPortraits/VillainCards/pileOfPossessions.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Turn on the heat\neverytime you feel cold",
+      "file": "img/CardPortraits/VillainCards/turnOnHeatPortrait.jpg"
     },
     {
       "type": "Bitmap",

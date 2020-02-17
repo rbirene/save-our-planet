@@ -12,8 +12,10 @@ import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /**
+ *
  * Created by [Irene Bhuiyan]
  * This class represents a hero in the game (using traits and behaviours from Player).
+ *
  */
 
 public class Hero extends Player {
@@ -26,12 +28,13 @@ public class Hero extends Player {
     private Card cardSelected;
 
     /**
+     *
      * Create a new Hero.
      *
-     * @param gameScreen Gamescreen to which this player belongs
      */
-    public Hero(GameScreen gameScreen) {
-        super("Freta Funberg", null, gameScreen);
+
+    public Hero(){
+        super("Freta Funberg", null);
 
 
     }

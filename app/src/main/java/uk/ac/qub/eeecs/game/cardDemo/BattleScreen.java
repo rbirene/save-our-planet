@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
@@ -14,10 +13,13 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+<<<<<<< app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
+=======
+>>>>>>> app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
@@ -35,8 +37,12 @@ public class BattleScreen extends GameScreen {
     private boolean paused = false;
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
-    private GameObject pauseMenu;
+    private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
     private Paint paint;
+<<<<<<< app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
+=======
+    private int turnnumber;
+>>>>>>> app/src/main/java/uk/ac/qub/eeecs/game/cardDemo/BattleScreen.java
 
     private AssetManager assetManager = mGame.getAssetManager();
 
@@ -44,8 +50,12 @@ public class BattleScreen extends GameScreen {
     private Hero hero = getGame().getHero();
     private GameBoard board;
 
-    //Define Users Deck of Cards [Niamh McCartney]
+    //set up villain [Niamh McCartney]
+    private Villain villain = getGame().getVillain();
+
+    //Define player decks [Niamh McCartney]
     private Deck heroDeck = hero.getPlayerDeck();
+    private Deck villainDeck = villain.getPlayerDeck();
 
 
     //Define the cards in the deck [Niamh McCartney]
@@ -68,12 +78,12 @@ public class BattleScreen extends GameScreen {
 
         loadScreenAssets();
         board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,
-                assetManager.getBitmap("optionsBackground2"),this);
+                assetManager.getBitmap("battleBackground"),this);
+                
+        //board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
+          //      2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
 
-        endTurnButton = new PushButton(470.0f, 300.0f,
-                30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
-
-        pause = new PushButton(470.0f, 300.0f,
+        pause = new PushButton(465.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
 
         paint = new Paint();
@@ -193,7 +203,13 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D);
+        //AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.3f, 0.04f, 60, 120, 50);
+        //AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.23f, 60, 84, 45);
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck, 0.215f, 0.036f);
+        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck, 0.11f, 0.235f);
+
+        // display players [Irene Bhuiyan]
+        displayPlayers(elapsedTime, graphics2D);
 
     }
 
@@ -205,22 +221,22 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck, float xPos, float yPos){
 
         int counterX = 0;
         int cardNum = 0;
 
-        for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
-            Card card = heroDeck.getDeck(this).get(i);
+        for(int i = 0; i<aDeck.getDeck(this).size(); i++){
+            Card card = aDeck.getDeck(this).get(i);
             //Card X co-ordinate
-            float x = graphics2D.getSurfaceHeight() * 0.3f + counterX;
+            float x = graphics2D.getSurfaceHeight() * xPos + counterX;
             //Card Y co-ordinate
-            float y = graphics2D.getSurfaceHeight() * 0.04f;
+            float y = graphics2D.getSurfaceHeight() * yPos;
             //Set Card Background
-            card.setCardBase(assetManager.getBitmap("CardBackground"));
+            card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
-            card.setWidth(60);
-            card.setHeight(120);
+            card.setWidth(54);
+            card.setHeight(72);
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
@@ -255,7 +271,7 @@ public class BattleScreen extends GameScreen {
         mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
 
-        infoButton = new PushButton(15.0f, 20.0f,
+        infoButton = new PushButton(395.0f, 300.0f,
                 28.0f, 28.0f,
                 "infoBtn", "infoBtnSelected", this);
         infoButton.setPlaySounds(true, true);
@@ -273,7 +289,7 @@ public class BattleScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         settingsButton = new PushButton(
-                50.0f, 20.0f, 30.0f, 30.0f,
+                430.0f, 300.0f, 30.0f, 30.0f,
                 "settingsBtn", "settingsBtnSelected", this);
         settingsButton.setPlaySounds(true, true);
     }
@@ -287,6 +303,35 @@ public class BattleScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
+    
+    /**
+     *
+     * Created by [Irene Bhuiyan]
+     * Displays hero and villain on screen.
+     *
+     */
+    private void displayPlayers(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
+        //display hero
+        Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
+        heroAvatarImg = new GameObject(50.0f, 60.0f, 100.0f, 100.0f, heroAvatar, this);
+        heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+        //display villain
+        Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
+        villainAvatarImg = new GameObject(50.0f, 260.0f, 100.0f, 100.0f, villainAvatar, this);
+        villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+    }
+
+    /**public int getTurnNumber(int turnnumber) {
+        return turnnumber;
+    }
+
+    public void setTurnNumber(int turnNumber)
+    {
+        this.turnnumber = turnnumber;
+    }
+     **/
 
 }

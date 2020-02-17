@@ -37,7 +37,11 @@ public class OptionsScreen extends GameScreen {
     private PushButton muteToggle;
     private PushButton volumeUp;
     private PushButton volumeDown;
-
+    /**
+    private PushButton changeDifficulty;
+    DifficultyLevels diff;
+    private int Defaultdifficulty = 2;
+     **/
     private Paint paint;
 
     private AudioManager audioManager = mGame.getAudioManager();
@@ -63,7 +67,11 @@ public class OptionsScreen extends GameScreen {
         mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
         mGame.getAssetManager().loadAndAddBitmap("muteOn", "img/muteOn.png");
         mGame.getAssetManager().loadAndAddBitmap("muteOff", "img/muteOff.png");
-
+        /**
+        mGame.getAssetManager().loadAndAddBitmap("diffEasy", "img/DiffEasy.png");
+        mGame.getAssetManager().loadAndAddBitmap("diffNormal", "img/DiffNormal.png");
+        mGame.getAssetManager().loadAndAddBitmap("diffHard", "img/DiffHard.png");
+        **/
         OptionsBackground = new GameObject(1000.0f, 1000.0f, 2000.0f, 2000.0f,
                 this.getGame().getAssetManager().getBitmap("optionsBackground2"), this);
 
@@ -110,6 +118,18 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
+    /**
+    public void diffChecker() {
+        if(Defaultdifficulty ==1) {
+            changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffEasy"));
+        }else if(Defaultdifficulty == 2) {
+            changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffNormal"));
+        }else if(Defaultdifficulty == 3) {
+            changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffHard"));
+        }
+    }
+     **/
+
     //For testing
     public void updateVolumeBar(ElapsedTime elapsedTime){
         volumeBar.update(elapsedTime);
@@ -130,9 +150,26 @@ public class OptionsScreen extends GameScreen {
             volumeDown.update(elapsedTime);
 
             if (BackButton.isPushTriggered()) {
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+                mGame.getScreenManager().removeScreen(this);
                 mGame.getAudioManager().setMusicVolume(volume);
             }
+            /**
+            if (changeDifficulty.isPushTriggered()) {
+                if (Defaultdifficulty == 2) {
+                    Defaultdifficulty++;
+
+                }
+                if (Defaultdifficulty == 3) {
+                    Defaultdifficulty -= 2;
+
+                }
+                if (Defaultdifficulty == 1) {
+                    Defaultdifficulty++;
+                }
+                diff.setDifficultyvalue(Defaultdifficulty);
+
+            }
+             **/
             if (muteToggle.isPushTriggered()) {
                 muteButton();
             }

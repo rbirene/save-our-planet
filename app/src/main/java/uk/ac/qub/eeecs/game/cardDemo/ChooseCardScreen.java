@@ -36,6 +36,8 @@ public class ChooseCardScreen extends GameScreen {
     //Define Player and Player's Deck
     private Hero hero = getGame().getHero();
     private Deck heroDeck = hero.getPlayerDeck();
+//    private Villain hero = getGame().getVillain();
+//    private Deck heroDeck = hero.getPlayerDeck();
 
 
     //Define Cards to be displayed on Screen
@@ -50,6 +52,8 @@ public class ChooseCardScreen extends GameScreen {
     private PushButton BackButton;
     private PushButton continueButton;
     private PushButton shuffleButton;
+    private PushButton infoButton;
+    private PushButton settingsButton;
 
     /**
      * Define storage of touch points. Up to 5 simultaneous touch
@@ -83,6 +87,8 @@ public class ChooseCardScreen extends GameScreen {
         AddBackButton();
         AddContinueButton();
         AddShuffleButton();
+        addInfoButton();
+        addSettingsButton();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -121,7 +127,7 @@ public class ChooseCardScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         continueButton = new PushButton(
-                450.0f, 42.0f, 100.0f, 100.0f,
+                450.0f, 42.0f, 50.0f, 50.0f,
                 "continueBtn", "continueBtn", this);
         continueButton.setPlaySounds(true, true);
     }
@@ -139,10 +145,47 @@ public class ChooseCardScreen extends GameScreen {
         LayerViewport = mDefaultLayerViewport;
 
         shuffleButton = new PushButton(
-                235.0f, 42.0f, 100.0f, 100.0f,
+                235.0f, 42.0f, 55.0f, 55.0f,
                 "shuffleBtn", "shuffleBtn", this);
         shuffleButton.setPlaySounds(true, true);
     }
+    /**
+     * Add a info Button to the screen that
+     * takes you to the instructions screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addInfoButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        infoButton = new PushButton(430.0f, 300.0f,
+                28.0f, 28.0f,
+                "infoBtn", "infoBtnSelected", this);
+        infoButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a settings Button to the screen
+     * that takes you to the settings Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addSettingsButton() {
+
+        ScreenViewport = mDefaultScreenViewport;
+        LayerViewport = mDefaultLayerViewport;
+
+        settingsButton = new PushButton(
+                465.0f, 300.0f, 30.0f, 30.0f,
+                "settingsBtn", "settingsBtnSelected", this);
+        settingsButton.setPlaySounds(true, true);
+    }
+
 
     /**
      * Load Assets used by screen
@@ -153,6 +196,7 @@ public class ChooseCardScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         mGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
+        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 
     /**
@@ -164,6 +208,16 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
+
+        //if information button is pushed then load the instructions screen [Niamh McCartney]
+        if (infoButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+
+        //if settings button is pushed then load the settings screen [Niamh McCartney]
+        if (settingsButton.isPushTriggered())
+            mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
+
+
         // Process any touch events occurring since the last update
         Input input = mGame.getInput();
 
@@ -183,6 +237,8 @@ public class ChooseCardScreen extends GameScreen {
                 BackButton.update(elapsedTime);
                 continueButton.update(elapsedTime);
                 shuffleButton.update(elapsedTime);
+                infoButton.update(elapsedTime);
+                settingsButton.update(elapsedTime);
 
                 //if continue button is pushed then load the battle screen
                 if (continueButton.isPushTriggered())
@@ -204,15 +260,15 @@ public class ChooseCardScreen extends GameScreen {
                     //If a card is touched change the background of the touched card
                     for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 110 && mTouchLocation[pointerIdx][0] < 540) {
-                            Card01.changeCardBackground();
+                            Card01.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 710 && mTouchLocation[pointerIdx][0] < 1140) {
-                            Card02.changeCardBackground();
+                            Card02.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                         if (mTouchLocation[pointerIdx][1] > 300 && mTouchLocation[pointerIdx][1] < 900 && mTouchLocation[pointerIdx][0] > 1310 && mTouchLocation[pointerIdx][0] < 1740) {
-                            Card03.changeCardBackground();
+                            Card03.changeHeroCardBackground();
                             audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                         }
                     }
@@ -235,6 +291,8 @@ public class ChooseCardScreen extends GameScreen {
         BackButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         continueButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         shuffleButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         /*If shuffle button is pushed and deck has been shuffled then
          * display dialog informing user.  If deck has not been shuffled
@@ -303,9 +361,9 @@ public class ChooseCardScreen extends GameScreen {
             float x = spacing + 2 * x1 * counterX++;
             Card value = heroDeck.getDeck(this).get(i);
             //set Card width
-            value.setWidth(180);
+            value.setWidth(144);
             //set Card Height
-            value.setHeight(240);
+            value.setHeight(192);
             //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);

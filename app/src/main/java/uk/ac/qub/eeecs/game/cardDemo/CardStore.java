@@ -36,6 +36,9 @@ public class CardStore {
     private String scaleValuey;
     private Vector2 scaleValue;
 
+    //Define the card portraits Y-position
+    private float portraitYPos;
+
     //Define the Card's Type [Niamh McCartney]
     private String cardType;
 
@@ -94,14 +97,18 @@ public class CardStore {
 
             // Load in each asset
             for (int idx = 0; idx < assets.length(); idx++){
+                //get values from JSON file
                 name = assets.getJSONObject(idx).getString("name");
                 cardType = assets.getJSONObject(idx).getString("type");
-                attackValue = assets.getJSONObject(idx).getInt("attackValue");
-                healthValue = assets.getJSONObject(idx).getInt("healthValue");
                 scaleValuex = assets.getJSONObject(idx).getString("scaleValuex");
                 scaleValuey = assets.getJSONObject(idx).getString("scaleValuey");
                 scaleValue = new Vector2(Float.parseFloat(scaleValuex), Float.parseFloat(scaleValuey));
-                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue);
+                portraitYPos = Float.parseFloat(assets.getJSONObject(idx).getString("portraitYPos"));
+                //randomise health and attack values
+                attackValue = getRandNum(1, 99);
+                healthValue = getRandNum(10,99);
+                //create card
+                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
                 if(!cardPool.containsKey(name)){
                     cardPool.put(name, cardName);
                 }
@@ -125,7 +132,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key);
+            setGameScreenVariables(value, gameScreen, key, "HeroCardBackground");
             if(value.getCardType().equals("heroCard")){
                 heroCardPool.put(key, value);
             }
@@ -145,7 +152,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key);
+            setGameScreenVariables(value, gameScreen, key, "VillainCardBackground");
             if(value.getCardType().equals("villainCard")){
                 villainCardPool.put(key, value);
             }
@@ -160,14 +167,15 @@ public class CardStore {
      * @param card card instance
      * @param gameScreen game Screen the cards have been called by
      * @param key  of the chosen HashMap
+     * @param cardBackgroundName name of the cardBackground image from the JSON file
      *
      *  Created By Niamh McCartney
      */
-    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key){
+    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key, String cardBackgroundName){
         Card.setGameScreen(gameScreen);
         card.setLayerViewPortWidth(gameScreen.getDefaultLayerViewport().x);
         card.setLayerViewPortHeight(gameScreen.getDefaultLayerViewport().y);
-        card.createCardImages();
+        card.createCardImages(cardBackgroundName);
         getCardBitmap(gameScreen, key, card);
         return card;
     }
@@ -217,5 +225,21 @@ public class CardStore {
             num++;
         }
         return null;
+    }
+
+    /**
+     * Return a random number between two given values
+     *
+     * @param min minimum number value can be
+     * @param max maximum number value can be
+     *
+     *  Created By Niamh McCartney
+     */
+    public int getRandNum(int min, int max){
+
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 }
