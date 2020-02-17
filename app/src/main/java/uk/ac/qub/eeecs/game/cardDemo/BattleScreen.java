@@ -66,11 +66,9 @@ public class BattleScreen extends GameScreen {
          gameHeight = game.getScreenHeight();
 
         loadScreenAssets();
-        board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,
-                assetManager.getBitmap("battleBackground"),this);
+        board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,assetManager.getBitmap("battleBackground"),this);
                 
-        //board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2,
-          //      2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
+        //board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2, 2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
 
         pause = new PushButton(465.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
@@ -292,7 +290,7 @@ public class BattleScreen extends GameScreen {
         // Load the various images used by the cards
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
-    
+
     /**
      *
      * Created by [Irene Bhuiyan]
@@ -303,12 +301,12 @@ public class BattleScreen extends GameScreen {
 
         //display hero
         Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
-        heroAvatarImg = new GameObject(50.0f, 60.0f, 100.0f, 100.0f, heroAvatar, this);
+        heroAvatarImg = new GameObject(430.0f, 50.0f, 100.0f, 100.0f, heroAvatar, this);
         heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         //display villain
         Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
-        villainAvatarImg = new GameObject(50.0f, 260.0f, 100.0f, 100.0f, villainAvatar, this);
+        villainAvatarImg = new GameObject(50.0f, 270.0f, 100.0f, 100.0f, villainAvatar, this);
         villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
     }
