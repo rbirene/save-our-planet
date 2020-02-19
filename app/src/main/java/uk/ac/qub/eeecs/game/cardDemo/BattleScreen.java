@@ -61,21 +61,22 @@ public class BattleScreen extends GameScreen {
     private PushButton endTurnButton;
 
     //Define up game height and width
-    private int gameHeight = getGame().getScreenHeight();
-    private int gameWidth = getGame().getScreenWidth();
+    private int gameHeight;
+    private int gameWidth;
 
     public BattleScreen(Game game) {
         super("Battle", game);
 
-        ScreenViewport = mDefaultScreenViewport;
+        gameHeight = mGame.getScreenHeight();
+        gameWidth = mGame.getScreenWidth();
+
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
         LayerViewport = mDefaultLayerViewport;
 
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
-        board = new GameBoard(250.0f, 100.0f, 400.0f, 400.0f,assetManager.getBitmap("battleBackground"),this);
-                
-        //board = new GameBoard(game.getScreenWidth() / 2, game.getScreenHeight() / 2, 2000.0f, 1300.0f, game.getAssetManager().getBitmap("battleBackground"), this);
+        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
 
         paint = new Paint();
         paint.setTextSize(90.0f);
