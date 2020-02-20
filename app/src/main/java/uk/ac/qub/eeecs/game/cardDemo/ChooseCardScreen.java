@@ -346,7 +346,6 @@ public class ChooseCardScreen extends GameScreen {
             value.setWidth(144);
             //set Card Height
             value.setHeight(192);
-            value.setCardBase(getGame().getAssetManager().getBitmap("VillainCardBackground"));
             //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
