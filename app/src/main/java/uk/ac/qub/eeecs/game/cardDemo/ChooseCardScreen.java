@@ -36,9 +36,6 @@ public class ChooseCardScreen extends GameScreen {
     //Define Player and Player's Deck
     private Hero hero = getGame().getHero();
     private Deck heroDeck = hero.getPlayerDeck();
-//    private Villain hero = getGame().getVillain();
-//    private Deck heroDeck = hero.getPlayerDeck();
-
 
     //Define Cards to be displayed on Screen
     private Card Card01;
@@ -304,8 +301,8 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     public void displayDialogs(String text){
-            QuestionPopUpDialog popUp = new QuestionPopUpDialog();
-            popUp.showDialog(getGame().getActivity(), text, "true");
+            InfoPopUpDialog popUp = new InfoPopUpDialog();
+            popUp.showDialog(getGame().getActivity(), text);
     }
 
     /**
@@ -349,6 +346,7 @@ public class ChooseCardScreen extends GameScreen {
             value.setWidth(144);
             //set Card Height
             value.setHeight(192);
+            value.setCardBase(getGame().getAssetManager().getBitmap("VillainCardBackground"));
             //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);

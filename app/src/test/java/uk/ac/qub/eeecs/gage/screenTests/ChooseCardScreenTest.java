@@ -1,3 +1,8 @@
+
+/**
+ * Created by Niamh McCartney
+ */
+
 package uk.ac.qub.eeecs.gage.screenTests;
 
 import org.junit.Before;
@@ -15,12 +20,12 @@ import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Hero;
 
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChooseCardScreenTest {
-
-    //private Deck aDeck;
 
     @Mock
     Game aGame = Mockito.mock(Game.class);
@@ -31,20 +36,12 @@ public class ChooseCardScreenTest {
     @Mock
     Hero aHero = Mockito.mock(Hero.class);
 
-//    @Mock
-//    Card card01 = Mockito.mock(Card.class);
-//
-//    @Mock
-//    Card card02 = Mockito.mock(Card.class);
-//
-//    @Mock
-//    Card card03 = Mockito.mock(Card.class);
-      @Mock
-      private AssetManager assetManager = Mockito.mock(AssetManager.class);;
+    @Mock
+    private AssetManager assetManager = Mockito.mock(AssetManager.class);;
 
-    Card card01;
-    Card card02;
-    Card card03;
+    private Card card01;
+    private Card card02;
+    private Card card03;
 
     @Mock
     Deck aDeck = Mockito.mock(Deck.class);
@@ -54,16 +51,32 @@ public class ChooseCardScreenTest {
         when(chooseCardScreen.getGame()).thenReturn(aGame);
         when(aGame.getHero()).thenReturn(aHero);
         when(aGame.getAssetManager()).thenReturn(assetManager);
+
+        //Load assets to be used
         aGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
+
+        //set up Cards
         card01 = new Card(5, 8, chooseCardScreen, "cardName", "cardType" , null, null, 5, 9, 0.3f);
-        Card card02 = new Card(5, 8, chooseCardScreen, "cardName", "cardType" , null, null, 5, 9, 0.3f);
-        Card card03 = new Card(5, 8, chooseCardScreen, "cardName", "cardType" , null, null, 5, 9, 0.3f);
+        card02 = new Card(5, 8, chooseCardScreen, "cardName", "cardType" , null, null, 5, 9, 0.3f);
+        card03 = new Card(5, 8, chooseCardScreen, "cardName", "cardType" , null, null, 5, 9, 0.3f);
+
+        //add cards to Deck
         aDeck = new Deck(card01, card02, card03);
+        //assign to deck to Hero
         chooseCardScreen.getGame().getHero().setPlayerDeck(aDeck);
     }
 
     @Test
-    public void ChooseCardScreen_noCardSelected_ReturnFalse_Success(){
+    public void ChooseCardScreen_noCardSelected_ReturnTrue_Success(){
+        for(int i = 0; i<aDeck.getSize(); ){
+
+        }
+        assertTrue(chooseCardScreen.noCardsSelected());
+    }
+
+
+    @Test
+    public void ChooseCardScreen_CardSelected_ReturnFalse_Success(){
         aDeck.getCard01(chooseCardScreen).changeHeroCardBackground();
         assertFalse(chooseCardScreen.noCardsSelected());
     }

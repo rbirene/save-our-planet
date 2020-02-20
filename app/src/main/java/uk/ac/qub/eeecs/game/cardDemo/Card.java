@@ -17,12 +17,8 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
 /**
- * Card class that can be drawn using a number of overlapping images.
+ * Card class drawn using a number of overlapping images.
  *
- * Note: See the course documentation for extension/refactoring stories
- * for this class.
- *
- * @version 1.0
  */
 public class Card extends Sprite {
 
@@ -153,24 +149,10 @@ public class Card extends Sprite {
                 graphics2D, layerViewport, screenViewport);
 
         // Draw the Attack Container[Niamh McCartney]
-//        float attackYCoordinate = mBound.halfHeight*-0.0005f;
-//        float attackXCoordinate = mBound.halfWidth*0.007f;
-//        mAttackContainerOffset = new Vector2(attackXCoordinate,attackYCoordinate);
-        //float attackYScale = mBound.halfHeight*0.0018f;
-        //float attackXScale = mBound.halfWidth*0.0018f;
-        //mAttackContainerScale = new Vector2(attackXScale,attackYScale);
-//        mAttackContainerOffset = new Vector2(0.6f, -0.1f);
         drawBitmap(mAttackContainer, mAttackContainerOffset, mAttackContainerScale,
                 graphics2D, layerViewport, screenViewport);
 
         // Draw the Health Container[Niamh McCartney]
-//        float healthYCoordinate = mBound.halfHeight*-0.0005f;
-//        float healthXCoordinate = mBound.halfWidth*-0.009f;
-//        mHealthContainerOffset = new Vector2(healthXCoordinate, healthYCoordinate);
-//        float healthYScale = mBound.halfHeight*0.0018f;
-//        float healthXScale = mBound.halfWidth*0.0018f;
-//        mAttackContainerScale = new Vector2(healthXScale, healthYScale);
-        //mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
         mHealthContainerScale = new Vector2(0.15f, 0.15f);
         drawBitmap(mHealthContainer, mHealthContainerOffset, mHealthContainerScale,
                 graphics2D, layerViewport, screenViewport);
@@ -243,6 +225,8 @@ public class Card extends Sprite {
      * @param graphics2D     Graphics instance
      * @param layerViewport  Game layer viewport
      * @param screenViewport Screen viewport
+     *
+     *  Taken from CardDemo Gage Code
      */
     private void drawBitmap(Bitmap bitmap, Vector2 offset, Vector2 scale,
                             IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
@@ -349,9 +333,11 @@ public class Card extends Sprite {
     public Boolean cardSelected(){
         return selected;
     }
+
     public void setSelected(boolean selected){
         this.selected = selected;
     }
+
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(String cardBackgroundName){
         if(gameScreen != null) {
@@ -380,13 +366,12 @@ public class Card extends Sprite {
             mHealthContainer = assetManager.getBitmap("HealthContainer");
         }
     }
-    @Override
-    public void update(ElapsedTime elapsedTime){
-
-        super.update(elapsedTime);
-
-    }
-
+//    @Override
+//    public void update(ElapsedTime elapsedTime){
+//
+//        super.update(elapsedTime);
+//
+//    }
 
     // /////////////////////////////////////////////////////////////////////////
     // Getters
@@ -405,6 +390,14 @@ public class Card extends Sprite {
     public float getStartPosX(){return startPosX;}
 
     public float getStartPosY(){return startPosY;}
+
+    public float getxPos() {
+        return x;
+    }
+
+    public float getYPos() {
+        return y;
+    }
 
     // /////////////////////////////////////////////////////////////////////////
     // Setters
@@ -435,13 +428,6 @@ public class Card extends Sprite {
 
     public void setCardBase(Bitmap cardBase){
         mCardBase = cardBase;
-    }
-
-    float getxPos() {
-        return x;
-    }
-    float getYPos() {
-        return y;
     }
 
 }

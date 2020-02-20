@@ -51,11 +51,8 @@ public class CardStore {
     //Define the HashMap to contain the Cards [Niamh McCartney]
     private HashMap<String, Card> cardPool = new HashMap<>();
 
-    private PushButton BackButton;
-
     //CardStore Constructor [Niamh McCartney]
     public CardStore(Game game) {
-
         mGame = game;
         mFileIO = mGame.getFileIO();
         loadCardAssets("txt/assets/Card.JSON");
@@ -63,15 +60,16 @@ public class CardStore {
     }
 /**
  * * [Niamh McCartney]
-     * The JSON file assumes the following format:
+     * The JSON file is in the following format:
      *
      {
      "assets": [
      {
      "id": string,
      "name": string,
-     "attackValue": int,
-     "healthValue": int
+     "scaleValuex": float,
+     "scaleValuey": float,
+     "portraitYPos": float
      },
 
      ]
@@ -97,6 +95,7 @@ public class CardStore {
 
             // Load in each asset
             for (int idx = 0; idx < assets.length(); idx++){
+
                 //get values from JSON file
                 name = assets.getJSONObject(idx).getString("name");
                 cardType = assets.getJSONObject(idx).getString("type");
@@ -104,9 +103,11 @@ public class CardStore {
                 scaleValuey = assets.getJSONObject(idx).getString("scaleValuey");
                 scaleValue = new Vector2(Float.parseFloat(scaleValuex), Float.parseFloat(scaleValuey));
                 portraitYPos = Float.parseFloat(assets.getJSONObject(idx).getString("portraitYPos"));
+
                 //randomise health and attack values
                 attackValue = getRandNum(1, 99);
                 healthValue = getRandNum(10,99);
+
                 //create card
                 Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
                 if(!cardPool.containsKey(name)){
@@ -189,7 +190,6 @@ public class CardStore {
      *
      *  Created By Niamh McCartney
      */
-    //Get the Bitmap that has the same key as the inputted Card `card` [Niamh McCartney]
     private void getCardBitmap(GameScreen gameScreen, String key, Card card){
         try {
             AssetManager assetManager = gameScreen.getGame().getAssetManager();

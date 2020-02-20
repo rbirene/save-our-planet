@@ -32,6 +32,21 @@
     },
     {
       "type": "Bitmap",
+      "name": "Take baths instead of showers",
+      "file": "img/CardPortraits/VillainCards/bathPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Use plastic instead\n of reusable bottles",
+      "file": "img/CardPortraits/VillainCards/PlasticBottlesPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Leave lights on\nduring the day",
+      "file": "img/CardPortraits/VillainCards/lightsOnPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
       "name": "Use the car.Even on\nshort journeys",
       "file": "img/CardPortraits/VillainCards/CarPortrait.jpg"
     },
@@ -47,93 +62,133 @@
     },
     {
       "type": "Bitmap",
-      "name": "Buy stuff you don't need",
-      "file": "img/CardPortraits/VillainCards/pileOfPossessions.jpg"
+      "name": "Buy stuff you don't\nneed",
+      "file": "img/CardPortraits/VillainCards/shoppingBagsPortrait.png"
     },
     {
       "type": "Bitmap",
-      "name": "Turn on the heat\neverytime you feel cold",
+      "name": "Turn on the heat\nevery time you feel cold",
       "file": "img/CardPortraits/VillainCards/turnOnHeatPortrait.jpg"
     },
     {
       "type": "Bitmap",
+      "name": "Leave electronics on\n when you're not using them",
+      "file": "img/CardPortraits/VillainCards/computerOnPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Fill the kettle to\nthe top every\ntime you use it",
+      "file": "img/CardPortraits/VillainCards/kettlePortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Don't recycle. Throw\neverything in the waste bin",
+      "file": "img/CardPortraits/VillainCards/binPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Use your washing\nmachine when you only\nhave a few items of\nclothing to wash",
+      "file": "img/CardPortraits/VillainCards/washingMachinePortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Use toxic cleaning\nproducts to clean\nyour house",
+      "file": "img/CardPortraits/VillainCards/cleaningProductsPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Dispose of batteries\nincorrectly",
+      "file": "img/CardPortraits/VillainCards/batteryPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Ask for a receipt\nwhen you don't need\none",
+      "file": "img/CardPortraits/VillainCards/receiptPortrait.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Use a lift instead\nof the stairs",
+      "file": "img/CardPortraits/VillainCards/liftPortrait.jpg"
+    },
+    {
+      "type": "Bitmap",
       "name": "Cycle to School",
-      "file": "img/CardPortraits/CyclistPortrait.png"
+      "file": "img/CardPortraits/HeroCards/CyclistPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Recycle",
-      "file": "img/CardPortraits/RecyclePortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/RecyclePortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Sign a Petition",
-      "file": "img/CardPortraits/PetitionPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/PetitionPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Join a Campaign",
-      "file": "img/CardPortraits/CampaignerPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/CampaignerPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Turn Off the Lights!",
-      "file": "img/CardPortraits/TurnLightsOffPortrait.png"
+      "file": "img/CardPortraits/HeroCards/TurnLightsOffPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Plant A Tree",
-      "file": "img/CardPortraits/PlantATreePortrait.png"
+      "file": "img/CardPortraits/HeroCards/PlantATreePortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Talk About the\nEnvironment",
-      "file": "img/CardPortraits/TellYourFriendsPortrait.png"
+      "file": "img/CardPortraits/HeroCards/TellYourFriendsPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Donate Unwanted\nClothes And Toys",
-      "file": "img/CardPortraits/DonateClothesAndToysPortrait.png"
+      "file": "img/CardPortraits/HeroCards/DonateClothesAndToysPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Use Paper Instead\nOf Plastic Bags",
-      "file": "img/CardPortraits/PaperInsteadOfPlasticPortrait.png"
+      "file": "img/CardPortraits/HeroCards/PaperInsteadOfPlasticPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Educate Yourself",
-      "file": "img/CardPortraits/EducateYourselfPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/EducateYourselfPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Pick Up Litter",
-      "file": "img/CardPortraits/PickUpLitterPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/PickUpLitterPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Put On a Jumper\nInstead of the Heat",
-      "file": "img/CardPortraits/JumperPortrait.png"
+      "file": "img/CardPortraits/HeroCards/JumperPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Drink Tap Water\ninstead of Bottled\nWater",
-      "file": "img/CardPortraits/DrinkTapWaterPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/DrinkTapWaterPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Turn Off the Tap\nWhen Brushing Your\nTeeth",
-      "file": "img/CardPortraits/TurnOffTapWhenBrushingPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/TurnOffTapWhenBrushingPortrait.jpg"
     },
     {
       "type": "Bitmap",
       "name": "Start A Climate\nChange Club At\nSchool",
-      "file": "img/CardPortraits/StartAClubPortrait.png"
+      "file": "img/CardPortraits/HeroCards/StartAClubPortrait.png"
     },
     {
       "type": "Bitmap",
       "name": "Unplug the TV When\nYou're Not Using it",
-      "file": "img/CardPortraits/UnplugTVPortrait.jpg"
+      "file": "img/CardPortraits/HeroCards/UnplugTVPortrait.jpg"
     },
     {
       "type": "Bitmap",

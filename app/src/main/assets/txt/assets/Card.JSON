@@ -3,8 +3,6 @@
     {
       "name": "Cycle to School",
       "type": "heroCard",
-      "attackValue": 26,
-      "healthValue": 41,
       "scaleValuex": "0.3",
       "scaleValuey": "0.3",
       "portraitYPos": "0.25"
@@ -12,8 +10,6 @@
     {
       "name": "Recycle",
       "type": "heroCard",
-      "attackValue": 35,
-      "healthValue": 65,
       "scaleValuex": "0.26",
       "scaleValuey": "0.26",
       "portraitYPos": "0.23"
@@ -21,8 +17,6 @@
     {
       "name": "Sign a Petition",
       "type": "heroCard",
-      "attackValue": 9,
-      "healthValue": 19,
       "scaleValuex": "0.25",
       "scaleValuey": "0.25",
       "portraitYPos": "0.25"
@@ -30,8 +24,6 @@
     {
       "name": "Join a Campaign",
       "type": "heroCard",
-      "attackValue": 13,
-      "healthValue": 36,
       "scaleValuex": "0.28",
       "scaleValuey": "0.28",
       "portraitYPos": "0.24"
@@ -39,8 +31,6 @@
     {
       "name": "Turn Off the Lights!",
       "type": "heroCard",
-      "attackValue": 25,
-      "healthValue": 48,
       "scaleValuex": "0.4",
       "scaleValuey": "0.4",
       "portraitYPos": "0.2"
@@ -48,8 +38,6 @@
     {
       "name": "Plant A Tree",
       "type": "heroCard",
-      "attackValue": 37,
-      "healthValue": 80,
       "scaleValuex": "0.33",
       "scaleValuey": "0.33",
       "portraitYPos": "0.27"
@@ -57,8 +45,6 @@
     {
       "name": "Talk About the\nEnvironment",
       "type": "heroCard",
-      "attackValue": 17,
-      "healthValue": 29,
       "scaleValuex": "0.33",
       "scaleValuey": "0.33",
       "portraitYPos": "0.28"
@@ -66,8 +52,6 @@
     {
       "name": "Donate Unwanted\nClothes And Toys",
       "type": "heroCard",
-      "attackValue": 38,
-      "healthValue": 58,
       "scaleValuex": "0.3",
       "scaleValuey": "0.3",
       "portraitYPos": "0.2"
@@ -75,8 +59,6 @@
     {
       "name": "Use Paper Instead\nOf Plastic Bags",
       "type": "heroCard",
-      "attackValue": 14,
-      "healthValue": 19,
       "scaleValuex": "0.22",
       "scaleValuey": "0.22",
       "portraitYPos": "0.2"
@@ -84,8 +66,6 @@
     {
       "name": "Educate Yourself",
       "type": "heroCard",
-      "attackValue": 30,
-      "healthValue": 72,
       "scaleValuex": "0.25",
       "scaleValuey": "0.25",
       "portraitYPos": "0.26"
@@ -93,8 +73,6 @@
     {
       "name": "Pick Up Litter",
       "type": "heroCard",
-      "attackValue": 12,
-      "healthValue": 55,
       "scaleValuex": "0.25",
       "scaleValuey": "0.25",
       "portraitYPos": "0.22"
@@ -102,8 +80,6 @@
     {
       "name": "Put On a Jumper\nInstead of the Heat",
       "type": "heroCard",
-      "attackValue": 26,
-      "healthValue": 49,
       "scaleValuex": "0.24",
       "scaleValuey": "0.24",
       "portraitYPos": "0.23"
@@ -111,8 +87,6 @@
     {
       "name": "Drink Tap Water\ninstead of Bottled\nWater",
       "type": "heroCard",
-      "attackValue": 16,
-      "healthValue": 35,
       "scaleValuex": "0.25",
       "scaleValuey": "0.25",
       "portraitYPos": "0.22"
@@ -120,8 +94,6 @@
     {
       "name": "Turn Off the Tap\nWhen Brushing Your\nTeeth",
       "type": "heroCard",
-      "attackValue": 18,
-      "healthValue": 32,
       "scaleValuex": "0.28",
       "scaleValuey": "0.28",
       "portraitYPos": "0.22"
@@ -129,8 +101,6 @@
     {
       "name": "Start A Climate\nChange Club At\nSchool",
       "type": "heroCard",
-      "attackValue": 54,
-      "healthValue": 77,
       "scaleValuex": "0.3",
       "scaleValuey": "0.3",
       "portraitYPos": "0.25"
@@ -138,8 +108,6 @@
     {
       "name": "Unplug the TV When\nYou're Not Using it",
       "type": "heroCard",
-      "attackValue": 14,
-      "healthValue": 59,
       "scaleValuex": "0.25",
       "scaleValuey": "0.25",
       "portraitYPos": "0.25"
@@ -147,47 +115,114 @@
     {
       "name": "Use the car.Even on\nshort journeys",
       "type": "villainCard",
-      "attackValue": 14,
-      "healthValue": 59,
-      "scaleValuex": "0.3",
-      "scaleValuey": "0.3",
-      "portraitYPos": "0.35"
+      "scaleValuex": "0.26",
+      "scaleValuey": "0.26",
+      "portraitYPos": "0.28"
     },
     {
-      "name": "Buy stuff you don't need",
+      "name": "Buy stuff you don't\nneed",
       "type": "villainCard",
-      "attackValue": 40,
-      "healthValue": 69,
       "scaleValuex": "0.3",
-      "scaleValuey": "0.3",
-      "portraitYPos": "0.33"
+      "scaleValuey": "0.28",
+      "portraitYPos": "0.29"
     },
     {
       "name": "Buy items with excess\nplastic packaging",
       "type": "villainCard",
-      "attackValue": 30,
-      "healthValue": 52,
-      "scaleValuex": "0.26",
-      "scaleValuey": "0.26",
-      "portraitYPos": "0.3"
+      "scaleValuex": "0.24",
+      "scaleValuey": "0.24",
+      "portraitYPos": "0.28"
     },
     {
       "name": "Litter",
       "type": "villainCard",
-      "attackValue": 5,
-      "healthValue": 5,
+      "scaleValuex": "0.23",
+      "scaleValuey": "0.23",
+      "portraitYPos": "0.26"
+    },
+    {
+      "name": "Turn on the heat\nevery time you feel cold",
+      "type": "villainCard",
+      "scaleValuex": "0.27",
+      "scaleValuey": "0.27",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Leave lights on\nduring the day",
+      "type": "villainCard",
       "scaleValuex": "0.26",
       "scaleValuey": "0.26",
       "portraitYPos": "0.3"
     },
     {
-      "name": "Turn on the heat\neverytime you feel cold",
+      "name": "Take baths instead of showers",
       "type": "villainCard",
-      "attackValue": 5,
-      "healthValue": 2,
-      "scaleValuex": "0.34",
-      "scaleValuey": "0.33",
-      "portraitYPos": "0.32"
+      "scaleValuex": "0.28",
+      "scaleValuey": "0.28",
+      "portraitYPos": "0.3"
+    },
+    {
+      "name": "Use plastic instead\n of reusable bottles",
+      "type": "villainCard",
+      "scaleValuex": "0.23",
+      "scaleValuey": "0.23",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Leave electronics on\n when you're not using them",
+      "type": "villainCard",
+      "scaleValuex": "0.27",
+      "scaleValuey": "0.27",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Fill the kettle to\nthe top every\ntime you use it",
+      "type": "villainCard",
+      "scaleValuex": "0.27",
+      "scaleValuey": "0.27",
+      "portraitYPos": "0.3"
+    },
+    {
+      "name": "Don't recycle. Throw\neverything in the waste bin",
+      "type": "villainCard",
+      "scaleValuex": "0.29",
+      "scaleValuey": "0.26",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Use toxic cleaning\nproducts to clean\nyour house",
+      "type": "villainCard",
+      "scaleValuex": "0.26",
+      "scaleValuey": "0.26",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Use your washing\nmachine when you only\nhave a few items of\nclothing to wash",
+      "type": "villainCard",
+      "scaleValuex": "0.24",
+      "scaleValuey": "0.24",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Dispose of batteries\nincorrectly",
+      "type": "villainCard",
+      "scaleValuex": "0.26",
+      "scaleValuey": "0.32",
+      "portraitYPos": "0.25"
+    },
+    {
+      "name": "Ask for a receipt\nwhen you don't need\none",
+      "type": "villainCard",
+      "scaleValuex": "0.26",
+      "scaleValuey": "0.26",
+      "portraitYPos": "0.28"
+    },
+    {
+      "name": "Use a lift instead\nof the stairs",
+      "type": "villainCard",
+      "scaleValuex": "0.29",
+      "scaleValuey": "0.25",
+      "portraitYPos": "0.27"
     }
   ]
 }
