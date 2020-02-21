@@ -106,7 +106,7 @@ public class CardStore {
 
                 //randomise health and attack values
                 attackValue = getRandNum(1, 99);
-                healthValue = getRandNum(10,99);
+                healthValue = getRandNum(30,99);
 
                 //create card
                 Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
@@ -235,7 +235,7 @@ public class CardStore {
      *
      *  Created By Niamh McCartney
      */
-    public int getRandNum(int min, int max){
+    private int getRandNum(int min, int max){
 
         Random rand = new Random();
 

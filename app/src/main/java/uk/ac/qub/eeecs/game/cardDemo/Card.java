@@ -387,6 +387,14 @@ public class Card extends Sprite {
         return name;
     }
 
+    //Getter to return the attack value of the Card [Niamh McCartney]
+    public int getAttackValue(){ return attack; }
+
+    //Getter to return the health value of the Card [Niamh McCartney]
+    public int getHealthValue(){
+        return health;
+    }
+
     public float getStartPosX(){return startPosX;}
 
     public float getStartPosY(){return startPosY;}

@@ -37,7 +37,7 @@ public class DeckUnitTest {
     @Before
     public void SetUp() {
         aDeck = new Deck(Card01, Card02, Card03);
-        newDeck = new ArrayList<Card>();
+        newDeck = new ArrayList<>();
         newDeck.add(Card04);
         newDeck.add(Card05);
         newDeck.add(Card06);

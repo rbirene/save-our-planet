@@ -349,7 +349,7 @@ public class ChooseCardScreen extends GameScreen {
             //draw cards
             value.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
-            //set Card postion on screen
+            //set Card position on screen
             value.setPosition(x, y);
             if (counterX == 1) {
                 Card01 = value;

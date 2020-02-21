@@ -237,7 +237,7 @@ public class MenuScreen extends GameScreen {
      *
      *  Created By Niamh McCartney
      */
-    private void generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
+    private Deck generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
         screenCardPool = new HashMap<>();
         int num = 0;
         while(num<numOfCards) {
@@ -259,6 +259,9 @@ public class MenuScreen extends GameScreen {
             }
 
         }
+        //create deck with new Cards
+        deck = new Deck(Card01, Card02, Card03);
+        return deck;
     }
 
 
@@ -270,10 +273,8 @@ public class MenuScreen extends GameScreen {
     private void createHeroDeck(){
         // get all the cards of type hero
         heroCardPool = getGame().getCardStore().getAllHeroCards(this);
-        //generate three random cards
-        generateRandCards(3, heroCardPool);
-        //create a deck with generated cards
-        deck = new Deck(Card01, Card02, Card03);
+        //create a deck with 3 randomly generated cards
+        deck = generateRandCards(3, heroCardPool);
         //set this deck as the hero's deck
         hero.setPlayerDeck(deck);
     }
@@ -286,10 +287,8 @@ public class MenuScreen extends GameScreen {
     private void createVillainDeck(){
         // get all the cards of type hero
         villainCardPool = getGame().getCardStore().getAllVillainCards(this);
-        //generate three random cards
-        generateRandCards(3, villainCardPool);
-        //create a deck with generated cards
-        deck = new Deck(Card01, Card02, Card03);
+        //create a deck with 3 randomly generated cards
+        deck = generateRandCards(3, villainCardPool);
         //set this deck as the hero's deck
         villain.setPlayerDeck(deck);
     }
