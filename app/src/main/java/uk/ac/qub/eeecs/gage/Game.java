@@ -10,6 +10,7 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
+import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Villain;
 
@@ -139,6 +140,24 @@ public abstract class Game extends Fragment {
      */
     public CardStore getCardStore() {
         return mCardStore;
+    }
+
+    public DifficultyLevels mDifficultyLevel = DifficultyLevels.EASY;
+
+    /**
+     * Get the game's Difficulty
+     *
+     * @return mCardStore
+     *
+     * Created by Keith Tennyson
+     */
+    public DifficultyLevels getDifficultyLevel() {
+        return mDifficultyLevel;
+    }
+
+    public DifficultyLevels setDifficultyLevel(DifficultyLevels diff) {
+        this.mDifficultyLevel = diff;
+        return this.mDifficultyLevel;
     }
 
     /**
