@@ -21,7 +21,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Hero;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -68,9 +67,6 @@ public class ChooseCardScreenTest {
 
     @Test
     public void ChooseCardScreen_noCardSelected_ReturnTrue_Success(){
-        for(int i = 0; i<aDeck.getSize(); ){
-
-        }
         assertTrue(chooseCardScreen.noCardsSelected());
     }
 

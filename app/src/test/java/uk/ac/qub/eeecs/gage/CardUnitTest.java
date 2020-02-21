@@ -1,3 +1,8 @@
+
+/**
+ * Created by Niamh McCartney
+ */
+
 package uk.ac.qub.eeecs.gage;
 
 import org.junit.Before;
