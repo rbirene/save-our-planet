@@ -117,7 +117,7 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
-    public void diffChecker() {
+    public void diffChecker(DifficultyLevels diff ,PushButton changeDifficulty) {
         if(mGame.mDifficultyLevel == DifficultyLevels.EASY) {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffEasy"));
         }else if(mGame.mDifficultyLevel == DifficultyLevels.NORMAL) {
@@ -140,7 +140,7 @@ public class OptionsScreen extends GameScreen {
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        diffChecker();
+        diffChecker(mGame.mDifficultyLevel,changeDifficulty);
 
         if (touchEvents.size() > 0) {
             BackButton.update(elapsedTime);
@@ -170,7 +170,7 @@ public class OptionsScreen extends GameScreen {
                 mGame.getAudioManager().setMusicVolume(volume);
             }
             volChecker();
-            diffChecker();
+            diffChecker(mGame.mDifficultyLevel,changeDifficulty);
         }
     }
 
@@ -206,7 +206,7 @@ public class OptionsScreen extends GameScreen {
                 mGame.mDifficultyLevel = DifficultyLevels.HARD;
             }else mGame.mDifficultyLevel = DifficultyLevels.EASY;
 
-            diffChecker();
+            diffChecker(mGame.mDifficultyLevel,changeDifficulty);
         }
     }
 
