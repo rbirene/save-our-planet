@@ -13,13 +13,13 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Card;
-import uk.ac.qub.eeecs.game.cardDemo.ChooseCardScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Deck;
-import uk.ac.qub.eeecs.game.cardDemo.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.InstructionsScreen;
-import uk.ac.qub.eeecs.game.cardDemo.OptionsScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Villain;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.InstructionsScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 
 /**

@@ -1,8 +1,9 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 
 import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 public class Deck {
 

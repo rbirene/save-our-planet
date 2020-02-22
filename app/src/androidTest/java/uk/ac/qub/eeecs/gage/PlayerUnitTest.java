@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import uk.ac.qub.eeecs.game.cardDemo.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.Villain;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
 
 public class PlayerUnitTest {
 

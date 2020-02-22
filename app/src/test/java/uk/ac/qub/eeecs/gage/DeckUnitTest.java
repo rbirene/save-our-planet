@@ -15,8 +15,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

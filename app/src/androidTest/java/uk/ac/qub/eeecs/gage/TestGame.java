@@ -4,7 +4,7 @@ import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
-import uk.ac.qub.eeecs.game.cardDemo.CardStore;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.CardStore;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

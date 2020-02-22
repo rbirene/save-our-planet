@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.qub.eeecs.game.cardDemo.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

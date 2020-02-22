@@ -1,9 +1,10 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -17,6 +18,13 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.CoinFlipDialog;
+import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
 
 
 public class BattleScreen extends GameScreen {
@@ -45,6 +53,9 @@ public class BattleScreen extends GameScreen {
     private Deck heroDeck = hero.getPlayerDeck();
     private Deck villainDeck = villain.getPlayerDeck();
 
+    private Player firstPlayer;
+    private Player secondPlayer;
+
     //Buttons[Niamh McCartney]
     private PushButton infoButton;
     private PushButton settingsButton;
@@ -56,6 +67,9 @@ public class BattleScreen extends GameScreen {
     //Define up game height and width
     private int gameHeight;
     private int gameWidth;
+
+    //returns true if the player to take the first turn has been decided[Niamh McCartney]
+    private Boolean firstTurnDeciided;
 
     Boolean healthChanged = false;
 
@@ -90,6 +104,7 @@ public class BattleScreen extends GameScreen {
         addInfoButton();
         addSettingsButton();
         addPauseButton();
+        firstTurnDeciided = false;
     }
 
     public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale){
@@ -206,6 +221,52 @@ public class BattleScreen extends GameScreen {
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
 
+        //call method if first turn has not been decided yet
+        if(!firstTurnDeciided){
+            randomiseFirstTurn();
+        }
+
+    }
+
+    /**
+     * Creates a Pop-Up Dialog box which allows
+     * the player to flip a coin to determine
+     * who takes the first turn. The outcome
+     * is then displayed to the player
+     *
+     *  {Created By Niamh McCartney}
+     */
+    public void randomiseFirstTurn(){
+        //Add players to an arrayList
+        ArrayList<Player> players = new ArrayList(2);
+        players.add(hero);
+        players.add(villain);
+
+        // get a random number
+        Random rand = new Random();
+        int max = players.size()-1;
+        int min = 0;
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        //iterate through the arraylist
+        for(int i = min; i< players.size(); i++){
+            //if the players position in the arraylist is equal to the random number they will go first
+            if(i == randomNum){
+                firstPlayer = players.get(i);
+            }//if the players position in the arraylist is not equal to the random number they will go second
+            else{
+                secondPlayer = players.get(i);
+            }
+        }
+
+        //get the name of the player who will go first
+        String firstPlayerName = firstPlayer.getPlayerName();
+
+        // create a pop-up dialog box, passing in the players name so the outcome can be displayed to the user
+        CoinFlipDialog dialog = new CoinFlipDialog();
+        dialog.showDialog(getGame().getActivity(), firstPlayerName);
+
+        firstTurnDeciided = true;
     }
 
     /**
