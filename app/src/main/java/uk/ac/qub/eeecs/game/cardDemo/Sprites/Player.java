@@ -1,11 +1,9 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -16,6 +14,9 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
+import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 
 /**
  *
@@ -138,7 +139,7 @@ public abstract class Player extends Sprite {
         if(!assetsLoaded){
             assetsLoaded = true;
             loadAssets();
-            //The players original here as the loop will only be passed through once once
+            //The players original health is set here as the loop will only be passed through once once
             playerFullHealth = playerHealth;
         }
 
@@ -253,7 +254,7 @@ public abstract class Player extends Sprite {
         }
     }
 
-    //getter to return the players health
+    //getter to return the players health[Niamh McCartney]
     public int getPlayerHealth(){return playerHealth;}
 
     public GameBoard getGameBoard(){return gameBoard; }

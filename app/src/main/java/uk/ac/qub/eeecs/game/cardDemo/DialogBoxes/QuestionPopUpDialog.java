@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.CorrectAnswerDialog;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.IncorrectAnswerDialog;
 
 public class QuestionPopUpDialog {
 

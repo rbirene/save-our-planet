@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import uk.ac.qub.eeecs.game.cardDemo.BattleScreen;
-import uk.ac.qub.eeecs.game.cardDemo.ChooseCardScreen;
-import uk.ac.qub.eeecs.game.cardDemo.SplashScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.SplashScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
 /**

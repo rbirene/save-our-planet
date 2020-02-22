@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -18,6 +18,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 
 public class OptionsScreen extends GameScreen {
 

@@ -1,25 +1,15 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
-import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.TestGame;
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-import uk.ac.qub.eeecs.game.DemoGame;
 import uk.ac.qub.eeecs.game.MenuScreen;
-import uk.ac.qub.eeecs.game.cardDemo.SplashScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.SplashScreen;
 
 
 import static junit.framework.Assert.assertNotNull;

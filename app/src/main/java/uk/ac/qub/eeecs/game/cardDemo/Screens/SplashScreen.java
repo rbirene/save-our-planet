@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import java.util.List;
 import java.util.Timer;

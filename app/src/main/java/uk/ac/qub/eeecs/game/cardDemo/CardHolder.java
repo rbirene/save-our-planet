@@ -1,18 +1,8 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-import android.graphics.Bitmap;
-
-import java.util.ArrayList;
-
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
-import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.gage.world.Sprite;
-
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 
 public class CardHolder extends GameObject {

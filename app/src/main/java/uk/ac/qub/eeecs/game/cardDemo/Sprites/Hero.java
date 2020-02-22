@@ -1,16 +1,14 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 
 import android.graphics.Bitmap;
-import android.os.Build;
 
-import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
-import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
 
 /**
  *

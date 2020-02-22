@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 import static org.junit.Assert.*;
 
