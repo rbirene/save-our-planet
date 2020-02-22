@@ -98,11 +98,18 @@ public class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create a new platform.
+     * Constructs the Card object
      *
-     * @param x          Centre y location of the platform
-     * @param y          Centre x location of the platform
-     * @param gameScreen Gamescreen to which this platform belongs
+     * @param x             Centre y location of the platform
+     * @param y             Centre x location of the platform
+     * @param gameScreen    Gamescreen to which this platform belongs
+     * @param mName         Name of the Card
+     * @param cardTypeValue Type of the Card
+     * @param mCardPortrait the Bitmap containing the Cards portrait image
+     * @param scaleValue    Vector that determines the Scale of the Card portrait
+     * @param mAttack       Attack value of the Card
+     * @param mHealth       Health value of the Card
+     * @param portraitYPos  The Y co-ordinate of the Card
      */
     public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
@@ -115,10 +122,6 @@ public class Card extends Sprite {
         mPortraitScale = scaleValue;
         mPortraitOffset = new Vector2(0.0f, portraitYPos);
 
-        //calculate the number of digits in the cards attack and health values
-        attackLength = String.valueOf(attack).length();
-        healthLength = String.valueOf(health).length();
-
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -126,7 +129,7 @@ public class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Draw the game platform
+     * Draw the Card Object
      *
      * @param elapsedTime    Elapsed time information
      * @param graphics2D     Graphics instance
@@ -171,13 +174,19 @@ public class Card extends Sprite {
             textYCoordinate += getHeight() * 0.045;
         }
 
+        //calculate the number of digits in the cards attack and health values
+        attackLength = String.valueOf(attack).length();
+        healthLength = String.valueOf(health).length();
+
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
+        //if attack has one digit
         if(attackLength == 1){
             if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.59f, -0.1f);}
             else{mAttackOffset = new Vector2(0.64f, -0.18f);}
             drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
-        }else if(attackLength == 2){
+        }//if attack has two digits
+        else if(attackLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
             if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.54f, -0.1f);}
             else{mAttackOffset = new Vector2(0.59f, -0.18f);}
@@ -192,12 +201,14 @@ public class Card extends Sprite {
         }
 
         // Draw the health value[Niamh McCartney]
+        //if health has one digit
         if(healthLength == 1){
             if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.7f, -0.11f);}
             else{mHealthOffset = new Vector2(-0.70f, -0.18f);}
         drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
-        }else if(healthLength == 2){
+        }//if health has two digits
+        else if(healthLength == 2){
             int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
             if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.75f, -0.1f);}
             else{mHealthOffset = new Vector2(-0.75f, -0.18f);}
@@ -230,12 +241,6 @@ public class Card extends Sprite {
      */
     private void drawBitmap(Bitmap bitmap, Vector2 offset, Vector2 scale,
                             IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
-
-//        // Calculate a game layer bound for the bitmap to be drawn
-//        bound.set(position.x + mBound.halfWidth * offset.x,
-//                position.y + mBound.halfHeight * offset.y,
-//                mBound.halfWidth * scale.x,
-//                mBound.halfHeight * scale.y);
 
         // Calculate the center position of the rotated offset point.
         double rotation = Math.toRadians(-this.orientation);
@@ -436,6 +441,11 @@ public class Card extends Sprite {
 
     public void setCardBase(Bitmap cardBase){
         mCardBase = cardBase;
+    }
+
+    // Setter to set the health value of the Card [Niamh McCartney]
+    public void setHealthValue(int value){
+        health = value;
     }
 
 }

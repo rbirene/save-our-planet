@@ -310,11 +310,14 @@ public abstract class Game extends Fragment {
         //Create the Card Store[Niamh McCartney]
         mCardStore = new CardStore(this);
 
-        //Create the Hero[Niamh McCartney]
-        mHero = new Hero();
+        // Load the assets for players[Niamh McCartney]
+        mAssetManager.loadAssets("txt/assets/Players.JSON");
 
-        //Create the Villain[Niamh McCartney]
-        mVillain = new Villain();
+        // Create the Hero[Niamh McCartney]
+        mHero = new Hero(mAssetManager.getBitmap("heroPortrait"));
+
+        // Create the Villain[Niamh McCartney]
+        mVillain = new Villain(mAssetManager.getBitmap("villainPortrait"));
 
     }
 

@@ -1,0 +1,29 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "heroPortrait",
+      "file": "img/PlayerAvatars/freta.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "villainPortrait",
+      "file": "img/PlayerAvatars/ronald.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BarFiller",
+      "file": "img/BarInner.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BarBorder",
+      "file": "img/BarOuter.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HealthContainer",
+      "file": "img/CardPortraits/HealthContainer.png"
+    }
+  ]
+}
