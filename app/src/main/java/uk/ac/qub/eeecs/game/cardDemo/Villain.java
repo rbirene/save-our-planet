@@ -1,5 +1,7 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
+import android.graphics.Bitmap;
+
 /**
  *
  * Created by [Irene Bhuiyan]
@@ -19,8 +21,8 @@ public class Villain extends Player {
      *
      */
 
-    public Villain(){
-        super("Ronald Rump", null);
+    public Villain(Bitmap portrait){
+        super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
 }

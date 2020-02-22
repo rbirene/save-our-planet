@@ -5,16 +5,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.List;
-import java.util.Timer;
-
 
 import uk.ac.qub.eeecs.gage.Game;
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 
-import uk.ac.qub.eeecs.gage.ui.ToggleButton;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -22,8 +18,6 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.gage.world.Sprite;
-import uk.ac.qub.eeecs.game.MenuScreen;
 
 public class OptionsScreen extends GameScreen {
 
@@ -60,11 +54,6 @@ public class OptionsScreen extends GameScreen {
         paint.setARGB(255, 0, 0, 0);
 
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-        //  mGame.getAssetManager().getBitmap("optionsBackground");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-        mGame.getAssetManager().loadAndAddBitmap("muteOn", "img/muteOn.png");
-        mGame.getAssetManager().loadAndAddBitmap("muteOff", "img/muteOff.png");
         mGame.getAssetManager().loadAndAddBitmap("diffEasy", "img/DiffEasy.png");
         mGame.getAssetManager().loadAndAddBitmap("diffNormal", "img/DiffNormal.png");
         mGame.getAssetManager().loadAndAddBitmap("diffHard", "img/DiffHard.png");

@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.game;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -25,7 +23,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Villain;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 
 /**
- * An exceedingly basic menu screen with a couple of touch buttons
+ * This class creates the MenuScreen
  *
  * @version 1.0
  */
@@ -58,25 +56,18 @@ public class MenuScreen extends GameScreen {
     /**
      * Define the buttons for playing the 'games'
      */
-    private PushButton mSpaceshipDemoButton;
-    private PushButton mPlatformDemoButton;
-    private PushButton mCardDemoButton;
-    private PushButton mDemosButton;
     private PushButton mOptionsIcon;
-
     private PushButton playGame;
     private PushButton instructions;
     private PushButton options;
     private PushButton exit;
-
-    private AudioManager audioManager = mGame.getAudioManager();
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create a simple menu screen
+     * Create a menu screen
      *
      * @param game Game to which this screen belongs
      */
@@ -85,21 +76,8 @@ public class MenuScreen extends GameScreen {
 
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("SpaceDemoIcon", "img/SpaceDemoIcon.png");
-        assetManager.loadAndAddBitmap("SpaceDemoIconSelected", "img/SpaceDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("CardDemoIcon", "img/CardDemoIcon.png");
-        assetManager.loadAndAddBitmap("CardDemoIconSelected", "img/CardDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIcon", "img/PlatformDemoIcon.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIconSelected", "img/PlatformDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
-        assetManager.loadAndAddBitmap("DemosIconSelected", "img/DemosIconSelected.png");
-        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-        assetManager.loadAndAddBitmap("btnExit","img/btnExit.png");
-        assetManager.loadAndAddBitmap("btnInstructions","img/btnInstructions.png");
-        assetManager.loadAndAddBitmap("btnOptions","img/btnOptions.png");
-        assetManager.loadAndAddBitmap("OptionsIcon","img/OptionsIcon.png");
-        assetManager.loadAndAddBitmap("btnPlay","img/btnPlay.png");
+        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
@@ -121,6 +99,7 @@ public class MenuScreen extends GameScreen {
         }
 
 
+        // Create the trigger buttons
         playGame = new PushButton(
                 spacingX * 0.50f, spacingY * 1.5f, spacingX, spacingY,
                 "btnPlay", "btnPlay",this);
@@ -136,24 +115,6 @@ public class MenuScreen extends GameScreen {
         exit = new PushButton(spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
                 "btnExit", "btnExit", this);
         exit.setPlaySounds(true, true);
-
-        // Create the trigger buttons
-        mSpaceshipDemoButton = new PushButton(
-                spacingX * 0.50f, spacingY * 1.5f, spacingX, spacingY,
-                "SpaceDemoIcon", "SpaceDemoIconSelected",this);
-        mSpaceshipDemoButton.setPlaySounds(true, true);
-        mPlatformDemoButton = new PushButton(
-                spacingX * 1.83f, spacingY * 1.5f, spacingX, spacingY,
-                "PlatformDemoIcon", "PlatformDemoIconSelected", this);
-        mPlatformDemoButton.setPlaySounds(true, true);
-        mCardDemoButton = new PushButton(
-                spacingX * 3.17f, spacingY * 1.5f, spacingX, spacingY,
-                "CardDemoIcon", "CardDemoIconSelected", this);
-        mCardDemoButton.setPlaySounds(true, true);
-        mDemosButton = new PushButton(
-                spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "DemosIcon", "DemosIconSelected", this);
-        mDemosButton.setPlaySounds(true, true);
         mOptionsIcon = new PushButton(
                 spacingX*2.0f,spacingY*2.65f,spacingX,spacingY,
                 "OptionsIcon","OptionsIcon",this);
@@ -180,12 +141,7 @@ public class MenuScreen extends GameScreen {
         if (touchEvents.size() > 0) {
 
             // Update each button and transition if needed
-            mSpaceshipDemoButton.update(elapsedTime);
-            mCardDemoButton.update(elapsedTime);
-            mPlatformDemoButton.update(elapsedTime);
-            mDemosButton.update(elapsedTime);
             mOptionsIcon.update(elapsedTime);
-
             playGame.update(elapsedTime);
             instructions.update(elapsedTime);
             options.update(elapsedTime);
@@ -221,11 +177,6 @@ public class MenuScreen extends GameScreen {
         instructions.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         options.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-
-        // mSpaceshipDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        // mPlatformDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        // mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        // mCardDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mOptionsIcon.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 

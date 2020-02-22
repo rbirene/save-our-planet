@@ -1,6 +1,5 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
@@ -46,12 +45,6 @@ public class BattleScreen extends GameScreen {
     private Deck heroDeck = hero.getPlayerDeck();
     private Deck villainDeck = villain.getPlayerDeck();
 
-
-    //Define the cards in the deck [Niamh McCartney]
-    private Card Card01 = heroDeck.getCard01(this);
-    private Card Card02 = heroDeck.getCard02(this);
-    private Card Card03 = heroDeck.getCard03(this);
-
     //Buttons[Niamh McCartney]
     private PushButton infoButton;
     private PushButton settingsButton;
@@ -63,6 +56,8 @@ public class BattleScreen extends GameScreen {
     //Define up game height and width
     private int gameHeight;
     private int gameWidth;
+
+    Boolean healthChanged = false;
 
     public BattleScreen(Game game) {
         super("Battle", game);
@@ -196,6 +191,7 @@ public class BattleScreen extends GameScreen {
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        //Log.d("Player Health", "Health: " + hero.getPlayerHeath());
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -294,14 +290,32 @@ public class BattleScreen extends GameScreen {
     private void displayPlayers(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
         //display hero
-        Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
-        heroAvatarImg = new GameObject(430.0f, 50.0f, 100.0f, 100.0f, heroAvatar, this);
-        heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        hero.setPosition(442.0f, 73.0f);
+        hero.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
+//        Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
+//        heroAvatarImg = new GameObject(430.0f, 50.0f, 100.0f, 100.0f, heroAvatar, this);
+//        heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         //display villain
-        Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
-        villainAvatarImg = new GameObject(50.0f, 270.0f, 100.0f, 100.0f, villainAvatar, this);
-        villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        villain.setPosition(36.0f, 271.0f);
+        villain.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
+//        Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
+//        villainAvatarImg = new GameObject(50.0f, 270.0f, 100.0f, 100.0f, villainAvatar, this);
+//        villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
+        //for testing purposes
+//        if(!healthChanged){
+//            for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
+//                Card card = heroDeck.getDeck(this).get(i);
+//                card.setHealthValue(40);
+//            }
+//
+//            for (int i = 0; i < villainDeck.getDeck(this).size(); i++) {
+//                Card card = villainDeck.getDeck(this).get(i);
+//                card.setHealthValue(10);
+//            }
+//            healthChanged = true;
+//        }
 
     }
 

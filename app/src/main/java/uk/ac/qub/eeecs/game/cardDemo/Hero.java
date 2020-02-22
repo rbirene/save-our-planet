@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo;
 
+import android.graphics.Bitmap;
 import android.os.Build;
 
 import java.lang.reflect.WildcardType;
@@ -33,8 +34,8 @@ public class Hero extends Player {
      *
      */
 
-    public Hero(){
-        super("Freta Funberg", null);
+    public Hero(Bitmap portrait){
+        super(0.0f, 0.0f, "Freta Funberg", null, portrait);
 
 
     }
