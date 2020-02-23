@@ -151,7 +151,7 @@ public class MenuScreen extends GameScreen {
             if (playGame.isPushTriggered())
                 mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
             else if (instructions.isPushTriggered())
-                mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+                mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
             else if(options.isPushTriggered())
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
             else if(mOptionsIcon.isPushTriggered())

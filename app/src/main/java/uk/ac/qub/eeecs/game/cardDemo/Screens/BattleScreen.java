@@ -147,7 +147,7 @@ public class BattleScreen extends GameScreen {
 
         //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
-            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame));
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
 
         //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
