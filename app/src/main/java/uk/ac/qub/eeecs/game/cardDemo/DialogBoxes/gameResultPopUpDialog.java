@@ -10,9 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.R;
+import uk.ac.qub.eeecs.gage.engine.ScreenManager;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.InstructionsScreen;
 
-public class InfoPopUpDialog {
+public class gameResultPopUpDialog {
 
     /**
      * Displays a pop-up box
@@ -24,7 +27,7 @@ public class InfoPopUpDialog {
      * Created By Niamh McCartney
      */
 
-    public void showDialog(Activity activity, String msg){
+    public void showDialog(Activity activity, String msg, int imageID){
         // Flags for full-screen mode:
         int ui_flags =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -42,6 +45,9 @@ public class InfoPopUpDialog {
         //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
         text.setText(msg);
+
+        ImageView image = dialog.findViewById(R.id.a);
+        image.setImageResource(imageID);
 
         //When button is pressed cancel the dialog box
         Button dialogButton = dialog.findViewById(R.id.btn_dialog);
@@ -62,8 +68,9 @@ public class InfoPopUpDialog {
 
         dialog.show();
 
-       // Set dialog focusable to avoid touching outside
+        // Set dialog focusable to avoid touching outside
         dialog.getWindow().
                 clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 }
+

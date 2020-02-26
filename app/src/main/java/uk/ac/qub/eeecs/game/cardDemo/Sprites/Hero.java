@@ -38,6 +38,11 @@ public class Hero extends Player {
 
     }
 
+    @Override
+    public void takeFirstTurn(){}
+
+    @Override
+    public void takeTurn(){ }
 
 
     public void moveCards(List<TouchEvent> touchEvents) {

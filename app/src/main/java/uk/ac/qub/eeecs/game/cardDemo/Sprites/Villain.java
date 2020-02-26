@@ -1,6 +1,10 @@
 package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
 
+import java.util.List;
+
+import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+
 /**
  *
  * Created by [Irene Bhuiyan]
@@ -23,6 +27,16 @@ public class Villain extends Player {
     public Villain(Bitmap portrait){
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
+
+
+//    @Override
+//    public void takeTurn(List<TouchEvent> touchEvents){}
+
+    @Override
+    public void takeFirstTurn(){}
+
+    @Override
+    public void takeTurn(){}
 
 }
 
