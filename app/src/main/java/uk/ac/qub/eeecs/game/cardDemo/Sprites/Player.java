@@ -3,10 +3,12 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
+import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
@@ -253,6 +255,11 @@ public abstract class Player extends Sprite {
             graphics2D.drawBitmap(bitmap, drawMatrix, null);
         }
     }
+
+    public abstract void takeFirstTurn();
+
+    public void takeTurn(){}
+
 
     //getter to return the players health[Niamh McCartney]
     public int getPlayerHealth(){return playerHealth;}

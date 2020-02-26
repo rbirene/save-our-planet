@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
+import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -18,6 +20,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.CoinFlipDialog;
@@ -42,6 +45,7 @@ public class BattleScreen extends GameScreen {
     private GameBoard board;
 
     private AssetManager assetManager = mGame.getAssetManager();
+    private ScreenManager screenManager = mGame.getScreenManager();
 
     //set up hero [Irene Bhuiyan]
     private Hero hero = getGame().getHero();
@@ -69,7 +73,9 @@ public class BattleScreen extends GameScreen {
     private int gameWidth;
 
     //returns true if the player to take the first turn has been decided[Niamh McCartney]
-    private Boolean firstTurnDeciided;
+    private Boolean firstTurnDecided;
+
+    private Boolean gameEnded = false;
 
     Boolean healthChanged = false;
 
@@ -104,7 +110,9 @@ public class BattleScreen extends GameScreen {
         addInfoButton();
         addSettingsButton();
         addPauseButton();
-        firstTurnDeciided = false;
+        firstTurnDecided = false;
+
+        // gameLoop();
     }
 
     public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale){
@@ -121,6 +129,34 @@ public class BattleScreen extends GameScreen {
             //set the position of the card on rhe screen
             cards.get(i).setPosition(xPos, yPos);
             spacing += 50;
+        }
+    }
+
+    public void checkHealth(){
+        if(firstPlayer.getPlayerHealth()<1 && secondPlayer.getPlayerHealth()<1){
+            gameEnded = true;
+        }
+    }
+
+    public void gameLoop(){
+        firstPlayer.takeFirstTurn();
+        do{
+            checkHealth();
+            if(!gameEnded){ secondPlayer.takeTurn();}
+            checkHealth();
+            if(!gameEnded){firstPlayer.takeTurn();}
+            checkHealth();
+
+        }while(!gameEnded);
+
+        if(hero.getPlayerHealth()<1){
+            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
+            String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
+            popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
+        }if(villain.getPlayerHealth()<1){
+            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
+            String message = "You Won! You've saved the planet from destruction!";
+            popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
         }
     }
 
@@ -222,7 +258,7 @@ public class BattleScreen extends GameScreen {
         displayPlayers(elapsedTime, graphics2D);
 
         //call method if first turn has not been decided yet
-        if(!firstTurnDeciided){
+        if(!firstTurnDecided){
             randomiseFirstTurn();
         }
 
@@ -266,7 +302,7 @@ public class BattleScreen extends GameScreen {
         CoinFlipDialog dialog = new CoinFlipDialog();
         dialog.showDialog(getGame().getActivity(), firstPlayerName);
 
-        firstTurnDeciided = true;
+        firstTurnDecided = true;
     }
 
     /**
