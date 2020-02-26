@@ -2,11 +2,17 @@ package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
@@ -21,6 +27,9 @@ public class CoinFlipDialog {
      *
      * Created By Niamh McCartney
      */
+
+    //Handler to access the UI thread
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public void showDialog(Activity activity, final String firstPlayerName){
         // Flags for full-screen mode:
@@ -37,12 +46,32 @@ public class CoinFlipDialog {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.coinflip_window);
 
-        //when the button is pressed perform the following actions
+        //define id of the Dialog's text
+        final TextView text = dialog.findViewById(R.id.text_dialog);
+
+        //define id of the Dialog's Button
         final Button dialogButton = dialog.findViewById(R.id.btn_dialog);
+
+
+        //class Task extends TimerTask {
+        final Runnable mUpdateDialog = new Runnable() {
+            public void run() {
+                //change text displayed in button
+                dialogButton.setText("Let's Play!");
+
+                //Set Dialog message displaying who takes the first turn
+                text.setText(firstPlayerName + " gets to go first!");
+
+            }
+
+        };
+
+
+        //when the button is pressed perform the following actions
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView text = dialog.findViewById(R.id.text_dialog);
+
                 // If first turn has not been decided and the button is pressed then execute the following changes
                 if(text.getText().equals("Flip the coin to decide who goes first")) {
 
@@ -50,11 +79,13 @@ public class CoinFlipDialog {
                     GifImageView gifView = dialog.findViewById(R.id.a);
                     gifView.setImageResource(R.drawable.coinflipgif);
 
-                    //change text displayed in button
-                    dialogButton.setText("Let's Play!");
 
-                    //Set Dialog message displaying who takes the first turn
-                    text.setText(firstPlayerName + " gets to go first!");
+                    /*
+                    *After 2 seconds have elapsed then call the mUpdateDialog runnable
+                    *This time delay allows time for the coin flip gif to update
+                    */
+                    int time = 2000;
+                    handler.postDelayed(mUpdateDialog, time);
 
                 }//When the first turn has been decided and the button is pressed again then cancel the dialog box
                 else{ dialog.dismiss();}
@@ -76,4 +107,5 @@ public class CoinFlipDialog {
         dialog.getWindow().
                 clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
+
 }
