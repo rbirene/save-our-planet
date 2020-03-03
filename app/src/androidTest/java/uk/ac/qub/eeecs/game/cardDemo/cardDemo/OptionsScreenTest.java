@@ -1,10 +1,8 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.cardDemo;
 
 
 import android.graphics.Bitmap;
-import android.graphics.Path;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -14,16 +12,21 @@ import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 
 import static junit.framework.Assert.assertTrue;
+
+
 
 @RunWith(AndroidJUnit4.class)
 public class OptionsScreenTest {
 
     private TestGame Game;
     private OptionsScreen optionDemo;
+    private MenuScreen menuScreenDemo;
     private ElapsedTime elapsedTime;
 
     @Before
@@ -31,6 +34,8 @@ public class OptionsScreenTest {
 
         Game = new TestGame(1280,720);
         Game.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        menuScreenDemo = new MenuScreen(Game);
+
     }
 
     @Test

@@ -22,16 +22,24 @@ public class CardHolder extends GameObject {
         return empty;
     }
 
+    public void returnCardToHolder(){
+        card.setPosition(this.getBound().x, this.getBound().y);
+    }
 
      public void AddCardToHolder(Card card){
         this.card = card;
         this.empty = false;
-         card.setPosition(this.getBound().x, this.getBound().y);
+        card.setPosition(this.getBound().x, this.getBound().y);
+        card.setmCardHolder(this);
      }
 
      public void removeCard(){
         this.card = null;
         this.empty = true;
+     }
+
+     public Card returnCardHeld(){
+        return card;
      }
 
     public void setX(float x){ this.x = x;}

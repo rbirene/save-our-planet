@@ -23,8 +23,11 @@ public class Hero extends Player {
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
     private ArrayList<Card> playerCards = new ArrayList<>();
+    private ArrayList<CardHolder> enemyCardHolders = new ArrayList<>();
     private CardHolder tempContainer;
     private Card cardSelected;
+    private Card enemyCard;
+
 
     /**
      *
@@ -53,40 +56,53 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected  != null){
-                if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
-                    cardSelected.setSelected(true);
-                }
+               // if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                 //   cardSelected.setSelected(true);
+              //  }
                 if (t.type == 2 && cardSelected.cardSelected()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                 }
                 if (t.type == 1 && cardSelected.cardSelected()) {
                     cardSelected.setSelected(false);
-                    if (checkDropLocation()) {
-                        // cardSelected.setPosition(tempContainer.getBound().x, tempContainer.getBound().y);
+                    if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
-                        tempContainer = null;
+                       // tempContainer = null;
                         cardSelected = null;
-                    }else{
+                    }else if(checkDropLocationAttack()) {
+                        attackPhase();
+                      //  tempContainer.returnCardToHolder();
+                        cardSelected.returnToHolder();
+                        cardSelected = null;
+                    }
+                        else{
                         cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
                 }
             }
         }
     }
+    public boolean checkDropLocationAttack(){
+
+        for (int i = 0; i < gameBoard.getVillianContainers().size(); i++) {
+            if (gameBoard.getVillianContainers().get(i).getBound().intersects(cardSelected.getBound())
+                    && !gameBoard.getVillianContainers().get(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
-    public boolean checkDropLocation() {
+
+    public boolean checkDropLocationContainer() {
 
             for (int i = 0; i < gameBoard.getHeroContainers().size(); i++) {
                 tempContainer = gameBoard.getHeroContainers().get(i);
                 if (tempContainer.getBound().intersects(cardSelected.getBound())
-                        //tempContainer.getBound().contains(cardSelected.getxPos(),cardSelected.getYPos())
-                        //cardSelected.getBound().intersects(tempContainer.getBound()) ||
-                      // cardSelected.getBound().contains(tempContainer.getX(), tempContainer.getY())
                         && tempContainer.isEmpty()) {
                     return true;
                 }
-        }
+            }
             return false;
     }
 
@@ -99,22 +115,29 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             for (int i = 0; i < playerCards.size(); i++) {
-                Card temp = playerCards.get(i);
-                if (temp.getBound().contains(layerTouch.x, layerTouch.y)) {
-                    cardSelected = temp;
+                if (playerCards.get(i).getBound().contains(layerTouch.x, layerTouch.y)) {
+                    cardSelected = playerCards.get(i);
+                    cardSelected.setSelected(true);
                 }
             }
         }
     }
 
+    public void attackPhase(){
+        enemyCardHolders.addAll(gameBoard.getVillianContainers());
+
+        for(int i=0;i<enemyCardHolders.size();i++){
+            if(cardSelected.getBound().intersects(enemyCardHolders.get(i).getBound())){
+                 enemyCard = enemyCardHolders.get(i).returnCardHeld();
+                 enemyCard.setHealthValue(enemyCard.getHealthValue() - cardSelected.getAttackValue());
+                }
+            }
+        }
+
 
     public void ProcessTouchInput(List<TouchEvent> touchEvents){
-        playerCards = playerDeck.getDeck(null);
-        selectCard(touchEvents);
-        moveCards(touchEvents);
-
-
+            playerCards = playerDeck.getDeck(null);
+            selectCard(touchEvents);
+            moveCards(touchEvents);
+        }
     }
-
-
-}

@@ -52,6 +52,8 @@ public abstract class Player extends Sprite {
 
     protected GameScreen gameScreen;
     protected GameBoard gameBoard;
+    protected static final int MAX_CARDS_PLAYED = 1;
+    protected boolean cardPlayed = false;
 
     //define the players current Health [Niamh McCartney]
     private int playerHealth;
@@ -261,6 +263,16 @@ public abstract class Player extends Sprite {
     public void takeTurn(){}
 
 
+
+
+    public void setCardPlayed(boolean cardPlayed){
+        this.cardPlayed = cardPlayed;
+    }
+    public Boolean getCardPlayed(){
+        return cardPlayed;
+    }
+
+
     //getter to return the players health[Niamh McCartney]
     public int getPlayerHealth(){return playerHealth;}
 
@@ -282,6 +294,13 @@ public abstract class Player extends Sprite {
         this.playerDeck = playerDeck;
         deckSet = true;
     }
+
+    public void AttackCard(Card attackCard,Card defendCard){
+        int health = defendCard.getHealthValue();
+       health = defendCard.getHealthValue() - attackCard.getAttackValue();
+
+    }
+
 
     //setter to set the players Health[Niamh McCartney]
     public void setPlayerHealth(GameScreen aScreen){

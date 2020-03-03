@@ -79,6 +79,8 @@ public class BattleScreen extends GameScreen {
 
     Boolean healthChanged = false;
 
+    private Boolean playerTurn = true;
+
     public BattleScreen(Game game) {
         super("Battle", game);
 
@@ -92,6 +94,8 @@ public class BattleScreen extends GameScreen {
         loadScreenAssets();
 
         board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
+        endTurnButton = new PushButton(360.0f, 300.0f,
+                30.0f, 30.0f, "endTurn", "endTurn",this);
 
         paint = new Paint();
         paint.setTextSize(90.0f);
@@ -100,9 +104,15 @@ public class BattleScreen extends GameScreen {
         hero.setGameScreen(this);
         hero.setGameBoard(board);
 
+        villain.setGameBoard(board);
+        villain.setGameScreen(this);
+        villain.setPlayerCards(villainDeck.getDeck(this));
+
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f);
         moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f);
+
+
 
         setupPause();
 
@@ -160,6 +170,15 @@ public class BattleScreen extends GameScreen {
         }
     }
 
+    public void checkEndGame(){
+        if(hero.getPlayerHealth() <= 0){
+            mGame.getScreenManager().addScreen(new EndGame(mGame, hero));
+        }else if(villain.getPlayerHealth() <=0){
+            mGame.getScreenManager().addScreen(new EndGame(mGame, villain));
+        }
+    }
+
+
     @Override
     public void update(ElapsedTime elapsedTime) {
 
@@ -170,16 +189,32 @@ public class BattleScreen extends GameScreen {
         infoButton.update(elapsedTime);
         settingsButton.update(elapsedTime);
         board.update(elapsedTime);
-
+        endTurnButton.update(elapsedTime);
 
         for (Card c:heroDeck.getDeck(this)) {
             c.update(elapsedTime);
         }
 
-        if(touchEvents.size() > 0){
-            hero.ProcessTouchInput(touchEvents);
+        for (Card c:villainDeck.getDeck(this)) {
+            c.update(elapsedTime);
         }
 
+
+        if (playerTurn) {
+            hero.ProcessTouchInput(touchEvents);
+        } else {
+            villain.playAI();
+            playerTurn = true;
+        }
+
+        checkEndGame();
+
+
+        if(endTurnButton.isPushTriggered()){
+            if(playerTurn == true){
+                playerTurn = false;
+            }
+        }
 
         //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
@@ -202,7 +237,6 @@ public class BattleScreen extends GameScreen {
         resume.update(elapsedTime);
         exit.update(elapsedTime);
 
-        if(mGame.getInput().getTouchEvents().size() > 0){
             if(resume.isPushTriggered()){
                 paused = false;
             }
@@ -210,11 +244,8 @@ public class BattleScreen extends GameScreen {
                 paused = false;
                 mGame.getScreenManager().addScreen(new MenuScreen(mGame));
             }
-        }
-
-
-
     }
+
 
     public void setupPause(){
 
@@ -242,6 +273,7 @@ public class BattleScreen extends GameScreen {
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        endTurnButton.draw(elapsedTime,graphics2D,LayerViewport, ScreenViewport);
         //Log.d("Player Health", "Health: " + hero.getPlayerHeath());
 
         if(paused){
@@ -297,6 +329,9 @@ public class BattleScreen extends GameScreen {
 
         //get the name of the player who will go first
         String firstPlayerName = firstPlayer.getPlayerName();
+        if(firstPlayer == hero){
+            playerTurn = true;
+        }else{playerTurn = false;}
 
         // create a pop-up dialog box, passing in the players name so the outcome can be displayed to the user
         CoinFlipDialog dialog = new CoinFlipDialog();
