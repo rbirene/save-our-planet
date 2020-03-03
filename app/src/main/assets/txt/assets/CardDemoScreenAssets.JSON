@@ -199,6 +199,11 @@
       "type": "Bitmap",
       "name": "instructionsBonus",
       "file": "img/Instructions/instructionsBonus.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "endTurn",
+      "file": "img/Buttons/endTurn.png"
     }
   ]
 }

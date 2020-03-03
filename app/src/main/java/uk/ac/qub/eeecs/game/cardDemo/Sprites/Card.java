@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
+import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
 
 /**
  * Card class drawn using a number of overlapping images.
@@ -84,11 +85,12 @@ public class Card extends Sprite {
     private float y;
 
     private static GameScreen gameScreen;
-
+    private CardHolder mCardHolder;
     private Paint mTextPaint;
 
     //Boolean to determine whether the card has been selected
     private Boolean selected = false;
+    private Boolean cardLocked = false;
 
     private float startPosX;
     private float startPosY;
@@ -334,6 +336,10 @@ public class Card extends Sprite {
         }
     }
 
+    public void returnToHolder(){
+        this.setPosition(mCardHolder.getBound().x,mCardHolder.getBound().y);
+    }
+
     //Returns true if Cards is selected [Niamh McCartney]
     public Boolean cardSelected(){
         return selected;
@@ -342,6 +348,12 @@ public class Card extends Sprite {
     public void setSelected(boolean selected){
         this.selected = selected;
     }
+
+
+    public void setmCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
+
+    public CardHolder getmCardHolder(){return this.mCardHolder;}
+
 
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(String cardBackgroundName){
@@ -412,9 +424,13 @@ public class Card extends Sprite {
         return y;
     }
 
+    public boolean getCardLocked(){return cardLocked;}
+
     // /////////////////////////////////////////////////////////////////////////
     // Setters
     // /////////////////////////////////////////////////////////////////////////
+
+    public void setCardLocked(Boolean locked){cardLocked = locked;}
 
     public void setStartPosX(float xValue){startPosX = xValue;}
 

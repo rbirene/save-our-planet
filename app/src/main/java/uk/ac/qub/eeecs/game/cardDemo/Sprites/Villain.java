@@ -1,9 +1,12 @@
 package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
 
 /**
  *
@@ -17,7 +20,9 @@ public class Villain extends Player {
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
-
+    private ArrayList<Card> playerCards = new ArrayList<>();
+    private ArrayList<CardHolder> containers = new ArrayList<>();
+    private ArrayList<CardHolder> enemyContainers = new ArrayList<>();
     /**
      *
      * Create a new villain.
@@ -31,6 +36,37 @@ public class Villain extends Player {
 
 //    @Override
 //    public void takeTurn(List<TouchEvent> touchEvents){}
+
+
+    public void playAI(){
+
+        Random rand = new Random();
+        containers.addAll(gameBoard.getVillianContainers());
+        enemyContainers.addAll(gameBoard.getHeroContainers());
+
+        int n = rand.nextInt(containers.size()-1);
+        int x = rand.nextInt(playerCards.size()-1);
+
+        if(!playerCards.isEmpty()){
+            for(int i=0;i<containers.size();i++){
+                if(containers.get(n).isEmpty()){
+                    containers.get(n).AddCardToHolder(playerCards.get(x));
+                }
+            }
+            playerCards.remove(x);
+        }
+
+    }
+
+
+    public void setPlayerCards(ArrayList<Card> cards) {
+        playerCards.addAll(cards);
+
+    }
+
+
+
+
 
     @Override
     public void takeFirstTurn(){}
