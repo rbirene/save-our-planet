@@ -15,7 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 
 import static org.junit.Assert.assertEquals;
@@ -57,13 +57,46 @@ public class DeckUnitTest {
     }
 
     @Test
-    public void Deck_getDeck_CorrectSize_Success() {
-        assertEquals(3, aDeck.getDeck(aScreen).size());
+    public void Deck_getSize_CorrectSize_Success() {
+        assertEquals(3, aDeck.getSize());
     }
 
     @Test
-    public void Deck_getDeck_IncorrectSize_Failure() {
-        assertNotEquals(5, aDeck.getDeck(aScreen).size());
+    public void Deck_getSize_IncorrectSize_Failure() {
+        assertNotEquals(5, aDeck.getSize());
+    }
+
+    @Test
+    public void Deck_getCard01_CorrectCard_Success(){
+        assertEquals(Card01, aDeck.getCard01(aScreen));
+    }
+
+    @Test
+    public void Deck_getCard02_CorrectCard_Success(){
+        assertEquals(Card02, aDeck.getCard02(aScreen));
+    }
+
+    @Test
+    public void Deck_getCard03_CorrectCard_Success(){
+        assertEquals(Card03, aDeck.getCard03(aScreen));
+    }
+
+    @Test
+    public void Deck_setCard01_CorrectCard_Success(){
+        aDeck.setCard01(Card06);
+        assertEquals(Card06, aDeck.getCard01(aScreen));
+    }
+
+    @Test
+    public void Deck_setCard02_CorrectCard_Success(){
+        aDeck.setCard02(Card04);
+        assertEquals(Card04, aDeck.getCard02(aScreen));
+    }
+
+    @Test
+    public void Deck_setCard03_CorrectCard_Success(){
+        aDeck.setCard03(Card05);
+        assertEquals(Card05, aDeck.getCard03(aScreen));
     }
 
     @Test
