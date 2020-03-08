@@ -58,13 +58,13 @@ public class Hero extends Player {
 
             if (cardSelected  != null){
                 if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
-                    cardSelected.setSelected(true);
+                    cardSelected.setCardDragged(true);
                 }
-                if (t.type == 2 && cardSelected.cardSelected()) {
+                if (t.type == 2 && cardSelected.getCardDragged()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                 }
-                if (t.type == 1 && cardSelected.cardSelected()) {
-                    cardSelected.setSelected(false);
+                if (t.type == 1 && cardSelected.getCardDragged()) {
+                    cardSelected.setCardDragged(false);
                     if (checkDropLocation()) {
                         // cardSelected.setPosition(tempContainer.getBound().x, tempContainer.getBound().y);
                         tempContainer.AddCardToHolder(cardSelected);

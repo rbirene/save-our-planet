@@ -7,21 +7,22 @@ import java.util.List;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
-import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.ScreenManager;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.Vector2;
+import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.MenuScreen;
-import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.CoinFlipDialog;
 import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
@@ -46,6 +47,7 @@ public class BattleScreen extends GameScreen {
 
     private AssetManager assetManager = mGame.getAssetManager();
     private ScreenManager screenManager = mGame.getScreenManager();
+    private AudioManager audioManager = getGame().getAudioManager();
 
     //set up hero [Irene Bhuiyan]
     private Hero hero = getGame().getHero();
@@ -74,8 +76,6 @@ public class BattleScreen extends GameScreen {
 
     //returns true if the player to take the first turn has been decided[Niamh McCartney]
     private Boolean firstTurnDecided;
-
-    private Boolean gameEnded = false;
 
     Boolean healthChanged = false;
 
@@ -111,8 +111,6 @@ public class BattleScreen extends GameScreen {
         addSettingsButton();
         addPauseButton();
         firstTurnDecided = false;
-
-        // gameLoop();
     }
 
     public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale){
@@ -132,34 +130,6 @@ public class BattleScreen extends GameScreen {
         }
     }
 
-    public void checkHealth(){
-        if(firstPlayer.getPlayerHealth()<1 && secondPlayer.getPlayerHealth()<1){
-            gameEnded = true;
-        }
-    }
-
-    public void gameLoop(){
-        firstPlayer.takeFirstTurn();
-        do{
-            checkHealth();
-            if(!gameEnded){ secondPlayer.takeTurn();}
-            checkHealth();
-            if(!gameEnded){firstPlayer.takeTurn();}
-            checkHealth();
-
-        }while(!gameEnded);
-
-        if(hero.getPlayerHealth()<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
-        }if(villain.getPlayerHealth()<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You Won! You've saved the planet from destruction!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
-        }
-    }
-
     @Override
     public void update(ElapsedTime elapsedTime) {
 
@@ -171,7 +141,6 @@ public class BattleScreen extends GameScreen {
         settingsButton.update(elapsedTime);
         board.update(elapsedTime);
 
-
         for (Card c:heroDeck.getDeck(this)) {
             c.update(elapsedTime);
         }
@@ -179,7 +148,6 @@ public class BattleScreen extends GameScreen {
         if(touchEvents.size() > 0){
             hero.ProcessTouchInput(touchEvents);
         }
-
 
         //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
@@ -194,7 +162,25 @@ public class BattleScreen extends GameScreen {
             }else if(resume.isPushTriggered()){
                 paused = false;
             }
+
+        for (int i = 0; i < touchEvents.size(); i++) {
+            TouchEvent event = touchEvents.get(i);
+                Vector2 layerTouch = new Vector2();
+                ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
+                        this.getDefaultLayerViewport(), layerTouch);
+
+                //If a card is touched change the background of the touched card
+                for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
+                    for (int j = 0; j < heroDeck.getDeck(this).size(); j++) {
+                        Card card = heroDeck.getDeck(this).get(j);
+                        if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0) {
+                            heroDeck.enlargeDeck(108, 144);
+                            audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                        }
+                    }
+                }
         }
+    }
 
     private void pauseUpdate(ElapsedTime elapsedTime) {
 
@@ -211,9 +197,6 @@ public class BattleScreen extends GameScreen {
                 mGame.getScreenManager().addScreen(new MenuScreen(mGame));
             }
         }
-
-
-
     }
 
     public void setupPause(){
@@ -242,7 +225,6 @@ public class BattleScreen extends GameScreen {
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
-        //Log.d("Player Health", "Health: " + hero.getPlayerHeath());
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -251,13 +233,13 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck);
-        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck);
+        AddPlayerDecks(elapsedTime, graphics2D, heroDeck);
+        AddPlayerDecks(elapsedTime, graphics2D, villainDeck);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);
 
-        //call method if first turn has not been decided yet
+        //call method if first turn has not been decided yet[Niamh McCartney]
         if(!firstTurnDecided){
             randomiseFirstTurn();
         }
@@ -274,7 +256,7 @@ public class BattleScreen extends GameScreen {
      */
     public void randomiseFirstTurn(){
         //Add players to an arrayList
-        ArrayList<Player> players = new ArrayList(2);
+        ArrayList<Player> players = new ArrayList<>(2);
         players.add(hero);
         players.add(villain);
 
@@ -286,10 +268,10 @@ public class BattleScreen extends GameScreen {
 
         //iterate through the arraylist
         for(int i = min; i< players.size(); i++){
-            //if the players position in the arraylist is equal to the random number they will go first
+            //if the players position in the ArrayList is equal to the random number they will go first
             if(i == randomNum){
                 firstPlayer = players.get(i);
-            }//if the players position in the arraylist is not equal to the random number they will go second
+            }//if the players position in the ArrayList is not equal to the random number they will go second
             else{
                 secondPlayer = players.get(i);
             }
@@ -313,15 +295,15 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, String CardBackgroundName, Deck aDeck){
+    private void AddPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck){
 
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
-            //Set Card Background
-            card.setCardBase(assetManager.getBitmap(CardBackgroundName));
             //Set Card Width and Height
             card.setWidth(54);
             card.setHeight(72);
+            //Set card to unselected
+            card.setSelected(false);
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
@@ -389,16 +371,10 @@ public class BattleScreen extends GameScreen {
         //display hero
         hero.setPosition(442.0f, 73.0f);
         hero.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
-//        Bitmap heroAvatar = mGame.getAssetManager().getBitmap("freta");
-//        heroAvatarImg = new GameObject(430.0f, 50.0f, 100.0f, 100.0f, heroAvatar, this);
-//        heroAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         //display villain
         villain.setPosition(36.0f, 271.0f);
         villain.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
-//        Bitmap villainAvatar = mGame.getAssetManager().getBitmap("ronald");
-//        villainAvatarImg = new GameObject(50.0f, 270.0f, 100.0f, 100.0f, villainAvatar, this);
-//        villainAvatarImg.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
         //for testing purposes
 //        if(!healthChanged){

@@ -67,7 +67,7 @@ public class VillainCard extends Card {
         // Draw the health value[Niamh McCartney]
         //if health has one digit
         if(healthLength == 1){
-           mHealthOffset = new Vector2(-0.7f, -0.11f);
+           mHealthOffset = mHealthContainerOffset;
         drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                 graphics2D, layerViewport, screenViewport);
         }//if health has two digits

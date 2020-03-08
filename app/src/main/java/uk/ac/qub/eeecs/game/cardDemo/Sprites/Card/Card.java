@@ -93,7 +93,8 @@ public class Card extends Sprite {
     private Paint mTextPaint;
 
     //Boolean to determine whether the card has been selected
-    protected Boolean selected = false;
+    private Boolean selected = false;
+    private Boolean cardDragged = false;
 
     private float startPosX;
     private float startPosY;
@@ -119,13 +120,13 @@ public class Card extends Sprite {
     public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
 
-        name = mName;
-        cardType = cardTypeValue;
-        cardPortrait = mCardPortrait;
-        attack = mAttack;
-        health = mHealth;
-        mPortraitScale = scaleValue;
-        mPortraitOffset = new Vector2(0.0f, portraitYPos);
+        this.name = mName;
+        this.cardType = cardTypeValue;
+        this.cardPortrait = mCardPortrait;
+        this.attack = mAttack;
+        this.health = mHealth;
+        this.mPortraitScale = scaleValue;
+        this.mPortraitOffset = new Vector2(0.0f, portraitYPos);
 
     }
 
@@ -341,16 +342,19 @@ public class Card extends Sprite {
         return mCardBase;
     }
 
+    //Returns true if Card has been dragged
+    public Boolean getCardDragged(){return cardDragged;}
+
     // /////////////////////////////////////////////////////////////////////////
     // Setters
     // /////////////////////////////////////////////////////////////////////////
 
     // Setter to set the health value of the Card [Niamh McCartney]
-    public void setHealthValue(int value){ health = value; }
+    public void setHealthValue(int value){ this.health = value; }
 
-    public void setStartPosX(float xValue){startPosX = xValue;}
+    public void setStartPosX(float xValue){this.startPosX = xValue;}
 
-    public void setStartPosY(float yValue){startPosY = yValue;}
+    public void setStartPosY(float yValue){this.startPosY = yValue;}
 
     //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
     public static void setGameScreen(GameScreen gameScreenValue){
@@ -358,13 +362,13 @@ public class Card extends Sprite {
     }
 
     //Setter to set the width of the layer View Port[Niamh McCartney]
-    public void setLayerViewPortWidth(float xValue){ x = xValue; }
+    public void setLayerViewPortWidth(float xValue){ this.x = xValue; }
 
     //Setter to set the height of the layer View Port[Niamh McCartney]
-    public void setLayerViewPortHeight(float yValue){ y = yValue; }
+    public void setLayerViewPortHeight(float yValue){ this.y = yValue; }
 
     public void setCardPortrait(Bitmap cardPortraitBitmap){
-        cardPortrait = cardPortraitBitmap;
+        this.cardPortrait = cardPortraitBitmap;
     }
 
     public void setSelected(boolean selected){
@@ -378,5 +382,8 @@ public class Card extends Sprite {
     public void setCardBase(Bitmap mCardBase) {
         this.mCardBase = mCardBase;
     }
+
+    //Setter to set the boolean value of 'cardDragged'
+    public void setCardDragged(Boolean bool){this.cardDragged = bool;}
 
 }
