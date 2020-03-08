@@ -17,6 +17,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "VillainCardBackgroundSelected",
+      "file": "img/CardPortraits/VillainCardBackgroundSelected.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "HeroAttackContainer",
       "file": "img/CardPortraits/HeroAttackContainer.png"
     },
