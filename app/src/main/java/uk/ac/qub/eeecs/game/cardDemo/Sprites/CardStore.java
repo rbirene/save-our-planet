@@ -16,7 +16,16 @@ import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.VillainCard;
+
+/**
+ * Loads and Creates Cards and provides
+ * way for user to access Cards
+ *
+ * Created By Niamh McCartney
+ */
 
 public class CardStore {
 
@@ -76,6 +85,9 @@ public class CardStore {
      }     *
      *
      * @param assetsToLoadJSONFile JSON file to load and process
+     *
+     * code refractored from 'loadAssets(String assetsToLoadJSONFile)'
+     * method from 'AssetManager' class
      */
 
     public void loadCardAssets(String assetsToLoadJSONFile) {
@@ -105,13 +117,20 @@ public class CardStore {
                 portraitYPos = Float.parseFloat(assets.getJSONObject(idx).getString("portraitYPos"));
 
                 //randomise health and attack values
-                attackValue = getRandNum(1, 99);
-                healthValue = getRandNum(30,99);
+                attackValue = getRandNum(5, 30);
+                healthValue = getRandNum(40, 99);
 
                 //create card
-                Card cardName = new Card(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
-                if(!cardPool.containsKey(name)){
-                    cardPool.put(name, cardName);
+                if(!cardPool.containsKey(name)) {
+
+                    //create a Villain/Hero card depending on the cardType
+                    if (cardType.equals("villainCard")) {
+                        VillainCard cardName = new VillainCard(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
+                        cardPool.put(name, cardName);
+                    }else if(cardType.equals("heroCard")){
+                        HeroCard cardName = new HeroCard(nullFloatValue, nullFloatValue, null, name, cardType, null, scaleValue, attackValue, healthValue, portraitYPos);
+                        cardPool.put(name, cardName);
+                    }
                 }
             }
 
@@ -133,7 +152,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key, "HeroCardBackground");
+            setGameScreenVariables(value, gameScreen, key);
             if(value.getCardType().equals("heroCard")){
                 heroCardPool.put(key, value);
             }
@@ -153,7 +172,7 @@ public class CardStore {
         for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
             String key = entry.getKey();
             Card value = entry.getValue();
-            setGameScreenVariables(value, gameScreen, key, "VillainCardBackground");
+            setGameScreenVariables(value, gameScreen, key);
             if(value.getCardType().equals("villainCard")){
                 villainCardPool.put(key, value);
             }
@@ -168,15 +187,14 @@ public class CardStore {
      * @param card card instance
      * @param gameScreen game Screen the cards have been called by
      * @param key  of the chosen HashMap
-     * @param cardBackgroundName name of the cardBackground image from the JSON file
      *
      *  Created By Niamh McCartney
      */
-    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key, String cardBackgroundName){
+    private Card setGameScreenVariables(Card card, GameScreen gameScreen, String key){
         Card.setGameScreen(gameScreen);
         card.setLayerViewPortWidth(gameScreen.getDefaultLayerViewport().x);
         card.setLayerViewPortHeight(gameScreen.getDefaultLayerViewport().y);
-        card.createCardImages(cardBackgroundName);
+        card.createCardImages();
         getCardBitmap(gameScreen, key, card);
         return card;
     }
@@ -238,8 +256,8 @@ public class CardStore {
     private int getRandNum(int min, int max){
 
         Random rand = new Random();
-
         int randomNum = rand.nextInt((max - min) + 1) + min;
+
         return randomNum;
     }
 }
