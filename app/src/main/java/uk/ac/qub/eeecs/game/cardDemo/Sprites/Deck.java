@@ -8,6 +8,8 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 /**
  * Defines Deck containing 3 Cards
  * Provides methods to access
+ *
+ * Created By Niamh McCartney
  */
 
 public class Deck {
@@ -29,7 +31,6 @@ public class Deck {
     //Defines ArrayList to hold the cards in the deck
     private ArrayList<Card> cardDeck;
 
-
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,6 @@ public class Deck {
         cardDeck.add(2, Card03);
 
         deckCreated = true;
-
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -78,6 +78,10 @@ public class Deck {
         }
     }
 
+    /**
+     * returns the size of the deck
+     * Created by [Niamh McCartney]
+     */
     public int getSize(){
        return  cardDeck.size();
     }
@@ -110,9 +114,28 @@ public class Deck {
         return cardDeck;
     }
 
-
+    /**
+     * returns the first Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
     public Card getCard01(GameScreen screen){ Card01.setGameScreen(screen); return Card01;}
+
+    /**
+     * returns the second Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
     public Card getCard02(GameScreen screen){ Card02.setGameScreen(screen); return Card02;}
+
+    /**
+     * returns the third Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
     public Card getCard03(GameScreen screen){ Card03.setGameScreen(screen); return Card03;}
 
 
@@ -133,17 +156,22 @@ public class Deck {
         Card02 = cardDeck.get(1);
         Card03 = cardDeck.get(2);
     }
-
+    //Returns true if the deck has been shuffled
     public void setDeckShuffled(Boolean bool){
         deckShuffled = bool;
     }
 
+    //Setter for the first Card in the deck
     public void setCard01(Card newCard){
         Card01 = newCard;
         cardDeck.set(0, newCard);}
+
+    //Setter for the second Card in the deck
     public void setCard02(Card newCard){
         Card02 = newCard;
         cardDeck.set(1, newCard);}
+
+    //Setter for the third Card in the deck
     public void setCard03(Card newCard){
         Card03 = newCard;
         cardDeck.set(2, newCard);}

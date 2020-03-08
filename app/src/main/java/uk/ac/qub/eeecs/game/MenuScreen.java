@@ -13,7 +13,7 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
@@ -35,12 +35,16 @@ public class MenuScreen extends GameScreen {
 
     //define HashMap to contain all hero cards[Niamh McCartney]
     private HashMap<String, Card> heroCardPool;
+
     //define HashMap to contain all villain cards[Niamh McCartney]
     private HashMap<String, Card> villainCardPool = new HashMap<>();
     private HashMap<String, Card> screenCardPool = new HashMap<>();
 
+    /*define card and deck objects used during
+     *generation of the player decks
+     *[Niamh McCartney]
+     */
     private Card randCard;
-
     private Card Card01;
     private Card Card02;
     private Card Card03;
@@ -62,6 +66,8 @@ public class MenuScreen extends GameScreen {
     private PushButton options;
     private PushButton exit;
 
+    private AssetManager assetManager;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -74,9 +80,9 @@ public class MenuScreen extends GameScreen {
     public MenuScreen(Game game) {
         super("MenuScreen", game);
 
-        // Load in the bitmaps used on the main menu screen
-        AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        // Load assets used by screen[Niamh McCartney]
+        assetManager = mGame.getAssetManager();
+        loadScreenAssets();
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -86,14 +92,12 @@ public class MenuScreen extends GameScreen {
 
         //creates hero deck if deck is not already created [Niamh McCartney]
         if(heroDeck == null ) {
-            assetManager.loadAssets("txt/assets/CardAssets.JSON");
             //Create Hero Deck
             createHeroDeck();
         }
 
         //creates villain deck if deck is not already created [Niamh McCartney]
         if(villainDeck == null ) {
-            assetManager.loadAssets("txt/assets/CardAssets.JSON");
             //Create villain Deck
             createVillainDeck();
         }
@@ -215,7 +219,6 @@ public class MenuScreen extends GameScreen {
         return deck;
     }
 
-
     /**
      * Creates a Hero Deck
      *
@@ -242,6 +245,17 @@ public class MenuScreen extends GameScreen {
         deck = generateRandCards(3, villainCardPool);
         //set this deck as the hero's deck
         villain.setPlayerDeck(deck);
+    }
+
+    /**
+     * Load Assets used by screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void loadScreenAssets(){
+        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        assetManager.loadAssets("txt/assets/CardAssets.JSON");
+
     }
 
 }

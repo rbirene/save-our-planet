@@ -13,10 +13,6 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public class GameBoard extends GameObject {
 
-
-   // private int screenHeight = getGameScreen().getGame().getScreenHeight();
-    //private int screenWidth = getGameScreen().getGame().getScreenWidth();
-
     private GameScreen BattleScreen;
     private ArrayList<CardHolder> heroContainers;
     private ArrayList<CardHolder> villianContainers;
@@ -24,7 +20,6 @@ public class GameBoard extends GameObject {
 
     public GameBoard(float x, float y ,float width, float height,Bitmap bitmap, GameScreen gameScreen) {
       super(x, y,width,height, bitmap, gameScreen);
-
 
         this.heroContainers = new ArrayList<>();
         this.villianContainers = new ArrayList<>();
@@ -36,8 +31,6 @@ public class GameBoard extends GameObject {
         villianContainers.add(new CardHolder(140.0f, 210.0f, gameScreen));
         villianContainers.add(new CardHolder(240.0f, 210.0f,gameScreen));
         villianContainers.add(new CardHolder(340.0f, 210.0f, gameScreen));
-
-
 
     }
 

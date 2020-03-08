@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
  *
@@ -34,15 +35,18 @@ public class Hero extends Player {
 
     public Hero(Bitmap portrait){
         super(0.0f, 0.0f, "Freta Funberg", null, portrait);
-
-
+        setYourTurn(false);
     }
 
     @Override
-    public void takeFirstTurn(){}
+    public void takeFirstTurn(){
+        setYourTurn(true);
+    }
 
     @Override
-    public void takeTurn(){ }
+    public void takeTurn(){
+        setYourTurn(true);
+    }
 
 
     public void moveCards(List<TouchEvent> touchEvents) {
@@ -109,11 +113,9 @@ public class Hero extends Player {
 
 
     public void ProcessTouchInput(List<TouchEvent> touchEvents){
-        playerCards = playerDeck.getDeck(null);
-        selectCard(touchEvents);
-        moveCards(touchEvents);
-
-
+            playerCards = playerDeck.getDeck(null);
+            selectCard(touchEvents);
+            moveCards(touchEvents);
     }
 
 
