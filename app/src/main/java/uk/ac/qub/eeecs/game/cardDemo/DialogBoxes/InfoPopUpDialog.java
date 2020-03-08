@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
+import uk.ac.qub.eeecs.game.cardDemo.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 
-public class InfoPopUpDialog {
+public class InfoPopUpDialog{
 
     /**
      * Displays a pop-up box
@@ -24,7 +26,7 @@ public class InfoPopUpDialog {
      * Created By Niamh McCartney
      */
 
-    public void showDialog(Activity activity, String msg){
+    public void showDialog(Activity activity, String msg, ColourEnum backgroundColour, int imageID, String buttonText, int buttonImage){
         // Flags for full-screen mode:
         int ui_flags =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -39,12 +41,23 @@ public class InfoPopUpDialog {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.info_window);
 
+        ImageView image = dialog.findViewById(R.id.a);
+        //Get colour inputted by user and get its code
+        Colour colour01 = new Colour(backgroundColour);
+        String colourCode = colour01.getColourCode();
+        //Use colour code to set background
+        image.setBackgroundColor(Color.parseColor(colourCode));
+        //Set dialog image
+        image.setImageResource(imageID);
+
         //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
         text.setText(msg);
 
         //When button is pressed cancel the dialog box
         Button dialogButton = dialog.findViewById(R.id.btn_dialog);
+        dialogButton.setText(buttonText);
+        dialogButton.setBackgroundResource(buttonImage);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,4 +79,5 @@ public class InfoPopUpDialog {
         dialog.getWindow().
                 clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
+
 }

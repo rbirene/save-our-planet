@@ -17,13 +17,16 @@ import java.util.TimerTask;
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
 
-public class CoinFlipDialog {
+public class CoinFlipDialog{
 
     /**
      * Displays a pop-up box
-     * containing an informative message
+     * that allows the user to flip a
+     * coin. When the coin is flipped
+     * an informative message is displayed
      *
      * @param activity
+     * @param firstPlayerName
      *
      * Created By Niamh McCartney
      */
@@ -78,7 +81,6 @@ public class CoinFlipDialog {
                     //change the png image to a gif
                     GifImageView gifView = dialog.findViewById(R.id.a);
                     gifView.setImageResource(R.drawable.coinflipgif);
-
 
                     /*
                     *After 2 seconds have elapsed then call the mUpdateDialog runnable
