@@ -27,13 +27,11 @@ public class SplashScreen extends GameScreen {
 
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
-    // Graphics
     private GameObject splashScreenBackground;
     private int timer =0;
     private AssetManager assetManager;
     private AudioManager audioManager = mGame.getAudioManager();
     private int gameHeight, gameWidth;
-   // private Bitmap bmTitle;
     private Sprite moveLogo, moveText;
 
     public SplashScreen(Game game) {

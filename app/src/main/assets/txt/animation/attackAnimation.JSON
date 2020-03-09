@@ -1,0 +1,14 @@
+{
+  "spritesheet" : "img/attackSpritesheet.png",
+  "numRows" : 1,
+  "numColumns" : 7,
+  "animations": [
+    {
+      "name": "explosion",
+      "startFrame" : 0,
+      "endFrame" : 6,
+      "totalPeriod" : 0.4,
+      "loopAnimation" : false
+    }
+  ]
+}

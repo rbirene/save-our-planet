@@ -22,19 +22,19 @@ import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 
 public class OptionsScreen extends GameScreen {
 
-    private GameObject OptionsBackground;
-    private GameObject volumeBar;
-
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
 
-    private PushButton BackButton;
+    private GameObject OptionsBackground;
+    private GameObject volumeBar;
+
+    private PushButton backButton;
     private PushButton muteToggle;
     private PushButton volumeUp;
     private PushButton volumeDown;
-
     private PushButton changeDifficulty;
-    DifficultyLevels diff = DifficultyLevels.EASY;
+
+    private DifficultyLevels diff = DifficultyLevels.EASY;
     private Paint paint;
 
     private AudioManager audioManager = mGame.getAudioManager();
@@ -66,7 +66,7 @@ public class OptionsScreen extends GameScreen {
                 300.0f, 120.0f,
                 this.getGame().getAssetManager().getBitmap("soundBar0"), this);
 
-        BackButton = new PushButton(20.0f, 50.0f,
+        backButton = new PushButton(20.0f, 50.0f,
                 50.0f, 50.0f,
                 "BackArrow", "BackArrowSelected", this);
 
@@ -81,8 +81,8 @@ public class OptionsScreen extends GameScreen {
         changeDifficulty = new PushButton(420.0f, 50.0f, 75.0f, 60.0f,
                 "diffEasy","diffNormal",this );
 
-
         volChecker();
+
 
         if (audioManager.isMusicPlaying()) {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
@@ -114,6 +114,8 @@ public class OptionsScreen extends GameScreen {
         }else if(mGame.mDifficultyLevel == DifficultyLevels.HARD) {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffHard"));
         }
+
+
     }
 
     //For testing
@@ -130,14 +132,14 @@ public class OptionsScreen extends GameScreen {
         diffChecker(mGame.mDifficultyLevel,changeDifficulty);
 
         if (touchEvents.size() > 0) {
-            BackButton.update(elapsedTime);
+            backButton.update(elapsedTime);
             muteToggle.update(elapsedTime);
             volumeUp.update(elapsedTime);
             volumeBar.update(elapsedTime);
             volumeDown.update(elapsedTime);
             changeDifficulty.update(elapsedTime);
 
-            if (BackButton.isPushTriggered()) {
+            if (backButton.isPushTriggered()) {
                 mGame.getScreenManager().removeScreen(this);
                 mGame.getAudioManager().setMusicVolume(volume);
             }
@@ -177,7 +179,7 @@ public class OptionsScreen extends GameScreen {
         OptionsBackground.draw(elapsedTime, graphics2D);
         graphics2D.drawText("Volume Control : ", mGame.getScreenWidth() * 0.095f, mGame.getScreenHeight() * 0.28f, paint);
         graphics2D.drawText("Choose Difficulty : ", 300, 1050, paint);
-        BackButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+        backButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         muteToggle.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         volumeBar.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         volumeDown.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
@@ -197,6 +199,7 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
+
     public void setVolume(float vol){
         this.volume = vol;
     }
@@ -206,4 +209,6 @@ public class OptionsScreen extends GameScreen {
     public Bitmap getVolumeBar(){
         return volumeBar.getBitmap();
     }
+
+
 }

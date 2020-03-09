@@ -72,6 +72,7 @@ public interface IGraphics2D {
      */
     void drawBitmap(Bitmap bitmap, Matrix matrix, Paint paint);
 
+
     /**
      * Draw the specified rectangle
      *

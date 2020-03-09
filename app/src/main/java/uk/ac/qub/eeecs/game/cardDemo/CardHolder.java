@@ -29,7 +29,7 @@ public class CardHolder extends GameObject {
         this.card = card;
         this.empty = false;
         card.setPosition(this.getBound().x, this.getBound().y);
-        card.setmCardHolder(this);
+        card.setCardHolder(this);
      }
 
      public void removeCard(){
@@ -46,4 +46,7 @@ public class CardHolder extends GameObject {
 
     public float getY(){ return y;}
     public float getX(){ return x;}
+
+
+
 }

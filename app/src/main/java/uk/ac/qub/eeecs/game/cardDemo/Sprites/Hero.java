@@ -69,12 +69,14 @@ public class Hero extends Player {
                         tempContainer.AddCardToHolder(cardSelected);
                        // tempContainer = null;
                         cardSelected = null;
+                        cardPlayed = true;
                     }else if(checkDropLocationAttack()) {
                         attackPhase();
                       //  tempContainer.returnCardToHolder();
                         cardSelected.returnToHolder();
                         cardSelected = null;
-                    }
+                        cardPlayed = true;
+                      }
                         else{
                         cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
@@ -129,6 +131,7 @@ public class Hero extends Player {
 
         for(int i=0;i<enemyCardHolders.size();i++){
             if(cardSelected.getBound().intersects(enemyCardHolders.get(i).getBound())){
+                gameBoard.playAttackAnimation(enemyCardHolders.get(i));
                  enemyCard = enemyCardHolders.get(i).returnCardHeld();
                  enemyCard.setHealthValue(enemyCard.getHealthValue() - cardSelected.getAttackValue());
                 }

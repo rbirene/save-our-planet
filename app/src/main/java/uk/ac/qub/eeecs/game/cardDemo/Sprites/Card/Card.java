@@ -88,7 +88,7 @@ public class Card extends Sprite {
     private float y;
 
     protected static GameScreen gameScreen;
-    private CardHolder mCardHolder;
+    private CardHolder CardHolder;
     private Paint mTextPaint;
 
     //Boolean to determine whether the card has been selected
@@ -341,7 +341,7 @@ public class Card extends Sprite {
     }
 
     public void returnToHolder(){
-        this.setPosition(mCardHolder.getBound().x,mCardHolder.getBound().y);
+        this.setPosition(CardHolder.getBound().x,CardHolder.getBound().y);
     }
 
     //Returns true if Cards is selected [Niamh McCartney]
@@ -350,9 +350,7 @@ public class Card extends Sprite {
     }
 
 
-    public void setmCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
-
-    public CardHolder getmCardHolder(){return this.mCardHolder;}
+    public void setCardHolder(CardHolder cardHolder){this.CardHolder = cardHolder;}
 
 
     //Creates the images used by the Card [Niamh McCartney]
