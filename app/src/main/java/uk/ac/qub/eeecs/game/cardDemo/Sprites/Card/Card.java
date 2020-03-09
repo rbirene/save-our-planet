@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.Sprites;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -32,19 +32,22 @@ public class Card extends Sprite {
     private static final int DEFAULT_CARD_HEIGHT = 240;
 
     // Define the common card base
-    private Bitmap mCardBase;
+    protected Bitmap mCardBaseImage;
+
+    protected Bitmap mCardBase;
+    protected Bitmap mCardBaseSelected;
 
     // Define the card portrait image
     private Bitmap cardPortrait;
 
     //Define Bitmap to contain attack Value
-    private Bitmap mAttackContainer;
+    protected Bitmap mAttackContainer;
 
     //Define Bitmap to contain health Value
-    private Bitmap mHealthContainer;
+    protected Bitmap mHealthContainer;
 
     // Define the card digit images
-    private Bitmap[] mCardDigits = new Bitmap[10];
+    protected Bitmap[] mCardDigits = new Bitmap[10];
 
     // Define the offset locations and scaling for the card portrait
     // card attack and card health values - all measured relative
@@ -52,30 +55,30 @@ public class Card extends Sprite {
 
     private float mAttackOffsetXPos;
     private float mAttackOffsetYPos;
-    private Vector2 mAttackOffset = new Vector2(mAttackOffsetXPos, mAttackOffsetYPos);
-    private Vector2 mAttackScale = new Vector2(0.04f, 0.04f);
+    protected Vector2 mAttackOffset = new Vector2(mAttackOffsetXPos, mAttackOffsetYPos);
+    protected Vector2 mAttackScale = new Vector2(0.04f, 0.04f);
 
-    private Vector2 mHealthOffset;
-    private Vector2 mHealthScale = new Vector2(0.04f, 0.04f);
+    protected Vector2 mHealthOffset;
+    protected Vector2 mHealthScale = new Vector2(0.04f, 0.04f);
 
     private Vector2 mPortraitOffset;
     private Vector2 mPortraitScale;
 
-    private Vector2 mAttackContainerOffset;
-    private Vector2 mAttackContainerScale;
+    protected Vector2 mAttackContainerOffset;
+    protected Vector2 mAttackContainerScale;
 
-    private Vector2 mHealthContainerOffset;
-    private Vector2 mHealthContainerScale;
+    protected Vector2 mHealthContainerOffset;
+    protected Vector2 mHealthContainerScale;
 
     // Define the health and attack values
-    private int attack;
-    private int health;
+    protected int attack;
+    protected int health;
 
     //Defines number of digits in the attack and health values
-    private int attackLength;
-    private int healthLength;
+    protected int attackLength;
+    protected int healthLength;
 
-    private float textXpos;
+    protected float textXpos;
 
     //Define the Card Name and Type
     private String name;
@@ -84,13 +87,14 @@ public class Card extends Sprite {
     private float x;
     private float y;
 
-    private static GameScreen gameScreen;
+    protected static GameScreen gameScreen;
     private CardHolder mCardHolder;
     private Paint mTextPaint;
 
     //Boolean to determine whether the card has been selected
     private Boolean selected = false;
     private Boolean cardLocked = false;
+    private Boolean cardDragged = false;
 
     private float startPosX;
     private float startPosY;
@@ -145,7 +149,7 @@ public class Card extends Sprite {
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
         // Draw the card base background[Niamh McCartney]
-        mBitmap = mCardBase;
+        mBitmap = setCardBackground();
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
 
@@ -182,47 +186,47 @@ public class Card extends Sprite {
 
         // Draw the attack value depending on how many digits it has [Niamh McCartney]
         //if attack has one digit
-        if(attackLength == 1){
-            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.59f, -0.1f);}
-            else{mAttackOffset = new Vector2(0.64f, -0.18f);}
-            drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
-                    graphics2D, layerViewport, screenViewport);
-        }//if attack has two digits
-        else if(attackLength == 2){
-            int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
-            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.54f, -0.1f);}
-            else{mAttackOffset = new Vector2(0.59f, -0.18f);}
-            drawBitmap(mCardDigits[firstDigit], mAttackOffset, mAttackScale,
-                    graphics2D, layerViewport, screenViewport);
-
-            int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
-            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.64f, -0.1f);}
-            else{mAttackOffset = new Vector2(0.69f, -0.18f);}
-            drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
-                    graphics2D, layerViewport, screenViewport);
-        }
-
-        // Draw the health value[Niamh McCartney]
-        //if health has one digit
-        if(healthLength == 1){
-            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.7f, -0.11f);}
-            else{mHealthOffset = new Vector2(-0.70f, -0.18f);}
-        drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
-                graphics2D, layerViewport, screenViewport);
-        }//if health has two digits
-        else if(healthLength == 2){
-            int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
-            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.75f, -0.1f);}
-            else{mHealthOffset = new Vector2(-0.75f, -0.18f);}
-            drawBitmap(mCardDigits[firstDigit], mHealthOffset, mHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-
-            int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
-            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.65f, -0.1f);}
-            else{mHealthOffset = new Vector2(-0.65f, -0.18f);}
-            drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-        }
+//        if(attackLength == 1){
+//            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.59f, -0.1f);}
+//            else{mAttackOffset = new Vector2(0.64f, -0.18f);}
+//            drawBitmap(mCardDigits[attack], mAttackOffset, mAttackScale,
+//                    graphics2D, layerViewport, screenViewport);
+//        }//if attack has two digits
+//        else if(attackLength == 2){
+//            int firstDigit = Character.getNumericValue((String.valueOf(attack).charAt(0)));
+//            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.54f, -0.1f);}
+//            else{mAttackOffset = new Vector2(0.59f, -0.18f);}
+//            drawBitmap(mCardDigits[firstDigit], mAttackOffset, mAttackScale,
+//                    graphics2D, layerViewport, screenViewport);
+//
+//            int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
+//            if(cardType.equals("villainCard")){mAttackOffset = new Vector2(0.64f, -0.1f);}
+//            else{mAttackOffset = new Vector2(0.69f, -0.18f);}
+//            drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
+//                    graphics2D, layerViewport, screenViewport);
+//        }
+//
+//        // Draw the health value[Niamh McCartney]
+//        //if health has one digit
+//        if(healthLength == 1){
+//            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.7f, -0.11f);}
+//            else{mHealthOffset = new Vector2(-0.70f, -0.18f);}
+//        drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
+//                graphics2D, layerViewport, screenViewport);
+//        }//if health has two digits
+//        else if(healthLength == 2){
+//            int firstDigit = Character.getNumericValue((String.valueOf(health).charAt(0)));
+//            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.75f, -0.1f);}
+//            else{mHealthOffset = new Vector2(-0.75f, -0.18f);}
+//            drawBitmap(mCardDigits[firstDigit], mHealthOffset, mHealthScale,
+//                    graphics2D, layerViewport, screenViewport);
+//
+//            int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
+//            if(cardType.equals("villainCard")){mHealthOffset = new Vector2(-0.65f, -0.1f);}
+//            else{mHealthOffset = new Vector2(-0.65f, -0.18f);}
+//            drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
+//                    graphics2D, layerViewport, screenViewport);
+//        }
     }
 
     private BoundingBox bound = new BoundingBox();
@@ -241,8 +245,8 @@ public class Card extends Sprite {
      *
      *  Taken from CardDemo Gage Code
      */
-    private void drawBitmap(Bitmap bitmap, Vector2 offset, Vector2 scale,
-                            IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
+    public void drawBitmap(Bitmap bitmap, Vector2 offset, Vector2 scale,
+                           IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
 
         // Calculate the center position of the rotated offset point.
         double rotation = Math.toRadians(-this.orientation);
@@ -345,10 +349,6 @@ public class Card extends Sprite {
         return selected;
     }
 
-    public void setSelected(boolean selected){
-        this.selected = selected;
-    }
-
 
     public void setmCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
 
@@ -356,31 +356,31 @@ public class Card extends Sprite {
 
 
     //Creates the images used by the Card [Niamh McCartney]
-    public void createCardImages(String cardBackgroundName){
+    public void createCardImages(){
         if(gameScreen != null) {
             AssetManager assetManager = gameScreen.getGame().getAssetManager();
 
             // Store the common card base image
-            mCardBase = assetManager.getBitmap(cardBackgroundName);
+//            mCardBase = assetManager.getBitmap(cardBackgroundName);
 
             // Store each of the damage/health digits
             for (int digit = 0; digit <= 9; digit++)
                 mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
 
-            if(cardType.equals("villainCard")){
-                mAttackContainer = assetManager.getBitmap("VillainAttackContainer");
-                mAttackContainerScale = new Vector2(0.18f, 0.18f);
-                mAttackContainerOffset = new Vector2(0.6f, -0.05f);
-                mHealthContainerOffset = new Vector2(-0.7f, -0.1f);
-                textXpos = 0.08f;
-            }else{
-                mAttackContainer = assetManager.getBitmap("HeroAttackContainer");
-                mAttackContainerScale = new Vector2(0.25f, 0.25f);
-                mAttackContainerOffset = new Vector2(0.6f, -0.15f);
-                mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
-                textXpos = 0.15f;
-            }
-            mHealthContainer = assetManager.getBitmap("HealthContainer");
+//            if(cardType.equals("villainCard")){
+//                mAttackContainer = assetManager.getBitmap("VillainAttackContainer");
+//                mAttackContainerScale = new Vector2(0.18f, 0.18f);
+//                mAttackContainerOffset = new Vector2(0.6f, -0.05f);
+//                mHealthContainerOffset = new Vector2(-0.7f, -0.1f);
+//                textXpos = 0.08f;
+//            }else{
+//                mAttackContainer = assetManager.getBitmap("HeroAttackContainer");
+//                mAttackContainerScale = new Vector2(0.25f, 0.25f);
+//                mAttackContainerOffset = new Vector2(0.6f, -0.15f);
+//                mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
+//                textXpos = 0.15f;
+//            }
+//            mHealthContainer = assetManager.getBitmap("HealthContainer");
         }
     }
 //    @Override
@@ -389,6 +389,18 @@ public class Card extends Sprite {
 //        super.update(elapsedTime);
 //
 //    }
+
+    //Changes the Card Background when card is selected [Niamh McCartney]
+    public Bitmap setCardBackground(){
+        if(cardSelected()){
+            mCardBaseImage = getCardBaseSelected();
+        }
+        else {
+            mCardBaseImage = getCardBase();
+        }
+        return mCardBaseImage;
+    }
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Getters
@@ -425,6 +437,17 @@ public class Card extends Sprite {
     }
 
     public boolean getCardLocked(){return cardLocked;}
+
+    private Bitmap getCardBaseSelected() {
+        return mCardBaseSelected;
+    }
+
+    private Bitmap getCardBase() {
+        return mCardBase;
+    }
+
+    //Returns true if Card has been dragged
+    public Boolean getCardDragged(){return cardDragged;}
 
     // /////////////////////////////////////////////////////////////////////////
     // Setters
@@ -463,5 +486,16 @@ public class Card extends Sprite {
     public void setHealthValue(int value){
         health = value;
     }
+
+    public void setSelected(boolean selected){
+        this.selected = selected;
+    }
+
+    public void setCardBaseSelected(Bitmap mCardBaseSelected) {
+        this.mCardBaseSelected = mCardBaseSelected;
+    }
+
+    //Setter to set the boolean value of 'cardDragged'
+    public void setCardDragged(Boolean bool){this.cardDragged = bool;}
 
 }
