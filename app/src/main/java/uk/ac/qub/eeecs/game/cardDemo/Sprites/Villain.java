@@ -45,8 +45,6 @@ public class Villain extends Player {
         containers.addAll(gameBoard.getVillianContainers());
         enemyContainers.addAll(gameBoard.getHeroContainers());
 
-
-
         if(!playerCards.isEmpty()){
             int n = rand.nextInt(containers.size()-1);
             int x = rand.nextInt(playerCards.size()-1);

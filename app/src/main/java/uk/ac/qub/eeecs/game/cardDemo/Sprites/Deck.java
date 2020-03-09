@@ -117,7 +117,7 @@ public class Deck {
     }
 
         //Sam
-    public void update(ElapsedTime elapsedTime){
+    public void update(){
 
         for(int i=0;i<cardDeck.size();i++){
             if(cardDeck.get(i).getHealthValue() < 0){

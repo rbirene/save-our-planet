@@ -115,8 +115,8 @@ public class BattleScreen extends GameScreen {
                 30.0f, 30.0f, "endTurn", "endTurn",this);
 
         paint = new Paint();
-        paint.setTextSize(90.0f);
-        paint.setARGB(255, 0, 0, 0);
+        paint.setTextSize(180.0f);
+        paint.setARGB(255, 255, 255, 255);
         paint.setUnderlineText(true);
 
 
@@ -233,8 +233,8 @@ public class BattleScreen extends GameScreen {
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
 
-        villainDeck.update(elapsedTime);
-        heroDeck.update(elapsedTime);
+        villainDeck.update();
+        heroDeck.update();
 
         for (Card c:heroDeck.getDeck(this)) {
             c.update(elapsedTime);
@@ -266,7 +266,7 @@ public class BattleScreen extends GameScreen {
             }
 
 
-        for (int i = 0; i < touchEvents.size(); i++) {
+    /*  for (int i = 0; i < touchEvents.size(); i++) {
             TouchEvent event = touchEvents.get(i);
             Vector2 layerTouch = new Vector2();
             ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
@@ -296,7 +296,7 @@ public class BattleScreen extends GameScreen {
                     }
                 }
             }
-        }
+        }*/
         }
 
     private void pauseUpdate(ElapsedTime elapsedTime) {
@@ -331,7 +331,7 @@ public class BattleScreen extends GameScreen {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("Paused", mGame.getScreenWidth()/3, mGame.getScreenHeight()/3, paint);
+        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3, paint);
 
     }
 
@@ -340,8 +340,8 @@ public class BattleScreen extends GameScreen {
 
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck);
-        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck);
+        AddPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight);
+        AddPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72);
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -352,9 +352,7 @@ public class BattleScreen extends GameScreen {
             settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
-        //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight);
-        AddPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72);
+
 
         if(deckSizeChanged) {
             //set start positions of hero and villain Decks[Niamh McCartney]
