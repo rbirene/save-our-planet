@@ -249,37 +249,37 @@ public class BattleScreen extends GameScreen {
             }
 
 
-        for (int i = 0; i < touchEvents.size(); i++) {
-            TouchEvent event = touchEvents.get(i);
-            Vector2 layerTouch = new Vector2();
-            ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
-                    this.getDefaultLayerViewport(), layerTouch);
-
-            //If a card is touched change the background of the touched card
-            for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
-                for (int j = 0; j < heroDeck.getDeck(this).size(); j++) {
-                    Card card = heroDeck.getDeck(this).get(j);
-                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0) {
-                        if(deckEnlarged) {
-                            cardWidth = 54;
-                            cardHeight = 72;
-                            deckEnlarged = false;
-                            spacing = 50;
-                            heroCardXPosScale = 0.13f;
-                            deckSizeChanged = true;
-                        }else{
-                            cardWidth = 81;
-                            cardHeight = 108;
-                            deckEnlarged = true;
-                            spacing = 80;
-                            heroCardXPosScale = 0.09f;
-                            deckSizeChanged = true;
-                        }
-                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
-                    }
-                }
-            }
-        }
+//        for (int i = 0; i < touchEvents.size(); i++) {
+//            TouchEvent event = touchEvents.get(i);
+//            Vector2 layerTouch = new Vector2();
+//            ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
+//                    this.getDefaultLayerViewport(), layerTouch);
+//
+//            //If a card is touched change the background of the touched card
+//            for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
+//                for (int j = 0; j < heroDeck.getDeck(this).size(); j++) {
+//                    Card card = heroDeck.getDeck(this).get(j);
+//                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0) {
+//                        if(deckEnlarged) {
+//                            cardWidth = 54;
+//                            cardHeight = 72;
+//                            deckEnlarged = false;
+//                            spacing = 50;
+//                            heroCardXPosScale = 0.13f;
+//                            deckSizeChanged = true;
+//                        }else{
+//                            cardWidth = 81;
+//                            cardHeight = 108;
+//                            deckEnlarged = true;
+//                            spacing = 80;
+//                            heroCardXPosScale = 0.09f;
+//                            deckSizeChanged = true;
+//                        }
+//                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+//                    }
+//                }
+//            }
+//        }
         }
 
     private void pauseUpdate(ElapsedTime elapsedTime) {

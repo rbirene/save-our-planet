@@ -204,7 +204,7 @@ public class ChooseCardScreen extends GameScreen {
      *
      * Created By Niamh McCartney
      */
-    public void displayDialogs(String text){
+    private void displayDialogs(String text){
             InfoPopUpDialog popUp = new InfoPopUpDialog();
             popUp.showDialog(getGame().getActivity(), text, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
     }
@@ -214,7 +214,7 @@ public class ChooseCardScreen extends GameScreen {
      *
      * Created By Niamh McCartney
      */
-    public Boolean noCardsSelected(){
+    private Boolean noCardsSelected(){
         for (int i =0; i<heroDeck.getDeck(this).size(); i++) {
             Card value = heroDeck.getDeck(this).get(i);
             if(value.cardSelected()){
