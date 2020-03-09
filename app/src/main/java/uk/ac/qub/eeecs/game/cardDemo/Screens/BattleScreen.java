@@ -61,6 +61,7 @@ public class BattleScreen extends GameScreen {
     private Deck heroDeck = hero.getPlayerDeck();
     private Deck villainDeck = villain.getPlayerDeck();
 
+
     private Player firstPlayer;
     private Player secondPlayer;
 
