@@ -44,10 +44,13 @@ public class Villain extends Player {
         containers.addAll(gameBoard.getVillianContainers());
         enemyContainers.addAll(gameBoard.getHeroContainers());
 
-        int n = rand.nextInt(containers.size()-1);
-        int x = rand.nextInt(playerCards.size()-1);
+
 
         if(!playerCards.isEmpty()){
+            int n = rand.nextInt(containers.size()-1);
+            int x = rand.nextInt(playerCards.size()-1);
+
+
             for(int i=0;i<containers.size();i++){
                 if(containers.get(n).isEmpty()){
                     containers.get(n).AddCardToHolder(playerCards.get(x));
@@ -61,7 +64,6 @@ public class Villain extends Player {
 
     public void setPlayerCards(ArrayList<Card> cards) {
         playerCards.addAll(cards);
-
     }
 
 

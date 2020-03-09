@@ -93,13 +93,16 @@ public class BattleScreen extends GameScreen {
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
-        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
+        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f,
+                assetManager.getBitmap("battleBackground"),this);
         endTurnButton = new PushButton(360.0f, 300.0f,
                 30.0f, 30.0f, "endTurn", "endTurn",this);
 
         paint = new Paint();
         paint.setTextSize(90.0f);
         paint.setARGB(255, 0, 0, 0);
+        paint.setUnderlineText(true);
+
 
         hero.setGameScreen(this);
         hero.setGameBoard(board);
@@ -111,8 +114,6 @@ public class BattleScreen extends GameScreen {
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f);
         moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f);
-
-
 
         setupPause();
 
@@ -185,11 +186,35 @@ public class BattleScreen extends GameScreen {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
 
+        if(pause.isPushTriggered()){
+            paused = true;
+        }else if(resume.isPushTriggered()){
+            paused = false;
+        }
+
+       if(!paused) {
+           if (playerTurn) {
+               if (!hero.getCardPlayed()) {
+                   hero.ProcessTouchInput(touchEvents);
+               }
+           } else {
+               villain.playAI();
+               playerTurn = true;
+           }
+       }
+        checkEndGame();
+
+       hero.update(elapsedTime);
+       villain.update(elapsedTime);
+
         pause.update(elapsedTime);
         infoButton.update(elapsedTime);
         settingsButton.update(elapsedTime);
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
+
+        villainDeck.update(elapsedTime);
+        heroDeck.update(elapsedTime);
 
         for (Card c:heroDeck.getDeck(this)) {
             c.update(elapsedTime);
@@ -199,19 +224,9 @@ public class BattleScreen extends GameScreen {
             c.update(elapsedTime);
         }
 
-
-        if (playerTurn) {
-            hero.ProcessTouchInput(touchEvents);
-        } else {
-            villain.playAI();
-            playerTurn = true;
-        }
-
-        checkEndGame();
-
-
         if(endTurnButton.isPushTriggered()){
-            if(playerTurn == true){
+            hero.setCardPlayed(false);
+            if(playerTurn){
                 playerTurn = false;
             }
         }
@@ -223,12 +238,6 @@ public class BattleScreen extends GameScreen {
         //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-
-            if(pause.isPushTriggered()){
-                paused = true;
-            }else if(resume.isPushTriggered()){
-                paused = false;
-            }
         }
 
     private void pauseUpdate(ElapsedTime elapsedTime) {
@@ -250,7 +259,7 @@ public class BattleScreen extends GameScreen {
     public void setupPause(){
 
         pauseMenu = new GameObject(240.0f,170.0f ,
-                200.0f, 175.0f, mGame.getAssetManager().getBitmap("optionsBackground2"), this);
+                220.0f, 195.0f, mGame.getAssetManager().getBitmap("pauseBack"), this);
 
         resume = new PushButton(240.0f, 170.0f,
                 100.0f, 50.0f, "resumeBtn", "resume2Btn", this);
@@ -263,7 +272,7 @@ public class BattleScreen extends GameScreen {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("Game Paused", mGame.getScreenWidth()/3, mGame.getScreenHeight()/3, paint);
+        graphics2D.drawText("Paused", mGame.getScreenWidth()/3, mGame.getScreenHeight()/3, paint);
 
     }
 
@@ -271,20 +280,19 @@ public class BattleScreen extends GameScreen {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
-        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
-        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
-        endTurnButton.draw(elapsedTime,graphics2D,LayerViewport, ScreenViewport);
-        //Log.d("Player Health", "Health: " + hero.getPlayerHeath());
+        //Add Player Decks to Screen [Niamh McCartney]
+        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck);
+        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck);
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
             pauseUpdate(elapsedTime);
         }else{
+            endTurnButton.draw(elapsedTime,graphics2D,LayerViewport, ScreenViewport);
+            infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+            settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
-        //Add Player Decks to Screen [Niamh McCartney]
-        AddPlayerDecks(elapsedTime, graphics2D, "HeroCardBackground", heroDeck);
-        AddPlayerDecks(elapsedTime, graphics2D, "VillainCardBackground", villainDeck);
 
         // display players [Irene Bhuiyan]
         displayPlayers(elapsedTime, graphics2D);

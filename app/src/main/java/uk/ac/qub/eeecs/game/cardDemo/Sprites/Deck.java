@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 
 import java.util.ArrayList;
 
+import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
@@ -104,6 +105,15 @@ public class Deck {
         return cardDeck;
     }
 
+        //Sam
+    public void update(ElapsedTime elapsedTime){
+
+        for(int i=0;i<cardDeck.size();i++){
+            if(cardDeck.get(i).getHealthValue() < 0){
+                cardDeck.remove(i);
+            }
+        }
+    }
 
     public Card getCard01(GameScreen screen){ Card01.setGameScreen(screen); return Card01;}
     public Card getCard02(GameScreen screen){ Card01.setGameScreen(screen); return Card02;}

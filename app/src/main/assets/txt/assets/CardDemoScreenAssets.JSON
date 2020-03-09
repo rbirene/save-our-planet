@@ -3,7 +3,7 @@
     {
       "type": "Bitmap",
       "name": "TreeHuggersLogo",
-      "file": "img/TreeHuggersLogo.jpg"
+      "file": "img/TreeHuggersLogo.png"
     },
     {
       "type": "Bitmap",
@@ -204,6 +204,21 @@
       "type": "Bitmap",
       "name": "endTurn",
       "file": "img/Buttons/endTurn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "pauseBack",
+      "file": "img/pauseBack.jpeg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "attackSprite",
+      "file": "img/attackSprite.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "attackSpritesheet",
+      "file": "img/attackSpritesheet.png"
     }
   ]
 }
