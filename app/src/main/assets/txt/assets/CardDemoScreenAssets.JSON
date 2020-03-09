@@ -27,11 +27,6 @@
     },
     {
       "type": "Bitmap",
-      "name": "optionsBackground",
-      "file": "img/optionsBackground.jpg"
-    },
-    {
-      "type": "Bitmap",
       "name": "optionsBackground2",
       "file": "img/optionsBackground2.png"
     },
@@ -177,8 +172,8 @@
     },
     {
       "type": "Bitmap",
-      "name": "instructionsBackground",
-      "file": "img/Backgrounds/instructionsBackground.png"
+      "name": "optionsBackground",
+      "file": "img/Backgrounds/optionsBackground.png"
     },
     {
       "type": "Bitmap",
@@ -199,6 +194,26 @@
       "type": "Bitmap",
       "name": "instructionsBonus",
       "file": "img/Instructions/instructionsBonus.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBackground",
+      "file": "img/Backgrounds/menuBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "chooseCardBackground",
+      "file": "img/Backgrounds/chooseCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "instructions",
+      "file": "img/instructions.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settings",
+      "file": "img/settings.png"
     }
   ]
 }

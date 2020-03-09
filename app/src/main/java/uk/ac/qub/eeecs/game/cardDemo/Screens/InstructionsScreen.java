@@ -17,17 +17,18 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.MenuScreen;
 
 public class InstructionsScreen extends GameScreen {
 
     //define back button
-    private  PushButton BackButton;
+    private PushButton BackButton, MenuButton, playGame;
 
     //paints for text [Irene Bhuiyan]
     private Paint headingPaint, subheadingPaint, textPaint;
 
-    //background [Irene Bhuiyan]
-    private GameObject instructionsBackground, instructionsCardDesc, instructionsCardSelect, instructionsVillain, instructionsBonus;
+    //images [Irene Bhuiyan]
+    private GameObject instructionsBackground, instructionsTitle, instructionsCardDesc, instructionsCardSelect, instructionsVillain, instructionsBonus;
 
     //previous game screen [Irene Bhuiyan]
     private String prevGameScreen;
@@ -40,7 +41,7 @@ public class InstructionsScreen extends GameScreen {
     public InstructionsScreen(Game game, GameScreen previousGameScreen) {
         super("Instructions", game);
 
-        //define game dimensions [Irene Bhuiyan]
+        //define game dimensions and viewports [Irene Bhuiyan]
         gameHeight = mGame.getScreenHeight();
         gameWidth = mGame.getScreenWidth();
         ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
@@ -52,24 +53,30 @@ public class InstructionsScreen extends GameScreen {
         //load assets
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
 
-        //set up back button
-        BackButton = new PushButton(20.0f, 50.0f,
-                50.0f, 50.0f,
-                "BackArrow", "BackArrowSelected", this);
+        //set up back button[Niamh McCartney]
+        BackButton = new PushButton(30.0f, 30.0f, 50.0f, 50.0f, "BackArrow", "BackArrowSelected", this);
+
+        //set up play button [Irene Bhuiyan]
+        playGame = new PushButton(240.0f, 90.0f, 145.0f, 40.0f, "btnPlay", "btnPlay",this);
+
+        //set up menu button [Irene Bhuiyan]
+        MenuButton = new PushButton(400.0f, 30.0f, 80.0f, 28.0f, "menuBtn", "menuBtn", this);
 
         //set up background [Irene Bhuiyan]
-        Bitmap instructionsBackgroundImg = assetManager.getBitmap("instructionsBackground");
+        Bitmap instructionsBackgroundImg = assetManager.getBitmap("optionsBackground");
         instructionsBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, instructionsBackgroundImg , this);
 
         //set up instruction images [Irene Bhuiyan]
+        Bitmap instructionsTitleImg = assetManager.getBitmap("instructions");
+        instructionsTitle = new GameObject(240.0f, 270.0f, 200.0f, 39.0f, instructionsTitleImg, this);
         Bitmap instructionsCardDescImg = assetManager.getBitmap("instructionsCardDesc");
         instructionsCardDesc = new GameObject(240.0f, 100.0f, 350.0f, 128.0f, instructionsCardDescImg, this);
         Bitmap instructionsCardSelectImg = assetManager.getBitmap("instructionsCardSelect");
-        instructionsCardSelect = new GameObject(370.0f, 190.0f, 150.0f, 123.0f, instructionsCardSelectImg, this);
+        instructionsCardSelect = new GameObject(340.0f, 190.0f, 150.0f, 123.0f, instructionsCardSelectImg, this);
         Bitmap instructionsVillainImg = assetManager.getBitmap("instructionsVillain");
-        instructionsVillain = new GameObject(70.0f, 140.0f, 70.0f, 86.0f, instructionsVillainImg, this);
+        instructionsVillain = new GameObject(100.0f, 140.0f, 70.0f, 86.0f, instructionsVillainImg, this);
         Bitmap instructionsBonusImg = assetManager.getBitmap("instructionsBonus");
-        instructionsBonus = new GameObject(380.0f, 70.0f, 130.0f, 56.0f, instructionsBonusImg, this);
+        instructionsBonus = new GameObject(340.0f, 70.0f, 130.0f, 56.0f, instructionsBonusImg, this);
 
         //heading text style setup [Irene Bhuiyan]
         headingPaint = new Paint();
@@ -98,9 +105,18 @@ public class InstructionsScreen extends GameScreen {
         if (touchEvents.size() > 0) {
 
             BackButton.update(elapsedTime);
+            playGame.update(elapsedTime);
+            MenuButton.update(elapsedTime);
 
-            if (BackButton.isPushTriggered())
+            if (BackButton.isPushTriggered()) {
                 mGame.getScreenManager().removeScreen(this);
+            }
+            else if (playGame.isPushTriggered()){
+                mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
+            }
+            else if (MenuButton.isPushTriggered()){
+                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+            }
         }
     }
 
@@ -117,18 +133,23 @@ public class InstructionsScreen extends GameScreen {
         graphics2D.clear(Color.WHITE);
         instructionsBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         BackButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
-        graphics2D.drawText("Instructions", 700.0f, 210.0f, headingPaint);
+        instructionsTitle.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+        //graphics2D.drawText("Instructions", 700.0f, 210.0f, headingPaint);
 
         //if user clicks instructions button on main menu...
         if (prevGameScreen.equals("MenuScreen")){
             graphics2D.drawText("Looks like the planet is in danger!", 300.0f, 400.0f, textPaint);
             graphics2D.drawText("You are Freta Funberg, an environmental activist ready to save our world!", 300.0f, 500.0f, textPaint);
             graphics2D.drawText("Can you help defeat Ronald Rump and tackle climate change?", 300.0f, 600.0f, textPaint);
+            playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         }
         //else if user clicks instructions button when choosing cards...
         else if (prevGameScreen.equals("CardScreen")){
-            graphics2D.drawText("You have 3 cards in your deck. If you're happy with the cards, select 'continue'.", 170.0f, 300.0f, textPaint);
-            graphics2D.drawText("If you would like to change any of your cards, select the card(s) you want to change, and select 'shuffle'.", 170.0f, 400.0f, textPaint);
+            MenuButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+            graphics2D.drawText("You have 3 cards in your deck. If you're happy with the cards, select 'continue'.", 240.0f, 300.0f, textPaint);
+            graphics2D.drawText("If you would like to change any of your cards, select the card(s) you want to change, and", 240.0f, 370.0f, textPaint);
+            graphics2D.drawText("select 'shuffle'.", 240.0f, 410.0f, textPaint);
+
             graphics2D.drawText("About the Card", 750.0f, 550.0f, subheadingPaint);
             instructionsCardDesc.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             //health value text
@@ -146,20 +167,21 @@ public class InstructionsScreen extends GameScreen {
         }
         //else if user clicks instructions button during battle...
         else if (prevGameScreen.equals("Battle")){
+            MenuButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
             instructionsCardSelect.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             instructionsVillain.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             instructionsBonus.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             //card select text
-            graphics2D.drawText("When its your turn, select a card you want", 490.0f, 320.0f, textPaint);
-            graphics2D.drawText("to use to attack your opponent.", 490.0f, 360.0f, textPaint);
-            graphics2D.drawText("When you have played your chosen card,", 490.0f, 420.0f, textPaint);
-            graphics2D.drawText("select 'End Turn' to finish your turn.", 490.0f, 460.0f, textPaint);
+            graphics2D.drawText("When its your turn, select a card you want", 410.0f, 320.0f, textPaint);
+            graphics2D.drawText("to use to attack your opponent.", 410.0f, 360.0f, textPaint);
+            graphics2D.drawText("When you have played your chosen card,", 410.0f, 420.0f, textPaint);
+            graphics2D.drawText("select 'End Turn' to finish your turn.", 410.0f, 460.0f, textPaint);
             //villain text
-            graphics2D.drawText("Your opponent will take damage, depending", 450.0f, 680.0f, textPaint);
-            graphics2D.drawText("on the attack value of your card.", 450.0f, 720.0f, textPaint);
+            graphics2D.drawText("Your opponent will take damage, depending", 550.0f, 680.0f, textPaint);
+            graphics2D.drawText("on the attack value of your card.", 550.0f, 720.0f, textPaint);
             //bonus text
-            graphics2D.drawText("Don't forget to answer bonus questions to", 590.0f, 920.0f, textPaint);
-            graphics2D.drawText("gain rewards!", 590.0f, 960.0f, textPaint);
+            graphics2D.drawText("Don't forget to answer bonus questions to", 450.0f, 920.0f, textPaint);
+            graphics2D.drawText("gain rewards!", 450.0f, 960.0f, textPaint);
         }
 
     }
