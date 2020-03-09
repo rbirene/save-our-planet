@@ -61,6 +61,7 @@ public class BattleScreen extends GameScreen {
     private Deck heroDeck = hero.getPlayerDeck();
     private Deck villainDeck = villain.getPlayerDeck();
 
+
     private Player firstPlayer;
     private Player secondPlayer;
 
@@ -221,7 +222,7 @@ public class BattleScreen extends GameScreen {
         if (playerTurn) {
             hero.ProcessTouchInput(touchEvents);
         } else {
-            villain.playAI();
+            villain.AICardSelect();
             playerTurn = true;
         }
 
