@@ -21,8 +21,6 @@
         android:layout_height="120dp"
         android:id="@+id/a"
         android:gravity="center"
-        android:background="#a4c639"
-        android:src="@drawable/question_symbol"
         android:scaleType="fitCenter" />
 
     <TextView

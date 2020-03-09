@@ -7,6 +7,7 @@ import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
  *

@@ -2,8 +2,7 @@ package uk.ac.qub.eeecs.game.cardDemo;
 
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
-
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 public class CardHolder extends GameObject {
 
@@ -47,7 +46,4 @@ public class CardHolder extends GameObject {
 
     public float getY(){ return y;}
     public float getX(){ return x;}
-
-
-
 }

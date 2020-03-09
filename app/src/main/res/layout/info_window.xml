@@ -9,8 +9,6 @@
         android:layout_height="120dp"
         android:id="@+id/a"
         android:gravity="center"
-        android:background="#a4c639"
-        android:src="@drawable/info_symbol"
         android:scaleType="fitCenter" />
 
     <TextView
@@ -37,7 +35,6 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/green_btn"
         android:gravity="center_vertical|center_horizontal"
-        android:text="OK"
         android:textColor="#ffffffff" />
 
 </RelativeLayout>

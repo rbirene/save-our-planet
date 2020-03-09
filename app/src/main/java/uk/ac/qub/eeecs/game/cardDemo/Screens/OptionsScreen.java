@@ -82,7 +82,6 @@ public class OptionsScreen extends GameScreen {
                 "diffEasy","diffNormal",this );
 
 
-
         volChecker();
 
         if (audioManager.isMusicPlaying()) {
@@ -115,8 +114,6 @@ public class OptionsScreen extends GameScreen {
         }else if(mGame.mDifficultyLevel == DifficultyLevels.HARD) {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffHard"));
         }
-
-
     }
 
     //For testing
@@ -200,7 +197,6 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
-
     public void setVolume(float vol){
         this.volume = vol;
     }
@@ -210,6 +206,4 @@ public class OptionsScreen extends GameScreen {
     public Bitmap getVolumeBar(){
         return volumeBar.getBitmap();
     }
-
-
 }
