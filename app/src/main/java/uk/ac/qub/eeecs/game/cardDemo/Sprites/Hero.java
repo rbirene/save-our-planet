@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
  *
@@ -56,14 +57,14 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected  != null){
-               // if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
-                 //   cardSelected.setSelected(true);
-              //  }
-                if (t.type == 2 && cardSelected.cardSelected()) {
+                if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                    cardSelected.setCardDragged(true);
+                }
+                if (t.type == 2 && cardSelected.getCardDragged()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                 }
-                if (t.type == 1 && cardSelected.cardSelected()) {
-                    cardSelected.setSelected(false);
+                if (t.type == 1 && cardSelected.getCardDragged()) {
+                    cardSelected.setCardDragged(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
                        // tempContainer = null;

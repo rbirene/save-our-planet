@@ -3,12 +3,10 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
 import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
@@ -17,8 +15,7 @@ import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
  *
@@ -40,10 +37,11 @@ public abstract class Player extends Sprite {
 
     // define the player
     protected String playerName;
-    protected Deck playerDeck;
+    protected Deck  playerDeck;
     protected boolean hasAttacked;
     protected boolean hasPlayedCard;
 
+    private Boolean yourTurn;
     //boolean returns true if the player assets have been loaded[Niamh McCartney]
     private boolean assetsLoaded;
 
@@ -329,4 +327,8 @@ public abstract class Player extends Sprite {
             mHealthContainer = assetManager.getBitmap("HealthContainer");
         }
     }
+
+    public Boolean getYourTurn(){ return yourTurn;}
+
+    public void setYourTurn(Boolean bool){yourTurn = bool;}
 }

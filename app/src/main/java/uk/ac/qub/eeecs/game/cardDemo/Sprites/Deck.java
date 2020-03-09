@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
+
+/**
+ * Defines Deck containing 3 Cards
+ * Provides methods to access
+ *
+ * Created By Niamh McCartney
+ */
 
 public class Deck {
 
@@ -74,6 +81,10 @@ public class Deck {
         }
     }
 
+    /**
+     * returns the size of the deck
+     * Created by [Niamh McCartney]
+     */
     public int getSize(){
        return  cardDeck.size();
     }
@@ -115,9 +126,29 @@ public class Deck {
         }
     }
 
+    /**
+     * returns the first Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
     public Card getCard01(GameScreen screen){ Card01.setGameScreen(screen); return Card01;}
-    public Card getCard02(GameScreen screen){ Card01.setGameScreen(screen); return Card02;}
-    public Card getCard03(GameScreen screen){ Card01.setGameScreen(screen); return Card03;}
+
+    /**
+     * returns the second Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
+    public Card getCard02(GameScreen screen){ Card02.setGameScreen(screen); return Card02;}
+
+    /**
+     * returns the third Card in the deck
+     * @param screen GameScreen that is calling the method
+     *
+     * Created By Niamh McCartney
+     */
+    public Card getCard03(GameScreen screen){ Card03.setGameScreen(screen); return Card03;}
 
 
     // /////////////////////////////////////////////////////////////////////////
@@ -137,13 +168,24 @@ public class Deck {
         Card02 = cardDeck.get(1);
         Card03 = cardDeck.get(2);
     }
-
+    //Returns true if the deck has been shuffled
     public void setDeckShuffled(Boolean bool){
         deckShuffled = bool;
     }
 
-    public void setCard01(Card newCard){ Card01 = newCard; }
-    public void setCard02(Card newCard){ Card02 = newCard;}
-    public void setCard03(Card newCard){ Card03 = newCard;}
+    //Setter for the first Card in the deck
+    public void setCard01(Card newCard){
+        Card01 = newCard;
+        cardDeck.set(0, newCard);}
+
+    //Setter for the second Card in the deck
+    public void setCard02(Card newCard){
+        Card02 = newCard;
+        cardDeck.set(1, newCard);}
+
+    //Setter for the third Card in the deck
+    public void setCard03(Card newCard){
+        Card03 = newCard;
+        cardDeck.set(2, newCard);}
 
 }

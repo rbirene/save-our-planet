@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.AttackAnimation;
 public class GameBoard extends GameObject {
 
     private GameScreen gameScreen;
+    private GameScreen BattleScreen;
     private ArrayList<CardHolder> heroContainers;
     private ArrayList<CardHolder> villianContainers;
     private AttackAnimation attackAnimation;
