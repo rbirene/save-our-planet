@@ -442,5 +442,4 @@ public class ChooseCardScreen extends GameScreen {
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 
-
 }

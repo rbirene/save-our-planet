@@ -301,5 +301,4 @@ public class MenuScreen extends GameScreen {
         settingsButton.setPlaySounds(true, true);
     }
 
-
 }
