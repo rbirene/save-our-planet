@@ -28,7 +28,7 @@
     {
       "type": "Bitmap",
       "name": "optionsBackground",
-      "file": "img/optionsBackground.jpg"
+      "file": "img/Backgrounds/optionsBackground.png"
     },
     {
       "type": "Bitmap",
@@ -219,6 +219,26 @@
       "type": "Bitmap",
       "name": "attackSpritesheet",
       "file": "img/attackSpritesheet.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "chooseCardBackground",
+      "file": "img/Backgrounds/chooseCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBackground",
+      "file": "img/Backgrounds/menuBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "instructions",
+      "file": "img/instructions.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settings",
+      "file": "img/settings.png"
     }
   ]
 }
