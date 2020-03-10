@@ -137,4 +137,29 @@ public class DeckUnitTest {
         assertEquals(-1, aDeck.checkDeck(Card06));
     }
 
+//    @Test
+//    public void Deck_ChangeDeckSize_DeckSizChanged_Success(){
+//        int width = 250;
+//        int height = 300;
+//        aDeck.changeDeckSize(width, height);
+//        Boolean deckSizeChanged = true;
+//        for(int i = 0; i< aDeck.getSize(); i++){
+//            Card card = aDeck.getDeck(aScreen).get(i);
+//            if(card.getWidth() != width || card.getHeight() != height){
+//                deckSizeChanged = false;
+//            }
+//        }
+//
+//        assertTrue(deckSizeChanged);
+//    }
+
+    @Test
+    public void Deck_removeCard_DeckSizeDecreased_Success(){
+        int originalDeckSize = aDeck.getSize() - 1;
+        aDeck.removeCard(Card02);
+        int deckSize = aDeck.getSize();
+
+        assertEquals(deckSize,originalDeckSize);
+    }
+
 }

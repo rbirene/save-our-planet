@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 
 import java.util.ArrayList;
 
+import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
@@ -31,6 +32,7 @@ public class Deck {
     //Defines ArrayList to hold the cards in the deck
     private ArrayList<Card> cardDeck;
 
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -47,6 +49,7 @@ public class Deck {
         cardDeck.add(2, Card03);
 
         deckCreated = true;
+
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -71,10 +74,17 @@ public class Deck {
         return -1;
     }
 
-    public void enlargeDeck(float width, float height){
+    public void changeDeckSize(float width, float height){
         for(int i = 0; i<cardDeck.size(); i++){
             cardDeck.get(i).setWidth(width);
             cardDeck.get(i).setHeight(height);
+        }
+    }
+
+    public void removeCard(Card card){
+        int cardPos = checkDeck(card);
+        if(cardPos != -1){
+            cardDeck.remove(card);
         }
     }
 
@@ -84,6 +94,15 @@ public class Deck {
      */
     public int getSize(){
        return  cardDeck.size();
+    }
+
+    //Sam
+    public void update(){
+        for(int i=0;i<cardDeck.size();i++){
+            if(cardDeck.get(i).getHealthValue() < 0){
+                cardDeck.remove(i);
+            }
+        }
     }
 
     // /////////////////////////////////////////////////////////////////////////

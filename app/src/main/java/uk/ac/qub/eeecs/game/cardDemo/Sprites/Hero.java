@@ -35,19 +35,9 @@ public class Hero extends Player {
      * Create a new Hero.
      *
      */
-
     public Hero(Bitmap portrait){
         super(0.0f, 0.0f, "Freta Funberg", null, portrait);
-
-
     }
-
-    @Override
-    public void takeFirstTurn(){}
-
-    @Override
-    public void takeTurn(){ }
-
 
     public void moveCards(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
@@ -69,19 +59,22 @@ public class Hero extends Player {
                         tempContainer.AddCardToHolder(cardSelected);
                        // tempContainer = null;
                         cardSelected = null;
+                        cardPlayed = true;
                     }else if(checkDropLocationAttack()) {
                         attackPhase();
                       //  tempContainer.returnCardToHolder();
                         cardSelected.returnToHolder();
                         cardSelected = null;
-                    }
+                        cardPlayed = true;
+                      }
                         else{
-                        cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
+                            cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
                 }
             }
         }
     }
+
     public boolean checkDropLocationAttack(){
 
         for (int i = 0; i < gameBoard.getVillianContainers().size(); i++) {
@@ -92,8 +85,6 @@ public class Hero extends Player {
         }
         return false;
     }
-
-
 
     public boolean checkDropLocationContainer() {
 
@@ -106,7 +97,6 @@ public class Hero extends Player {
             }
             return false;
     }
-
 
     public void selectCard(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
@@ -129,6 +119,7 @@ public class Hero extends Player {
 
         for(int i=0;i<enemyCardHolders.size();i++){
             if(cardSelected.getBound().intersects(enemyCardHolders.get(i).getBound())){
+                gameBoard.playAttackAnimation(enemyCardHolders.get(i));
                  enemyCard = enemyCardHolders.get(i).returnCardHeld();
                  enemyCard.setHealthValue(enemyCard.getHealthValue() - cardSelected.getAttackValue());
                 }

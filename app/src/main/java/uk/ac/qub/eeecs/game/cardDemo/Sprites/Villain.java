@@ -2,11 +2,10 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
+import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
@@ -34,21 +33,17 @@ public class Villain extends Player {
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
-
-//    @Override
-//    public void takeTurn(List<TouchEvent> touchEvents){}
-
-
     public void playAI(){
 
         Random rand = new Random();
         containers.addAll(gameBoard.getVillianContainers());
         enemyContainers.addAll(gameBoard.getHeroContainers());
 
-        int n = rand.nextInt(containers.size()-1);
-        int x = rand.nextInt(playerCards.size()-1);
-
         if(!playerCards.isEmpty()){
+            int n = rand.nextInt(containers.size()-1);
+            int x = rand.nextInt(playerCards.size()-1);
+
+
             for(int i=0;i<containers.size();i++){
                 if(containers.get(n).isEmpty()){
                     containers.get(n).AddCardToHolder(playerCards.get(x));
@@ -62,18 +57,111 @@ public class Villain extends Player {
 
     public void setPlayerCards(ArrayList<Card> cards) {
         playerCards.addAll(cards);
-
     }
 
+    public void AICardSelect() {
+
+        DifficultyLevels tempdiff;
+        tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();
+
+        if (tempdiff == DifficultyLevels.EASY) {
+            /**
+             * For easy, play a random card (may change to play lowest value card)
+             */
+            playAI();
+        }else if (tempdiff == DifficultyLevels.NORMAL) {
+            /**
+             * For normal, find the two best cards, and random roll on either to play the best card, or second to best card.
+             */
+            Random rand = new Random();
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
+
+            int n = rand.nextInt(containers.size()-1);
+
+            int cardtochoose = 0;
+            int secondbestcard = 0;
+            int temp = 0;
+            int secondbestvalue = 0;
+            for (int i = 0; i < playerDeck.getSize()-1; i++) {
+                int total = 0;
+
+
+                total += playerCards.get(i).getHealthValue();
+                total += playerCards.get(i).getAttackValue();
+
+                if (total > temp) {
+                    secondbestvalue = temp;
+                    temp = total;
+                    secondbestcard = cardtochoose;
+                    cardtochoose = i;
+
+                }
+
+                total = 0;
+            }
+
+            int random = 5 + rand.nextInt(100 - 1 + 1);
+            if (random > 51) {
+                if (!playerCards.isEmpty()) {
+                    for (int i = 0; i < containers.size(); i++) {
+                        if (containers.get(n).isEmpty()) {
+                            containers.get(n).AddCardToHolder(playerCards.get(cardtochoose));
+
+                        }
+                    }
+                    playerCards.remove(cardtochoose);
+                }
+            } else
+            if (!playerCards.isEmpty()) {
+                for (int i = 0; i < containers.size(); i++) {
+                    if (containers.get(n).isEmpty()) {
+                        containers.get(n).AddCardToHolder(playerCards.get(secondbestcard));
+                    }
+                }
+                playerCards.remove(secondbestcard);
+            }
 
 
 
 
-    @Override
-    public void takeFirstTurn(){}
+        } else if (tempdiff == DifficultyLevels.HARD) {
+            /**
+             * For Hard, play the card with the highest combined attack and health value.
+             */
+            playerCards.trimToSize();
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
+            Random rand = new Random();
 
-    @Override
-    public void takeTurn(){}
+            int n = rand.nextInt(containers.size()-1);
+
+            int cardtochoose = 0;
+            int temp = 0;
+            for (int i = 0; i < playerCards.size()-1;i++) {
+                int total = 0;
+
+
+                total += playerCards.get(i).getAttackValue();
+                total += playerCards.get(i).getHealthValue();
+                if (total > temp) {
+                    temp = total;
+                    cardtochoose = i;
+                }
+            }
+
+            int choosencard = cardtochoose;
+            if (!playerCards.isEmpty()) {
+                for (int j = 0; j < containers.size(); j++) {
+                    if (containers.get(n).isEmpty()) {
+                        containers.get(n).AddCardToHolder(playerCards.get(choosencard));
+                    }
+                }
+
+                playerCards.remove(choosencard);
+            }
+        }
+    }
 
 }
 

@@ -19,7 +19,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**
  *
- * Created by [Irene Bhuiyan]
+ * Created by [Irene Bhuiyan & Niamh McCartney]
  * This class represents a general player in the game.
  * Contains traits and behaviours both hero and villain share.
  *
@@ -255,12 +255,6 @@ public abstract class Player extends Sprite {
             graphics2D.drawBitmap(bitmap, drawMatrix, null);
         }
     }
-
-    public abstract void takeFirstTurn();
-
-    public void takeTurn(){}
-
-
 
 
     public void setCardPlayed(boolean cardPlayed){

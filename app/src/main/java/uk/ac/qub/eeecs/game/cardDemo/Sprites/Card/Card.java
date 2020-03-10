@@ -359,7 +359,7 @@ public class Card extends Sprite {
     // Setters
     // /////////////////////////////////////////////////////////////////////////
 
-    public void setmCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
+    public void setCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
 
     // Setter to set the health value of the Card [Niamh McCartney]
     public void setHealthValue(int value){
