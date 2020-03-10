@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import java.util.ArrayList;
@@ -14,9 +15,12 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
+import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
@@ -52,8 +56,9 @@ public class ChooseCardScreen extends GameScreen {
     private Card Card02 = heroDeck.getCard02(this);
     private Card Card03 = heroDeck.getCard03(this);
 
-    private uk.ac.qub.eeecs.gage.world.ScreenViewport ScreenViewport;
-    private uk.ac.qub.eeecs.gage.world.LayerViewport LayerViewport;
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
+    private int gameHeight, gameWidth;
 
     //Define Buttons
     private PushButton backButton;
@@ -61,6 +66,9 @@ public class ChooseCardScreen extends GameScreen {
     private PushButton shuffleButton;
     private PushButton infoButton;
     private PushButton settingsButton;
+
+    //background [Irene Bhuiyan]
+    private GameObject chooseCardBackground;
 
     private AudioManager audioManager = getGame().getAudioManager();
 
@@ -80,8 +88,18 @@ public class ChooseCardScreen extends GameScreen {
     public ChooseCardScreen(Game game) {
         super("CardScreen", game);
 
+        //define game dimensions and viewports [Irene Bhuiyan]
+        gameHeight = mGame.getScreenHeight();
+        gameWidth = mGame.getScreenWidth();
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
+        LayerViewport = mDefaultLayerViewport;
+
         //Load the various images used by the screen
         loadScreenAssets();
+
+        //set up background [Irene Bhuiyan]
+        Bitmap chooseCardBackgroundImg = mGame.getAssetManager().getBitmap("chooseCardBackground");
+        chooseCardBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, chooseCardBackgroundImg , this);
 
         //Add Buttons
         addBackButton();
@@ -174,6 +192,7 @@ public class ChooseCardScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         graphics2D.clear(Color.WHITE);
+        chooseCardBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         drawCards(elapsedTime, graphics2D);
         backButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         continueButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
@@ -344,9 +363,6 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void addBackButton() {
-
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
 
         mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
