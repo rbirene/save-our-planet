@@ -98,6 +98,7 @@ public class Card extends Sprite {
     private Boolean selected = false;
     private Boolean cardLocked = false;
     private Boolean cardDragged = false;
+    private Boolean cardInUse = false;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -355,6 +356,8 @@ public class Card extends Sprite {
 
     public boolean getCardLocked(){return cardLocked;}
 
+    public Boolean getCardInUse(){return cardInUse;}
+
     // /////////////////////////////////////////////////////////////////////////
     // Setters
     // /////////////////////////////////////////////////////////////////////////
@@ -372,8 +375,7 @@ public class Card extends Sprite {
 
     //Setter to set the GameScreen the Card has been called in [Niamh McCartney]
     public static void setGameScreen(GameScreen gameScreenValue){
-        gameScreen = gameScreenValue;
-    }
+        gameScreen = gameScreenValue; }
 
     //Setter to set the width of the layer View Port[Niamh McCartney]
     public void setLayerViewPortWidth(float xValue){
@@ -394,16 +396,17 @@ public class Card extends Sprite {
     }
 
     public void setCardBaseSelected(Bitmap mCardBaseSelected) {
-        this.mCardBaseSelected = mCardBaseSelected;
-    }
+        this.mCardBaseSelected = mCardBaseSelected; }
 
     public void setSelected(boolean selected){
         this.selected = selected;
     }
 
-    //Setter to set the boolean value of 'cardDragged'
+    //Setter to set the boolean value of 'cardDragged' [Niamh McCartney]
     public void setCardDragged(Boolean bool){this.cardDragged = bool;}
 
     public void setCardLocked(Boolean locked){cardLocked = locked;}
+
+    public void setCardInUse(Boolean bool){cardInUse = bool;};
 
 }

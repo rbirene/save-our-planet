@@ -154,9 +154,18 @@ public class DeckUnitTest {
 //    }
 
     @Test
-    public void Deck_removeCard_DeckSizeDecreased_Success(){
+    public void Deck_removeCard_CardInDeck_DeckSizeDecreased_Success(){
         int originalDeckSize = aDeck.getSize() - 1;
         aDeck.removeCard(Card02);
+        int deckSize = aDeck.getSize();
+
+        assertEquals(deckSize,originalDeckSize);
+    }
+
+    @Test
+    public void Deck_removeCard_CardNotInDeck_NoChangeInDeckSize_Success(){
+        int originalDeckSize = aDeck.getSize();
+        aDeck.removeCard(Card05);
         int deckSize = aDeck.getSize();
 
         assertEquals(deckSize,originalDeckSize);

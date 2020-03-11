@@ -149,8 +149,9 @@ public class BattleScreen extends GameScreen {
     }
 
     public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing){
-        int cardSpacing;
         //defines the spacing between the cards
+        int cardSpacing;
+
         for(int i=0;i<cards.size();i++){
             cardSpacing = spacing*i;
 
@@ -163,18 +164,25 @@ public class BattleScreen extends GameScreen {
 
             //set the position of the card on rhe screen
             cards.get(i).setPosition(xPos, yPos);
-            //spacing += 50;
         }
     }
 
-    public void setCardPositions(){
-
-    }
-
-    public void checkHealth(){
-        if(firstPlayer.getPlayerHealth()<1 && secondPlayer.getPlayerHealth()<1){
-            gameEnded = true;
+    /**
+     * Returns an ArrayList of Cards that
+     * the player is not currently using
+     * and aren't contained in card holders
+     *
+     *  Created By Niamh McCartney
+     */
+    public ArrayList<Card> getCardsNotInUse(){
+        ArrayList<Card> cardsNotInUse = new ArrayList<>();
+        for(int i = 0; i<heroDeck.getSize(); i++){
+            Card card = heroDeck.getDeck(this).get(i);
+            if(!card.getCardInUse()){
+                cardsNotInUse.add(card);
+            }
         }
+        return cardsNotInUse;
     }
 
     public void gameLoop(){
@@ -210,16 +218,16 @@ public class BattleScreen extends GameScreen {
             paused = false;
         }
 
-            if (!paused) {
-                if (playerTurn) {
-                    if (!hero.getCardPlayed()) {
-                        hero.ProcessTouchInput(touchEvents);
-                    }
-                } else {
-                    villain.playAI();
-                    playerTurn = true;
+        if (!paused) {
+            if (playerTurn) {
+                if (!hero.getCardPlayed()) {
+                    hero.ProcessTouchInput(touchEvents);
                 }
+            } else {
+                villain.playAI();
+                playerTurn = true;
             }
+        }
 
         checkEndGame();
 
@@ -275,21 +283,22 @@ public class BattleScreen extends GameScreen {
             for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
                 for (int j = 0; j < heroDeck.getDeck(this).size(); j++) {
                     Card card = heroDeck.getDeck(this).get(j);
-                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0) {
+                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0 && !card.getCardInUse()) {
+                        card.setCardInUse(false);
                         if(deckEnlarged) {
                             cardWidth = 54;
                             cardHeight = 72;
                             deckEnlarged = false;
                             spacing = 50;
                             heroCardXPosScale = 0.13f;
-                            deckSizeChanged = true;
+                            heroDeck.setDeckChanged(true);
                         }else{
-                            cardWidth = 81;
-                            cardHeight = 108;
+                            cardWidth = 92;
+                            cardHeight = 122;
                             deckEnlarged = true;
-                            spacing = 80;
+                            spacing = 90;
                             heroCardXPosScale = 0.09f;
-                            deckSizeChanged = true;
+                            heroDeck.setDeckChanged(true);
                         }
                         audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
                     }
@@ -352,10 +361,10 @@ public class BattleScreen extends GameScreen {
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         }
 
-        if(deckSizeChanged) {
+        if(heroDeck.getDeckChanged()) {
             //set start positions of hero and villain Decks[Niamh McCartney]
-            moveCardsToStartPosition(heroDeck.getDeck(this), heroCardXPosScale, 0.03f, spacing);
-            deckSizeChanged = false;
+            moveCardsToStartPosition(getCardsNotInUse(), heroCardXPosScale, 0.03f, spacing);
+            heroDeck.setDeckChanged(false);
         }
 
         // display players [Irene Bhuiyan]
@@ -387,9 +396,9 @@ public class BattleScreen extends GameScreen {
         int min = 0;
         int randomNum = rand.nextInt((max - min) + 1) + min;
 
-        //iterate through the arraylist
+        //iterate through the array list
         for(int i = min; i< players.size(); i++){
-            //if the players position in the arraylist is equal to the random number they will go first
+            //if the players position in the array list is equal to the random number they will go first
             if(i == randomNum){
                 firstPlayer = players.get(i);
             }
@@ -418,13 +427,21 @@ public class BattleScreen extends GameScreen {
      */
     private void DrawPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck, int width, int height){
 
-        //Set Card Width and Height
-        aDeck.changeDeckSize(width, height);
-
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
             //Set card to unselected
             card.setSelected(false);
+            if(!card.getCardInUse()) {
+                //Set Card Width
+                card.setWidth(width);
+                //Set Card Height
+                card.setHeight(height);
+            }else{
+                //Set Card Width
+                card.setWidth(54);
+                //Set Card Height
+                card.setHeight(72);
+            }
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);

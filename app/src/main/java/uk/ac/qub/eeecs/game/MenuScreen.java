@@ -43,9 +43,9 @@ public class MenuScreen extends GameScreen {
     private HashMap<String, Card> villainCardPool = new HashMap<>();
     private HashMap<String, Card> screenCardPool = new HashMap<>();
 
-    /*define card and deck objects used during
-     *generation of the player decks
-     *[Niamh McCartney]
+    /** define card and deck objects used during
+     * generation of the player decks
+     * [Niamh McCartney]
      */
     private Card randCard;
     private Card Card01;
@@ -74,15 +74,6 @@ public class MenuScreen extends GameScreen {
     //background [Irene Bhuiyan]
     private GameObject menuBackground;
 
-//    /**
-//     * Define the buttons for playing the 'games'
-//     */
-//    private PushButton mOptionsIcon;
-//    private PushButton playGame;
-//    private PushButton instructions;
-//    private PushButton options;
-//    private PushButton exit;
-
     private AssetManager assetManager;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -107,9 +98,9 @@ public class MenuScreen extends GameScreen {
         assetManager = mGame.getAssetManager();
         loadScreenAssets();
 
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+//        // Define the spacing that will be used to position the buttons
+//        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
+//        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
 
         assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
 
@@ -129,7 +120,7 @@ public class MenuScreen extends GameScreen {
             createVillainDeck();
         }
 
-        // add info and settings
+        // add buttons [Niamh McCartney]
         addInfoButton();
         addSettingsButton();
 
@@ -138,7 +129,6 @@ public class MenuScreen extends GameScreen {
         playGame.setPlaySounds(true, true);
         exit = new PushButton(240.0f, 130.0f, 76.0f, 40.0f, "btnExit", "btnExit", this);
         exit.setPlaySounds(true, true);
-
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -188,7 +178,6 @@ public class MenuScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-
         // draw background and buttons [Irene Bhuiyan]
         graphics2D.clear(Color.WHITE);
         menuBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
@@ -196,7 +185,6 @@ public class MenuScreen extends GameScreen {
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-
     }
 
     /**
@@ -210,6 +198,7 @@ public class MenuScreen extends GameScreen {
     private Deck generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
         screenCardPool = new HashMap<>();
         int num = 0;
+
         while(num<numOfCards) {
             randCard = getGame().getCardStore().getRandCard(cardPool);
             String name = randCard.getCardName();

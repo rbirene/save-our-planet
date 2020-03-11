@@ -52,11 +52,15 @@ public class Hero extends Player {
                 }
                 if (t.type == 2 && cardSelected.getCardDragged()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
+                    cardSelected.setCardDragged(true);
+                    cardSelected.setCardInUse(true);
                 }
                 if (t.type == 1 && cardSelected.getCardDragged()) {
                     cardSelected.setCardDragged(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
+                        cardSelected.setCardInUse(true);
+                        getPlayerDeck().setDeckChanged(true);
                        // tempContainer = null;
                         cardSelected = null;
                         cardPlayed = true;

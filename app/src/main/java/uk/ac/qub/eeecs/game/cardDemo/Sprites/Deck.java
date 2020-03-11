@@ -27,10 +27,13 @@ public class Deck {
     //Boolean to determine whether deck has een created
     private Boolean deckCreated;
     //Boolean to determine whether deck has been shuffled
-    private Boolean deckShuffled = false;
+    private Boolean deckShuffled;
 
     //Defines ArrayList to hold the cards in the deck
     private ArrayList<Card> cardDeck;
+
+    //Boolean that returns true if deck has been changed
+    private Boolean deckChanged;
 
 
     // /////////////////////////////////////////////////////////////////////////
@@ -48,7 +51,10 @@ public class Deck {
         cardDeck.add(1, Card02);
         cardDeck.add(2, Card03);
 
+        //set the booleans
+        deckShuffled = false;
         deckCreated = true;
+        deckChanged = false;
 
     }
 
@@ -74,6 +80,15 @@ public class Deck {
         return -1;
     }
 
+    /**
+     * Change the width and height of
+     * the Cards in the deck
+     *
+     * @param width New width of Cards in Deck
+     * @param height New height of Cards in deck
+     *
+     *  {Created By Niamh McCartney}
+     */
     public void changeDeckSize(float width, float height){
         for(int i = 0; i<cardDeck.size(); i++){
             cardDeck.get(i).setWidth(width);
@@ -81,6 +96,15 @@ public class Deck {
         }
     }
 
+    /**
+     * Checks that the Card 'card'
+     * exists in the deck. If it does
+     * the Card is removed from the deck
+     *
+     * @param card Card to be removed
+     *
+     *  {Created By Niamh McCartney}
+     */
     public void removeCard(Card card){
         int cardPos = checkDeck(card);
         if(cardPos != -1){
@@ -157,6 +181,8 @@ public class Deck {
      */
     public Card getCard03(GameScreen screen){ Card03.setGameScreen(screen); return Card03;}
 
+    public Boolean getDeckChanged(){return deckChanged;}
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Setters
@@ -193,6 +219,8 @@ public class Deck {
     //Setter for the third Card in the deck
     public void setCard03(Card newCard){
         Card03 = newCard;
-        cardDeck.set(2, newCard);}
+        cardDeck.set(2, newCard); }
+
+    public void setDeckChanged(Boolean bool){deckChanged = bool;}
 
 }
