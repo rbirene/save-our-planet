@@ -44,11 +44,13 @@ public class Villain extends Player {
             int x = rand.nextInt(playerCards.size()-1);
 
 
+
             for(int i=0;i<containers.size();i++){
                 if(containers.get(n).isEmpty()){
                     containers.get(n).AddCardToHolder(playerCards.get(x));
                 }
             }
+            playerCards.get(x).setCardFlipped(false);
             playerCards.remove(x);
         }
 

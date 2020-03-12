@@ -136,7 +136,7 @@ public class BattleScreen extends GameScreen {
 
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
-        moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f, 50);
+        moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f, 45);
 
         setupPause();
 
@@ -348,8 +348,8 @@ public class BattleScreen extends GameScreen {
 
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         //Add Player Decks to Screen [Niamh McCartney]
-        DrawPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight);
-        DrawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72);
+        DrawPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight, false);
+        DrawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72, true);
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -425,7 +425,7 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void DrawPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck, int width, int height){
+    private void DrawPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck, int width, int height, Boolean cardFlipped){
 
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);

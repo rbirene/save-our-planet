@@ -2,6 +2,11 @@
   "assets": [
     {
       "type": "Bitmap",
+      "name": "BackOfCard",
+      "file": "img/CardPortraits/backOfCardImage.jpg"
+    },
+    {
+      "type": "Bitmap",
       "name": "HeroCardBackground",
       "file": "img/CardPortraits/CardBackground.png"
     },
