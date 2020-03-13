@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -18,11 +18,8 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.InstructionsScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
 
 /**
@@ -70,6 +67,7 @@ public class MenuScreen extends GameScreen {
     private PushButton settingsButton;
     private PushButton playGame;
     private PushButton exit;
+    private PushButton highscoresButton;
 
     //background [Irene Bhuiyan]
     private GameObject menuBackground;
@@ -123,6 +121,7 @@ public class MenuScreen extends GameScreen {
         // add buttons [Niamh McCartney]
         addInfoButton();
         addSettingsButton();
+        addHighscoreButton();
 
         // set up play and exit buttons [Irene Bhuiyan]
         playGame = new PushButton(240.0f, 180.0f, 145.0f, 40.0f, "btnPlay", "btnPlay",this);
@@ -185,6 +184,7 @@ public class MenuScreen extends GameScreen {
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
+        highscoresButton.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
     }
 
     /**
@@ -288,6 +288,20 @@ public class MenuScreen extends GameScreen {
                 465.0f, 300.0f, 30.0f, 30.0f,
                 "settingsBtn", "settingsBtnSelected", this);
         settingsButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a Highscore Button to the screen
+     * that takes you to the LeaderboardScreen Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addHighscoreButton() {
+
+        highscoresButton = new PushButton(
+                500.0f, 300.0f, 30.0f, 30.0f,
+                "HighScoreButton", "HighScoreButtonSelected", this);
+        highscoresButton.setPlaySounds(true, true);
     }
 
 }

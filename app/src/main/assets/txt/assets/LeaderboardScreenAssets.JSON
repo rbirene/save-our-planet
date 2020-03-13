@@ -1,0 +1,9 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "CardSelect",
+      "file": "sound/btnLeaderboard.png"
+    }
+  ]
+}

@@ -239,6 +239,16 @@
       "type": "Bitmap",
       "name": "settings",
       "file": "img/settings.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HighScoreButton",
+      "file": "img/Buttons/btnHighscores.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HighScoreButtonSelected",
+      "file": "img/Buttons/btnHighscoresSelected.png"
     }
   ]
 }

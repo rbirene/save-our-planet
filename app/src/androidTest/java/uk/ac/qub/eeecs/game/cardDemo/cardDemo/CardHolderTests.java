@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.BattleScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;

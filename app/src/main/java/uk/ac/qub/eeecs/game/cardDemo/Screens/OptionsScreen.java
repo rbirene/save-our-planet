@@ -19,7 +19,6 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 
 public class OptionsScreen extends GameScreen {
