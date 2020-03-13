@@ -239,6 +239,21 @@
       "type": "Bitmap",
       "name": "settings",
       "file": "img/settings.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "bonusBtn",
+      "file": "img/Buttons/bonusBtn.png"
+    },
+    {
+      "type": "Music",
+      "name": "menuMusic",
+      "file": "sound/MenuTheme.mp3"
+    },
+    {
+      "type": "Music",
+      "name": "battleMusic",
+      "file": "sound/BattleTheme.mp3"
     }
   ]
 }
