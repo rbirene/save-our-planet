@@ -23,6 +23,7 @@ import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.formDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUpDialog;
@@ -75,6 +76,7 @@ public class ChooseCardScreen extends GameScreen {
     //Define type of touch event
     private String touchEventType;
 
+    private Boolean formSubmitted = false;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -191,6 +193,10 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        if(!formSubmitted){
+            DisplayFormDialog();
+            formSubmitted = true;
+        }
         graphics2D.clear(Color.WHITE);
         chooseCardBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         drawCards(elapsedTime, graphics2D);
@@ -199,6 +205,7 @@ public class ChooseCardScreen extends GameScreen {
         shuffleButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+
 
         /*If shuffle button is pushed and deck has been shuffled then
          * display dialog informing user.  If deck has not been shuffled
@@ -226,6 +233,12 @@ public class ChooseCardScreen extends GameScreen {
     private void displayDialogs(String text){
             InfoPopUpDialog popUp = new InfoPopUpDialog();
             popUp.showDialog(getGame().getActivity(), text, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
+    }
+
+    private void DisplayFormDialog(){
+        formDialog dialog = new formDialog();
+        String message = "Choose your name from the list of players below or fill out the form to add your name to the list";
+        dialog.showDialog(getGame().getActivity(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
     }
 
     /**
