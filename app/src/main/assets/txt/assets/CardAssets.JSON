@@ -3,7 +3,7 @@
     {
       "type": "Bitmap",
       "name": "BackOfCard",
-      "file": "img/CardPortraits/backOfCardImage.jpg"
+      "file": "img/CardPortraits/backOfCardImage.png"
     },
     {
       "type": "Bitmap",

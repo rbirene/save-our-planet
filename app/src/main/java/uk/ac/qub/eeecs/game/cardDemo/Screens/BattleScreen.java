@@ -35,8 +35,7 @@ import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
-
-import static uk.ac.qub.eeecs.game.cardDemo.ColourEnum.WHITE;
+import static uk.ac.qub.eeecs.game.cardDemo.ColourEnum.*;
 
 
 public class BattleScreen extends GameScreen {
@@ -87,7 +86,7 @@ public class BattleScreen extends GameScreen {
     private PushButton resume;
     private PushButton exit;
     private PushButton endTurnButton;
-    private PushButton bonusButton; //William Oliver
+    private PushButton bonusButton; // [William Oliver]
 
     //Define up game height and width
     private int gameHeight;
@@ -121,10 +120,8 @@ public class BattleScreen extends GameScreen {
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
-        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f,
-                assetManager.getBitmap("battleBackground"),this);
-        endTurnButton = new PushButton(360.0f, 300.0f,
-                30.0f, 30.0f, "endTurn", "endTurn",this);
+        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
+        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurn",this);
 
         paint = new Paint();
         paint.setTextSize(180.0f);
@@ -145,7 +142,7 @@ public class BattleScreen extends GameScreen {
 
         setupPause();
 		
-		//William Oliver
+		// [William Oliver]
         addBonusButton();
         setupMusic();
         playBattleMusic();
@@ -249,7 +246,7 @@ public class BattleScreen extends GameScreen {
         settingsButton.update(elapsedTime);
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
-		bonusButton.update(elapsedTime); //William Oliver
+		bonusButton.update(elapsedTime); // [William Oliver]
 
         villainDeck.update();
         heroDeck.update();
@@ -318,12 +315,12 @@ public class BattleScreen extends GameScreen {
         }
     }
 	
-	//William Oliver
+	// [William Oliver]
 	public void setupMusic(){
         assetManager.loadAndAddMusic("battleMusic","sound/BattleTheme.mp3");
     }														
 
-	//William Oliver
+	// [William Oliver]
     public void playBattleMusic(){
         audioManager.playMusic(assetManager.getMusic("battleMusic"));
 	}
@@ -334,13 +331,13 @@ public class BattleScreen extends GameScreen {
         resume.update(elapsedTime);
         exit.update(elapsedTime);
 
-            if(resume.isPushTriggered()){
-                paused = false;
-            }
-            if(exit.isPushTriggered()){
-                paused = false;
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-            }
+        if(resume.isPushTriggered()){
+            paused = false;
+        }
+        if(exit.isPushTriggered()){
+            paused = false;
+            mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+        }
     }
 
 
@@ -372,6 +369,7 @@ public class BattleScreen extends GameScreen {
         DrawPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight, false);
         DrawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72, true);
 
+        // [William Oliver]
 		if (bonusButton.isPushTriggered())
             showDialog();
 
@@ -383,7 +381,7 @@ public class BattleScreen extends GameScreen {
             infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
             settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
             pause.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-			bonusButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport); //William Oliver
+			bonusButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport); // [William Oliver]
         }
 
         if(heroDeck.getDeckChanged()) {
@@ -405,8 +403,8 @@ public class BattleScreen extends GameScreen {
 //Method to create PopUp Dialog on Battle Screen [William Oliver]
     public void showDialog() {
 
-        Question Q1 = new Question("Q1", "Driving a car everywhere you go is good for the planet", "false");
-        Question Q2 = new Question("Q2", "We need to save as many trees as we can", "true");
+        Question Q1 = new Question("Q1", "Driving a car everywhere you go is good for the planet.", "false");
+        Question Q2 = new Question("Q2", "We need to save as many trees as we can.", "true");
 
         TrueFalseQuestionPopUpDialog popUp = new TrueFalseQuestionPopUpDialog();
 
@@ -420,11 +418,11 @@ public class BattleScreen extends GameScreen {
             switch ((int) randQuestionIndex) {		 
 
                 case 1:
-                    popUp.showDialog(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), WHITE, R.drawable.question_symbol);
+                    popUp.showDialog(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
                     break;									
 
                 default:
-                    popUp.showDialog(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), WHITE, R.drawable.question_symbol);
+                    popUp.showDialog(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
 												 
             }
         }
@@ -533,15 +531,9 @@ public class BattleScreen extends GameScreen {
 	//Add Bonus Button to Screen [William Oliver]
     private void addBonusButton() {
 
-        ScreenViewport = mDefaultScreenViewport;
-        LayerViewport = mDefaultLayerViewport;
-
         mGame.getAssetManager().loadAndAddBitmap("bonusBtn", "img/bonusBtn.png");
 
-        bonusButton = new PushButton(
-                85.0f, 20.0f, 30.0f, 30.0f,
-                "bonusBtn", "bonusBtn", this);
-        //settingsButton.setPlaySounds(true, true);
+        bonusButton = new PushButton(30.0f, 30.0f, 40.0f, 40.0f, "bonusBtn", "bonusBtn", this);
     }
 
     /**

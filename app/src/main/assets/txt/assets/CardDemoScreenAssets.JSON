@@ -207,6 +207,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "endTurnPush",
+      "file": "img/Buttons/endTurnPush.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "pauseBack",
       "file": "img/pauseBack.png"
     },
