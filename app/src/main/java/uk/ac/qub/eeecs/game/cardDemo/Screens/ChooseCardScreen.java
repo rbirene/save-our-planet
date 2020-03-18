@@ -115,7 +115,7 @@ public class ChooseCardScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Update the card demo screen
+     * Update the ChooseCards screen
      *
      * @param elapsedTime Elapsed time information
      *
@@ -183,7 +183,7 @@ public class ChooseCardScreen extends GameScreen {
     }
 
     /**
-     * Draw the card demo screen
+     * Draw the ChooseCards screen
      *
      * @param elapsedTime Elapsed time information
      * @param graphics2D  Graphics instance
@@ -444,7 +444,7 @@ public class ChooseCardScreen extends GameScreen {
 
     /**
      * Load Assets used by screen
-     * <p>
+     *
      * Created By Niamh McCartney
      */
     private void loadScreenAssets() {

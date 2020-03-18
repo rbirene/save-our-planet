@@ -21,6 +21,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
+import uk.ac.qub.eeecs.game.cardDemo.User;
 
 /**
  * This class creates the MenuScreen
@@ -67,7 +68,7 @@ public class MenuScreen extends GameScreen {
     private PushButton settingsButton;
     private PushButton playGame;
     private PushButton exit;
-    private PushButton highscoresButton;
+    private PushButton leaderBoardsButton;
 
     //background [Irene Bhuiyan]
     private GameObject menuBackground;
@@ -96,10 +97,6 @@ public class MenuScreen extends GameScreen {
         assetManager = mGame.getAssetManager();
         loadScreenAssets();
 
-//        // Define the spacing that will be used to position the buttons
-//        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-//        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
-
         assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
 
         //set up background [Irene Bhuiyan]
@@ -121,13 +118,18 @@ public class MenuScreen extends GameScreen {
         // add buttons [Niamh McCartney]
         addInfoButton();
         addSettingsButton();
-        addHighscoreButton();
+        addLeaderBoardButton();
 
         // set up play and exit buttons [Irene Bhuiyan]
         playGame = new PushButton(240.0f, 180.0f, 145.0f, 40.0f, "btnPlay", "btnPlay",this);
         playGame.setPlaySounds(true, true);
         exit = new PushButton(240.0f, 130.0f, 76.0f, 40.0f, "btnExit", "btnExit", this);
         exit.setPlaySounds(true, true);
+
+//        User user = new User("Jessica", 5, 3);
+//        game.getUserStore().addUser(user);
+//        game.getUserStore().getUserList().remove(0);
+//        game.getUserStore().saveUsers();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -153,6 +155,7 @@ public class MenuScreen extends GameScreen {
             settingsButton.update(elapsedTime);
             playGame.update(elapsedTime);
             exit.update(elapsedTime);
+            leaderBoardsButton.update(elapsedTime);
 
             if (playGame.isPushTriggered()){
                 mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
@@ -165,6 +168,9 @@ public class MenuScreen extends GameScreen {
             }
             else if(exit.isPushTriggered()) {
                 System.exit(1);
+            }
+            else if(leaderBoardsButton.isPushTriggered()) {
+                mGame.getScreenManager().addScreen(new LeaderBoardScreen(mGame));
             }
         }
     }
@@ -184,7 +190,7 @@ public class MenuScreen extends GameScreen {
         settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-        highscoresButton.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
+        leaderBoardsButton.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
     }
 
     /**
@@ -291,17 +297,17 @@ public class MenuScreen extends GameScreen {
     }
 
     /**
-     * Add a Highscore Button to the screen
+     * Add a LeaderBoard Button to the screen
      * that takes you to the LeaderboardScreen Screen
      *
      * Created By Niamh McCartney
      */
-    private void addHighscoreButton() {
+    private void addLeaderBoardButton() {
 
-        highscoresButton = new PushButton(
-                500.0f, 300.0f, 30.0f, 30.0f,
+        leaderBoardsButton = new PushButton(
+                405.0f, 300.0f, 32.0f, 32.0f,
                 "HighScoreButton", "HighScoreButtonSelected", this);
-        highscoresButton.setPlaySounds(true, true);
+        leaderBoardsButton.setPlaySounds(true, true);
     }
 
 }

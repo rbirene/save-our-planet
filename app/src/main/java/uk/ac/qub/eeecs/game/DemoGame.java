@@ -73,4 +73,10 @@ public class DemoGame extends Game {
         getScreenManager().addScreen(menuScreen);
         return true;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
 }

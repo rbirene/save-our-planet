@@ -26,6 +26,7 @@ public class formDialog {
     //List of all the previous User names
     private ArrayList<String> list = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
+
     //Name of the User that will be inputted in this form
     private String userName;
 

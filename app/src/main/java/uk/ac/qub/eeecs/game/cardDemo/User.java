@@ -5,9 +5,13 @@ public class User {
     private int wins;
     private int losses;
     private int gamesPlayed;
-    private double winLossRatio;
+    private double winRateRatio;
 
-    public User(){}
+    public User(String name, int numOfwins, int numOfLosses){
+        this.name = name;
+        this.wins = numOfwins;
+        this.losses = numOfLosses;
+    }
 
     public String getName() {
         return name;
@@ -23,6 +27,11 @@ public class User {
 
     public void setWins(int wins) {
         this.wins = wins;
+        calculateGamesPlayed();
+    }
+    public void addWin(){
+        wins++;
+        calculateGamesPlayed();
     }
 
     public int getLosses() {
@@ -31,21 +40,32 @@ public class User {
 
     public void setLosses(int losses) {
         this.losses = losses;
+        calculateGamesPlayed();
     }
 
-    public double getWinLossRatio() {
-        return winLossRatio;
+    public void addLoss(){
+        losses++;
+        calculateGamesPlayed();
+    }
+
+    public double getWinRateRatio() {
+        calculateWinRateRatio();
+        return winRateRatio;
     }
 
     public int getGamesPlayed() {
+        calculateGamesPlayed();
         return gamesPlayed;
     }
 
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+
+    public void calculateGamesPlayed(){
+        gamesPlayed = wins + losses;
     }
 
-    public void calculateWinLossRatio() {
-        winLossRatio = wins/gamesPlayed;
+    private void calculateWinRateRatio() {
+        if(getGamesPlayed() != 0) {
+            winRateRatio = (double)wins/getGamesPlayed();
+        }else{winRateRatio = wins;}
     }
 }
