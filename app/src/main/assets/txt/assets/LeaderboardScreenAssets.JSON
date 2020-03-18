@@ -2,8 +2,23 @@
   "assets": [
     {
       "type": "Bitmap",
-      "name": "CardSelect",
-      "file": "sound/btnLeaderboard.png"
+      "name": "LeaderBoardImage",
+      "file": "img/LeaderBoardImages/LeaderBoard.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "ScreenBackground",
+      "file": "img/LeaderBoardImages/LeaderBoardScreenBackground.jpg"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BackArrow",
+      "file": "img/BackArrow.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "BackArrowSelected",
+      "file": "img/BackArrowSelected.png"
     }
   ]
 }
