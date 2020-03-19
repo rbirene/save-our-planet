@@ -126,7 +126,11 @@ public class MenuScreen extends GameScreen {
         exit = new PushButton(240.0f, 130.0f, 76.0f, 40.0f, "btnExit", "btnExit", this);
         exit.setPlaySounds(true, true);
 
-        getGame().getUserStore().getUserList().remove(3);
+//        getGame().getUserStore().getUserList().remove( getGame().getUserStore().getUserList().size()-1);
+//        getGame().getUserStore().getUserList().remove( getGame().getUserStore().getUserList().size()-2);
+//        getGame().getUserStore().getUserList().add(new User("Irene", 8, 2));
+////        getGame().getUserStore().getUserList().add(new User("Keith", 5, 3));
+//        getGame().getUserStore().saveUsers();
     }
 
     // /////////////////////////////////////////////////////////////////////////

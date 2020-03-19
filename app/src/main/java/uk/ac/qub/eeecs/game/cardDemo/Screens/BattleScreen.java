@@ -3,6 +3,7 @@ package uk.ac.qub.eeecs.game.cardDemo.Screens;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Question;
@@ -152,6 +153,8 @@ public class BattleScreen extends GameScreen {
         addSettingsButton();
         addPauseButton();
         firstTurnDecided = false;
+
+        Log.d("player", "" + game.getCurrentUser().getName());
 
     }
 

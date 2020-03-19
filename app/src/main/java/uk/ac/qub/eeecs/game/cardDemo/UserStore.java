@@ -104,6 +104,16 @@ public class UserStore {
         editor.apply();
     }
 
+    public int checkUserStore(String userName){
+        for(int i = 0; i<getNumOfUsers(); i++){
+            String name = userList.get(i).getName();
+            if(name.equals(userName)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // /////////////////////////////////////////////////////////////////////////
     // Getters
     // /////////////////////////////////////////////////////////////////////////
@@ -115,6 +125,16 @@ public class UserStore {
      */
     public ArrayList<User> getUserList() {
         return userList;
+    }
+
+    /**
+     * Returns the number of Users
+     * in the UserStore
+     *
+     * Created By Niamh McCartney
+     */
+    public int getNumOfUsers() {
+        return userList.size();
     }
 
     // /////////////////////////////////////////////////////////////////////////

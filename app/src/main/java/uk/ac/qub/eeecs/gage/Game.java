@@ -350,6 +350,9 @@ public abstract class Game extends Fragment {
         //Create the User Store[Niamh McCartney]
         mUserStore = new UserStore(this, getActivity());
 
+        //Create the Current User[Niamh McCartney]
+        mUser = new User(null, 0, 0);
+
         // Load the assets for players[Niamh McCartney]
         mAssetManager.loadAssets("txt/assets/Players.JSON");
 

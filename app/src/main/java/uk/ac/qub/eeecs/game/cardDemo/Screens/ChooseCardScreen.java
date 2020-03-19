@@ -2,6 +2,7 @@ package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,18 +44,21 @@ public class ChooseCardScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
+    //Define the Game the screen is created in
+    private Game aGame;
+
     //contains all hero cards
-    private HashMap<String, Card> heroCardPool = getGame().getCardStore().getAllHeroCards(this);
-    private HashMap<String, Card> screenCardPool = new HashMap<>();
+    private HashMap<String, Card> heroCardPool;
+    private HashMap<String, Card> screenCardPool;
 
     //Define Player and Player's Deck
-    private Hero hero = getGame().getHero();
-    private Deck heroDeck = hero.getPlayerDeck();
+    private Hero hero;
+    private Deck heroDeck;
 
     //Define Cards to be displayed on Screen
-    private Card Card01 = heroDeck.getCard01(this);
-    private Card Card02 = heroDeck.getCard02(this);
-    private Card Card03 = heroDeck.getCard03(this);
+    private Card Card01;
+    private Card Card02;
+    private Card Card03;
 
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
@@ -70,7 +74,8 @@ public class ChooseCardScreen extends GameScreen {
     //background [Irene Bhuiyan]
     private GameObject chooseCardBackground;
 
-    private AudioManager audioManager = getGame().getAudioManager();
+    //Define the audioManager used by the screen
+    private AudioManager audioManager;
 
     //Define type of touch event
     private String touchEventType;
@@ -89,17 +94,30 @@ public class ChooseCardScreen extends GameScreen {
     public ChooseCardScreen(Game game) {
         super("CardScreen", game);
 
+        //Define the screen parameters[Niamh McCartney]
+        this.aGame = game;
+
         //define game dimensions and viewports [Irene Bhuiyan]
-        gameHeight = mGame.getScreenHeight();
-        gameWidth = mGame.getScreenWidth();
+        gameHeight = aGame.getScreenHeight();
+        gameWidth = aGame.getScreenWidth();
         ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
         LayerViewport = mDefaultLayerViewport;
+
+        //Initialise the Screen properties[Niamh McCartney]
+        audioManager = aGame.getAudioManager();
+        heroCardPool = aGame.getCardStore().getAllHeroCards(this);
+        screenCardPool = new HashMap<>();
+        hero = aGame.getHero();
+        heroDeck = hero.getPlayerDeck();
+        Card01 = heroDeck.getCard01(this);
+        Card02 = heroDeck.getCard02(this);
+        Card03 = heroDeck.getCard03(this);
 
         //Load the various images used by the screen
         loadScreenAssets();
 
         //set up background [Irene Bhuiyan]
-        Bitmap chooseCardBackgroundImg = mGame.getAssetManager().getBitmap("chooseCardBackground");
+        Bitmap chooseCardBackgroundImg = aGame.getAssetManager().getBitmap("chooseCardBackground");
         chooseCardBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, chooseCardBackgroundImg , this);
 
         //Add Buttons
@@ -192,13 +210,20 @@ public class ChooseCardScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        graphics2D.clear(Color.WHITE);
+
         if(!formSubmitted){
             DisplayFormDialog();
             formSubmitted = true;
         }
-        graphics2D.clear(Color.WHITE);
+
+        //Draw the screen background
         chooseCardBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+
+        //Draw the Cards on the Screen
         drawCards(elapsedTime, graphics2D);
+
+        //Draw the Buttons
         backButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         continueButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         shuffleButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);

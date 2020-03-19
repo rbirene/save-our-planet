@@ -3,7 +3,6 @@ package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,6 +37,8 @@ public class formDialog {
     //Name of the User that is selected from the list
     private String userNameSelected;
 
+    private int userPos;
+
     /**
      * Displays a pop-up box
      * containing an informative message
@@ -51,7 +52,7 @@ public class formDialog {
      * Created By Niamh McCartney
      */
 
-    public void showDialog(Activity activity, final Game aGame, String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImage){
+    public void showDialog(Activity activity, final Game aGame, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImage){
         // Flags for full-screen mode:
         int ui_flags =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -108,7 +109,7 @@ public class formDialog {
         });
 
         //define id of dialog's text
-        TextView text = dialog.findViewById(R.id.text_dialog);
+        final TextView text = dialog.findViewById(R.id.text_dialog);
         //set the text contained in the dialog
         text.setText(msg);
 
@@ -124,13 +125,19 @@ public class formDialog {
             @Override
             public void onClick(View v) {
                 userNameInputted = textInput.getText().toString();
-                if(userNameInputted != null && !userNameInputted.equals("")) {
-                    User user = new User(userNameInputted,0, 0);
-                    users.add(user);
-                    aGame.getUserStore().saveUsers();
+                if (userNameInputted != null && !userNameInputted.equals("")) {
+                    User user = new User(userNameInputted, 0, 0);
+                    if (aGame.getUserStore().checkUserStore(userNameInputted) == -1) {
+                        users.add(user);
+                        aGame.getCurrentUser().setUser(user);
+                        aGame.getUserStore().saveUsers();
 
-                    //dismiss the dialog
-                    dialog.dismiss();
+                        //dismiss the dialog
+                        dialog.dismiss();
+
+                    }else{text.setText(msg + "/nThat Name is already taken");
+
+                    }
                 }
             }
         });
@@ -148,9 +155,9 @@ public class formDialog {
             @Override
             public void onClick(View v) {
                 if(userNameSelected != null) {
-                    User user = new User(userNameSelected,0, 0);
-                    users.add(user);
-                    aGame.getUserStore().saveUsers();
+                    userPos = aGame.getUserStore().checkUserStore(userNameSelected);
+                    User user = aGame.getUserStore().getUserList().get(userPos);
+                    aGame.getCurrentUser().setUser(user);
 
                     //dismiss the dialog
                     dialog.dismiss();
