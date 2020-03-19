@@ -104,9 +104,6 @@ public class Card extends Sprite {
 
     private Boolean hasHolder = false;
 
-    private float startPosX;
-    private float startPosY;
-
     private Boolean cardInUse = false;
     private Boolean cardFlipped = false;
 
@@ -315,12 +312,11 @@ public class Card extends Sprite {
 
 
     //Returns true if Cards is selected [Niamh McCartney]
-    public Boolean cardSelected(){
-        return selected;
-    }
+  //  public Boolean cardSelected(){
+    //    return selected;
+    //}
 
 
-    public void setCardHolder(CardHolder cardHolder){ this.CardHolder = cardHolder;}
 
 
 
@@ -401,7 +397,8 @@ public class Card extends Sprite {
     // Setters
     // /////////////////////////////////////////////////////////////////////////
 
-    public void setCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
+    public void setCardHolder(CardHolder cardHolder){
+        this.mCardHolder = cardHolder;}
 
     // Setter to set the health value of the Card [Niamh McCartney]
     public void setHealthValue(int value){

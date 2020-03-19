@@ -36,12 +36,10 @@ public class Villain extends Player {
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
-    public void playAI(){
+    public void playAI() {
 
         Random rand = new Random();
-        int Y = rand.nextInt(2);
 
-        if(Y==1) {
             containers.addAll(gameBoard.getVillianContainers());
             enemyContainers.addAll(gameBoard.getHeroContainers());
 
@@ -49,31 +47,17 @@ public class Villain extends Player {
                 int n = rand.nextInt(containers.size() - 1);
                 int x = rand.nextInt(playerCards.size() - 1);
 
-
-
                 for (int i = 0; i < containers.size(); i++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(x));
+                        containers.get(n).returnCardHeld().setCardFlipped(false);
+                        playerCards.remove(x);
+
                     }
 
-
-            for(int i=0;i<containers.size();i++){
-                if(containers.get(n).isEmpty()){
-                    containers.get(n).AddCardToHolder(playerCards.get(x));
-
                 }
-                playerCards.remove(x);
             }
-
-        }else{
-            AIAttack();
-
-            playerCards.get(x).setCardFlipped(false);
-            playerCards.remove(x);
-
         }
-
-    }
 
 
     public void setPlayerCards(ArrayList<Card> cards) {
@@ -205,6 +189,10 @@ public class Villain extends Player {
                 playerCards.remove(choosencard);
             }
         }
+    }
+
+    public  void takeFirstTurn(){
+
     }
 
 }
