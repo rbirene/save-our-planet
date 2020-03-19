@@ -29,7 +29,6 @@ public class Hero extends Player {
     private Card cardSelected;
     private Card enemyCard;
 
-
     /**
      *
      * Create a new Hero.
@@ -46,33 +45,36 @@ public class Hero extends Player {
             ViewportHelper.convertScreenPosIntoLayer(gameScreen.getDefaultScreenViewport(), t.x, t.y,
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
-            if (cardSelected  != null){
-                if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
-                    cardSelected.setCardDragged(true);
-                }
+            if (cardSelected != null) {
+
+                //if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                cardSelected.setCardDragged(true);
+                //}
                 if (t.type == 2 && cardSelected.getCardDragged()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                     cardSelected.setCardDragged(true);
                     cardSelected.setCardInUse(true);
+
                 }
-                if (t.type == 1 && cardSelected.getCardDragged()) {
-                    cardSelected.setCardDragged(false);
+                if (t.type == 1 && cardSelected.cardSelected()) {
+                    cardSelected.setSelected(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
                         cardSelected.setCardInUse(true);
                         getPlayerDeck().setDeckChanged(true);
-                       // tempContainer = null;
+                        // tempContainer = null;
                         cardSelected = null;
                         cardPlayed = true;
-                    }else if(checkDropLocationAttack()) {
+                    } else if (checkDropLocationAttack()) {
                         attackPhase();
-                      //  tempContainer.returnCardToHolder();
+                        //  tempContainer.returnCardToHolder();
                         cardSelected.returnToHolder();
                         cardSelected = null;
                         cardPlayed = true;
-                      }
-                        else{
-                            cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
+                    } else if (cardSelected.returnHolder()) {
+                        cardSelected.returnToHolder();
+                    } else {
+                        cardSelected.setPosition(cardSelected.getStartPosX(), cardSelected.getStartPosY());
                     }
                 }
             }
@@ -130,10 +132,18 @@ public class Hero extends Player {
             }
         }
 
+public boolean attackPossible() {
+        return false;
+}
 
     public void ProcessTouchInput(List<TouchEvent> touchEvents){
             playerCards = playerDeck.getDeck(null);
             selectCard(touchEvents);
             moveCards(touchEvents);
+        }
+
+
+        @Override public  void takeFirstTurn(){
+
         }
     }

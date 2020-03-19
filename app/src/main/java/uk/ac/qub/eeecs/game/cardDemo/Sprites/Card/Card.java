@@ -100,8 +100,13 @@ public class Card extends Sprite {
     private Boolean selected = false;
     private Boolean cardLocked = false;
     private Boolean cardDragged = false;
+
+
+    private Boolean hasHolder = false;
+
     private Boolean cardInUse = false;
     private Boolean cardFlipped = false;
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -297,6 +302,23 @@ public class Card extends Sprite {
     public void returnToHolder(){
         this.setPosition(mCardHolder.getBound().x,mCardHolder.getBound().y);
     }
+    public boolean returnHolder(){
+        return hasHolder;
+    }
+
+    public void hasHolder(Boolean holder){
+        hasHolder = holder;
+    }
+
+
+    //Returns true if Cards is selected [Niamh McCartney]
+  //  public Boolean cardSelected(){
+    //    return selected;
+    //}
+
+
+
+
 
     //Creates the images used by the Card [Niamh McCartney]
     public void createCardImages(){
@@ -375,7 +397,8 @@ public class Card extends Sprite {
     // Setters
     // /////////////////////////////////////////////////////////////////////////
 
-    public void setCardHolder(CardHolder cardHolder){this.mCardHolder = cardHolder;}
+    public void setCardHolder(CardHolder cardHolder){
+        this.mCardHolder = cardHolder;}
 
     // Setter to set the health value of the Card [Niamh McCartney]
     public void setHealthValue(int value){

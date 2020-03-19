@@ -118,6 +118,7 @@ public class OptionsScreen extends GameScreen {
         }else if(mGame.mDifficultyLevel == DifficultyLevels.HARD) {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffHard"));
         }
+
     }
 
     //For testing
