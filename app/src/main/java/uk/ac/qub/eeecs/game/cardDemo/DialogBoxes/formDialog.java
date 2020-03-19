@@ -17,18 +17,26 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.User;
 
 public class formDialog {
 
-    //List of all the previous User names
+    //List of all saved Users
+    private ArrayList<User> users = new ArrayList<>();
+
+    //List of all saved User's names
     private ArrayList<String> list = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
 
     //Name of the User that will be inputted in this form
-    private String userName;
+    private String userNameInputted;
+
+    //Name of the User that is selected from the list
+    private String userNameSelected;
 
     /**
      * Displays a pop-up box
@@ -43,7 +51,7 @@ public class formDialog {
      * Created By Niamh McCartney
      */
 
-    public void showDialog(Activity activity, String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImage){
+    public void showDialog(Activity activity, final Game aGame, String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImage){
         // Flags for full-screen mode:
         int ui_flags =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -58,24 +66,26 @@ public class formDialog {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.form_window);
 
+        //Define id of the Dialog's image
         ImageView image = dialog.findViewById(R.id.a);
         //Get colour inputted by user and get its code
         Colour colour01 = new Colour(imageBackgroundColour);
         String colourCode = colour01.getColourCode();
-        //Use colour code to set background
+        //Use colour code to set the image background
         image.setBackgroundColor(Color.parseColor(colourCode));
         //Set dialog image
         image.setImageResource(imageID);
 
-        list.add("Lauren");
-        list.add("Dave");
-        list.add("Tom");
-        list.add("Sarah");
+        users = aGame.getUserStore().getUserList();
 
-        //define id of dialog's ListView
+        for(int i = 0; i<users.size(); i++){
+            list.add(users.get(i).getName());
+        }
+
+        //Define id of dialog's ListView
         final ListView listView = dialog.findViewById(R.id.list);
 
-        //define id of dialog's EditText
+        //Define id of dialog's EditText
         final EditText textInput = dialog.findViewById(R.id.text_input);
 
         // Create an ArrayAdapter from List
@@ -92,9 +102,7 @@ public class formDialog {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<? > arg0, View view, int position, long id) {
-                userName = listView.getItemAtPosition(position).toString();
-                Log.d("textInputbun", "" + userName);
-
+                userNameSelected = listView.getItemAtPosition(position).toString();
             }
 
         });
@@ -115,10 +123,15 @@ public class formDialog {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = textInput.getText().toString();
-                Log.d("textInputbun", "" + textInput.getText());
-                //dismiss the dialog
-                dialog.dismiss();
+                userNameInputted = textInput.getText().toString();
+                if(userNameInputted != null && !userNameInputted.equals("")) {
+                    User user = new User(userNameInputted,0, 0);
+                    users.add(user);
+                    aGame.getUserStore().saveUsers();
+
+                    //dismiss the dialog
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -134,9 +147,14 @@ public class formDialog {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("textInputbun", "" + textInput.getText());
-                //dismiss the dialog
-                dialog.dismiss();
+                if(userNameSelected != null) {
+                    User user = new User(userNameSelected,0, 0);
+                    users.add(user);
+                    aGame.getUserStore().saveUsers();
+
+                    //dismiss the dialog
+                    dialog.dismiss();
+                }
             }
         });
 

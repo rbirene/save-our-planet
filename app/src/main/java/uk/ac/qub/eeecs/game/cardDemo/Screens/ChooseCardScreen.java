@@ -237,7 +237,7 @@ public class ChooseCardScreen extends GameScreen {
     private void DisplayFormDialog(){
         formDialog dialog = new formDialog();
         String message = "Choose your name from the list of players below or fill out the form to add your name to the list";
-        dialog.showDialog(getGame().getActivity(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
+        dialog.showDialog(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
     }
 
     /**

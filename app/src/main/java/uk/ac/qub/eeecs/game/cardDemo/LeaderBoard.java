@@ -3,8 +3,10 @@ package uk.ac.qub.eeecs.game.cardDemo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -19,23 +21,41 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
 public class LeaderBoard extends Sprite {
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
 
+    //Defines the AssetManager used by the Game
     private AssetManager assetManager;
 
+    //Defines the game screen that called the object
     private GameScreen aScreen;
 
+    //Define the LeaderBoard image
     private Bitmap leaderBoardImage;
 
     private Paint mTextPaint;
 
     private BoundingBox bound;
 
+    //Define the list of all the saved Users
     private ArrayList<User> aUserList;
+
+    //Define the list of the top 5 Users with the best WinRateRatio
     private ArrayList<User> sortedUserList;
 
+    //Define the Y co-ordinate fo the text on the LeaderBoard
     private float textYCoordinate;
 
+    //Define the width of the text
     private float textWidth;
+
+    //Number of Users to be displayed on the leaderBoard
+    private int numOfUsers;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public LeaderBoard(float xPos, float yPos, GameScreen screen, float width, float height, ArrayList<User> userList){
         super(xPos, yPos, width, height, null, screen);
@@ -49,8 +69,13 @@ public class LeaderBoard extends Sprite {
         this.textWidth = getHeight() * 0.7f;
         this.bound = new BoundingBox();
 
-        assignCardImages();
+        //Loads the images used by the LeaderBoard object
+        loadLeaderBoardImages();
     }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
 
     /**
      * Draw the LeaderBoard Object
@@ -65,36 +90,44 @@ public class LeaderBoard extends Sprite {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
+        //Draws the leaderBoard image
         mBitmap = leaderBoardImage;
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
-        sortArrayList();
-
-        //sets paint properties for card text
+        //Sets paint properties for card text
         setupTextPaint();
 
-        textYCoordinate = getHeight()* -0.085f;
-        for(int i = 0; i<sortedUserList.size(); i++){
-            User user = sortedUserList.get(i);
-            String win = Integer.toString(sortedUserList.get(i).getWins());
-            String loss = Integer.toString(sortedUserList.get(i).getLosses());
+        //Gets the Users with the Top 5 WinRateRatios
+        sortArrayList();
 
-            //Draw the Card text[Niamh McCartney]
+        //Defines the Y co-ordinate of the text in relation
+        // to the size of the LeaderBoard image
+        textYCoordinate = getHeight() * -0.085f;
+
+        //Iterates through the top 5 users
+        for(int i = 0; i<numOfUsers; i++){
+            //Define the User information to be displayed on the LeaderBoard
+            User user = aUserList.get(i);
+            String win = Integer.toString(aUserList.get(i).getWins());
+            String loss = Integer.toString(aUserList.get(i).getLosses());
             String userName = user.getName();
 
-            float playerNameXCoordinate = getWidth() * -0.18f;
+            //Draw the Users name[Niamh McCartney]
+            float playerNameXCoordinate = getWidth() * -0.165f;
             Vector2 playerNameOffset = new Vector2(playerNameXCoordinate, textYCoordinate);
             drawText(userName, playerNameOffset, textWidth,
                         graphics2D, layerViewport, screenViewport);
 
 
-            float winValueXCoordinate = playerNameXCoordinate * -0.95f;
+            //Draw the number of games the User has won[Niamh McCartney]
+            float winValueXCoordinate = playerNameXCoordinate * -1.035f;
             Vector2 winOffset = new Vector2(winValueXCoordinate, textYCoordinate);
             drawText(win, winOffset, textWidth,
                     graphics2D, layerViewport, screenViewport);
 
 
-            float lossValueXCoordinate = winValueXCoordinate * 1.7f;
+            //Draw the number of games the User has lost[Niamh McCartney]
+            float lossValueXCoordinate = winValueXCoordinate * 1.705f;
             Vector2 lossOffset = new Vector2(lossValueXCoordinate, textYCoordinate);
             drawText(loss, lossOffset, textWidth,
                     graphics2D, layerViewport, screenViewport);
@@ -205,30 +238,30 @@ public class LeaderBoard extends Sprite {
         mTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
-    private void assignCardImages(){
+    /**
+     * Load LeaderBoard images
+     *
+     * Created by Niamh McCartney
+     */
+    private void loadLeaderBoardImages(){
         assetManager = aScreen.getGame().getAssetManager();
         assetManager.loadAssets("txt/assets/LeaderboardScreenAssets.JSON");
         leaderBoardImage = assetManager.getBitmap("LeaderBoardImage");
     }
 
+    /**
+     * Fills the 'sortedUserList' with
+     * the Top 5 Users from the 'aUserList'
+     * with the highest winRateRatios
+     *
+     * Created by Niamh McCartney
+     */
     private void sortArrayList(){
-        double maxValue;
-        int maxValuePos;
-        while(sortedUserList.size()<5 && !aUserList.isEmpty()) {
-            for (int i = 0; i < aUserList.size(); i++) {
-                maxValue = aUserList.get(i).getWinRateRatio();
-                maxValuePos = i;
+        Collections.sort(aUserList, Collections.<User>reverseOrder());
 
-                for (int j = 1; j < aUserList.size(); j++) {
-                    if (aUserList.get(j).getWinRateRatio() > maxValue) {
-                        maxValue = aUserList.get(j).getWinRateRatio();
-                        maxValuePos = j;
-                    }
-                }
-                sortedUserList.add(aUserList.get(maxValuePos));
-                aUserList.remove(aUserList.get(maxValuePos));
-            }
-        }
+        if(aUserList.size() < 5){
+            numOfUsers = aUserList.size();
+        }else{ numOfUsers = 5;}
+
     }
-
 }

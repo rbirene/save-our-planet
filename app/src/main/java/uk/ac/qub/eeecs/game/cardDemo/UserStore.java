@@ -21,6 +21,7 @@ public class UserStore {
 
     private FileIO mFileIO;
 
+    //Define the Game that the object is created in
     private Game mGame;
 
     //Define the list of Users
