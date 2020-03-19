@@ -1,5 +1,6 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import java.util.HashMap;
@@ -12,15 +13,15 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
+import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.InstructionsScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
-import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.User;
 
 /**
  * This class creates the MenuScreen
@@ -40,9 +41,9 @@ public class MenuScreen extends GameScreen {
     private HashMap<String, Card> villainCardPool = new HashMap<>();
     private HashMap<String, Card> screenCardPool = new HashMap<>();
 
-    /*define card and deck objects used during
-     *generation of the player decks
-     *[Niamh McCartney]
+    /** define card and deck objects used during
+     * generation of the player decks
+     * [Niamh McCartney]
      */
     private Card randCard;
     private Card Card01;
@@ -57,14 +58,20 @@ public class MenuScreen extends GameScreen {
     private Hero hero = getGame().getHero();
     private Villain villain = getGame().getVillain();
 
-    /**
-     * Define the buttons for playing the 'games'
-     */
-    private PushButton mOptionsIcon;
+    //define game dimensions and viewports [Irene Bhuiyan]
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
+    private int gameHeight, gameWidth;
+
+    //define buttons [Irene Bhuiyan]
+    private PushButton infoButton;
+    private PushButton settingsButton;
     private PushButton playGame;
-    private PushButton instructions;
-    private PushButton options;
     private PushButton exit;
+    private PushButton leaderBoardsButton;
+
+    //background [Irene Bhuiyan]
+    private GameObject menuBackground;
 
     private AssetManager assetManager;
 
@@ -80,15 +87,21 @@ public class MenuScreen extends GameScreen {
     public MenuScreen(Game game) {
         super("MenuScreen", game);
 
+        //define game dimensions and viewports [Irene Bhuiyan]
+        gameHeight = mGame.getScreenHeight();
+        gameWidth = mGame.getScreenWidth();
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
+        LayerViewport = mDefaultLayerViewport;
+
         // Load assets used by screen[Niamh McCartney]
         assetManager = mGame.getAssetManager();
         loadScreenAssets();
 
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
-
         assetManager.loadAndAddMusic("gameMusic","sound/InPursuitOfSilence.mp3");
+
+        //set up background [Irene Bhuiyan]
+        Bitmap menuBackgroundImg = assetManager.getBitmap("menuBackground");
+        menuBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, menuBackgroundImg , this);
 
         //creates hero deck if deck is not already created [Niamh McCartney]
         if(heroDeck == null ) {
@@ -102,28 +115,18 @@ public class MenuScreen extends GameScreen {
             createVillainDeck();
         }
 
+        // add buttons [Niamh McCartney]
+        addInfoButton();
+        addSettingsButton();
+        addLeaderBoardButton();
 
-        // Create the trigger buttons
-        playGame = new PushButton(
-                spacingX * 0.50f, spacingY * 1.5f, spacingX, spacingY,
-                "btnPlay", "btnPlay",this);
+        // set up play and exit buttons [Irene Bhuiyan]
+        playGame = new PushButton(240.0f, 180.0f, 145.0f, 40.0f, "btnPlay", "btnPlay",this);
         playGame.setPlaySounds(true, true);
-        instructions = new PushButton(
-                spacingX * 1.83f, spacingY * 1.5f, spacingX, spacingY,
-                "btnInstructions", "btnInstructions", this);
-        instructions.setPlaySounds(true, true);
-        options = new PushButton(
-                spacingX * 3.17f, spacingY * 1.5f, spacingX, spacingY,
-                "btnOptions", "btnOptions", this);
-        options.setPlaySounds(true, true);
-        exit = new PushButton(spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "btnExit", "btnExit", this);
+        exit = new PushButton(240.0f, 130.0f, 76.0f, 40.0f, "btnExit", "btnExit", this);
         exit.setPlaySounds(true, true);
-        mOptionsIcon = new PushButton(
-                spacingX*2.0f,spacingY*2.65f,spacingX,spacingY,
-                "OptionsIcon","OptionsIcon",this);
-        mOptionsIcon.setPlaySounds(true, true);
 
+        getGame().getUserStore().getUserList().remove(3);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -145,23 +148,27 @@ public class MenuScreen extends GameScreen {
         if (touchEvents.size() > 0) {
 
             // Update each button and transition if needed
-            mOptionsIcon.update(elapsedTime);
+            infoButton.update(elapsedTime);
+            settingsButton.update(elapsedTime);
             playGame.update(elapsedTime);
-            instructions.update(elapsedTime);
-            options.update(elapsedTime);
             exit.update(elapsedTime);
+            leaderBoardsButton.update(elapsedTime);
 
-
-            if (playGame.isPushTriggered())
+            if (playGame.isPushTriggered()){
                 mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
-            else if (instructions.isPushTriggered())
+            }
+            else if (infoButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
-            else if(options.isPushTriggered())
+            }
+            else if(settingsButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-            else if(mOptionsIcon.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
-            else if(exit.isPushTriggered())
+            }
+            else if(exit.isPushTriggered()) {
                 System.exit(1);
+            }
+            else if(leaderBoardsButton.isPushTriggered()) {
+                mGame.getScreenManager().addScreen(new LeaderBoardScreen(mGame));
+            }
         }
     }
 
@@ -173,15 +180,14 @@ public class MenuScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-
-        // Clear the screen and draw the buttons
+        // draw background and buttons [Irene Bhuiyan]
         graphics2D.clear(Color.WHITE);
-
+        menuBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-        instructions.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-        options.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
-        mOptionsIcon.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        leaderBoardsButton.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
     }
 
     /**
@@ -195,6 +201,7 @@ public class MenuScreen extends GameScreen {
     private Deck generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
         screenCardPool = new HashMap<>();
         int num = 0;
+
         while(num<numOfCards) {
             randCard = getGame().getCardStore().getRandCard(cardPool);
             String name = randCard.getCardName();
@@ -258,6 +265,48 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         assetManager.loadAssets("txt/assets/CardAssets.JSON");
 
+    }
+
+    /**
+     * Add a info Button to the screen that
+     * takes you to the instructions screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addInfoButton() {
+
+        infoButton = new PushButton(430.0f, 300.0f,
+                28.0f, 28.0f,
+                "infoBtn", "infoBtnSelected", this);
+        infoButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a settings Button to the screen
+     * that takes you to the settings Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addSettingsButton() {
+
+        settingsButton = new PushButton(
+                465.0f, 300.0f, 30.0f, 30.0f,
+                "settingsBtn", "settingsBtnSelected", this);
+        settingsButton.setPlaySounds(true, true);
+    }
+
+    /**
+     * Add a LeaderBoard Button to the screen
+     * that takes you to the LeaderboardScreen Screen
+     *
+     * Created By Niamh McCartney
+     */
+    private void addLeaderBoardButton() {
+
+        leaderBoardsButton = new PushButton(
+                405.0f, 300.0f, 32.0f, 32.0f,
+                "HighScoreButton", "HighScoreButtonSelected", this);
+        leaderBoardsButton.setPlaySounds(true, true);
     }
 
 }

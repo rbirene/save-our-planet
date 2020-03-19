@@ -90,7 +90,9 @@ public class CoinFlipDialog{
                     handler.postDelayed(mUpdateDialog, time);
 
                 }//When the first turn has been decided and the button is pressed again then cancel the dialog box
-                else{ dialog.dismiss();}
+                else{
+                    dialog.dismiss();
+                }
 
             }
         });

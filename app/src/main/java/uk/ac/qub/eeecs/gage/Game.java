@@ -13,6 +13,8 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.CardStore;
 import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
+import uk.ac.qub.eeecs.game.cardDemo.User;
+import uk.ac.qub.eeecs.game.cardDemo.UserStore;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -93,7 +95,42 @@ public abstract class Game extends Fragment {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Hero
+     * Current User
+     *
+     * Created by Niamh McCartney
+     */
+    protected User mUser;
+
+    /**
+     * Get the game's current User
+     *
+     * @return mUser
+     *
+     * Created by Niamh McCartney
+     */
+    public User getCurrentUser() {
+        return mUser;
+    }
+
+    /**
+     * UserStore
+     *
+     * Created by Niamh McCartney
+     */
+    protected UserStore mUserStore;
+    /**
+     * Get the game's UserStore
+     *
+     * @return mUserStore
+     *
+     * Created by Niamh McCartney
+     */
+    public UserStore getUserStore() {
+        return mUserStore;
+    }
+
+    /**
+     * Villain
      *
      * Created by Niamh McCartney
      */
@@ -310,6 +347,9 @@ public abstract class Game extends Fragment {
         //Create the Card Store[Niamh McCartney]
         mCardStore = new CardStore(this);
 
+        //Create the User Store[Niamh McCartney]
+        mUserStore = new UserStore(this, getActivity());
+
         // Load the assets for players[Niamh McCartney]
         mAssetManager.loadAssets("txt/assets/Players.JSON");
 
@@ -405,6 +445,7 @@ public abstract class Game extends Fragment {
      */
     @Override
     public void onDestroy() {
+
         // Dispose of any game screens
         mScreenManager.dispose();
 

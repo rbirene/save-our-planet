@@ -27,14 +27,17 @@ public class Deck {
     //Boolean to determine whether deck has een created
     private Boolean deckCreated;
     //Boolean to determine whether deck has been shuffled
-    private Boolean deckShuffled = false;
+    private Boolean deckShuffled;
 
     //Defines ArrayList to hold the cards in the deck
     private ArrayList<Card> cardDeck;
 
+    //Boolean that returns true if deck has been changed
+    private Boolean deckChanged;
+
 
     // /////////////////////////////////////////////////////////////////////////
-    // Constructors
+    // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
     public Deck(Card Card1, Card Card2, Card Card3){
@@ -48,7 +51,10 @@ public class Deck {
         cardDeck.add(1, Card02);
         cardDeck.add(2, Card03);
 
+        //set the booleans
+        deckShuffled = false;
         deckCreated = true;
+        deckChanged = false;
 
     }
 
@@ -74,10 +80,35 @@ public class Deck {
         return -1;
     }
 
-    public void enlargeDeck(float width, float height){
+    /**
+     * Change the width and height of
+     * the Cards in the deck
+     *
+     * @param width New width of Cards in Deck
+     * @param height New height of Cards in deck
+     *
+     *  {Created By Niamh McCartney}
+     */
+    public void changeDeckSize(float width, float height){
         for(int i = 0; i<cardDeck.size(); i++){
             cardDeck.get(i).setWidth(width);
             cardDeck.get(i).setHeight(height);
+        }
+    }
+
+    /**
+     * Checks that the Card 'card'
+     * exists in the deck. If it does
+     * the Card is removed from the deck
+     *
+     * @param card Card to be removed
+     *
+     *  {Created By Niamh McCartney}
+     */
+    public void removeCard(Card card){
+        int cardPos = checkDeck(card);
+        if(cardPos != -1){
+            cardDeck.remove(card);
         }
     }
 
@@ -87,6 +118,15 @@ public class Deck {
      */
     public int getSize(){
        return  cardDeck.size();
+    }
+
+    //Sam
+    public void update(){
+        for(int i=0;i<cardDeck.size();i++){
+            if(cardDeck.get(i).getHealthValue() < 0){
+                cardDeck.remove(i);
+            }
+        }
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -101,6 +141,7 @@ public class Deck {
     public Boolean getDeckShuffled(){
         return deckShuffled;
     }
+
     /**
      * Returns cardDeck
      *
@@ -114,16 +155,6 @@ public class Deck {
            card.setGameScreen(screen);
         }
         return cardDeck;
-    }
-
-        //Sam
-    public void update(){
-
-        for(int i=0;i<cardDeck.size();i++){
-            if(cardDeck.get(i).getHealthValue() < 0){
-                cardDeck.remove(i);
-            }
-        }
     }
 
     /**
@@ -149,6 +180,8 @@ public class Deck {
      * Created By Niamh McCartney
      */
     public Card getCard03(GameScreen screen){ Card03.setGameScreen(screen); return Card03;}
+
+    public Boolean getDeckChanged(){return deckChanged;}
 
 
     // /////////////////////////////////////////////////////////////////////////
@@ -186,6 +219,8 @@ public class Deck {
     //Setter for the third Card in the deck
     public void setCard03(Card newCard){
         Card03 = newCard;
-        cardDeck.set(2, newCard);}
+        cardDeck.set(2, newCard); }
+
+    public void setDeckChanged(Boolean bool){deckChanged = bool;}
 
 }

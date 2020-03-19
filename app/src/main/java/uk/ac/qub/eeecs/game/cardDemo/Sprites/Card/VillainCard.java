@@ -38,6 +38,8 @@ public class VillainCard extends Card {
      */
     public VillainCard(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(x, y, gameScreen, mName, cardTypeValue, mCardPortrait, scaleValue, mAttack, mHealth, portraitYPos);
+
+        setCardFlipped(true);
     }
 
     @Override

@@ -34,19 +34,9 @@ public class Hero extends Player {
      * Create a new Hero.
      *
      */
-
     public Hero(Bitmap portrait){
         super(0.0f, 0.0f, "Freta Funberg", null, portrait);
-
-
     }
-
-    @Override
-    public void takeFirstTurn(){}
-
-    @Override
-    public void takeTurn(){ }
-
 
     public void moveCards(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {
@@ -56,16 +46,28 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected  != null){
+
                // if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
                  //   cardSelected.setCardDragged(true);
                 //}
                 if (t.type == 2 && cardSelected.cardSelected()) {
                     cardSelected.setPosition(layerTouch.x , layerTouch.y);
+
+                if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                    cardSelected.setCardDragged(true);
+                }
+                if (t.type == 2 && cardSelected.getCardDragged()) {
+                    cardSelected.setPosition(layerTouch.x, layerTouch.y);
+                    cardSelected.setCardDragged(true);
+                    cardSelected.setCardInUse(true);
+
                 }
                 if (t.type == 1 && cardSelected.cardSelected()) {
                     cardSelected.setSelected(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
+                        cardSelected.setCardInUse(true);
+                        getPlayerDeck().setDeckChanged(true);
                        // tempContainer = null;
                         cardSelected = null;
                         cardPlayed = true;
@@ -79,12 +81,13 @@ public class Hero extends Player {
                           cardSelected.returnToHolder();
                     }
                         else{
-                        cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
+                            cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
                 }
             }
         }
     }
+
     public boolean checkDropLocationAttack(){
 
         for (int i = 0; i < gameBoard.getVillianContainers().size(); i++) {
@@ -95,6 +98,7 @@ public class Hero extends Player {
         }
         return false;
     }
+
     public boolean checkDropLocationContainer() {
 
             for (int i = 0; i < gameBoard.getHeroContainers().size(); i++) {
@@ -106,7 +110,6 @@ public class Hero extends Player {
             }
             return false;
     }
-
 
     public void selectCard(List<TouchEvent> touchEvents) {
         for (TouchEvent t : touchEvents) {

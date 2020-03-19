@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.game.MenuScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 

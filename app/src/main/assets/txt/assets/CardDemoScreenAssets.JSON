@@ -28,7 +28,7 @@
     {
       "type": "Bitmap",
       "name": "optionsBackground",
-      "file": "img/optionsBackground.jpg"
+      "file": "img/Backgrounds/optionsBackground.png"
     },
     {
       "type": "Bitmap",
@@ -207,6 +207,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "endTurnPush",
+      "file": "img/Buttons/endTurnPush.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "pauseBack",
       "file": "img/pauseBack.png"
     },
@@ -219,6 +224,51 @@
       "type": "Bitmap",
       "name": "attackSpritesheet",
       "file": "img/attackSpritesheet.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "chooseCardBackground",
+      "file": "img/Backgrounds/chooseCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBackground",
+      "file": "img/Backgrounds/menuBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "instructions",
+      "file": "img/instructions.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settings",
+      "file": "img/settings.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HighScoreButton",
+      "file": "img/Buttons/btnHighscores.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HighScoreButtonSelected",
+      "file": "img/Buttons/btnHighscoresSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "bonusBtn",
+      "file": "img/Buttons/bonusBtn.png"
+    },
+    {
+      "type": "Music",
+      "name": "menuMusic",
+      "file": "sound/MenuTheme.mp3"
+    },
+    {
+      "type": "Music",
+      "name": "battleMusic",
+      "file": "sound/BattleTheme.mp3"
     }
   ]
 }

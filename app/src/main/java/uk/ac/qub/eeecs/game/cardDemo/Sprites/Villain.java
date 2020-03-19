@@ -3,10 +3,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
@@ -38,11 +36,6 @@ public class Villain extends Player {
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
-
-//    @Override
-//    public void takeTurn(List<TouchEvent> touchEvents){}
-
-
     public void playAI(){
 
         Random rand = new Random();
@@ -57,15 +50,27 @@ public class Villain extends Player {
                 int x = rand.nextInt(playerCards.size() - 1);
 
 
+
                 for (int i = 0; i < containers.size(); i++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(x));
                     }
+
+
+            for(int i=0;i<containers.size();i++){
+                if(containers.get(n).isEmpty()){
+                    containers.get(n).AddCardToHolder(playerCards.get(x));
+
                 }
                 playerCards.remove(x);
             }
+
         }else{
             AIAttack();
+
+            playerCards.get(x).setCardFlipped(false);
+            playerCards.remove(x);
+
         }
 
     }
@@ -96,7 +101,9 @@ public class Villain extends Player {
         }
 
 
+   
     public void AICardSelect() {
+
 
         DifficultyLevels tempdiff;
         tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();
@@ -106,9 +113,7 @@ public class Villain extends Player {
              * For easy, play a random card (may change to play lowest value card)
              */
             playAI();
-
-        }
-        else if (tempdiff == DifficultyLevels.NORMAL) {
+        }else if (tempdiff == DifficultyLevels.NORMAL) {
             /**
              * For normal, find the two best cards, and random roll on either to play the best card, or second to best card.
              */
@@ -187,49 +192,20 @@ public class Villain extends Player {
                     temp = total;
                     cardtochoose = i;
                 }
-
-
-
-
-
-
             }
+
             int choosencard = cardtochoose;
             if (!playerCards.isEmpty()) {
                 for (int j = 0; j < containers.size(); j++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(choosencard));
-
-
-
                     }
                 }
 
                 playerCards.remove(choosencard);
-
-
-
             }
-
-
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void takeFirstTurn(){}
-
-    @Override
-    public void takeTurn(){}
 
 }
 

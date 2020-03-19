@@ -54,10 +54,11 @@ public class InfoPopUpDialog{
         TextView text = dialog.findViewById(R.id.text_dialog);
         text.setText(msg);
 
-        //When button is pressed cancel the dialog box
         Button dialogButton = dialog.findViewById(R.id.btn_dialog);
         dialogButton.setText(buttonText);
         dialogButton.setBackgroundResource(buttonImage);
+
+        //When button is pressed cancel the dialog box
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import java.util.List;
 
 import uk.ac.qub.eeecs.gage.Game;
+import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
@@ -22,67 +23,70 @@ import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 
 public class OptionsScreen extends GameScreen {
 
-    private ScreenViewport ScreenViewport;
-    private LayerViewport LayerViewport;
+    //paints for text [Irene Bhuiyan]
+    private Paint textPaint;
 
-    private GameObject OptionsBackground;
-    private GameObject volumeBar;
+    private GameObject optionsBackground, optionsTitle, volumeBar;
 
-    private PushButton backButton;
-    private PushButton muteToggle;
-    private PushButton volumeUp;
-    private PushButton volumeDown;
-    private PushButton changeDifficulty;
+    private PushButton backButton, menuButton, muteToggle, volumeUp, volumeDown, changeDifficulty;
 
     private DifficultyLevels diff = DifficultyLevels.EASY;
     private Paint paint;
 
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
+    private int gameHeight, gameWidth;
+    private AssetManager assetManager = mGame.getAssetManager();
+
     private AudioManager audioManager = mGame.getAudioManager();
     private float volume;
-    private int  gameWidth;
-
 
     public OptionsScreen(Game game) {
         super("OptionsScreen", game);
 
-        volume = audioManager.getMusicVolume();
-        gameWidth= mGame.getScreenWidth();
-        ScreenViewport = mDefaultScreenViewport;
+        //define game dimensions and viewports [Irene Bhuiyan]
+        gameHeight = mGame.getScreenHeight();
+        gameWidth = mGame.getScreenWidth();
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
         LayerViewport = mDefaultLayerViewport;
 
-        paint = new Paint();
-        paint.setTextSize(gameWidth * 0.07f);
-        paint.setARGB(255, 0, 0, 0);
+        volume = audioManager.getMusicVolume();
+
+        //body text style setup [Irene Bhuiyan]
+        textPaint = new Paint();
+        textPaint.setTextSize(mGame.getScreenWidth() * 0.023f);
+        textPaint.setARGB(255, 0, 0, 0);
 
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         mGame.getAssetManager().loadAndAddBitmap("diffEasy", "img/DiffEasy.png");
         mGame.getAssetManager().loadAndAddBitmap("diffNormal", "img/DiffNormal.png");
         mGame.getAssetManager().loadAndAddBitmap("diffHard", "img/DiffHard.png");
 
-        OptionsBackground = new GameObject(1000.0f, 1000.0f, 2000.0f, 2000.0f,
-                this.getGame().getAssetManager().getBitmap("optionsBackground2"), this);
+        //set up background [Irene Bhuiyan]
+        Bitmap optionsBackgroundImg = assetManager.getBitmap("optionsBackground");
+        optionsBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, optionsBackgroundImg , this);
 
-        volumeBar = new GameObject(235.0f, 120.0f,
-                300.0f, 120.0f,
-                this.getGame().getAssetManager().getBitmap("soundBar0"), this);
+        //set up option title [Irene Bhuiyan]
+        Bitmap optionsTitleImg = assetManager.getBitmap("settings");
+        optionsTitle = new GameObject(240.0f, 270.0f, 143.2f, 39.0f, optionsTitleImg, this);
 
-        backButton = new PushButton(20.0f, 50.0f,
-                50.0f, 50.0f,
-                "BackArrow", "BackArrowSelected", this);
+        //set up back button[Niamh McCartney]
+        backButton = new PushButton(30.0f, 30.0f, 50.0f, 50.0f, "BackArrow", "BackArrowSelected", this);
 
-        muteToggle = new PushButton(400.0f, 250.0f, 75.0f, 100.0f,
-                "muteOff","muteOff",this );
+        //set up menu button [Irene Bhuiyan]
+        menuButton = new PushButton(420.0f, 30.0f, 80.0f, 28.0f, "menuBtn", "menuBtn", this);
 
-        volumeUp = new PushButton(375.0f, 125.0f, 75.0f, 100.0f,
-                "volUp","volUp",this );
+        muteToggle = new PushButton(110.0f, 220.0f, 60.0f, 60.0f, "muteOff","muteOff",this );
 
-        volumeDown = new PushButton(100.0f, 125.0f, 75.0f, 60.0f,
-                "volDown","volDown",this );
-        changeDifficulty = new PushButton(420.0f, 50.0f, 75.0f, 60.0f,
-                "diffEasy","diffNormal",this );
+        volumeDown = new PushButton(100.0f, 140.0f, 60.0f, 60.0f, "volDown","volDown",this );
+
+        volumeUp = new PushButton(375.0f, 140.0f, 60.0f, 60.0f, "volUp","volUp",this );
+
+        volumeBar = new GameObject(235.0f, 140.0f, 200.0f, 38.8f, this.getGame().getAssetManager().getBitmap("soundBar0"), this);
+
+        changeDifficulty = new PushButton(100.0f, 70.0f, 60.0f, 21.1f, "diffEasy","diffNormal",this );
 
         volChecker();
-
 
         if (audioManager.isMusicPlaying()) {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
@@ -132,6 +136,7 @@ public class OptionsScreen extends GameScreen {
 
         if (touchEvents.size() > 0) {
             backButton.update(elapsedTime);
+            menuButton.update(elapsedTime);
             muteToggle.update(elapsedTime);
             volumeUp.update(elapsedTime);
             volumeBar.update(elapsedTime);
@@ -142,7 +147,9 @@ public class OptionsScreen extends GameScreen {
                 mGame.getScreenManager().removeScreen(this);
                 mGame.getAudioManager().setMusicVolume(volume);
             }
-
+            else if (menuButton.isPushTriggered()){
+                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+            }
 
             DifficultyChange(mGame.mDifficultyLevel,changeDifficulty);
 
@@ -175,15 +182,25 @@ public class OptionsScreen extends GameScreen {
     public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
         graphics2D.clear(Color.WHITE);
-        OptionsBackground.draw(elapsedTime, graphics2D);
-        graphics2D.drawText("Volume Control : ", mGame.getScreenWidth() * 0.095f, mGame.getScreenHeight() * 0.28f, paint);
-        graphics2D.drawText("Choose Difficulty : ", 300, 1050, paint);
+        optionsBackground.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        optionsTitle.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         backButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+        menuButton.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+
+        //mute
         muteToggle.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+        graphics2D.drawText("Turn music off/on", 600.0f, 400.0f, textPaint);
+
+        //volume
         volumeBar.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         volumeDown.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         volumeUp.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
+        graphics2D.drawText("Adjust volume", 600.0f, 690.0f, textPaint);
+
+        //difficulty
         changeDifficulty.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+        graphics2D.drawText("Choose difficulty", 600.0f, 950.0f, textPaint);
+
     }
 
     public void DifficultyChange(DifficultyLevels diff, PushButton changeDifficulty) {
