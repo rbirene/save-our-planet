@@ -266,7 +266,9 @@ public abstract class Player extends Sprite {
 
 
     //getter to return the players health[Niamh McCartney]
-    public int getPlayerHealth(){return playerHealth;}
+    public int getPlayerHealth(GameScreen aScreen){
+        setPlayerHealth(aScreen);
+        return playerHealth;}
 
     public GameBoard getGameBoard(){return gameBoard; }
 

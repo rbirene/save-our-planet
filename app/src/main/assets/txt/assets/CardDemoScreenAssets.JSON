@@ -247,6 +247,16 @@
     },
     {
       "type": "Bitmap",
+      "name": "HighScoreButton",
+      "file": "img/Buttons/btnHighscores.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "HighScoreButtonSelected",
+      "file": "img/Buttons/btnHighscoresSelected.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "bonusBtn",
       "file": "img/Buttons/bonusBtn.png"
     },

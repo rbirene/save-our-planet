@@ -57,14 +57,14 @@ public class TrueFalseQuestionPopUpDialog {
         //Set dialog image
         image.setImageResource(imageID);
 
-        //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
+        //Set Dialog message
         text.setText(question);
 
-        //When button is pressed cancel the dialog box
+        //Define id of the Dialog's true Button
         Button trueButton = dialog.findViewById(R.id.btn_dialog);
 
-        //When button is pressed cancel the dialog box
+        //Define id of the Dialog's false Button
         Button falseButton = dialog.findViewById(R.id.btn_dialog2);
 
         if (answer == "true") {

@@ -193,11 +193,11 @@ public class BattleScreen extends GameScreen {
     }
 
     public void gameLoop(){
-        if(hero.getPlayerHealth()<1){
+        if(hero.getPlayerHealth(this)<1){
             gameResultPopUpDialog popUp = new gameResultPopUpDialog();
             String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
             popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
-        }if(villain.getPlayerHealth()<1){
+        }if(villain.getPlayerHealth(this)<1){
             gameResultPopUpDialog popUp = new gameResultPopUpDialog();
             String message = "You Won! You've saved the planet from destruction!";
             popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
@@ -205,9 +205,9 @@ public class BattleScreen extends GameScreen {
     }
 
     public void checkEndGame(){
-        if(hero.getPlayerHealth() <= 0){
+        if(hero.getPlayerHealth(this) <= 0){
             mGame.getScreenManager().addScreen(new EndGame(mGame, hero));
-        }else if(villain.getPlayerHealth() <=0){
+        }else if(villain.getPlayerHealth(this) <=0){
             mGame.getScreenManager().addScreen(new EndGame(mGame, villain));
         }
     }
@@ -437,7 +437,7 @@ public class BattleScreen extends GameScreen {
      */
     public void randomiseFirstTurn(){
         //Add players to an arrayList
-        ArrayList<Player> players = new ArrayList(2);
+        ArrayList<Player> players = new ArrayList<Player>(2);
         players.add(hero);
         players.add(villain);
 
