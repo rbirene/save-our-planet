@@ -24,7 +24,6 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Question;
@@ -120,8 +119,8 @@ public class BattleScreen extends GameScreen {
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
-        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
-        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurn",this);
+        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"), this);
+        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurn", this);
 
         paint = new Paint();
         paint.setTextSize(180.0f);
@@ -134,15 +133,15 @@ public class BattleScreen extends GameScreen {
 
         villain.setGameBoard(board);
         villain.setGameScreen(this);
-      //  villain.setPlayerCards(villainDeck.getDeck(this));
+        //  villain.setPlayerCards(villainDeck.getDeck(this));
 
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
         moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f, 45);
 
         setupPause();
-		
-		// [William Oliver]
+
+        // [William Oliver]
         addBonusButton();
         setupMusic();
         playBattleMusic();
@@ -155,16 +154,17 @@ public class BattleScreen extends GameScreen {
 
     }
 
-    public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing){
+
+    public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing) {
         //defines the spacing between the cards
         int cardSpacing;
 
-        for(int i=0;i<cards.size();i++){
-            cardSpacing = spacing*i;
+        for (int i = 0; i < cards.size(); i++) {
+            cardSpacing = spacing * i;
 
             //Set the start X and Y co-ordinates for each of the cards
-            cards.get(i).setStartPosX(gameWidth*xPosScale + cardSpacing);
-            cards.get(i).setStartPosY(gameHeight*yPosScale);
+            cards.get(i).setStartPosX(gameWidth * xPosScale + cardSpacing);
+            cards.get(i).setStartPosY(gameHeight * yPosScale);
 
             float xPos = cards.get(i).getStartPosX();
             float yPos = cards.get(i).getStartPosY();
@@ -174,10 +174,8 @@ public class BattleScreen extends GameScreen {
         }
     }
 
-
-
-    public void gameLoop2(List<TouchEvent> touchEvents){
-        if(!paused) {
+    public void gameLoop(List<TouchEvent> touchEvents) {
+        if (!paused) {
             if (playerTurn) {
                 if (!hero.getCardPlayed()) {
                     hero.ProcessTouchInput(touchEvents);
@@ -187,45 +185,47 @@ public class BattleScreen extends GameScreen {
                 villain.AICardSelect();
                 playerTurn = true;
             }
-
-    /**
-     * Returns an ArrayList of Cards that
-     * the player is not currently using
-     * and aren't contained in card holders
-     *
-     *  Created By Niamh McCartney
-     */
-    public ArrayList<Card> getCardsNotInUse(){
-        ArrayList<Card> cardsNotInUse = new ArrayList<>();
-        for(int i = 0; i<heroDeck.getSize(); i++){
-            Card card = heroDeck.getDeck(this).get(i);
-            if(!card.getCardInUse()){
-                cardsNotInUse.add(card);
+        }
+    }
+            /**
+             * Returns an ArrayList of Cards that
+             * the player is not currently using
+             * and aren't contained in card holders
+             *
+             *  Created By Niamh McCartney
+             */
+            public ArrayList<Card> getCardsNotInUse () {
+                ArrayList<Card> cardsNotInUse = new ArrayList<>();
+                for (int i = 0; i < heroDeck.getSize(); i++) {
+                    Card card = heroDeck.getDeck(this).get(i);
+                    if (!card.getCardInUse()) {
+                        cardsNotInUse.add(card);
+                    }
+                }
+                return cardsNotInUse;
             }
-        }
-        return cardsNotInUse;
-    }
 
-    public void gameLoop(){
-        if(hero.getPlayerHealth(this)<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
-        }if(villain.getPlayerHealth(this)<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You Won! You've saved the planet from destruction!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
+            public void gameLoop2 () {
+                if (hero.getPlayerHealth(this) < 1) {
+                    gameResultPopUpDialog popUp = new gameResultPopUpDialog();
+                    String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
+                    popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
+                }
+                if (villain.getPlayerHealth(this) < 1) {
+                    gameResultPopUpDialog popUp = new gameResultPopUpDialog();
+                    String message = "You Won! You've saved the planet from destruction!";
+                    popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
 
-        }
-    }
+                }
+            }
 
-    public void checkEndGame(){
-        if(hero.getPlayerHealth(this) <= 0){
-            mGame.getScreenManager().addScreen(new EndGame(mGame, hero));
-        }else if(villain.getPlayerHealth(this) <=0){
-            mGame.getScreenManager().addScreen(new EndGame(mGame, villain));
-        }
-    }
+            public void checkEndGame () {
+                if (hero.getPlayerHealth(this) <= 0) {
+                    mGame.getScreenManager().addScreen(new EndGame(mGame, hero));
+                } else if (villain.getPlayerHealth(this) <= 0) {
+                    mGame.getScreenManager().addScreen(new EndGame(mGame, villain));
+                }
+            }
 
 
     @Override
@@ -242,18 +242,6 @@ public class BattleScreen extends GameScreen {
 
 
         gameLoop(touchEvents);
-
-        if (!paused) {
-            if (playerTurn) {
-                if (!hero.getCardPlayed()) {
-                    hero.ProcessTouchInput(touchEvents);
-                }
-            } else {
-                villain.playAI();
-                playerTurn = true;
-            }
-        }
-
 
         checkEndGame();
 
@@ -281,9 +269,6 @@ public class BattleScreen extends GameScreen {
         //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-
-
-    /*  for (int i = 0; i < touchEvents.size(); i++) {
 
             if(pause.isPushTriggered()){
                 paused = true;
