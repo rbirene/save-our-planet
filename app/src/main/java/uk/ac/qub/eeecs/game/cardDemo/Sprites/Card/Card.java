@@ -37,6 +37,8 @@ public class Card extends Sprite {
     protected Bitmap mCardBase;
     protected Bitmap mCardBaseSelected;
 
+    private Bitmap cardBack;
+
     // Define the card portrait image
     private Bitmap cardPortrait;
 
@@ -99,6 +101,7 @@ public class Card extends Sprite {
     private Boolean cardLocked = false;
     private Boolean cardDragged = false;
     private Boolean cardInUse = false;
+    private Boolean cardFlipped = false;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -149,41 +152,48 @@ public class Card extends Sprite {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
 
-        // Draw the card base background[Niamh McCartney]
-        mBitmap = setCardBackground();
-        super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
+        if(cardFlipped){
+            Vector2 cardBackScale = new Vector2(0.7f, 0.7f);
+            Vector2 cardBackOffset = new Vector2(0.15f, 0.15f);
+            drawBitmap(cardBack, cardBackOffset, cardBackScale, graphics2D, layerViewport, screenViewport);
+
+        }else {
+            // Draw the card base background[Niamh McCartney]
+            mBitmap = setCardBackground();
+            super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
 
-        // Draw the portrait[Niamh McCartney]
-        drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
-                graphics2D, layerViewport, screenViewport);
-
-        // Draw the Attack Container[Niamh McCartney]
-        drawBitmap(mAttackContainer, mAttackContainerOffset, mAttackContainerScale,
-                graphics2D, layerViewport, screenViewport);
-
-        // Draw the Health Container[Niamh McCartney]
-        mHealthContainerScale = new Vector2(0.15f, 0.15f);
-        drawBitmap(mHealthContainer, mHealthContainerOffset, mHealthContainerScale,
-                graphics2D, layerViewport, screenViewport);
-
-        //sets paint properties for card text
-        setupTextPaint();
-
-        //Draw the Card text[Niamh McCartney]
-        String text = name;
-        float textXCoordinate = getWidth() * 0.0f;
-        float textYCoordinate = getHeight() * textXpos;
-        for (String line: text.split("\n")) {
-            Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
-            drawText(line, offset, getHeight() * 0.7f,
+            // Draw the portrait[Niamh McCartney]
+            drawBitmap(cardPortrait, mPortraitOffset, mPortraitScale,
                     graphics2D, layerViewport, screenViewport);
-            textYCoordinate += getHeight() * 0.045;
-        }
 
-        //calculate the number of digits in the cards attack and health values
-        attackLength = String.valueOf(attack).length();
-        healthLength = String.valueOf(health).length();
+            // Draw the Attack Container[Niamh McCartney]
+            drawBitmap(mAttackContainer, mAttackContainerOffset, mAttackContainerScale,
+                    graphics2D, layerViewport, screenViewport);
+
+            // Draw the Health Container[Niamh McCartney]
+            mHealthContainerScale = new Vector2(0.15f, 0.15f);
+            drawBitmap(mHealthContainer, mHealthContainerOffset, mHealthContainerScale,
+                    graphics2D, layerViewport, screenViewport);
+
+            //sets paint properties for card text
+            setupTextPaint();
+
+            //Draw the Card text[Niamh McCartney]
+            String text = name;
+            float textXCoordinate = getWidth() * 0.0f;
+            float textYCoordinate = getHeight() * textXpos;
+            for (String line : text.split("\n")) {
+                Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
+                drawText(line, offset, getHeight() * 0.7f,
+                        graphics2D, layerViewport, screenViewport);
+                textYCoordinate += getHeight() * 0.045;
+            }
+
+            //calculate the number of digits in the cards attack and health values
+            attackLength = String.valueOf(attack).length();
+            healthLength = String.valueOf(health).length();
+        }
     }
 
     private BoundingBox bound = new BoundingBox();
@@ -295,6 +305,7 @@ public class Card extends Sprite {
             // Store each of the damage/health digits
             for (int digit = 0; digit <= 9; digit++)
                 mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+            cardBack = assetManager.getBitmap("BackOfCard");
         }
     }
 
@@ -358,6 +369,8 @@ public class Card extends Sprite {
 
     public Boolean getCardInUse(){return cardInUse;}
 
+    public Boolean getCardFlipped(){return cardFlipped;};
+
     // /////////////////////////////////////////////////////////////////////////
     // Setters
     // /////////////////////////////////////////////////////////////////////////
@@ -407,6 +420,8 @@ public class Card extends Sprite {
 
     public void setCardLocked(Boolean locked){cardLocked = locked;}
 
-    public void setCardInUse(Boolean bool){cardInUse = bool;};
+    public void setCardInUse(Boolean bool){cardInUse = bool;}
+
+    public void setCardFlipped(Boolean bool){cardFlipped = bool;}
 
 }
