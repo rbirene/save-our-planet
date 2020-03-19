@@ -134,7 +134,7 @@ public class BattleScreen extends GameScreen {
 
         villain.setGameBoard(board);
         villain.setGameScreen(this);
-        villain.setPlayerCards(villainDeck.getDeck(this));
+      //  villain.setPlayerCards(villainDeck.getDeck(this));
 
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
@@ -174,6 +174,20 @@ public class BattleScreen extends GameScreen {
         }
     }
 
+
+
+    public void gameLoop2(List<TouchEvent> touchEvents){
+        if(!paused) {
+            if (playerTurn) {
+                if (!hero.getCardPlayed()) {
+                    hero.ProcessTouchInput(touchEvents);
+                }
+            } else {
+                // villain.playAI();
+                villain.AICardSelect();
+                playerTurn = true;
+            }
+
     /**
      * Returns an ArrayList of Cards that
      * the player is not currently using
@@ -201,6 +215,7 @@ public class BattleScreen extends GameScreen {
             gameResultPopUpDialog popUp = new gameResultPopUpDialog();
             String message = "You Won! You've saved the planet from destruction!";
             popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
+
         }
     }
 
@@ -225,6 +240,9 @@ public class BattleScreen extends GameScreen {
             paused = false;
         }
 
+
+        gameLoop(touchEvents);
+
         if (!paused) {
             if (playerTurn) {
                 if (!hero.getCardPlayed()) {
@@ -235,6 +253,7 @@ public class BattleScreen extends GameScreen {
                 playerTurn = true;
             }
         }
+
 
         checkEndGame();
 
@@ -247,17 +266,6 @@ public class BattleScreen extends GameScreen {
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
 		bonusButton.update(elapsedTime); // [William Oliver]
-
-        villainDeck.update();
-        heroDeck.update();
-
-        for (Card c:heroDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
-
-        for (Card c:villainDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
 
         if(endTurnButton.isPushTriggered()){
             hero.setCardPlayed(false);
@@ -274,6 +282,9 @@ public class BattleScreen extends GameScreen {
         if (settingsButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
 
+
+    /*  for (int i = 0; i < touchEvents.size(); i++) {
+
             if(pause.isPushTriggered()){
                 paused = true;
             }else if(resume.isPushTriggered()){
@@ -282,6 +293,7 @@ public class BattleScreen extends GameScreen {
 
 
         for (int i = 0; i < touchEvents.size(); i++) {
+
             TouchEvent event = touchEvents.get(i);
             Vector2 layerTouch = new Vector2();
             ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
@@ -357,7 +369,7 @@ public class BattleScreen extends GameScreen {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3, paint);
+        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3.0f, paint);
 
     }
 

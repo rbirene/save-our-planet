@@ -1,6 +1,7 @@
 package uk.ac.qub.eeecs.gage.world;
 
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -240,6 +241,25 @@ public class GameObject {
                 screenViewport, drawSourceRect, drawScreenRect)) {
             graphics2D
                     .drawBitmap(mBitmap, drawSourceRect, drawScreenRect, null);
+        }
+    }
+
+    /**
+     * Draw the game object
+     *
+     * @param elapsedTime    Elapsed time information
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     * @param paint          Paint instance
+     */
+    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
+                     LayerViewport layerViewport, ScreenViewport screenViewport,
+                     Paint paint) {
+        if (GraphicsHelper.getClippedSourceAndScreenRect(this, layerViewport,
+                screenViewport, drawSourceRect, drawScreenRect)) {
+            graphics2D
+                    .drawBitmap(mBitmap, drawSourceRect, drawScreenRect, paint);
         }
     }
 }

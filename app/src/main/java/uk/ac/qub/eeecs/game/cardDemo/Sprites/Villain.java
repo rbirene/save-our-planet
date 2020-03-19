@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo.Sprites;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,6 +24,8 @@ public class Villain extends Player {
     private ArrayList<Card> playerCards = new ArrayList<>();
     private ArrayList<CardHolder> containers = new ArrayList<>();
     private ArrayList<CardHolder> enemyContainers = new ArrayList<>();
+    private  Card targetCard;
+    private Card attackCard;
     /**
      *
      * Create a new villain.
@@ -36,22 +39,38 @@ public class Villain extends Player {
     public void playAI(){
 
         Random rand = new Random();
-        containers.addAll(gameBoard.getVillianContainers());
-        enemyContainers.addAll(gameBoard.getHeroContainers());
+        int Y = rand.nextInt(2);
 
-        if(!playerCards.isEmpty()){
-            int n = rand.nextInt(containers.size()-1);
-            int x = rand.nextInt(playerCards.size()-1);
+        if(Y==1) {
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
 
+            if (!playerCards.isEmpty()) {
+                int n = rand.nextInt(containers.size() - 1);
+                int x = rand.nextInt(playerCards.size() - 1);
+
+
+
+                for (int i = 0; i < containers.size(); i++) {
+                    if (containers.get(n).isEmpty()) {
+                        containers.get(n).AddCardToHolder(playerCards.get(x));
+                    }
 
 
             for(int i=0;i<containers.size();i++){
                 if(containers.get(n).isEmpty()){
                     containers.get(n).AddCardToHolder(playerCards.get(x));
+
                 }
+                playerCards.remove(x);
             }
+
+        }else{
+            AIAttack();
+
             playerCards.get(x).setCardFlipped(false);
             playerCards.remove(x);
+
         }
 
     }
@@ -59,9 +78,32 @@ public class Villain extends Player {
 
     public void setPlayerCards(ArrayList<Card> cards) {
         playerCards.addAll(cards);
+        Log.d("TAG", String.valueOf(playerCards.size()));
     }
 
+
+    public void AIAttack(){}{
+
+     //   containers.addAll(gameBoard.getVillianContainers());
+       // enemyContainers.addAll(gameBoard.getHeroContainers());
+        Random rand = new Random();
+
+            for(int i=0;i<enemyContainers.size();i++){
+                if(!enemyContainers.get(i).isEmpty()){
+                    targetCard = enemyContainers.get(i).returnCardHeld();
+                    int n = rand.nextInt(containers.size()-1);
+                    attackCard = containers.get(n).returnCardHeld();
+                    targetCard.setHealthValue(targetCard.getHealthValue() - attackCard.getAttackValue());
+                    gameBoard.playAttackAnimation(enemyContainers.get(i));
+
+                }
+            }
+        }
+
+
+   
     public void AICardSelect() {
+
 
         DifficultyLevels tempdiff;
         tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();

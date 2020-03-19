@@ -19,6 +19,7 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 
 
 public class SplashScreen extends GameScreen {
@@ -29,8 +30,10 @@ public class SplashScreen extends GameScreen {
     private int timer =0;
     private AssetManager assetManager;
     private AudioManager audioManager = mGame.getAudioManager();
-    private int gameHeight, gameWidth;
+    private int gameHeight, gameWidth, alpha;
+    private int  alphaLimit = 255;
     private Sprite moveLogo, moveText;
+    private Paint paint = new Paint();
 
     public SplashScreen(Game game) {
         super("Splash", game);
@@ -52,7 +55,6 @@ public class SplashScreen extends GameScreen {
         setupTitle();
         setupBackground();
         setupLogo();
-
     }
 
     public void stopSprite(int x){
@@ -86,7 +88,7 @@ public class SplashScreen extends GameScreen {
     }
 
     public void delay(int x) {
-        if (x == 80) {
+        if (x == 100) {
             playMusic();
             mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
@@ -111,17 +113,22 @@ public class SplashScreen extends GameScreen {
             delay(timer);
             stopSprite(timer);
             timer++;
+
+            if(alpha < alphaLimit) {
+                updateAlpha();
+            }
         }
-
-
+    public void updateAlpha(){
+        paint.setAlpha(alpha);
+        alpha +=5;
+    }
 
     public void playMusic(){ audioManager.playMusic(assetManager.getMusic("gameMusic")); }
-
 
         @Override
         public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
             graphics2D.clear(Color.WHITE);
-            splashScreenBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
+            splashScreenBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport,paint);
             moveText.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
             moveLogo.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         }

@@ -257,6 +257,20 @@ public abstract class Player extends Sprite {
     }
 
 
+    public abstract void takeFirstTurn();
+
+    public void takeTurn(){}
+
+    @Override
+    public void update(ElapsedTime elapsedTime){
+        super.update(elapsedTime);
+
+        this.playerDeck.update();
+
+
+
+    }
+
     public void setCardPlayed(boolean cardPlayed){
         this.cardPlayed = cardPlayed;
     }

@@ -29,7 +29,6 @@ public class Hero extends Player {
     private Card cardSelected;
     private Card enemyCard;
 
-
     /**
      *
      * Create a new Hero.
@@ -47,6 +46,13 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected  != null){
+
+               // if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                 //   cardSelected.setCardDragged(true);
+                //}
+                if (t.type == 2 && cardSelected.cardSelected()) {
+                    cardSelected.setPosition(layerTouch.x , layerTouch.y);
+
                 if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
                     cardSelected.setCardDragged(true);
                 }
@@ -54,9 +60,10 @@ public class Hero extends Player {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                     cardSelected.setCardDragged(true);
                     cardSelected.setCardInUse(true);
+
                 }
-                if (t.type == 1 && cardSelected.getCardDragged()) {
-                    cardSelected.setCardDragged(false);
+                if (t.type == 1 && cardSelected.cardSelected()) {
+                    cardSelected.setSelected(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
                         cardSelected.setCardInUse(true);
@@ -70,7 +77,9 @@ public class Hero extends Player {
                         cardSelected.returnToHolder();
                         cardSelected = null;
                         cardPlayed = true;
-                      }
+                      }else if(cardSelected.returnHolder()){
+                          cardSelected.returnToHolder();
+                    }
                         else{
                             cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
@@ -130,6 +139,9 @@ public class Hero extends Player {
             }
         }
 
+public boolean attackPossible() {
+        return false;
+}
 
     public void ProcessTouchInput(List<TouchEvent> touchEvents){
             playerCards = playerDeck.getDeck(null);

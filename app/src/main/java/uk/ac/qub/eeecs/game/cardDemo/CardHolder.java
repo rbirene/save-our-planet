@@ -7,7 +7,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 public class CardHolder extends GameObject {
 
     private Card card;
-    private float x,y;
     private boolean empty;
 
     public CardHolder(float x, float y,GameScreen gameScreen) {
@@ -30,23 +29,17 @@ public class CardHolder extends GameObject {
         this.empty = false;
         card.setPosition(this.getBound().x, this.getBound().y);
         card.setCardHolder(this);
+        card.hasHolder(true);
      }
 
      public void removeCard(){
         this.card = null;
         this.empty = true;
+        card.hasHolder(false);
      }
 
      public Card returnCardHeld(){
         return card;
      }
-
-    public void setX(float x){ this.x = x;}
-    public void setY(float x){ this.y = x;}
-
-    public float getY(){ return y;}
-    public float getX(){ return x;}
-
-
 
 }
