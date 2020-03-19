@@ -115,7 +115,6 @@ public class OptionsScreen extends GameScreen {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffHard"));
         }
 
-
     }
 
     //For testing

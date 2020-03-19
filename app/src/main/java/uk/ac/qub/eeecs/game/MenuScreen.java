@@ -245,6 +245,8 @@ public class MenuScreen extends GameScreen {
         deck = generateRandCards(3, villainCardPool);
         //set this deck as the hero's deck
         villain.setPlayerDeck(deck);
+        villain.setPlayerCards(deck.getDeck(this));
+        //villain.setPlayerCards(villainDeck.getDeck(this));
     }
 
     /**

@@ -29,7 +29,6 @@ public class Hero extends Player {
     private Card cardSelected;
     private Card enemyCard;
 
-
     /**
      *
      * Create a new Hero.
@@ -57,14 +56,14 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected  != null){
-                if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
-                    cardSelected.setCardDragged(true);
+               // if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                 //   cardSelected.setCardDragged(true);
+                //}
+                if (t.type == 2 && cardSelected.cardSelected()) {
+                    cardSelected.setPosition(layerTouch.x , layerTouch.y);
                 }
-                if (t.type == 2 && cardSelected.getCardDragged()) {
-                    cardSelected.setPosition(layerTouch.x, layerTouch.y);
-                }
-                if (t.type == 1 && cardSelected.getCardDragged()) {
-                    cardSelected.setCardDragged(false);
+                if (t.type == 1 && cardSelected.cardSelected()) {
+                    cardSelected.setSelected(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
                        // tempContainer = null;
@@ -76,7 +75,9 @@ public class Hero extends Player {
                         cardSelected.returnToHolder();
                         cardSelected = null;
                         cardPlayed = true;
-                      }
+                      }else if(cardSelected.returnHolder()){
+                          cardSelected.returnToHolder();
+                    }
                         else{
                         cardSelected.setPosition(cardSelected.getStartPosX(),cardSelected.getStartPosY());
                     }
@@ -94,9 +95,6 @@ public class Hero extends Player {
         }
         return false;
     }
-
-
-
     public boolean checkDropLocationContainer() {
 
             for (int i = 0; i < gameBoard.getHeroContainers().size(); i++) {
@@ -138,6 +136,9 @@ public class Hero extends Player {
             }
         }
 
+public boolean attackPossible() {
+        return false;
+}
 
     public void ProcessTouchInput(List<TouchEvent> touchEvents){
             playerCards = playerDeck.getDeck(null);

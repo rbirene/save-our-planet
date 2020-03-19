@@ -96,6 +96,8 @@ public class Card extends Sprite {
     private Boolean cardLocked = false;
     private Boolean cardDragged = false;
 
+    private Boolean hasHolder = false;
+
     private float startPosX;
     private float startPosY;
 
@@ -343,6 +345,13 @@ public class Card extends Sprite {
     public void returnToHolder(){
         this.setPosition(CardHolder.getBound().x,CardHolder.getBound().y);
     }
+    public boolean returnHolder(){
+        return hasHolder;
+    }
+
+    public void hasHolder(Boolean holder){
+        hasHolder = holder;
+    }
 
     //Returns true if Cards is selected [Niamh McCartney]
     public Boolean cardSelected(){
@@ -350,7 +359,7 @@ public class Card extends Sprite {
     }
 
 
-    public void setCardHolder(CardHolder cardHolder){this.CardHolder = cardHolder;}
+    public void setCardHolder(CardHolder cardHolder){ this.CardHolder = cardHolder;}
 
 
     //Creates the images used by the Card [Niamh McCartney]

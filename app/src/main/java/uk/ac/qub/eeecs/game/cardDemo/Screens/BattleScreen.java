@@ -126,7 +126,7 @@ public class BattleScreen extends GameScreen {
 
         villain.setGameBoard(board);
         villain.setGameScreen(this);
-        villain.setPlayerCards(villainDeck.getDeck(this));
+      //  villain.setPlayerCards(villainDeck.getDeck(this));
 
         //set start positions of hero and villain Decks[Niamh McCartney]
         moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
@@ -164,31 +164,18 @@ public class BattleScreen extends GameScreen {
         }
     }
 
-    public void checkHealth(){
-        if(firstPlayer.getPlayerHealth()<1 && secondPlayer.getPlayerHealth()<1){
-            gameEnded = true;
-        }
-    }
 
-    public void gameLoop(){
-        firstPlayer.takeFirstTurn();
-        do{
-            checkHealth();
-            if(!gameEnded){ secondPlayer.takeTurn();}
-            checkHealth();
-            if(!gameEnded){firstPlayer.takeTurn();}
-            checkHealth();
-
-        }while(!gameEnded);
-
-        if(hero.getPlayerHealth()<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
-        }if(villain.getPlayerHealth()<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You Won! You've saved the planet from destruction!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
+    public void gameLoop(List<TouchEvent> touchEvents){
+        if(!paused) {
+            if (playerTurn) {
+                if (!hero.getCardPlayed()) {
+                    hero.ProcessTouchInput(touchEvents);
+                }
+            } else {
+                // villain.playAI();
+                villain.AICardSelect();
+                playerTurn = true;
+            }
         }
     }
 
@@ -213,16 +200,7 @@ public class BattleScreen extends GameScreen {
             paused = false;
         }
 
-       if(!paused) {
-           if (playerTurn) {
-               if (!hero.getCardPlayed()) {
-                   hero.ProcessTouchInput(touchEvents);
-               }
-           } else {
-               villain.playAI();
-               playerTurn = true;
-           }
-       }
+        gameLoop(touchEvents);
         checkEndGame();
 
        hero.update(elapsedTime);
@@ -233,17 +211,6 @@ public class BattleScreen extends GameScreen {
         settingsButton.update(elapsedTime);
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
-
-        villainDeck.update();
-        heroDeck.update();
-
-        for (Card c:heroDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
-
-        for (Card c:villainDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
 
         if(endTurnButton.isPushTriggered()){
             hero.setCardPlayed(false);
@@ -259,13 +226,6 @@ public class BattleScreen extends GameScreen {
         //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
             mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-
-            if(pause.isPushTriggered()){
-                paused = true;
-            }else if(resume.isPushTriggered()){
-                paused = false;
-            }
-
 
     /*  for (int i = 0; i < touchEvents.size(); i++) {
             TouchEvent event = touchEvents.get(i);
@@ -332,7 +292,7 @@ public class BattleScreen extends GameScreen {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3, paint);
+        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3.0f, paint);
 
     }
 
@@ -368,7 +328,6 @@ public class BattleScreen extends GameScreen {
         if(!firstTurnDecided){
             randomiseFirstTurn();
         }
-
     }
 
     /**
