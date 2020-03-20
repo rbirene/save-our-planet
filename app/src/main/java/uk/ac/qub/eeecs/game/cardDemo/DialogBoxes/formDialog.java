@@ -18,13 +18,18 @@ import uk.ac.qub.eeecs.game.cardDemo.User;
 
 public class formDialog extends PopUp{
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
+
     //Define the game that calls the Pop-Up
     private Game aGame;
 
-    private Activity mActivity;
+    //Background colour for the Pop-Up image's background
+    private ColourEnum backgroundColour;
 
     //List of all saved Users
-    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<User> users;
 
     //List of all saved Users' names
     private ArrayList<String> list = new ArrayList<>();
@@ -38,8 +43,7 @@ public class formDialog extends PopUp{
     //Name of the User that is selected from the list
     private String userNameSelected;
 
-    private String message;
-
+    //Defines the position of the selected User in the UserStore
     private int userPos;
 
     //Define the ID of the Pop-Up's image
@@ -53,22 +57,23 @@ public class formDialog extends PopUp{
     private Button selectButton;
 
     //Define the dialog's ListView
-    private final ListView listView;
+    private ListView listView;
 
     //Define the dialog's EditText
-    private final EditText textInput;
+    private EditText textInput;
 
-    private ColourEnum backgroundColour;
-
+    //Define the dialog's TextView
     private TextView text;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public formDialog(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
         super(activity, msg, R.layout.form_window);
 
         //Define the parameters
-        this.mActivity = activity;
         this.aGame = game;
-        this.message = msg;
         this.backgroundColour = imageBackgroundColour;
         this.imageID = imageID;
         this.buttonImage = buttonImageID;
@@ -81,8 +86,12 @@ public class formDialog extends PopUp{
         listView = getDialog().findViewById(R.id.list);
         textInput = getDialog().findViewById(R.id.text_input);
         arrayAdapter = new ArrayAdapter<>
-                (mActivity, android.R.layout.simple_list_item_1, list);
+                (getActivity(), android.R.layout.simple_list_item_1, list);
     }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
 
     /**
      * Displays a pop-up box
@@ -90,6 +99,7 @@ public class formDialog extends PopUp{
      *
      * Created By Niamh McCartney
      */
+    @Override
     public void showDialog(){
         //sets the PopUp's properties
         setImageProperties(imageID, backgroundColour);
@@ -108,6 +118,12 @@ public class formDialog extends PopUp{
         displayDialog();
     }
 
+    /**
+     * Set the properties of the
+     * Pop-Up's List View
+     *
+     * Created By Niamh McCartney
+     */
     private void setListProperties(){
         // DataBind ListView with items from ArrayAdapter
         listView.setAdapter(arrayAdapter);
@@ -124,6 +140,10 @@ public class formDialog extends PopUp{
         });
     }
 
+    /**
+     * Dictates what the system do when the
+     * User presses one of the Pop-Up's buttons
+     */
     @Override
     protected void onButtonClick() {
         //when dialog button is clicked take in the name inputted by the user
@@ -141,7 +161,7 @@ public class formDialog extends PopUp{
                         //dismiss the dialog
                         getDialog().dismiss();
 
-                    }else{text.setText(message + ". That Name is already taken");
+                    }else{text.setText(getMessage() + ". That Name is already taken");
 
                     }
                 }

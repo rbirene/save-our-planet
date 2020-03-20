@@ -9,19 +9,28 @@ import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 
 public class InfoPopUp extends PopUp{
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
+
+    //Background colour for the Pop-Up image's background
     private ColourEnum backgroundColour;
-
-    //Define the ID of the Pop-Up's image
-    private int imageID;
-
-    //Define the button displayed on the Pop-Up
-    private Button dialogButton;
 
     //Define the text contained on the button image
     private String buttonText;
 
+    //Define the ID of the Pop-Up's image
+    private int imageID;
+
     //Define the ID of the button's image
     private int buttonImage;
+
+    //Define the button displayed on the Pop-Up
+    private Button dialogButton;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour, int imageID, String buttonText, int buttonImageID){
         super(activity, message, R.layout.info_window);
@@ -36,12 +45,17 @@ public class InfoPopUp extends PopUp{
         dialogButton = getDialog().findViewById(R.id.btn_dialog);
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Displays a pop-up box
      * containing an informative message
      *
      * Created By Niamh McCartney
      */
+    @Override
     public void showDialog(){
         //sets the PopUp's properties
         setImageProperties(imageID, backgroundColour);

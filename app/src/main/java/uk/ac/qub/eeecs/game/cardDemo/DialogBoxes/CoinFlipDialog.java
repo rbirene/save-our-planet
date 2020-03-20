@@ -19,19 +19,27 @@ import uk.ac.qub.eeecs.gage.R;
 
 public class CoinFlipDialog extends PopUp{
 
-    //Define the button displayed on the Pop-Up
-    private final Button dialogButton;
-
-    //Define the text displayed on the Pop-Up
-    private final TextView text;
-
-    //Handler to access the UI thread
-    private final Handler handler;
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
 
     //Defines the name of the player who will go first
     private String firstPlayerName;
 
-    private final Runnable mUpdateDialog;
+    //Define the button displayed on the Pop-Up
+    private Button dialogButton;
+
+    //Define the text displayed on the Pop-Up
+    private TextView text;
+
+    //Handler to access the UI thread
+    private Handler handler;
+
+    private Runnable mUpdateDialog;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public CoinFlipDialog(Activity activity, String message, final String firstPlayerName){
         super(activity, message, R.layout.coinflip_window);
@@ -57,6 +65,10 @@ public class CoinFlipDialog extends PopUp{
         };
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Displays a pop-up box that
      * allows the user to flip a coin.
@@ -65,6 +77,7 @@ public class CoinFlipDialog extends PopUp{
      *
      * Created By Niamh McCartney
      */
+    @Override
     public void showDialog(){
         //sets the PopUp's properties
         setTextProperties(R.id.text_dialog);

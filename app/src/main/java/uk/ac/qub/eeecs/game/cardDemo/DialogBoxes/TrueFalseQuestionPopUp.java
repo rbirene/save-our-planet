@@ -16,10 +16,12 @@ import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 
 public class TrueFalseQuestionPopUp extends PopUp{
 
-    private ColourEnum backgroundColour;
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
 
-    //Define the ID of the Pop-Up's image
-    private int imageID;
+    //Background colour for the Pop-Up image's background
+    private ColourEnum backgroundColour;
 
     //Define the answer to the question
     private String answer;
@@ -30,19 +32,23 @@ public class TrueFalseQuestionPopUp extends PopUp{
     //Defines the message displayed if the User selects the correct answer
     private String correctMessage;
 
+    //Define the ID of the Pop-Up's image
+    private int imageID;
+
     //Define the true button displayed on the Pop-Up
     private Button trueButton;
 
     //Define the false button displayed on the Pop-Up
     private Button falseButton;
 
-    private Activity mActivity;
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer, ColourEnum imageBackgroundColour, int imageID){
         super(activity, questionText, R.layout.question_window);
 
         //Define the parameters
-        this.mActivity = activity;
         this.backgroundColour = imageBackgroundColour;
         this.imageID = imageID;
         this.answer = answer;
@@ -53,6 +59,10 @@ public class TrueFalseQuestionPopUp extends PopUp{
         incorrectMessage = "That's Incorrect! Better luck next time!";
         correctMessage = "That's Correct! Well done!";
     }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
 
     /**
      * Displays a pop-up box with a question
@@ -65,6 +75,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      *
      * Created By Niamh McCartney
      */
+    @Override
     public void showDialog() {
         //Sets the PopUp's properties
         setImageProperties(imageID, backgroundColour);
@@ -86,7 +97,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayIncorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp IncorrectDialog = new InfoPopUp(mActivity, incorrectMessage, ColourEnum.WHITE ,R.drawable.incorrect_symbol, "OK", R.drawable.green_btn);
+        InfoPopUp IncorrectDialog = new InfoPopUp(getActivity(), incorrectMessage, ColourEnum.WHITE ,R.drawable.incorrect_symbol, "OK", R.drawable.green_btn);
         IncorrectDialog.showDialog();
     }
 
@@ -97,7 +108,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayCorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp correctDialog = new InfoPopUp(mActivity, correctMessage, ColourEnum.WHITE ,R.drawable.correct_symbol, "OK", R.drawable.green_btn);
+        InfoPopUp correctDialog = new InfoPopUp(getActivity(), correctMessage, ColourEnum.WHITE ,R.drawable.correct_symbol, "OK", R.drawable.green_btn);
         correctDialog.showDialog();
     }
 
