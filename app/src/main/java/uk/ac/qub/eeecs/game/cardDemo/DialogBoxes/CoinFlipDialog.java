@@ -17,47 +17,34 @@ import java.util.TimerTask;
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
 
-public class CoinFlipDialog{
+public class CoinFlipDialog extends PopUp{
 
-    /**
-     * Displays a pop-up box
-     * that allows the user to flip a
-     * coin. When the coin is flipped
-     * an informative message is displayed
-     *
-     * @param activity
-     * @param firstPlayerName
-     *
-     * Created By Niamh McCartney
-     */
+    //Define the button displayed on the Pop-Up
+    private final Button dialogButton;
+
+    //Define the text displayed on the Pop-Up
+    private final TextView text;
 
     //Handler to access the UI thread
-    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler;
 
-    public void showDialog(Activity activity, final String firstPlayerName){
-        // Flags for full-screen mode:
-        int ui_flags =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+    //Defines the name of the player who will go first
+    private String firstPlayerName;
 
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.coinflip_window);
+    private final Runnable mUpdateDialog;
 
-        //define id of the Dialog's text
-        final TextView text = dialog.findViewById(R.id.text_dialog);
+    public CoinFlipDialog(Activity activity, String message, final String firstPlayerName){
+        super(activity, message, R.layout.coinflip_window);
 
-        //define id of the Dialog's Button
-        final Button dialogButton = dialog.findViewById(R.id.btn_dialog);
+        //Define the parameters
+        this.firstPlayerName = firstPlayerName;
 
+        //Initialise the classes' properties
+        dialogButton = getDialog().findViewById(R.id.btn_dialog);
+        text = getDialog().findViewById(R.id.text_dialog);
+        handler = new Handler(Looper.getMainLooper());
 
-        //class Task extends TimerTask {
-        final Runnable mUpdateDialog = new Runnable() {
+        mUpdateDialog = new Runnable() {
             public void run() {
                 //change text displayed in button
                 dialogButton.setText("Let's Play!");
@@ -68,8 +55,34 @@ public class CoinFlipDialog{
             }
 
         };
+    }
 
+    /**
+     * Displays a pop-up box that
+     * allows the user to flip a coin.
+     * When the coin is flipped an
+     * informative message is displayed
+     *
+     * Created By Niamh McCartney
+     */
+    public void showDialog(){
+        //sets the PopUp's properties
+        setTextProperties(R.id.text_dialog);
+        setButtonProperties(R.id.btn_dialog, "Flip", R.drawable.green_btn);
 
+        //Dictates what should happen when the Pop-Ups button is pressed
+        onButtonClick();
+
+        //Display the PopUp Dialog Box
+        displayDialog();
+    }
+
+    /**
+     * Dictates what occurs  when the User
+     * clicks the button to flip the coin
+     */
+    @Override
+    protected void onButtonClick() {
         //when the button is pressed perform the following actions
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,37 +92,22 @@ public class CoinFlipDialog{
                 if(text.getText().equals("Flip the coin to decide who goes first")) {
 
                     //change the png image to a gif
-                    GifImageView gifView = dialog.findViewById(R.id.a);
+                    GifImageView gifView = getDialog().findViewById(R.id.a);
                     gifView.setImageResource(R.drawable.coinflipgif);
 
                     /*
-                    *After 2 seconds have elapsed then call the mUpdateDialog runnable
-                    *This time delay allows time for the coin flip gif to update
-                    */
+                     *After 2 seconds have elapsed then call the mUpdateDialog runnable
+                     *This time delay allows time for the coin flip gif to update
+                     */
                     int time = 2000;
                     handler.postDelayed(mUpdateDialog, time);
 
                 }//When the first turn has been decided and the button is pressed again then cancel the dialog box
                 else{
-                    dialog.dismiss();
+                    getDialog().dismiss();
                 }
 
             }
         });
-
-        // Set alertDialog "not focusable" so nav bar still hiding
-        dialog.getWindow().
-                setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-
-        // Set full-screen mode
-        dialog.getWindow().getDecorView().setSystemUiVisibility(ui_flags);
-
-        dialog.show();
-
-       // Set dialog focusable to avoid touching outside
-        dialog.getWindow().
-                clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
-
 }

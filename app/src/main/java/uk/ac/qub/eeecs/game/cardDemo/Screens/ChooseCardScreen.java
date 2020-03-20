@@ -2,7 +2,6 @@ package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +25,7 @@ import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.formDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
-import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUpDialog;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
 
 
@@ -255,14 +254,14 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void displayDialogs(String text){
-            InfoPopUpDialog popUp = new InfoPopUpDialog();
-            popUp.showDialog(getGame().getActivity(), text, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
+            InfoPopUp popUp = new InfoPopUp(getGame().getActivity(), text, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
+            popUp.showDialog();
     }
 
     private void DisplayFormDialog(){
-        formDialog dialog = new formDialog();
         String message = "Choose your name from the list of players below or fill out the form to add your name to the list";
-        dialog.showDialog(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
+        formDialog dialog = new formDialog(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
+        dialog.showDialog();
     }
 
     /**

@@ -1,16 +1,11 @@
 package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.Color;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,17 +13,23 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.User;
 
-public class formDialog {
+public class formDialog extends PopUp{
+
+    //Define the game that calls the Pop-Up
+    private Game aGame;
+
+    private Activity mActivity;
 
     //List of all saved Users
     private ArrayList<User> users = new ArrayList<>();
 
-    //List of all saved User's names
+    //List of all saved Users' names
     private ArrayList<String> list = new ArrayList<>();
+
+    //Create an ArrayAdapter List
     private ArrayAdapter<String> arrayAdapter;
 
     //Name of the User that will be inputted in this form
@@ -37,65 +38,79 @@ public class formDialog {
     //Name of the User that is selected from the list
     private String userNameSelected;
 
+    private String message;
+
     private int userPos;
+
+    //Define the ID of the Pop-Up's image
+    private int imageID;
+
+    //Define the ID of the button's image
+    private int buttonImage;
+
+    //Define Pop-Up's buttons
+    private Button addButton;
+    private Button selectButton;
+
+    //Define the dialog's ListView
+    private final ListView listView;
+
+    //Define the dialog's EditText
+    private final EditText textInput;
+
+    private ColourEnum backgroundColour;
+
+    private TextView text;
+
+    public formDialog(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
+        super(activity, msg, R.layout.form_window);
+
+        //Define the parameters
+        this.mActivity = activity;
+        this.aGame = game;
+        this.message = msg;
+        this.backgroundColour = imageBackgroundColour;
+        this.imageID = imageID;
+        this.buttonImage = buttonImageID;
+
+        //Initialise the classes' properties
+        users = aGame.getUserStore().getUserList();
+        text = getDialog().findViewById(R.id.text_dialog);
+        addButton = getDialog().findViewById(R.id.btn_dialog);
+        selectButton = getDialog().findViewById(R.id.selectBtn);
+        listView = getDialog().findViewById(R.id.list);
+        textInput = getDialog().findViewById(R.id.text_input);
+        arrayAdapter = new ArrayAdapter<>
+                (mActivity, android.R.layout.simple_list_item_1, list);
+    }
 
     /**
      * Displays a pop-up box
      * containing an informative message
      *
-     * @param activity
-     * @param msg Text for Dialog Box
-     * @param imageBackgroundColour Colour of Image background
-     * @param imageID id of image in the drawable file
-     * @param buttonImage id of button image in the drawable file
-     *
      * Created By Niamh McCartney
      */
-
-    public void showDialog(Activity activity, final Game aGame, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImage){
-        // Flags for full-screen mode:
-        int ui_flags =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.form_window);
-
-        //Define id of the Dialog's image
-        ImageView image = dialog.findViewById(R.id.a);
-        //Get colour inputted by user and get its code
-        Colour colour01 = new Colour(imageBackgroundColour);
-        String colourCode = colour01.getColourCode();
-        //Use colour code to set the image background
-        image.setBackgroundColor(Color.parseColor(colourCode));
-        //Set dialog image
-        image.setImageResource(imageID);
-
-        users = aGame.getUserStore().getUserList();
+    public void showDialog(){
+        //sets the PopUp's properties
+        setImageProperties(imageID, backgroundColour);
+        setTextProperties(R.id.text_dialog);
+        setButtonProperties(R.id.btn_dialog, "Add", buttonImage);
+        setButtonProperties(R.id.selectBtn, "Select", buttonImage);
+        setListProperties();
 
         for(int i = 0; i<users.size(); i++){
             list.add(users.get(i).getName());
         }
 
-        //Define id of dialog's ListView
-        final ListView listView = dialog.findViewById(R.id.list);
+        onButtonClick();
 
-        //Define id of dialog's EditText
-        final EditText textInput = dialog.findViewById(R.id.text_input);
+        //Display the PopUp Dialog Box
+        displayDialog();
+    }
 
-        // Create an ArrayAdapter from List
-        arrayAdapter = new ArrayAdapter<>
-                (activity, android.R.layout.simple_list_item_1, list);
-
+    private void setListProperties(){
         // DataBind ListView with items from ArrayAdapter
         listView.setAdapter(arrayAdapter);
-
         //prevents the user from selecting multiple options
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //highlights selected option
@@ -107,21 +122,12 @@ public class formDialog {
             }
 
         });
+    }
 
-        //define id of dialog's text
-        final TextView text = dialog.findViewById(R.id.text_dialog);
-        //set the text contained in the dialog
-        text.setText(msg);
-
-        //define id of the first dialog button
-        Button dialogButton = dialog.findViewById(R.id.btn_dialog);
-        //set the text of the dialog button
-        dialogButton.setText("Add");
-        //set the background image of the dialog button
-        dialogButton.setBackgroundResource(buttonImage);
-
+    @Override
+    protected void onButtonClick() {
         //when dialog button is clicked take in the name inputted by the user
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userNameInputted = textInput.getText().toString();
@@ -133,22 +139,15 @@ public class formDialog {
                         aGame.getUserStore().saveUsers();
 
                         //dismiss the dialog
-                        dialog.dismiss();
+                        getDialog().dismiss();
 
-                    }else{text.setText(msg + "/nThat Name is already taken");
+                    }else{text.setText(message + ". That Name is already taken");
 
                     }
                 }
             }
         });
 
-
-        //define id of the second dialog button
-        Button selectButton = dialog.findViewById(R.id.selectBtn);
-        //set the text of the dialog button
-        selectButton.setText("Select");
-        //set the background image of the dialog button
-        selectButton.setBackgroundResource(buttonImage);
 
         //when dialog button is clicked take in the name selected by the user
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -160,24 +159,9 @@ public class formDialog {
                     aGame.getCurrentUser().setUser(user);
 
                     //dismiss the dialog
-                    dialog.dismiss();
+                    getDialog().dismiss();
                 }
             }
         });
-
-
-        // Set alertDialog "not focusable" so nav bar still hiding
-        dialog.getWindow().
-                setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-
-        // Set full-screen mode
-        dialog.getWindow().getDecorView().setSystemUiVisibility(ui_flags);
-
-        dialog.show();
-
-        // Set dialog focusable to avoid touching outside
-        dialog.getWindow().
-                clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 }

@@ -24,7 +24,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUpDialog;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Question;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
@@ -405,7 +405,7 @@ public class BattleScreen extends GameScreen {
         Question Q1 = new Question("Q1", "Driving a car everywhere you go is good for the planet.", "false");
         Question Q2 = new Question("Q2", "We need to save as many trees as we can.", "true");
 
-        TrueFalseQuestionPopUpDialog popUp = new TrueFalseQuestionPopUpDialog();
+        TrueFalseQuestionPopUp popUp;
 
         //index for switch case to call random question
         double randQuestionIndex;
@@ -417,11 +417,13 @@ public class BattleScreen extends GameScreen {
             switch ((int) randQuestionIndex) {		 
 
                 case 1:
-                    popUp.showDialog(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
+                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
+                    popUp.showDialog();
                     break;									
 
                 default:
-                    popUp.showDialog(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
+                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
+                    popUp.showDialog();
 												 
             }
         }
@@ -461,8 +463,8 @@ public class BattleScreen extends GameScreen {
         }else{playerTurn = false;}
 
         // create a pop-up dialog box, passing in the players name so the outcome can be displayed to the user
-        CoinFlipDialog dialog = new CoinFlipDialog();
-        dialog.showDialog(getGame().getActivity(), firstPlayerName);
+        CoinFlipDialog dialog = new CoinFlipDialog(getGame().getActivity(), "Flip the coin to decide who goes first", firstPlayerName);
+        dialog.showDialog();
 
         firstTurnDecided = true;
     }
