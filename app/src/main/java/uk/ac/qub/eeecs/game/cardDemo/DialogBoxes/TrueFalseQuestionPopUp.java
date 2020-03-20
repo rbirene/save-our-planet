@@ -1,18 +1,13 @@
 package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.Color;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour;
+import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
 
 public class TrueFalseQuestionPopUp extends PopUp{
 
@@ -40,6 +35,12 @@ public class TrueFalseQuestionPopUp extends PopUp{
 
     //Define the false button displayed on the Pop-Up
     private Button falseButton;
+
+    //define the game screen [Irene Bhuiyan]
+    GameScreen gameScreen;
+
+    //define the hero [Irene Bhuiyan]
+    private Hero hero;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
@@ -75,8 +76,11 @@ public class TrueFalseQuestionPopUp extends PopUp{
      *
      * Created By Niamh McCartney
      */
-    @Override
-    public void showDialog() {
+    public void showBonusDialog(GameScreen aScreen, Hero aHero) {
+        //get game screen and hero from Battle Screen [Irene Bhuiyan]
+        gameScreen = aScreen;
+        hero = aHero;
+
         //Sets the PopUp's properties
         setImageProperties(imageID, backgroundColour);
         setTextProperties(R.id.text_dialog);
@@ -112,6 +116,45 @@ public class TrueFalseQuestionPopUp extends PopUp{
         correctDialog.showDialog();
     }
 
+//    /**
+//     * Dictates that when the User chooses
+//     * an answer a message will display
+//     * informing the User of whether they
+//     * have answered correctly or incorrectly
+//     */
+//    @Override
+//    protected void onButtonClick() {
+//        if (answer == "true") {
+//            trueButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    displayCorrectDialog();
+//                }
+//            });
+//            falseButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    displayIncorrectDialog();
+//                }
+//            });
+//        }
+//
+//        if (answer == "false") {
+//            trueButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    displayIncorrectDialog();
+//                }
+//            });
+//            falseButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    displayCorrectDialog();
+//                }
+//            });
+//        }
+//    }
+
     /**
      * Dictates that when the User chooses
      * an answer a message will display
@@ -125,12 +168,14 @@ public class TrueFalseQuestionPopUp extends PopUp{
                 @Override
                 public void onClick(View v) {
                     displayCorrectDialog();
+                    hero.setHeroBonusHealth(gameScreen); //give hero bonus [Irene Bhuiyan]
                 }
             });
             falseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     displayIncorrectDialog();
+                    hero.setHeroPenaltyHealth(gameScreen); //give hero penalty [Irene Bhuiyan]
                 }
             });
         }
@@ -140,14 +185,22 @@ public class TrueFalseQuestionPopUp extends PopUp{
                 @Override
                 public void onClick(View v) {
                     displayIncorrectDialog();
+                    hero.setHeroPenaltyHealth(gameScreen); //give hero penalty [Irene Bhuiyan]
                 }
             });
             falseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     displayCorrectDialog();
+                    hero.setHeroBonusHealth(gameScreen); //give hero bonus [Irene Bhuiyan]
                 }
             });
         }
     }
+
+    @Override
+    protected void showDialog() {
+
+    }
+
 }

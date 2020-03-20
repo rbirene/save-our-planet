@@ -399,7 +399,7 @@ public class BattleScreen extends GameScreen {
     }
 	
 	
-//Method to create PopUp Dialog on Battle Screen [William Oliver]
+    //Method to create PopUp Dialog on Battle Screen [William Oliver]
     public void showDialog() {
 
         Question Q1 = new Question("Q1", "Driving a car everywhere you go is good for the planet.", "false");
@@ -414,19 +414,20 @@ public class BattleScreen extends GameScreen {
 
         randQuestionIndex = Math.random() * (max - min + 1) + min;
 
-            switch ((int) randQuestionIndex) {		 
+        switch ((int) randQuestionIndex) {
 
-                case 1:
-                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
-                    popUp.showDialog();
-                    break;									
+            case 1:
+                popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
+                popUp.showBonusDialog(this, hero);
+                break;
 
-                default:
-                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
-                    popUp.showDialog();
-												 
-            }
+            default:
+                popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
+                popUp.showBonusDialog(this, hero);
+
         }
+
+    }
 
     /**
      * Creates a Pop-Up Dialog box which allows
