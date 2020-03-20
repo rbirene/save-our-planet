@@ -1,18 +1,11 @@
 package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.graphics.Color;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour;
-import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
 public class TrueFalseQuestionPopUp extends PopUp{
 

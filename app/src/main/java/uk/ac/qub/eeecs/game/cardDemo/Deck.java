@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.Sprites;
+package uk.ac.qub.eeecs.game.cardDemo;
 
 import java.util.ArrayList;
 

@@ -16,8 +16,8 @@
 //import uk.ac.qub.eeecs.gage.engine.AssetManager;
 //import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 //import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
-//import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
-//import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
+//import uk.ac.qub.eeecs.game.cardDemo.Deck;
+//import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 //
 //import static junit.framework.Assert.assertFalse;
 //import static junit.framework.TestCase.assertTrue;

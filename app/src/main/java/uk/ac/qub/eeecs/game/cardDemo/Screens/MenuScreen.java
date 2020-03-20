@@ -18,10 +18,9 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
-import uk.ac.qub.eeecs.game.cardDemo.User;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
 /**
  * This class creates the MenuScreen

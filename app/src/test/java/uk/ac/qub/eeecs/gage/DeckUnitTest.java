@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

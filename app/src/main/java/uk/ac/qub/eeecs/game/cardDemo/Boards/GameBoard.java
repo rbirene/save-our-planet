@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Boards;
 
 import android.graphics.Bitmap;
 
@@ -10,6 +10,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.AttackAnimation;
 
 public class GameBoard extends GameObject {

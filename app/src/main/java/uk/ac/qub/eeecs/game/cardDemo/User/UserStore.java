@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.User;
 
 import android.content.Context;
 import android.content.SharedPreferences;

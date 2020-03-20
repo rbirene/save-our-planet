@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
-import uk.ac.qub.eeecs.game.cardDemo.User;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
 public class formDialog extends PopUp{
 

@@ -12,8 +12,8 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.LeaderBoard;
-import uk.ac.qub.eeecs.game.cardDemo.User;
+import uk.ac.qub.eeecs.game.cardDemo.Boards.LeaderBoard;
+import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
 public class LeaderBoardScreen extends GameScreen {
 

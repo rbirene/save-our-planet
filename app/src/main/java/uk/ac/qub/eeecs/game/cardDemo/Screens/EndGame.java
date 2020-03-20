@@ -6,7 +6,7 @@ import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Player;
 
 public class EndGame extends GameScreen {
 

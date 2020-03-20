@@ -4,7 +4,6 @@ import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
-import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
 
 /**
  * Game screen class acting as a container for a coherent section of the game (a

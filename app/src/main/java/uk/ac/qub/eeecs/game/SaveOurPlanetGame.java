@@ -14,12 +14,12 @@ import uk.ac.qub.eeecs.gage.Game;
  *
  * @version 1.0
  */
-public class DemoGame extends Game {
+public class SaveOurPlanetGame extends Game {
 
     /**
      * Create a new demo game
      */
-    public DemoGame() {
+    public SaveOurPlanetGame() {
         super();
     }
 

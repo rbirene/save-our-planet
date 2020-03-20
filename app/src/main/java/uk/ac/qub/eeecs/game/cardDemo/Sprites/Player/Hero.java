@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.Sprites;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
 
 import android.graphics.Bitmap;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
-import uk.ac.qub.eeecs.game.cardDemo.CardHolder;
+import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**

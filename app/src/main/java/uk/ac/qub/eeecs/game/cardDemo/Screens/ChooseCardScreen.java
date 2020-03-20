@@ -21,12 +21,12 @@ import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.cardDemo.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.formDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUp;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 
 
 /**

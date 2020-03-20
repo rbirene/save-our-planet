@@ -26,15 +26,15 @@ import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
-import uk.ac.qub.eeecs.game.cardDemo.Question;
+import uk.ac.qub.eeecs.game.cardDemo.Question.Question;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.CoinFlipDialog;
-import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Hero;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Villain;
-import static uk.ac.qub.eeecs.game.cardDemo.ColourEnum.*;
+import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Player;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
+import static uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum.*;
 
 
 public class BattleScreen extends GameScreen {

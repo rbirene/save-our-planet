@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.Sprites;
+package uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
 
 import android.graphics.Bitmap;
 
@@ -14,7 +14,8 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
-import uk.ac.qub.eeecs.game.cardDemo.GameBoard;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
 /**

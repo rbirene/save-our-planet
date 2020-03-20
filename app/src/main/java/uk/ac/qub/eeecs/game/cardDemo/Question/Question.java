@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Question;
 
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
