@@ -22,7 +22,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
-import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.formDialog;
+import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.FormPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUp;
@@ -260,7 +260,7 @@ public class ChooseCardScreen extends GameScreen {
 
     private void DisplayFormDialog(){
         String message = "Choose your name from the list of players below or fill out the form to add your name to the list";
-        formDialog dialog = new formDialog(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
+        FormPopUp dialog = new FormPopUp(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
         dialog.showDialog();
     }
 

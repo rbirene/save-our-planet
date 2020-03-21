@@ -16,15 +16,13 @@ import java.util.TimerTask;
 
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
-public class CoinFlipDialog extends PopUp{
+public class CoinFlipPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
-
-    //Defines the name of the player who will go first
-    private String firstPlayerName;
 
     //Define the button displayed on the Pop-Up
     private Button dialogButton;
@@ -41,11 +39,8 @@ public class CoinFlipDialog extends PopUp{
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
-    public CoinFlipDialog(Activity activity, String message, final String firstPlayerName){
-        super(activity, message, R.layout.coinflip_window);
-
-        //Define the parameters
-        this.firstPlayerName = firstPlayerName;
+    public CoinFlipPopUp(Activity activity, String message, final String firstPlayerName, ColourEnum imageBackgroundColour){
+        super(activity, message, R.layout.coinflip_window, imageBackgroundColour);
 
         //Initialise the classes' properties
         dialogButton = getDialog().findViewById(R.id.btn_dialog);

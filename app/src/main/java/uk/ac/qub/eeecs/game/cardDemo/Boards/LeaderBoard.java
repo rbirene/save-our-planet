@@ -41,9 +41,6 @@ public class LeaderBoard extends Sprite {
     //Define the list of all the saved Users
     private ArrayList<User> aUserList;
 
-    //Define the list of the top 5 Users with the best WinRateRatio
-    private ArrayList<User> sortedUserList;
-
     //Define the Y co-ordinate fo the text on the LeaderBoard
     private float textYCoordinate;
 
@@ -65,7 +62,6 @@ public class LeaderBoard extends Sprite {
         this.aUserList = userList;
 
         //Initialise the UserStore properties
-        this.sortedUserList = new ArrayList<>();
         this.textWidth = getHeight() * 0.7f;
         this.bound = new BoundingBox();
 
@@ -133,56 +129,6 @@ public class LeaderBoard extends Sprite {
                     graphics2D, layerViewport, screenViewport);
 
             textYCoordinate += getHeight() * 0.12f;
-        }
-    }
-
-    /**
-     * Method to draw out a specified bitmap using a specific offset (relative to the
-     * position of this game object) and scaling (relative to the size of this game
-     * object).
-     *
-     * @param bitmap Bitmap to draw
-     * @param offset Offset vector
-     * @param scale Scaling vector
-     * @param graphics2D     Graphics instance
-     * @param layerViewport  Game layer viewport
-     * @param screenViewport Screen viewport
-     *
-     *  Taken from Card Class in CardDemo Gage Code
-     */
-    protected void drawBitmap(Bitmap bitmap, Vector2 offset, Vector2 scale,
-                              IGraphics2D graphics2D, LayerViewport layerViewport, ScreenViewport screenViewport) {
-
-        // Calculate the center position of the rotated offset point.
-        double rotation = Math.toRadians(-this.orientation);
-        float diffX = mBound.halfWidth * offset.x;
-        float diffY = mBound.halfHeight * offset.y;
-        float rotatedX = (float)(Math.cos(rotation) * diffX - Math.sin(rotation) * diffY + position.x);
-        float rotatedY = (float)(Math.sin(rotation) * diffX + Math.cos(rotation) * diffY + position.y);
-
-        // Calculate a game layer bound for the bitmap to be drawn
-        bound.set(rotatedX, rotatedY,
-                mBound.halfWidth * scale.x, mBound.halfHeight * scale.y);
-
-        // Draw out the specified bitmap using the calculated bound.
-        // The following code is based on the Sprite's draw method.
-        if (GraphicsHelper.getSourceAndScreenRect(
-                bound, bitmap, layerViewport, screenViewport, drawSourceRect, drawScreenRect)) {
-
-            // Build an appropriate transformation matrix
-            drawMatrix.reset();
-
-            float scaleX = (float) drawScreenRect.width() / (float) drawSourceRect.width();
-            float scaleY = (float) drawScreenRect.height() / (float) drawSourceRect.height();
-            drawMatrix.postScale(scaleX, scaleY);
-
-            drawMatrix.postRotate(orientation, scaleX * bitmap.getWidth()
-                    / 2.0f, scaleY * bitmap.getHeight() / 2.0f);
-
-            drawMatrix.postTranslate(drawScreenRect.left, drawScreenRect.top);
-
-            // Draw the bitmap
-            graphics2D.drawBitmap(bitmap, drawMatrix, null);
         }
     }
 

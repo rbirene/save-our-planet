@@ -20,6 +20,8 @@ public abstract class PopUp {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
+    private ColourEnum backgroundColour;
+
     private Activity activity;
 
     private String message;
@@ -32,10 +34,11 @@ public abstract class PopUp {
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
-    public PopUp(Activity activity, String msg, int popUpLayout){
+    public PopUp(Activity activity, String msg, int popUpLayout, ColourEnum imageBackgroundColour){
         //Define the parameters
         this.activity = activity;
         this.message = msg;
+        this.backgroundColour = imageBackgroundColour;
 
         //Initialise the object's properties
         this.dialog = new Dialog(activity);
@@ -96,11 +99,10 @@ public abstract class PopUp {
      * Set the properties of the
      * Pop-Up's Image
      * @param imageID ID of the Image
-     * @param backgroundColour colour of the image background
      *
      * Created By Niamh McCartney
      */
-    protected void setImageProperties(int imageID, ColourEnum backgroundColour){
+    protected void setImageProperties(int imageID){
         ImageView image = dialog.findViewById(R.id.a);
         //Get colour inputted by user and get its code
         Colour colour01 = new Colour(backgroundColour);

@@ -13,9 +13,6 @@ public class TrueFalseQuestionPopUp extends PopUp{
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Background colour for the Pop-Up image's background
-    private ColourEnum backgroundColour;
-
     //Define the answer to the question
     private String answer;
 
@@ -39,10 +36,9 @@ public class TrueFalseQuestionPopUp extends PopUp{
     // /////////////////////////////////////////////////////////////////////////
 
     public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer, ColourEnum imageBackgroundColour, int imageID){
-        super(activity, questionText, R.layout.question_window);
+        super(activity, questionText, R.layout.question_window, imageBackgroundColour);
 
         //Define the parameters
-        this.backgroundColour = imageBackgroundColour;
         this.imageID = imageID;
         this.answer = answer;
 
@@ -71,7 +67,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
     @Override
     public void showDialog() {
         //Sets the PopUp's properties
-        setImageProperties(imageID, backgroundColour);
+        setImageProperties(imageID);
         setTextProperties(R.id.text_dialog);
         setButtonProperties(R.id.btn_dialog, "true", R.drawable.green_btn);
         setButtonProperties(R.id.btn_dialog2, "false", R.drawable.green_btn);

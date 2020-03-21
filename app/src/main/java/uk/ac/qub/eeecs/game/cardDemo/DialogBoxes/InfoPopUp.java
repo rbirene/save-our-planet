@@ -13,9 +13,6 @@ public class InfoPopUp extends PopUp{
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Background colour for the Pop-Up image's background
-    private ColourEnum backgroundColour;
-
     //Define the text contained on the button image
     private String buttonText;
 
@@ -33,10 +30,9 @@ public class InfoPopUp extends PopUp{
     // /////////////////////////////////////////////////////////////////////////
 
     public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour, int imageID, String buttonText, int buttonImageID){
-        super(activity, message, R.layout.info_window);
+        super(activity, message, R.layout.info_window, imageBackgroundColour);
 
         //Define the parameters
-        this.backgroundColour = imageBackgroundColour;
         this.imageID = imageID;
         this.buttonText = buttonText;
         this.buttonImage = buttonImageID;
@@ -58,7 +54,7 @@ public class InfoPopUp extends PopUp{
     @Override
     public void showDialog(){
         //sets the PopUp's properties
-        setImageProperties(imageID, backgroundColour);
+        setImageProperties(imageID);
         setTextProperties(R.id.text_dialog);
         setButtonProperties(R.id.btn_dialog, buttonText, buttonImage);
 

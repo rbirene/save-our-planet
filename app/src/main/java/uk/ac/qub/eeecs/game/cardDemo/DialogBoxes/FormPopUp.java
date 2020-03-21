@@ -16,7 +16,7 @@ import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
-public class formDialog extends PopUp{
+public class FormPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -24,9 +24,6 @@ public class formDialog extends PopUp{
 
     //Define the game that calls the Pop-Up
     private Game aGame;
-
-    //Background colour for the Pop-Up image's background
-    private ColourEnum backgroundColour;
 
     //List of all saved Users
     private ArrayList<User> users;
@@ -69,12 +66,11 @@ public class formDialog extends PopUp{
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
-    public formDialog(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
-        super(activity, msg, R.layout.form_window);
+    public FormPopUp(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
+        super(activity, msg, R.layout.form_window, imageBackgroundColour);
 
         //Define the parameters
         this.aGame = game;
-        this.backgroundColour = imageBackgroundColour;
         this.imageID = imageID;
         this.buttonImage = buttonImageID;
 
@@ -102,7 +98,7 @@ public class formDialog extends PopUp{
     @Override
     public void showDialog(){
         //sets the PopUp's properties
-        setImageProperties(imageID, backgroundColour);
+        setImageProperties(imageID);
         setTextProperties(R.id.text_dialog);
         setButtonProperties(R.id.btn_dialog, "Add", buttonImage);
         setButtonProperties(R.id.selectBtn, "Select", buttonImage);
