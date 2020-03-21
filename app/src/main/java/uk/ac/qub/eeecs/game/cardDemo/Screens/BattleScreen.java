@@ -120,7 +120,7 @@ public class BattleScreen extends GameScreen {
         loadScreenAssets();
 
         board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
-        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurn",this);
+        endTurnButton = new PushButton(335.0f, 300.0f,83.0f, 30.0f, "endTurn", "endTurnPush", this);
 
         paint = new Paint();
         paint.setTextSize(180.0f);
@@ -346,17 +346,16 @@ public class BattleScreen extends GameScreen {
                 220.0f, 195.0f, mGame.getAssetManager().getBitmap("pauseBack"), this);
 
         resume = new PushButton(240.0f, 170.0f,
-                100.0f, 50.0f, "resumeBtn", "resume2Btn", this);
+                142.0f, 50.0f, "resumeBtn", "resume2Btn", this);
 
         exit = new PushButton(240.0f, 115.0f,
-                100.0f, 50.0f, "menuBtn", "menu2Btn", this);
+                142.0f, 50.0f, "menuBtn", "menu2Btn", this);
     }
 
     public void drawPause(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3, paint);
 
     }
 
