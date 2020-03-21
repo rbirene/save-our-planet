@@ -8,6 +8,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
+import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 
@@ -126,13 +127,49 @@ public class Hero extends Player {
         for(int i=0;i<enemyCardHolders.size();i++){
             if(cardSelected.getBound().intersects(enemyCardHolders.get(i).getBound())){
                 gameBoard.playAttackAnimation(enemyCardHolders.get(i));
-                 enemyCard = enemyCardHolders.get(i).returnCardHeld();
-                 enemyCard.setHealthValue(enemyCard.getHealthValue() - cardSelected.getAttackValue());
-                }
+                enemyCard = enemyCardHolders.get(i).returnCardHeld();
+                enemyCard.setHealthValue(enemyCard.getHealthValue() - cardSelected.getAttackValue());
             }
         }
+    }
 
-public boolean attackPossible() {
+    // add more health when bonus question is answered correctly [Irene Bhuiyan]
+    public void setHeroBonusHealth(GameScreen aScreen){
+        ArrayList<Card> deck  = getPlayerDeck().getDeck(aScreen);
+        int bonusHealth = 5;
+        int health = 0;
+        for (int i = 0; i < deck.size(); i++) {
+            Card card = deck.get(i);
+            //get current health value
+            int healthValue = card.getHealthValue();
+            //add bonus health
+            card.setHealthValue(healthValue+bonusHealth);
+            //get new health value
+            health += card.getHealthValue();
+        }
+        playerHealth = health;
+        playerHealthLength = String.valueOf(playerHealth).length();
+    }
+
+    // take away health when bonus question is answered incorrectly [Irene Bhuiyan]
+    public void setHeroPenaltyHealth(GameScreen aScreen){
+        ArrayList<Card> deck  = getPlayerDeck().getDeck(aScreen);
+        int penaltyHealth = 5;
+        int health = 0;
+        for (int i = 0; i < deck.size(); i++) {
+            Card card = deck.get(i);
+            //get current health value
+            int healthValue = card.getHealthValue();
+            //add bonus health
+            card.setHealthValue(healthValue-penaltyHealth);
+            //get new health value
+            health += card.getHealthValue();
+        }
+        playerHealth = health;
+        playerHealthLength = String.valueOf(playerHealth).length();
+    }
+
+    public boolean attackPossible() {
         return false;
 }
 
@@ -142,8 +179,4 @@ public boolean attackPossible() {
             moveCards(touchEvents);
         }
 
-
-        @Override public  void takeFirstTurn(){
-
-        }
-    }
+}

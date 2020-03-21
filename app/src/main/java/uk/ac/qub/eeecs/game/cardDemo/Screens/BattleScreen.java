@@ -24,7 +24,6 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Question.Question;
@@ -121,7 +120,7 @@ public class BattleScreen extends GameScreen {
         loadScreenAssets();
 
         board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
-        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurn",this);
+        endTurnButton = new PushButton(335.0f, 300.0f,83.0f, 30.0f, "endTurn", "endTurnPush", this);
 
         paint = new Paint();
         paint.setTextSize(180.0f);
@@ -347,17 +346,16 @@ public class BattleScreen extends GameScreen {
                 220.0f, 195.0f, mGame.getAssetManager().getBitmap("pauseBack"), this);
 
         resume = new PushButton(240.0f, 170.0f,
-                100.0f, 50.0f, "resumeBtn", "resume2Btn", this);
+                142.0f, 50.0f, "resumeBtn", "resume2Btn", this);
 
         exit = new PushButton(240.0f, 115.0f,
-                100.0f, 50.0f, "menuBtn", "menu2Btn", this);
+                142.0f, 50.0f, "menuBtn", "menu2Btn", this);
     }
 
     public void drawPause(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-        graphics2D.drawText("PAUSED", mGame.getScreenWidth()/3.1F, mGame.getScreenHeight()/3, paint);
 
     }
 
@@ -371,7 +369,7 @@ public class BattleScreen extends GameScreen {
 
         // [William Oliver]
 		if (bonusButton.isPushTriggered())
-            showDialog();
+            showBonusDialog();
 
         if(paused){
             drawPause(elapsedTime, graphics2D);
@@ -400,8 +398,8 @@ public class BattleScreen extends GameScreen {
     }
 	
 	
-//Method to create PopUp Dialog on Battle Screen [William Oliver]
-    public void showDialog() {
+    //Method to create PopUp Dialog on Battle Screen [William Oliver]
+    public void showBonusDialog() {
 
         Question Q1 = new Question("Q1", "Driving a car everywhere you go is good for the planet.", "false");
         Question Q2 = new Question("Q2", "We need to save as many trees as we can.", "true");
@@ -415,19 +413,20 @@ public class BattleScreen extends GameScreen {
 
         randQuestionIndex = Math.random() * (max - min + 1) + min;
 
-            switch ((int) randQuestionIndex) {		 
+        switch ((int) randQuestionIndex) {
 
-                case 1:
-                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
-                    popUp.showDialog();
-                    break;									
+            case 1:
+                popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
+                popUp.showDialog();
+                break;
 
-                default:
-                    popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
-                    popUp.showDialog();
-												 
-            }
+            default:
+                popUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
+                popUp.showDialog();
+
         }
+
+    }
 
     /**
      * Creates a Pop-Up Dialog box which allows
@@ -574,21 +573,6 @@ public class BattleScreen extends GameScreen {
         //display villain
         villain.setPosition(36.0f, 271.0f);
         villain.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
-
-
-        //for testing purposes
-//        if(!healthChanged){
-//            for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
-//                Card card = heroDeck.getDeck(this).get(i);
-//                card.setHealthValue(40);
-//            }
-//
-//            for (int i = 0; i < villainDeck.getDeck(this).size(); i++) {
-//                Card card = villainDeck.getDeck(this).get(i);
-//                card.setHealthValue(10);
-//            }
-//            healthChanged = true;
-//        }
 
     }
 

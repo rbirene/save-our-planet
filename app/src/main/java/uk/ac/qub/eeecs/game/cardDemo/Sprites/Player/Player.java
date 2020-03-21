@@ -55,9 +55,9 @@ public abstract class Player extends Sprite {
     protected boolean cardPlayed = false;
 
     //define the players current Health [Niamh McCartney]
-    private int playerHealth;
+    protected int playerHealth;
     //define number of digits in 'playerHealth' int above[Niamh McCartney]
-    private int playerHealthLength;
+    protected int playerHealthLength;
     //define the players original Health [Niamh McCartney]
     private int playerFullHealth;
 
@@ -258,17 +258,11 @@ public abstract class Player extends Sprite {
     }
 
 
-    public abstract void takeFirstTurn();
-
-    public void takeTurn(){}
-
     @Override
     public void update(ElapsedTime elapsedTime){
         super.update(elapsedTime);
 
         this.playerDeck.update();
-
-
 
     }
 

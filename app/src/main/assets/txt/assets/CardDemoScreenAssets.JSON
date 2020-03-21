@@ -13,12 +13,12 @@
     {
       "type": "Bitmap",
       "name": "BackArrow",
-      "file": "img/BackArrow.png"
+      "file": "img/Buttons/BackArrow.png"
     },
     {
       "type": "Bitmap",
       "name": "BackArrowSelected",
-      "file": "img/BackArrowSelected.png"
+      "file": "img/Buttons/BackArrowSelected.png"
     },
     {
       "type": "Bitmap",
@@ -34,11 +34,6 @@
       "type": "Bitmap",
       "name": "optionsBackground2",
       "file": "img/optionsBackground2.png"
-    },
-    {
-      "type": "Bitmap",
-      "name": "OptionsIcon",
-      "file": "img/OptionsIcon.png"
     },
     {
       "type": "Bitmap",
@@ -88,7 +83,7 @@
     {
       "type": "Bitmap",
       "name": "pauseBtn",
-      "file": "img/pauseBtn.png"
+      "file": "img/Buttons/pauseBtn.png"
     },
     {
       "type": "Bitmap",
@@ -108,22 +103,22 @@
     {
       "type": "Bitmap",
       "name": "resume2Btn",
-      "file": "img/resume2Btn.png"
+      "file": "img/Buttons/resume2Btn.png"
     },
     {
       "type": "Bitmap",
       "name": "resumeBtn",
-      "file": "img/resumeBtn.png"
+      "file": "img/Buttons/resumeBtn.png"
     },
     {
       "type": "Bitmap",
       "name": "menuBtn",
-      "file": "img/menuBtn.png"
+      "file": "img/Buttons/menuBtn.png"
     },
     {
       "type": "Bitmap",
       "name": "menu2Btn",
-      "file": "img/menu2Btn.png"
+      "file": "img/Buttons/menu2Btn.png"
     },
     {
       "type": "Bitmap",
