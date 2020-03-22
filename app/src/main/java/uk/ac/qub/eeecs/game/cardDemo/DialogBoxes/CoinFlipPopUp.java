@@ -88,11 +88,6 @@ public class CoinFlipPopUp extends PopUp{
         displayDialog();
     }
 
-    public Boolean getCoinFlipped(){
-        return coinFlipped;
-    }
-
-    private void setCoinFlipped(Boolean bool){coinFlipped = bool;}
 
     /**
      * Dictates what occurs  when the User
@@ -128,4 +123,26 @@ public class CoinFlipPopUp extends PopUp{
             }
         });
     }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Getters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns true when User flips the coin
+     * Created By Niamh McCartney
+     */
+    public Boolean getCoinFlipped(){
+        return coinFlipped;
+    }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Setters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Setter to set coinFlipped Boolean
+     * Created By Niamh McCartney
+     */
+    private void setCoinFlipped(Boolean bool){coinFlipped = bool;}
 }

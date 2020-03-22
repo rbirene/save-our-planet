@@ -89,6 +89,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      * Displays a Pop-Up informing the
      * user they have answered the
      * question inCorrectly
+     *
+     * Created By Niamh McCartney
      */
     private void displayIncorrectDialog(){
         getDialog().dismiss();
@@ -100,6 +102,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      * Displays a Pop-Up informing the
      * user they have answered the
      * question correctly
+     *
+     * Created By Niamh McCartney
      */
     private void displayCorrectDialog(){
         getDialog().dismiss();
@@ -112,6 +116,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      * an answer a message will display
      * informing the User of whether they
      * have answered correctly or incorrectly
+     *
+     * Created By Niamh McCartney
      */
     @Override
     protected void onButtonClick() {
@@ -154,21 +160,43 @@ public class TrueFalseQuestionPopUp extends PopUp{
         }
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Getters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns true if User answers correctly
+     * Created By Niamh McCartney
+     */
     public Boolean getAnswerCorrect() {
         return answerCorrect;
     }
 
+    /**
+     * Returns true when User answers the question
+     * Created By Niamh McCartney
+     */
     public Boolean getQuestionAnswered() {
         return questionAnswered;
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Setters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Setter to set answerCorrect Boolean
+     * Created By Niamh McCartney
+     */
     private void setAnswerCorrect(Boolean answerCorrect) {
         this.answerCorrect = answerCorrect;
     }
 
-
+    /**
+     * Setter to set questionAnswered Boolean
+     * Created By Niamh McCartney
+     */
     public void setQuestionAnswered(Boolean questionAnswered) {
         this.questionAnswered = questionAnswered;
     }
-
 }

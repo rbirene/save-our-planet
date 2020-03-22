@@ -111,8 +111,6 @@ public class BattleScreen extends GameScreen {
 
     private Boolean deckEnlarged = false;
 
-    private Boolean deckSizeChanged = false;
-
     //Handler to access the UI thread
     private final Handler handler = new Handler(Looper.getMainLooper());
 
