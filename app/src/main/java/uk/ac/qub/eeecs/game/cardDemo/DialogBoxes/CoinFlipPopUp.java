@@ -35,6 +35,8 @@ public class CoinFlipPopUp extends PopUp{
 
     private Runnable mUpdateDialog;
 
+    private Boolean coinFlipped;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
@@ -46,6 +48,7 @@ public class CoinFlipPopUp extends PopUp{
         dialogButton = getDialog().findViewById(R.id.btn_dialog);
         text = getDialog().findViewById(R.id.text_dialog);
         handler = new Handler(Looper.getMainLooper());
+        coinFlipped = false;
 
         mUpdateDialog = new Runnable() {
             public void run() {
@@ -85,6 +88,12 @@ public class CoinFlipPopUp extends PopUp{
         displayDialog();
     }
 
+    public Boolean getCoinFlipped(){
+        return coinFlipped;
+    }
+
+    private void setCoinFlipped(Boolean bool){coinFlipped = bool;}
+
     /**
      * Dictates what occurs  when the User
      * clicks the button to flip the coin
@@ -112,6 +121,7 @@ public class CoinFlipPopUp extends PopUp{
 
                 }//When the first turn has been decided and the button is pressed again then cancel the dialog box
                 else{
+                    setCoinFlipped(true);
                     getDialog().dismiss();
                 }
 

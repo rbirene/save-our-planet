@@ -31,7 +31,11 @@ public class TrueFalseQuestionPopUp extends PopUp{
     //Define the false button displayed on the Pop-Up
     private Button falseButton;
 
-    // /////////////////////////////////////////////////////////////////////////
+    private Boolean answerCorrect;
+
+    private Boolean questionAnswered;
+
+// /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
@@ -45,8 +49,10 @@ public class TrueFalseQuestionPopUp extends PopUp{
         //Initialise the classes' properties
         trueButton = getDialog().findViewById(R.id.btn_dialog);
         falseButton = getDialog().findViewById(R.id.btn_dialog2);
-        incorrectMessage = "That's Incorrect! Better luck next time!";
-        correctMessage = "That's Correct! Well done!";
+        incorrectMessage = "Oops, that's Incorrect! Health points have been deducted!";
+        correctMessage = "That's Correct! As a reward we've increased your health points!";
+        answerCorrect = false;
+        questionAnswered = false;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -113,12 +119,16 @@ public class TrueFalseQuestionPopUp extends PopUp{
             trueButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setAnswerCorrect(true);
+                    setQuestionAnswered(true);
                     displayCorrectDialog();
                 }
             });
             falseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setAnswerCorrect(false);
+                    setQuestionAnswered(true);
                     displayIncorrectDialog();
                 }
             });
@@ -128,15 +138,37 @@ public class TrueFalseQuestionPopUp extends PopUp{
             trueButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setAnswerCorrect(false);
+                    setQuestionAnswered(true);
                     displayIncorrectDialog();
                 }
             });
             falseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setAnswerCorrect(true);
+                    setQuestionAnswered(true);
                     displayCorrectDialog();
                 }
             });
         }
     }
+
+    public Boolean getAnswerCorrect() {
+        return answerCorrect;
+    }
+
+    public Boolean getQuestionAnswered() {
+        return questionAnswered;
+    }
+
+    private void setAnswerCorrect(Boolean answerCorrect) {
+        this.answerCorrect = answerCorrect;
+    }
+
+
+    public void setQuestionAnswered(Boolean questionAnswered) {
+        this.questionAnswered = questionAnswered;
+    }
+
 }
