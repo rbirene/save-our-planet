@@ -13,12 +13,12 @@
     {
       "type": "Bitmap",
       "name": "BarFiller",
-      "file": "img/BarInner.png"
+      "file": "img/ScreenImages/BattleScreen/BarInner.png"
     },
     {
       "type": "Bitmap",
       "name": "BarBorder",
-      "file": "img/BarOuter.png"
+      "file": "img/ScreenImages/BattleScreen/BarOuter.png"
     },
     {
       "type": "Bitmap",

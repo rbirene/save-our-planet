@@ -3,12 +3,12 @@
     {
       "type": "Bitmap",
       "name": "TreeHuggersLogo",
-      "file": "img/TreeHuggersLogo.png"
+      "file": "img/ScreenImages/SplashScreen/TreeHuggersLogo.png"
     },
     {
       "type": "Bitmap",
       "name": "SplashBackground",
-      "file": "img/SplashBackground.jpg"
+      "file": "img/ScreenImages/SplashScreen/SplashBackground.jpg"
     },
     {
       "type": "Bitmap",
@@ -23,7 +23,12 @@
     {
       "type": "Bitmap",
       "name": "SplashTitle",
-      "file": "img/splashTitle.png"
+      "file": "img/ScreenImages/SplashScreen/splashTitle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "splashScreenBackground",
+      "file": "img/Backgrounds/splashScreenBackground.png"
     },
     {
       "type": "Bitmap",
@@ -32,18 +37,13 @@
     },
     {
       "type": "Bitmap",
-      "name": "optionsBackground2",
-      "file": "img/optionsBackground2.png"
-    },
-    {
-      "type": "Bitmap",
       "name": "muteOff",
-      "file": "img/muteOff.png"
+      "file": "img/ScreenImages/OptionsScreen/muteOff.png"
     },
     {
       "type": "Bitmap",
       "name": "muteOn",
-      "file": "img/muteOn.png"
+      "file": "img/ScreenImages/OptionsScreen/muteOn.png"
     },
     {
       "type": "Bitmap",
@@ -68,7 +68,7 @@
     {
       "type": "Bitmap",
       "name": "deckContainer",
-      "file": "img/deckContainer.png"
+      "file": "img/ScreenImages/BattleScreen/deckContainer.png"
     },
     {
       "type": "Bitmap",
@@ -123,37 +123,37 @@
     {
       "type": "Bitmap",
       "name": "soundBar0",
-      "file": "img/soundBar0.png"
+      "file": "img/ScreenImages/OptionsScreen/soundBar0.png"
     },
     {
       "type": "Bitmap",
       "name": "soundBar25",
-      "file": "img/soundBar25.png"
+      "file": "img/ScreenImages/OptionsScreen/soundBar25.png"
     },
     {
       "type": "Bitmap",
       "name": "soundBar50",
-      "file": "img/soundBar50.png"
+      "file": "img/ScreenImages/OptionsScreen/soundBar50.png"
     },
     {
       "type": "Bitmap",
       "name": "soundBar75",
-      "file": "img/soundBar75.png"
+      "file": "img/ScreenImages/OptionsScreen/soundBar75.png"
     },
     {
       "type": "Bitmap",
       "name": "soundBar100",
-      "file": "img/soundBar100.png"
+      "file": "img/ScreenImages/OptionsScreen/soundBar100.png"
     },
     {
       "type": "Bitmap",
       "name": "volUp",
-      "file": "img/volUp.png"
+      "file": "img/ScreenImages/OptionsScreen/volUp.png"
     },
     {
       "type": "Bitmap",
       "name": "volDown",
-      "file": "img/volDown.png"
+      "file": "img/ScreenImages/OptionsScreen/volDown.png"
     },
     {
       "type": "Bitmap",
@@ -208,17 +208,17 @@
     {
       "type": "Bitmap",
       "name": "pauseBack",
-      "file": "img/pauseBack.png"
+      "file": "img/ScreenImages/BattleScreen/pauseBack.png"
     },
     {
       "type": "Bitmap",
       "name": "attackSprite",
-      "file": "img/attackSprite.png"
+      "file": "img/ScreenImages/BattleScreen/attackSprite.png"
     },
     {
       "type": "Bitmap",
-      "name": "attackSpritesheet",
-      "file": "img/attackSpritesheet.png"
+      "name": "attackSpriteSheet",
+      "file": "img/ScreenImages/BattleScreen/attackSpritesheet.png"
     },
     {
       "type": "Bitmap",
@@ -233,12 +233,12 @@
     {
       "type": "Bitmap",
       "name": "instructions",
-      "file": "img/instructions.png"
+      "file": "img/ScreenImages/InstructionsScreen/instructions.png"
     },
     {
       "type": "Bitmap",
       "name": "settings",
-      "file": "img/settings.png"
+      "file": "img/ScreenImages/OptionsScreen/settings.png"
     },
     {
       "type": "Bitmap",

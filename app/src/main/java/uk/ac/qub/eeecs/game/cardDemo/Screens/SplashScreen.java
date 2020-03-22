@@ -71,7 +71,7 @@ public class SplashScreen extends GameScreen {
     }
 
     public void setupBackground(){
-        Bitmap bmBackground = assetManager.getBitmap("optionsBackground2");
+        Bitmap bmBackground = assetManager.getBitmap("splashScreenBackground");
          splashScreenBackground = new GameObject(1000.0f, 1000.0f, gameWidth*1.2f, gameHeight,
                  bmBackground , this);
     }

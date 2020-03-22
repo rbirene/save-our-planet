@@ -58,9 +58,9 @@ public class OptionsScreen extends GameScreen {
         textPaint.setARGB(255, 0, 0, 0);
 
         mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-        mGame.getAssetManager().loadAndAddBitmap("diffEasy", "img/DiffEasy.png");
-        mGame.getAssetManager().loadAndAddBitmap("diffNormal", "img/DiffNormal.png");
-        mGame.getAssetManager().loadAndAddBitmap("diffHard", "img/DiffHard.png");
+        mGame.getAssetManager().loadAndAddBitmap("diffEasy", "img/ScreenImages/OptionsScreen/DiffEasy.png");
+        mGame.getAssetManager().loadAndAddBitmap("diffNormal", "img/ScreenImages/OptionsScreen/DiffNormal.png");
+        mGame.getAssetManager().loadAndAddBitmap("diffHard", "img/ScreenImages/OptionsScreen/DiffHard.png");
 
         //set up background [Irene Bhuiyan]
         Bitmap optionsBackgroundImg = assetManager.getBitmap("optionsBackground");
