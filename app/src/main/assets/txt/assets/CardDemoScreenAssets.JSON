@@ -217,7 +217,7 @@
     },
     {
       "type": "Bitmap",
-      "name": "attackSpriteSheet",
+      "name": "attackSpritesheet",
       "file": "img/ScreenImages/BattleScreen/attackSpritesheet.png"
     },
     {

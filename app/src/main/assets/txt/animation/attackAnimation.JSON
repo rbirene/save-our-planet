@@ -1,5 +1,5 @@
 {
-  "spritesheet" : "img/attackSpritesheet.png",
+  "spritesheet" : "img/ScreenImages/BattleScreen/attackSpritesheet.png",
   "numRows" : 1,
   "numColumns" : 7,
   "animations": [
