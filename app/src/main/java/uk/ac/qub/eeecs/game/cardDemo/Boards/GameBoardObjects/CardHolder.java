@@ -8,6 +8,7 @@ public class CardHolder extends GameObject {
 
     private Card card;
     private boolean empty;
+    private float x,y;
 
     public CardHolder(float x, float y,GameScreen gameScreen) {
         super(x, y, 40.0f, 60.0f,
@@ -41,5 +42,11 @@ public class CardHolder extends GameObject {
      public Card returnCardHeld(){
         return card;
      }
+
+    public void setX(float x){ this.x = x;}
+    public void setY(float x){ this.y = x;}
+
+    public float getY(){ return y;}
+    public float getX(){ return x;}
 
 }

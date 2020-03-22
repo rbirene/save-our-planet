@@ -239,6 +239,7 @@ public class BattleScreen extends GameScreen {
                 }
             } else {
                 villain.playAI();
+               villain.AICardAttack();
                 playerTurn = true;
             }
         }

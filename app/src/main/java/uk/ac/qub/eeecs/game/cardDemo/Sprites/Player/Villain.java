@@ -8,6 +8,7 @@ import java.util.Random;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Villain extends Player {
     private ArrayList<CardHolder> enemyContainers = new ArrayList<>();
     private  Card targetCard;
     private Card attackCard;
+
     /**
      *
      * Create a new villain.
@@ -66,7 +68,7 @@ public class Villain extends Player {
     }
 
 
-    public void AIAttack(){}{
+   /** public void AIAttack(){}{
 
      //   containers.addAll(gameBoard.getVillianContainers());
        // enemyContainers.addAll(gameBoard.getHeroContainers());
@@ -83,6 +85,7 @@ public class Villain extends Player {
                 }
             }
         }
+    **/
 
 
    
@@ -194,6 +197,206 @@ public class Villain extends Player {
     public  void takeFirstTurn(){
 
     }
+
+
+    public void AIattackPhase(int selectedAttackCard, int cardToAttack) {
+
+        if(!containers.get(selectedAttackCard).isEmpty() &&
+                !enemyContainers.get(cardToAttack).isEmpty()) {
+            Card attackCard = containers.get(selectedAttackCard).returnCardHeld();
+            // SLEEP METHOD TAKEN FROM https://stackoverflow.com/questions/23283041/how-to-make-java-delay-for-a-few-seconds/48403623
+
+
+
+
+            float heroCardX = enemyContainers.get(cardToAttack).getX();
+            float heroCardY = enemyContainers.get(cardToAttack).getY();
+            attackCard.setPosition(enemyContainers.get(cardToAttack).position.x,enemyContainers.
+                    get(cardToAttack).position.y);
+
+            pause();
+
+            if(attackCard.getBound().intersects(enemyContainers.get(cardToAttack).getBound())) {
+                gameBoard.playAttackAnimation(enemyContainers.get(cardToAttack));
+                enemyContainers.get(cardToAttack).returnCardHeld().setHealthValue
+                        (enemyContainers.get(cardToAttack).
+                                returnCardHeld().getHealthValue() - attackCard.getAttackValue());
+                containers.get(selectedAttackCard).AddCardToHolder(attackCard);
+            }
+        }
+
+    }
+
+    public void AICardAttack() {
+        DifficultyLevels tempdiff;
+        tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();
+        if (tempdiff == DifficultyLevels.EASY) {
+            // If easy, attack card with highest health with lowest attack.
+
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
+            Random rand = new Random();
+
+
+            int cardtochoose = 0;
+            int temp = 0;
+            for (int i = 0; i < enemyContainers.size() - 1; i++) {
+                if (!enemyContainers.get(i).isEmpty()) {
+                    int total = 0;
+                    total += enemyContainers.get(i).returnCardHeld().getHealthValue();
+                    if (total > temp) {
+                        temp = total;
+                        cardtochoose = i;
+                    }
+                }
+
+            }
+
+            int cardtochoose1 = 0;
+            int temp1 = 100;
+            for (int i = 0; i < containers.size() - 1; i++) {
+                if (!containers.get(i).isEmpty()) {
+                    int total1 = 0;
+                    total1 += containers.get(i).returnCardHeld().getAttackValue();
+                    if (total1 < temp1) {
+                        temp = total1;
+                        cardtochoose1 = i;
+                    }
+                }
+
+            }
+
+            AIattackPhase(cardtochoose1, cardtochoose);
+        }
+
+
+        else if(tempdiff == DifficultyLevels.NORMAL) {
+
+            playerCards.trimToSize();
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
+            int temp = 0;
+            int cardtochoose= 0;
+            Random rand = new Random();
+
+            for (int i = 0; i < enemyContainers.size()-1;i++) {
+                if (!enemyContainers.get(i).isEmpty()) {
+                    int total = 0;
+                    total += enemyContainers.get(i).returnCardHeld().getHealthValue();
+                    total += enemyContainers.get(i).returnCardHeld().getAttackValue();
+                    if (total > temp) {
+                        temp = total;
+                        cardtochoose = i;
+                    }
+                }
+
+            }
+
+            int random = 5 + rand.nextInt(100 - 1 + 1);
+            if (random > 51) {
+                int n = rand.nextInt(containers.size()-1);
+                AIattackPhase(n,cardtochoose);
+
+            }
+
+            else {
+                int n = rand.nextInt(containers.size()-1);
+                int x = rand.nextInt(playerCards.size()-1);
+
+                AIattackPhase(n,x);
+
+            }
+
+
+
+
+        }
+
+
+
+        else if(tempdiff == DifficultyLevels.HARD) {
+            playerCards.trimToSize();
+            containers.addAll(gameBoard.getVillianContainers());
+            enemyContainers.addAll(gameBoard.getHeroContainers());
+            int latestcardsamerange;
+            boolean cardwithinrange = false;
+            int temp = 0;
+            int cardtochoose = 0;
+            int cardtochoose1 = 0;
+            //Choose card to attack with
+            for (int i = 0; i < containers.size()-1;i++) {
+                if (!containers.get(i).isEmpty()) {
+                    int total = 0;
+                    total += containers.get(i).returnCardHeld().getAttackValue();
+                    if (total > temp) {
+                        temp = total;
+                        cardtochoose = i;
+                    }
+                }
+
+            }
+
+
+
+
+            for (int i = 0; i < enemyContainers.size()-1;i++) {
+                if (!enemyContainers.get(i).isEmpty()) {
+                    if (enemyContainers.get(i).returnCardHeld().getHealthValue() < containers.get(cardtochoose).returnCardHeld().getAttackValue()) {
+                        latestcardsamerange = i;
+                        cardtochoose1 = latestcardsamerange;
+                        cardwithinrange = true;
+
+                    }
+                }
+
+            }
+
+            if (cardwithinrange = false) {
+
+
+                for (int i = 0; i < enemyContainers.size()-1;i++) {
+                    if (!enemyContainers.get(i).isEmpty()) {
+                        int total = 0;
+                        total += enemyContainers.get(i).returnCardHeld().getAttackValue();
+                        if (total > temp) {
+                            temp = total;
+                            cardtochoose = i;
+                        }
+                    }
+
+                }
+
+
+            }
+            AIattackPhase(cardtochoose,cardtochoose1);
+        }
+    }
+
+
+
+
+    // METHOD TAKEN FROM https://stackoverflow.com/questions/38005366/how-do-i-have-java-wait-a-second-before-executing-the-next-line-without-try-cat
+    static void pause(){
+        long Time0 = System.currentTimeMillis();
+        long Time1;
+        long runTime = 0;
+        while (runTime < 1000) { // 1000 milliseconds or 1 second
+            Time1 = System.currentTimeMillis();
+            runTime = Time1 - Time0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
