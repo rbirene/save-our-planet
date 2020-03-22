@@ -146,8 +146,8 @@ public class BattleScreen extends GameScreen {
         villain.setPlayerCards(villainDeck.getDeck(this));
 
         //set start positions of hero and villain Decks[Niamh McCartney]
-        moveCardsToStartPosition(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
-        moveCardsToStartPosition(villainDeck.getDeck(this), 0.07f, 0.235f, 45);
+        updateCardPositions(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
+        updateCardPositions(villainDeck.getDeck(this), 0.07f, 0.235f, 45);
 
         setupPause();
 		
@@ -166,42 +166,6 @@ public class BattleScreen extends GameScreen {
 
     }
 
-    public void moveCardsToStartPosition(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing){
-        //defines the spacing between the cards
-        int cardSpacing;
-
-        for(int i=0;i<cards.size();i++){
-            cardSpacing = spacing*i;
-
-            //Set the start X and Y co-ordinates for each of the cards
-            cards.get(i).setStartPosX(gameWidth*xPosScale + cardSpacing);
-            cards.get(i).setStartPosY(gameHeight*yPosScale);
-
-            float xPos = cards.get(i).getStartPosX();
-            float yPos = cards.get(i).getStartPosY();
-
-            //set the position of the card on rhe screen
-            cards.get(i).setPosition(xPos, yPos);
-        }
-    }
-
-    /**
-     * Returns an ArrayList of Cards that
-     * the player is not currently using
-     * and aren't contained in card holders
-     *
-     *  Created By Niamh McCartney
-     */
-    public ArrayList<Card> getCardsNotInUse(){
-        ArrayList<Card> cardsNotInUse = new ArrayList<>();
-        for(int i = 0; i<heroDeck.getSize(); i++){
-            Card card = heroDeck.getDeck(this).get(i);
-            if(!card.getCardInUse()){
-                cardsNotInUse.add(card);
-            }
-        }
-        return cardsNotInUse;
-    }
 
     public void gameLoop(){
         if(hero.getPlayerHealth(this)<1){
@@ -239,7 +203,7 @@ public class BattleScreen extends GameScreen {
                 }
             } else {
                 villain.playAI();
-               villain.AICardAttack();
+                villain.AICardAttack();
                 playerTurn = true;
             }
         }
@@ -336,6 +300,49 @@ public class BattleScreen extends GameScreen {
                 }
             }
         }
+    }
+
+    /**
+     * Updates the positions and spacing between
+     * each of the Cards in the Hero Deck
+     *
+     *  Created By Niamh McCartney
+     */
+    public void updateCardPositions(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing){
+        //defines the spacing between the cards
+        int cardSpacing;
+
+        for(int i=0;i<cards.size();i++){
+            cardSpacing = spacing*i;
+
+            //Set the start X and Y co-ordinates for each of the cards
+            cards.get(i).setStartPosX(gameWidth*xPosScale + cardSpacing);
+            cards.get(i).setStartPosY(gameHeight*yPosScale);
+
+            float xPos = cards.get(i).getStartPosX();
+            float yPos = cards.get(i).getStartPosY();
+
+            //set the position of the card on rhe screen
+            cards.get(i).setPosition(xPos, yPos);
+        }
+    }
+
+    /**
+     * Returns an ArrayList of Cards that
+     * the player is not currently using
+     * and aren't contained in card holders
+     *
+     *  Created By Niamh McCartney
+     */
+    public ArrayList<Card> getCardsNotInUse(){
+        ArrayList<Card> cardsNotInUse = new ArrayList<>();
+        for(int i = 0; i<heroDeck.getSize(); i++){
+            Card card = heroDeck.getDeck(this).get(i);
+            if(!card.getCardInUse()){
+                cardsNotInUse.add(card);
+            }
+        }
+        return cardsNotInUse;
     }
 
     /**
@@ -498,7 +505,7 @@ public class BattleScreen extends GameScreen {
 
         //set start positions of hero and villain Decks[Niamh McCartney]
         if(heroDeck.getDeckChanged()) {
-            moveCardsToStartPosition(getCardsNotInUse(), heroCardXPosScale, 0.03f, spacing);
+            updateCardPositions(getCardsNotInUse(), heroCardXPosScale, 0.03f, spacing);
             heroDeck.setDeckChanged(false);
         }
 
