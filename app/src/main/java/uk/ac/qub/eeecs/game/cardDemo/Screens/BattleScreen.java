@@ -81,9 +81,9 @@ public class BattleScreen extends GameScreen {
 
     private float heroCardXPosScale = 0.13f;
 
-    //Buttons[Niamh McCartney]
-    private PushButton infoButton;
-    private PushButton settingsButton;
+    //Buttons
+    private PushButton infoButton; // [Niamh McCartney]
+    private PushButton settingsButton;// [Niamh McCartney]
     private PushButton pause;
     private PushButton resume;
     private PushButton exit;
