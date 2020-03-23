@@ -47,9 +47,12 @@ public class Villain extends Player {
 
             if (!playerCards.isEmpty()) {
                 int n = rand.nextInt(containers.size() - 1);
-                int x = rand.nextInt(playerCards.size() - 1);
+                if(!containers.get(n).isEmpty()) {
+                    n = rand.nextInt(containers.size()-1);
+                }
+                int x = rand.nextInt(playerCards.size());
 
-                for (int i = 0; i < containers.size(); i++) {
+                for (int i = 0; i < containers.size()-1; i++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(x));
                         containers.get(n).returnCardHeld().setCardFlipped(false);
@@ -63,8 +66,10 @@ public class Villain extends Player {
 
 
     public void setPlayerCards(ArrayList<Card> cards) {
-        playerCards.addAll(cards);
-        Log.d("TAG", String.valueOf(playerCards.size()));
+        if(playerCards.size() == 0) {
+            playerCards.addAll(cards);
+        }
+
     }
 
 
