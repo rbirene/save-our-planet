@@ -12,6 +12,8 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
+import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.LeaderBoard;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
@@ -39,6 +41,10 @@ public class LeaderBoardScreen extends GameScreen {
     //Define the Buttons
     private PushButton backButton;
 
+    private ScreenViewport ScreenViewport;
+    private LayerViewport LayerViewport;
+    private int gameHeight, gameWidth;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
@@ -51,9 +57,13 @@ public class LeaderBoardScreen extends GameScreen {
 
         //Initialise the Screen properties
         userList = game.getUserStore().getUserList();
+        gameWidth = game.getScreenWidth();
+        gameHeight = game.getScreenHeight();
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
+        LayerViewport = mDefaultLayerViewport;
 
         createBoard();
-        //createScreenBackground();
+        createScreenBackground();
 
         //Add buttons
         addBackButton();
@@ -73,8 +83,7 @@ public class LeaderBoardScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        graphics2D.clear(Color.WHITE);
-//        screenBackground.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        screenBackground.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         board.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         backButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
@@ -104,7 +113,7 @@ public class LeaderBoardScreen extends GameScreen {
     public void loadScreenAssets(){
         assetManager = getGame().getAssetManager();
         assetManager.loadAssets("txt/assets/LeaderboardScreenAssets.JSON");
-        //screenBackgroundImage = assetManager.getBitmap("ScreenBackground");
+        screenBackgroundImage = assetManager.getBitmap("ScreenBackground");
     }
 
     /**

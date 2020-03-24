@@ -8,7 +8,7 @@
     {
       "type": "Bitmap",
       "name": "ScreenBackground",
-      "file": "img/LeaderBoardImages/LeaderBoardScreenBackground.jpg"
+      "file": "img/Backgrounds/leaderBoardScreenBackground.jpg"
     },
     {
       "type": "Bitmap",
