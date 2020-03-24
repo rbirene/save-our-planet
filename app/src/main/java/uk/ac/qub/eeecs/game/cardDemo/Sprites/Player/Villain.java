@@ -27,6 +27,7 @@ public class Villain extends Player {
     private ArrayList<CardHolder> enemyContainers = new ArrayList<>();
     private  Card targetCard;
     private Card attackCard;
+    private Random rand = new Random();
 
     /**
      *
@@ -38,7 +39,7 @@ public class Villain extends Player {
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
-    public void playAI() {
+    public void playAI(int x) {
 
         Random rand = new Random();
 
@@ -47,9 +48,12 @@ public class Villain extends Player {
 
             if (!playerCards.isEmpty()) {
                 int n = rand.nextInt(containers.size() - 1);
-                int x = rand.nextInt(playerCards.size() - 1);
+                if(!containers.get(n).isEmpty()) {
+                    n = rand.nextInt(containers.size()-1);
+                }
 
-                for (int i = 0; i < containers.size(); i++) {
+
+                for (int i = 0; i <= containers.size()-1; i++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(x));
                         containers.get(n).returnCardHeld().setCardFlipped(false);
@@ -63,9 +67,19 @@ public class Villain extends Player {
 
 
     public void setPlayerCards(ArrayList<Card> cards) {
-        playerCards.addAll(cards);
-        Log.d("TAG", String.valueOf(playerCards.size()));
+        if(playerCards.size() == 0) {
+            playerCards.addAll(cards);
+
+
+        }
+
     }
+
+
+
+
+
+
 
 
    /** public void AIAttack(){}{
@@ -87,6 +101,23 @@ public class Villain extends Player {
         }
     **/
 
+   public void AI() {
+       if(playerCards.size() == 3) {
+           AICardSelect();
+       }
+       else if (playerCards.size() == 0) {
+           AICardAttack();
+       }
+       else {
+           int random = rand.nextInt(100) + 1;
+           if(random >= 51) {
+               AICardAttack();
+           }else
+               AICardSelect();
+       }
+
+   }
+
 
    
     public void AICardSelect() {
@@ -97,24 +128,38 @@ public class Villain extends Player {
 
         if (tempdiff == DifficultyLevels.EASY) {
             /**
-             * For easy, play a random card (may change to play lowest value card)
+             * For Easy, play the card with the lowest combined attack and health value.
              */
-            playAI();
+
+
+            int cardtochoose = 0;
+            int temp = 100;
+            for (int i = 0; i < playerCards.size()-1;i++) {
+                int total = 0;
+
+
+                total += playerCards.get(i).getAttackValue();
+                total += playerCards.get(i).getHealthValue();
+                if (total < temp) {
+                    temp = total;
+                    cardtochoose = i;
+                }
+            }
+
+            int choosencard = cardtochoose;
+            playAI(cardtochoose);
+
         }else if (tempdiff == DifficultyLevels.NORMAL) {
             /**
              * For normal, find the two best cards, and random roll on either to play the best card, or second to best card.
              */
             Random rand = new Random();
-            containers.addAll(gameBoard.getVillianContainers());
-            enemyContainers.addAll(gameBoard.getHeroContainers());
-
-            int n = rand.nextInt(containers.size()-1);
 
             int cardtochoose = 0;
             int secondbestcard = 0;
             int temp = 0;
             int secondbestvalue = 0;
-            for (int i = 0; i < playerDeck.getSize()-1; i++) {
+            for (int i = 0; i < playerCards.size()-1; i++) {
                 int total = 0;
 
 
@@ -129,29 +174,14 @@ public class Villain extends Player {
 
                 }
 
-                total = 0;
+
             }
 
-            int random = 5 + rand.nextInt(100 - 1 + 1);
+            int random = rand.nextInt(100) + 1;
             if (random > 51) {
-                if (!playerCards.isEmpty()) {
-                    for (int i = 0; i < containers.size(); i++) {
-                        if (containers.get(n).isEmpty()) {
-                            containers.get(n).AddCardToHolder(playerCards.get(cardtochoose));
-
-                        }
-                    }
-                    playerCards.remove(cardtochoose);
-                }
+               playAI(cardtochoose);
             } else
-            if (!playerCards.isEmpty()) {
-                for (int i = 0; i < containers.size(); i++) {
-                    if (containers.get(n).isEmpty()) {
-                        containers.get(n).AddCardToHolder(playerCards.get(secondbestcard));
-                    }
-                }
-                playerCards.remove(secondbestcard);
-            }
+            playAI(secondbestcard);
 
 
 
@@ -160,12 +190,7 @@ public class Villain extends Player {
             /**
              * For Hard, play the card with the highest combined attack and health value.
              */
-            playerCards.trimToSize();
-            containers.addAll(gameBoard.getVillianContainers());
-            enemyContainers.addAll(gameBoard.getHeroContainers());
-            Random rand = new Random();
 
-            int n = rand.nextInt(containers.size()-1);
 
             int cardtochoose = 0;
             int temp = 0;
@@ -182,15 +207,7 @@ public class Villain extends Player {
             }
 
             int choosencard = cardtochoose;
-            if (!playerCards.isEmpty()) {
-                for (int j = 0; j < containers.size(); j++) {
-                    if (containers.get(n).isEmpty()) {
-                        containers.get(n).AddCardToHolder(playerCards.get(choosencard));
-                    }
-                }
-
-                playerCards.remove(choosencard);
-            }
+           playAI(cardtochoose);
         }
     }
 
@@ -204,7 +221,7 @@ public class Villain extends Player {
         if(!containers.get(selectedAttackCard).isEmpty() &&
                 !enemyContainers.get(cardToAttack).isEmpty()) {
             Card attackCard = containers.get(selectedAttackCard).returnCardHeld();
-            // SLEEP METHOD TAKEN FROM https://stackoverflow.com/questions/23283041/how-to-make-java-delay-for-a-few-seconds/48403623
+
 
 
 
@@ -218,12 +235,11 @@ public class Villain extends Player {
 
             if(attackCard.getBound().intersects(enemyContainers.get(cardToAttack).getBound())) {
                 gameBoard.playAttackAnimation(enemyContainers.get(cardToAttack));
-                enemyContainers.get(cardToAttack).returnCardHeld().setHealthValue
-                        (enemyContainers.get(cardToAttack).
-                                returnCardHeld().getHealthValue() - attackCard.getAttackValue());
+                enemyContainers.get(cardToAttack).returnCardHeld().setHealthValue(enemyContainers.get(cardToAttack).returnCardHeld().getHealthValue() - containers.get(selectedAttackCard).returnCardHeld().getAttackValue());
                 containers.get(selectedAttackCard).AddCardToHolder(attackCard);
             }
         }
+
 
     }
 
@@ -240,8 +256,8 @@ public class Villain extends Player {
 
             int cardtochoose = 0;
             int temp = 0;
-            for (int i = 0; i < enemyContainers.size() - 1; i++) {
-                if (!enemyContainers.get(i).isEmpty()) {
+            for (int i = 0; i <= enemyContainers.size() - 1; i++) {
+                if (!enemyContainers.get(i).isEmpty() && (enemyContainers.get(i).returnCardHeld().getHealthValue() >0)) {
                     int total = 0;
                     total += enemyContainers.get(i).returnCardHeld().getHealthValue();
                     if (total > temp) {
@@ -254,7 +270,7 @@ public class Villain extends Player {
 
             int cardtochoose1 = 0;
             int temp1 = 100;
-            for (int i = 0; i < containers.size() - 1; i++) {
+            for (int i = 0; i <= containers.size() - 1; i++) {
                 if (!containers.get(i).isEmpty()) {
                     int total1 = 0;
                     total1 += containers.get(i).returnCardHeld().getAttackValue();
@@ -279,8 +295,8 @@ public class Villain extends Player {
             int cardtochoose= 0;
             Random rand = new Random();
 
-            for (int i = 0; i < enemyContainers.size()-1;i++) {
-                if (!enemyContainers.get(i).isEmpty()) {
+            for (int i = 0; i <= enemyContainers.size()-1;i++) {
+                if (!enemyContainers.get(i).isEmpty() && (enemyContainers.get(i).returnCardHeld().getHealthValue()> 0)) {
                     int total = 0;
                     total += enemyContainers.get(i).returnCardHeld().getHealthValue();
                     total += enemyContainers.get(i).returnCardHeld().getAttackValue();
@@ -292,7 +308,7 @@ public class Villain extends Player {
 
             }
 
-            int random = 5 + rand.nextInt(100 - 1 + 1);
+            int random = rand.nextInt(100) + 1;
             if (random > 51) {
                 int n = rand.nextInt(containers.size()-1);
                 AIattackPhase(n,cardtochoose);
@@ -301,8 +317,10 @@ public class Villain extends Player {
 
             else {
                 int n = rand.nextInt(containers.size()-1);
-                int x = rand.nextInt(playerCards.size()-1);
-
+                int x = rand.nextInt(enemyContainers.size()-1);
+                if(enemyContainers.get(x).isEmpty()) {
+                    x = rand.nextInt(enemyContainers.size()-1);
+                }
                 AIattackPhase(n,x);
 
             }
@@ -315,7 +333,7 @@ public class Villain extends Player {
 
 
         else if(tempdiff == DifficultyLevels.HARD) {
-            playerCards.trimToSize();
+
             containers.addAll(gameBoard.getVillianContainers());
             enemyContainers.addAll(gameBoard.getHeroContainers());
             int latestcardsamerange;
@@ -324,7 +342,7 @@ public class Villain extends Player {
             int cardtochoose = 0;
             int cardtochoose1 = 0;
             //Choose card to attack with
-            for (int i = 0; i < containers.size()-1;i++) {
+            for (int i = 0; i <= containers.size()-1;i++) {
                 if (!containers.get(i).isEmpty()) {
                     int total = 0;
                     total += containers.get(i).returnCardHeld().getAttackValue();
@@ -339,12 +357,14 @@ public class Villain extends Player {
 
 
 
-            for (int i = 0; i < enemyContainers.size()-1;i++) {
+            for (int i = 0; i <= enemyContainers.size()-1;i++) {
                 if (!enemyContainers.get(i).isEmpty()) {
-                    if (enemyContainers.get(i).returnCardHeld().getHealthValue() < containers.get(cardtochoose).returnCardHeld().getAttackValue()) {
+                    if (enemyContainers.get(i).returnCardHeld().getHealthValue() < containers.get(cardtochoose).returnCardHeld().getAttackValue()  && (enemyContainers.get(i).returnCardHeld().getHealthValue() >1)) {
                         latestcardsamerange = i;
                         cardtochoose1 = latestcardsamerange;
                         cardwithinrange = true;
+
+
 
                     }
                 }
@@ -354,13 +374,14 @@ public class Villain extends Player {
             if (cardwithinrange = false) {
 
 
-                for (int i = 0; i < enemyContainers.size()-1;i++) {
-                    if (!enemyContainers.get(i).isEmpty()) {
+                for (int i = 0; i <= enemyContainers.size()-1;i++) {
+                    if (!enemyContainers.get(i).isEmpty() && (enemyContainers.get(i).returnCardHeld().getHealthValue() >0)) {
                         int total = 0;
                         total += enemyContainers.get(i).returnCardHeld().getAttackValue();
                         if (total > temp) {
                             temp = total;
-                            cardtochoose = i;
+                            cardtochoose1 = i;
+
                         }
                     }
 
