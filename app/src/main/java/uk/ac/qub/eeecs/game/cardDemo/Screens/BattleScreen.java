@@ -238,8 +238,8 @@ public class BattleScreen extends GameScreen {
                     hero.ProcessTouchInput(touchEvents);
                 }
             } else {
-                villain.playAI();
-               villain.AICardAttack();
+                villain.AI();
+
                 playerTurn = true;
             }
         }
