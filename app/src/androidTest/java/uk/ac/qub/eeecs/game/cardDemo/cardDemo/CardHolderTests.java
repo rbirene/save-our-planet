@@ -31,7 +31,7 @@ public class CardHolderTests {
 
         Game = new TestGame(1280,720);
         Game.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
-        menuScreenDemo = new MenuScreen(Game);
+       menuScreenDemo = new MenuScreen(Game);
         chooseCardScreenDemo = new ChooseCardScreen(Game);
         battleDemo = new BattleScreen(Game);
 
