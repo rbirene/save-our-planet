@@ -51,11 +51,12 @@ public class MenuScreen extends GameScreen {
 
     private Deck deck;
 
+    private Hero hero = getGame().getHero();
+    private Villain villain = getGame().getVillain();
     //define Hero and Villains and their Decks [Niamh McCartney]
     private Deck heroDeck = getGame().getHero().getPlayerDeck();
     private Deck villainDeck = getGame().getVillain().getPlayerDeck();
-    private Hero hero = getGame().getHero();
-    private Villain villain = getGame().getVillain();
+
 
     //define game dimensions and viewports [Irene Bhuiyan]
     private ScreenViewport ScreenViewport;

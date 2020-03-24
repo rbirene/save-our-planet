@@ -6,9 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.TestGame;
+import uk.ac.qub.eeecs.game.SaveOurPlanetGame;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.SplashScreen;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -18,6 +24,9 @@ public class SplashScreenTest {
     private TestGame Game;
     private SplashScreen splashDemo;
     private MenuScreen menuScreen;
+    private Hero hero;
+    private Villain villain;
+
     @Before
     public void setUp() {
 

@@ -5,6 +5,9 @@ import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -12,6 +15,10 @@ import android.support.test.InstrumentationRegistry;
 public class TestGame extends Game {
 
     public Context context;
+    private Hero hero;
+    private Villain villain;
+
+
 
     public TestGame(int screenWidth, int screenHeight){
         // Store the testing context
@@ -31,12 +38,23 @@ public class TestGame extends Game {
 
         // Create the audio manager
         mAudioManager = new AudioManager(this);
-
+        mAssetManager.loadAssets("txt/assets/Players.JSON");
         // Create the screen manager
         mScreenManager = new ScreenManager(this);
 
         //create the card store
         mCardStore = new CardStore(this);
+
+        // Create the Hero[Niamh McCartney]
+        mHero = new Hero(mAssetManager.getBitmap("heroPortrait"));
+
+        // Create the Villain[Niamh McCartney]
+        mVillain = new Villain(mAssetManager.getBitmap("villainPortrait"));
+
+
+
+
+
 
         // Store the size of the window we're using
         // Note: If you see an error here remember to update the Game class to
