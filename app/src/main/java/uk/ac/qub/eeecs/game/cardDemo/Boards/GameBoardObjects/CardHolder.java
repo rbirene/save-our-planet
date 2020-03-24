@@ -36,7 +36,6 @@ public class CardHolder extends GameObject {
      public void removeCard(){
         this.card = null;
         this.empty = true;
-        card.hasHolder(false);
      }
 
      public Card returnCardHeld(){
