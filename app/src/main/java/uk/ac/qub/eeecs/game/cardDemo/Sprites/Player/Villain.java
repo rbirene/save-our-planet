@@ -393,6 +393,9 @@ public class Villain extends Player {
         }
     }
 
+    public ArrayList<Card> getPlayerCards() {
+        return playerCards;
+    }
 
 
 
