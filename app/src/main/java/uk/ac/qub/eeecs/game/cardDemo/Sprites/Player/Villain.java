@@ -379,7 +379,11 @@ public class Villain extends Player {
 
 
 
-    // METHOD TAKEN FROM https://stackoverflow.com/questions/38005366/how-do-i-have-java-wait-a-second-before-executing-the-next-line-without-try-cat
+    /**
+     * METHOD TAKEN FROM STACK OVERFLOW- NO MODIFICATIONS MADE    -Keith
+     * @Author M Imam Pratama
+     * https://stackoverflow.com/questions/38005366/how-do-i-have-java-wait-a-second-before-executing-the-next-line-without-try-cat
+     */
     static void pause(){
         long Time0 = System.currentTimeMillis();
         long Time1;
