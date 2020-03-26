@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import uk.ac.qub.eeecs.game.cardDemo.Screens.EndGame;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.SplashScreen;
 import uk.ac.qub.eeecs.gage.Game;
@@ -50,8 +51,9 @@ public class SaveOurPlanetGame extends Game {
         SplashScreen SplashScreen = new SplashScreen(this);
         mScreenManager.addScreen(SplashScreen);
 
-       //BattleScreen battleScreen = new BattleScreen(this);
-        //mScreenManager.addScreen(battleScreen);
+//        EndGame endGame = new EndGame(this, false);
+//        mScreenManager.addScreen(endGame);
+
 
 
         return view;

@@ -181,9 +181,9 @@ public class BattleScreen extends GameScreen {
 
     public void checkEndGame(){
         if(hero.getPlayerHealth(this) <= 0){
-            mGame.getScreenManager().addScreen(new EndGame(mGame, hero));
+            mGame.getScreenManager().addScreen(new EndGame(mGame, false));
         }else if(villain.getPlayerHealth(this) <=0){
-            mGame.getScreenManager().addScreen(new EndGame(mGame, villain));
+            mGame.getScreenManager().addScreen(new EndGame(mGame, true));
         }
     }
 

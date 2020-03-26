@@ -1,0 +1,24 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "win",
+      "file": "img/Backgrounds/happyEarth.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "lose",
+      "file": "img/Backgrounds/sadEarth.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBackground",
+      "file": "img/Backgrounds/menuBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "menuBtn",
+      "file": "img/Buttons/menuBtn.png"
+    }
+  ]
+}
