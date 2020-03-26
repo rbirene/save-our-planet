@@ -161,6 +161,7 @@ public class FormPopUp extends PopUp{
 
                     }
                 }
+                else{text.setText(getMessage() + ". You must give your new user a name.");}
             }
         });
 
@@ -176,7 +177,7 @@ public class FormPopUp extends PopUp{
 
                     //dismiss the dialog
                     getDialog().dismiss();
-                }
+                }else{text.setText(getMessage() + ". You must select a name first");}
             }
         });
     }

@@ -51,14 +51,14 @@ public class SplashScreenTest {
         assertTrue(Game.getScreenManager().getCurrentScreen().getName() == "Splash");
     }
 
-    @Test
-    public void timerTest3() {
-        splashDemo = new SplashScreen(Game);
-        menuScreen = new MenuScreen(Game);
-
-        Game.getScreenManager().addScreen(splashDemo);
-        splashDemo.setTimer(100);
-        assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "MenuScreen");
-    }
+//    @Test
+//    public void timerTest3() {
+//        splashDemo = new SplashScreen(Game);
+//        menuScreen = new MenuScreen(Game);
+//
+//        Game.getScreenManager().addScreen(splashDemo);
+//        splashDemo.setTimer(100);
+//        assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "MenuScreen");
+//    }
 }
 
