@@ -3,12 +3,12 @@
     {
       "type": "Bitmap",
       "name": "win",
-      "file": "img/Backgrounds/happyEarth.png"
+      "file": "img/Backgrounds/winnerBackground.png"
     },
     {
       "type": "Bitmap",
       "name": "lose",
-      "file": "img/Backgrounds/sadEarth.png"
+      "file": "img/Backgrounds/loserBackground.png"
     },
     {
       "type": "Bitmap",
@@ -19,6 +19,11 @@
       "type": "Bitmap",
       "name": "menuBtn",
       "file": "img/Buttons/menuBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Background",
+      "file": "img/ScreenImages/SplashScreen/SplashBackground.jpg"
     }
   ]
 }

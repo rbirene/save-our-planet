@@ -80,7 +80,8 @@ public class EndGame extends GameScreen {
 
 
         menuButton = new PushButton(420.0f, 30.0f, 80.0f, 28.0f, "menuBtn", "menuBtn", this);
-        //background = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, game.getAssetManager().getBitmap("menuBackground"), this);
+        background = new GameObject(mDefaultLayerViewport.halfWidth, mDefaultLayerViewport.halfHeight,
+                mDefaultLayerViewport.getWidth(), mDefaultLayerViewport.getHeight(), game.getAssetManager().getBitmap("Background"), this);
         result = new GameObject(mDefaultLayerViewport.halfWidth, mDefaultLayerViewport.halfHeight,
                 mDefaultLayerViewport.getHeight(), mDefaultLayerViewport.getHeight(), game.getAssetManager().getBitmap(resultString), this);
 
@@ -90,8 +91,7 @@ public class EndGame extends GameScreen {
     @Override
 
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        graphics2D.clear(Color.WHITE);
-        //background.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        background.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         result.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         menuButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
 
