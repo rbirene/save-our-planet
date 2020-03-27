@@ -33,10 +33,6 @@
 //}
 package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
-
-import android.graphics.Color;
-
-
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -46,6 +42,8 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.User.User;
+import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
 
 public class EndGame extends GameScreen {
@@ -60,6 +58,12 @@ public class EndGame extends GameScreen {
 
     private int gameHeight, gameWidth;
 
+    private Boolean winner;
+
+    private UserStore userStore;
+
+    private User currentUser;
+
 
     public EndGame(Game game, boolean winner) {
 
@@ -69,6 +73,12 @@ public class EndGame extends GameScreen {
         gameWidth = mGame.getScreenWidth();
         ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
         LayerViewport = mDefaultLayerViewport;
+
+        this.winner = winner;
+
+        //set screen properties [Niamh McCartney]
+        userStore = game.getUserStore();
+        currentUser = game.getCurrentUser();
 
         loadScreenAssets();
 
@@ -85,8 +95,9 @@ public class EndGame extends GameScreen {
         result = new GameObject(mDefaultLayerViewport.halfWidth, mDefaultLayerViewport.halfHeight,
                 mDefaultLayerViewport.getHeight(), mDefaultLayerViewport.getHeight(), game.getAssetManager().getBitmap(resultString), this);
 
-    }
 
+        updateUserStore();
+    }
 
     @Override
 
@@ -110,6 +121,18 @@ public class EndGame extends GameScreen {
     private void loadScreenAssets(){
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAssets("txt/assets/EndGameScreenAssets.JSON");
+    }
+
+    private void updateUserStore(){
+        int userPos;
+        userPos = userStore.checkUserStore(currentUser.getName());
+        if(winner){
+            userStore.getUserList().get(userPos).addWin();
+            userStore.saveUsers();
+        }else{
+            userStore.getUserList().get(userPos).addLoss();
+            userStore.saveUsers();
+        }
     }
 
 }
