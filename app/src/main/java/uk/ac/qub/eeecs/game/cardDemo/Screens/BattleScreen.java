@@ -79,6 +79,8 @@ public class BattleScreen extends GameScreen {
     //Define spacing between Cards[Niamh McCartney]
     private int spacing = 50;
 
+    private int numOfQuestions = 3;
+
     private float heroCardXPosScale = 0.13f;
 
     //Buttons
@@ -488,7 +490,7 @@ public class BattleScreen extends GameScreen {
         drawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72, true);
 
         // [William Oliver]
-		if (bonusButton.isPushTriggered())
+		if (bonusButton.isPushTriggered() && numOfQuestions >0)
             showBonusDialog();
 
         if(paused){
@@ -544,6 +546,7 @@ public class BattleScreen extends GameScreen {
                 questionPopUp.showDialog();
 
         }
+        numOfQuestions--;
 
     }
 
