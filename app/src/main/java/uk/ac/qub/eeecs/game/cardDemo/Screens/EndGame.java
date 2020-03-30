@@ -1,36 +1,3 @@
-//package uk.ac.qub.eeecs.game.cardDemo.Screens;
-//
-//import android.graphics.Color;
-//
-//import uk.ac.qub.eeecs.gage.Game;
-//import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-//import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
-//import uk.ac.qub.eeecs.gage.world.GameScreen;
-//import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Player;
-//
-//public class EndGame extends GameScreen {
-//
-//    private Player winner;
-//
-//    public EndGame(Game game, Player winner) {
-//        super("EndGame", game);
-//
-//      this.winner = winner;
-//
-//    }
-//
-//
-//
-//    @Override
-//    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-//        graphics2D.clear(Color.WHITE);
-//    }
-//
-//    @Override
-//    public void update(ElapsedTime elapsedTime) {
-//
-//    }
-//}
 package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import uk.ac.qub.eeecs.gage.Game;
@@ -60,8 +27,9 @@ public class EndGame extends GameScreen {
 
     private Boolean winner;
 
+    //Define the Game's UserStore
     private UserStore userStore;
-
+    //Define the Game's Current User
     private User currentUser;
 
 
@@ -100,7 +68,6 @@ public class EndGame extends GameScreen {
     }
 
     @Override
-
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         background.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         result.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
@@ -108,21 +75,32 @@ public class EndGame extends GameScreen {
 
     }
 
-
     @Override
-
     public void update(ElapsedTime elapsedTime) {
         menuButton.update(elapsedTime);
 
-        if (menuButton.isPushTriggered()) { mGame.getScreenManager().addScreen(new MenuScreen(mGame));
+        if (menuButton.isPushTriggered()){
+            mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
     }
 
+    /**
+     * Load Assets used by screen
+     *
+     * Created By Niamh McCartney
+     */
     private void loadScreenAssets(){
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAssets("txt/assets/EndGameScreenAssets.JSON");
     }
 
+    /**
+     * Updates the UserStore with the current
+     * users's wins/losses depending on the
+     * outcome of the battle on the BattleScreen
+     *
+     * Created by Niamh McCartney
+     */
     private void updateUserStore(){
         int userPos;
         userPos = userStore.checkUserStore(currentUser.getName());
