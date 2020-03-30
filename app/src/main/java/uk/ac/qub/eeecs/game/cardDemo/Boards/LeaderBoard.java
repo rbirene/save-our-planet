@@ -10,8 +10,6 @@ import java.util.Collections;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
-import uk.ac.qub.eeecs.gage.util.BoundingBox;
-import uk.ac.qub.eeecs.gage.util.GraphicsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -36,8 +34,6 @@ public class LeaderBoard extends Sprite {
 
     private Paint mTextPaint;
 
-    private BoundingBox bound;
-
     //Define the list of all the saved Users
     private ArrayList<User> aUserList;
 
@@ -53,7 +49,19 @@ public class LeaderBoard extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Create the LeaderBoard object
+     *
+     * @param xPos x co-ordinate of LeaderBoard
+     * @param yPos y co-ordinate of LeaderBoard
+     * @param screen screen the object is in
+     * @param width width of the LeaderBoard
+     * @param height height of the LeaderBoard
+     * @param userList list of users to be sorted
+     *                and displayed by the LeaderBoard
+     *
+     * Created by Niamh McCartney
+     */
     public LeaderBoard(float xPos, float yPos, GameScreen screen, float width, float height, ArrayList<User> userList){
         super(xPos, yPos, width, height, null, screen);
 
@@ -63,9 +71,8 @@ public class LeaderBoard extends Sprite {
 
         //Initialise the UserStore properties
         this.textWidth = getHeight() * 0.7f;
-        this.bound = new BoundingBox();
 
-        //Loads the images used by the LeaderBoard object
+        //Load the images used by the LeaderBoard object
         loadLeaderBoardImages();
     }
 
@@ -86,50 +93,22 @@ public class LeaderBoard extends Sprite {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport) {
-        //Draws the leaderBoard image
+        //Draw the Board
         mBitmap = leaderBoardImage;
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
-        //Sets paint properties for card text
+        //Set paint properties for card text
         setupTextPaint();
 
-        //Gets the Users with the Top 5 WinRateRatios
-        sortArrayList();
+        //Get Users with the Top 5 WinRateRatios
+        sortUserList();
 
-        //Defines the Y co-ordinate of the text in relation
-        // to the size of the LeaderBoard image
+        //Define Y co-ordinate of the text in relation
+        //to the size of the LeaderBoard image
         textYCoordinate = getHeight() * -0.085f;
 
-        //Iterates through the top 5 users
-        for(int i = 0; i<numOfUsers; i++){
-            //Define the User information to be displayed on the LeaderBoard
-            User user = aUserList.get(i);
-            String win = Integer.toString(aUserList.get(i).getWins());
-            String loss = Integer.toString(aUserList.get(i).getLosses());
-            String userName = user.getName();
-
-            //Draw the Users name[Niamh McCartney]
-            float playerNameXCoordinate = getWidth() * -0.165f;
-            Vector2 playerNameOffset = new Vector2(playerNameXCoordinate, textYCoordinate);
-            drawText(userName, playerNameOffset, textWidth,
-                        graphics2D, layerViewport, screenViewport);
-
-
-            //Draw the number of games the User has won[Niamh McCartney]
-            float winValueXCoordinate = playerNameXCoordinate * -1.035f;
-            Vector2 winOffset = new Vector2(winValueXCoordinate, textYCoordinate);
-            drawText(win, winOffset, textWidth,
-                    graphics2D, layerViewport, screenViewport);
-
-
-            //Draw the number of games the User has lost[Niamh McCartney]
-            float lossValueXCoordinate = winValueXCoordinate * 1.705f;
-            Vector2 lossOffset = new Vector2(lossValueXCoordinate, textYCoordinate);
-            drawText(loss, lossOffset, textWidth,
-                    graphics2D, layerViewport, screenViewport);
-
-            textYCoordinate += getHeight() * 0.12f;
-        }
+        //Draw Users information of the LeaderBoard
+        drawUsers(graphics2D, layerViewport, screenViewport);
     }
 
     /**
@@ -172,6 +151,51 @@ public class LeaderBoard extends Sprite {
         graphics2D.drawText(text, textPosition.x, textPosition.y, mTextPaint);
     }
 
+
+    /**
+     * Draw the Information for Top 5
+     * Users on the board
+     *
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
+     */
+    private void drawUsers(IGraphics2D graphics2D, LayerViewport layerViewport,
+                           ScreenViewport screenViewport){
+        //Iterates through the top 5 users
+        for(int i = 0; i<numOfUsers; i++){
+            //Define the User information to be displayed on the LeaderBoard
+            User user = aUserList.get(i);
+            String win = Integer.toString(aUserList.get(i).getWins());
+            String loss = Integer.toString(aUserList.get(i).getLosses());
+            String userName = user.getName();
+
+            //Draw the Users name[Niamh McCartney]
+            float playerNameXCoordinate = getWidth() * -0.165f;
+            Vector2 playerNameOffset = new Vector2(playerNameXCoordinate, textYCoordinate);
+            drawText(userName, playerNameOffset, textWidth,
+                    graphics2D, layerViewport, screenViewport);
+
+
+            //Draw the number of games the User has won[Niamh McCartney]
+            float winValueXCoordinate = playerNameXCoordinate * -1.035f;
+            Vector2 winOffset = new Vector2(winValueXCoordinate, textYCoordinate);
+            drawText(win, winOffset, textWidth,
+                    graphics2D, layerViewport, screenViewport);
+
+
+            //Draw the number of games the User has lost[Niamh McCartney]
+            float lossValueXCoordinate = winValueXCoordinate * 1.705f;
+            Vector2 lossOffset = new Vector2(lossValueXCoordinate, textYCoordinate);
+            drawText(loss, lossOffset, textWidth,
+                    graphics2D, layerViewport, screenViewport);
+
+            textYCoordinate += getHeight() * 0.12f;
+        }
+    }
+
     /**
      * Sets paint properties for card text
      *
@@ -202,7 +226,7 @@ public class LeaderBoard extends Sprite {
      *
      * Created by Niamh McCartney
      */
-    private void sortArrayList(){
+    private void sortUserList(){
         Collections.sort(aUserList, Collections.<User>reverseOrder());
 
         if(aUserList.size() < 5){

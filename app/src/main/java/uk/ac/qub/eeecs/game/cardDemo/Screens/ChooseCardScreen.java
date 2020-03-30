@@ -76,9 +76,9 @@ public class ChooseCardScreen extends GameScreen {
     //background [Irene Bhuiyan]
     private GameObject chooseCardBackground;
 
-    //Define the audioManager used by the screen
+    //Define the AudioManager used by the screen
     private AudioManager audioManager;
-    //Define the assetManager used by the screen
+    //Define the AssetManager used by the screen
     private AssetManager assetManager;
     //Define the CardStore used by the screen
     private CardStore cardStore;
@@ -488,9 +488,6 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void addBackButton() {
 
-        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-
         backButton = new PushButton(20.0f, 40.0f,
                 50.0f, 50.0f,
                 "BackArrow", "BackArrowSelected", this);
@@ -559,10 +556,8 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void loadScreenAssets() {
-        // Load the various images used by the cards
         assetManager.loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         assetManager.loadAssets("txt/assets/CardAssets.JSON");
-        assetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
     }
 
 }

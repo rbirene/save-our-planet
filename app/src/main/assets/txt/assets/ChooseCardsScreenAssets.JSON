@@ -7,6 +7,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "chooseCardBackground",
+      "file": "img/Backgrounds/chooseCardBackground.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "BackArrow",
       "file": "img/BackArrow.png"
     },
@@ -29,6 +34,26 @@
       "type": "Bitmap",
       "name": "shuffleBtn",
       "file": "img/Buttons/btnShuffle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "infoBtn",
+      "file": "img/Buttons/infoBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "infoBtnSelected",
+      "file": "img/Buttons/infoBtnSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settingsBtn",
+      "file": "img/Buttons/settingsBtn.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "settingsBtnSelected",
+      "file": "img/Buttons/settingsBtnSelected.png"
     }
   ]
 }

@@ -33,17 +33,14 @@ public class MenuScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //define HashMap to contain all hero cards[Niamh McCartney]
+    //Define HashMap to contain all hero cards[Niamh McCartney]
     private HashMap<String, Card> heroCardPool;
-
-    //define HashMap to contain all villain cards[Niamh McCartney]
+    //Define HashMap to contain all villain cards[Niamh McCartney]
     private HashMap<String, Card> villainCardPool = new HashMap<>();
     private HashMap<String, Card> screenCardPool = new HashMap<>();
 
-    /** define card and deck objects used during
-     * generation of the player decks
-     * [Niamh McCartney]
-     */
+    //Define card and deck objects used during
+    // generation of the player decks [Niamh McCartney]
     private Card randCard;
     private Card Card01;
     private Card Card02;
@@ -51,26 +48,26 @@ public class MenuScreen extends GameScreen {
 
     private Deck deck;
 
+    //Define Hero and Villain used by Game and their Decks [Niamh McCartney]
     private Hero hero = getGame().getHero();
     private Villain villain = getGame().getVillain();
-    //define Hero and Villains and their Decks [Niamh McCartney]
     private Deck heroDeck = getGame().getHero().getPlayerDeck();
     private Deck villainDeck = getGame().getVillain().getPlayerDeck();
 
 
-    //define game dimensions and viewports [Irene Bhuiyan]
+    //Define game dimensions and viewports [Irene Bhuiyan]
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
     private int gameHeight, gameWidth;
 
-    //define buttons [Irene Bhuiyan]
-    private PushButton infoButton;
-    private PushButton settingsButton;
-    private PushButton playGame;
-    private PushButton exit;
-    private PushButton leaderBoardsButton;
+    //Define buttons
+    private PushButton infoButton; //[Niamh McCartney]
+    private PushButton settingsButton;//[Niamh McCartney]
+    private PushButton playGame; //[Irene Bhuiyan]
+    private PushButton exit; //[Irene Bhuiyan]
+    private PushButton leaderBoardsButton; //[Irene Bhuiyan]
 
-    //background [Irene Bhuiyan]
+    //Background [Irene Bhuiyan]
     private GameObject menuBackground;
 
     private AssetManager assetManager;
@@ -103,19 +100,10 @@ public class MenuScreen extends GameScreen {
         Bitmap menuBackgroundImg = assetManager.getBitmap("menuBackground");
         menuBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, menuBackgroundImg , this);
 
-        //creates hero deck if deck is not already created [Niamh McCartney]
-        if(heroDeck == null ) {
-            //Create Hero Deck
-            createHeroDeck();
-        }
+        //Create Player Decks used during Game [Niamh McCartney]
+        createPlayerDecks();
 
-        //creates villain deck if deck is not already created [Niamh McCartney]
-        if(villainDeck == null ) {
-            //Create villain Deck
-            createVillainDeck();
-        }
-
-        // add buttons [Niamh McCartney]
+        //Add buttons [Niamh McCartney]
         addInfoButton();
         addSettingsButton();
         addLeaderBoardButton();
@@ -222,6 +210,25 @@ public class MenuScreen extends GameScreen {
         //create deck with new Cards
         deck = new Deck(Card01, Card02, Card03);
         return deck;
+    }
+
+    /**
+     * Create Player Decks used during Gameplay
+     *
+     *  Created By Niamh McCartney
+     */
+    private void createPlayerDecks(){
+        //creates hero deck if deck is not already created
+        if(heroDeck == null || !heroDeck.getDeckCreated()) {
+            //Create Hero Deck
+            createHeroDeck();
+        }
+
+        //creates villain deck if deck is not already created
+        if(villainDeck == null || !villainDeck.getDeckCreated()) {
+            //Create villain Deck
+            createVillainDeck();
+        }
     }
 
     /**

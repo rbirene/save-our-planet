@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
@@ -27,10 +28,15 @@ public class EndGame extends GameScreen {
 
     private Boolean winner;
 
-    //Define the Game's UserStore
+    //Define the Game's UserStore[Niamh McCartney]
     private UserStore userStore;
-    //Define the Game's Current User
+
+    //Define the Game's Current User[Niamh McCartney]
     private User currentUser;
+
+    //Define player decks used by the Game
+    private Deck heroDeck;
+    private Deck villainDeck;
 
 
     public EndGame(Game game, boolean winner) {
@@ -47,7 +53,10 @@ public class EndGame extends GameScreen {
         //set screen properties [Niamh McCartney]
         userStore = game.getUserStore();
         currentUser = game.getCurrentUser();
+        heroDeck = game.getHero().getPlayerDeck();
+        villainDeck = getGame().getVillain().getPlayerDeck();
 
+        //Loads the assets used by the screen [Niamh McCartney]
         loadScreenAssets();
 
         String resultString;
@@ -63,8 +72,12 @@ public class EndGame extends GameScreen {
         result = new GameObject(mDefaultLayerViewport.halfWidth, mDefaultLayerViewport.halfHeight,
                 mDefaultLayerViewport.getHeight(), mDefaultLayerViewport.getHeight(), game.getAssetManager().getBitmap(resultString), this);
 
-
+        //Updates the Game's UserStore[Niamh McCartney]
         updateUserStore();
+
+        //Ensures new player decks are created if User decides to play again [Niamh McCartney]
+        heroDeck.setDeckCreated(false);
+        villainDeck.setDeckCreated(false);
     }
 
     @Override

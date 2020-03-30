@@ -1,7 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import java.util.ArrayList;
 
@@ -23,45 +22,60 @@ public class LeaderBoardScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Define the LeaderBoard object to display the list of Users and their scores
+    //Define the LeaderBoard object which displays list of top Users and their scores
     private LeaderBoard board;
 
-    //Define the AssetManager
+    //Define the AssetManager used by the screen
     private AssetManager assetManager;
 
     //Define the background of the Screen as a GameObject
     private GameObject screenBackground;
 
-    //Define the list of Users
+    //Define the list of stored Users
     private ArrayList<User> userList;
 
     //Bitmap containing the background image for the screen
     private Bitmap screenBackgroundImage;
 
-    //Define the Buttons
+    //Define screen buttons
     private PushButton backButton;
 
+    //Define screen viewports
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
+
+    //Define the screen dimensions
     private int gameHeight, gameWidth;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the LeaderBoard game screen
+     *
+     * @param game Game to which this screen belongs
+     *
+     * Created by Niamh McCartney
+     */
     public LeaderBoardScreen(Game game) {
         super("LeaderBoard", game);
+
+        //Initialise the Screen properties//
+
+        userList = game.getUserStore().getUserList();
+        assetManager = getGame().getAssetManager();
+
+        gameWidth = game.getScreenWidth();
+        gameHeight = game.getScreenHeight();
+
+        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
+        LayerViewport = mDefaultLayerViewport;
 
         //Load assets used by screen
         loadScreenAssets();
 
-        //Initialise the Screen properties
-        userList = game.getUserStore().getUserList();
-        gameWidth = game.getScreenWidth();
-        gameHeight = game.getScreenHeight();
-        ScreenViewport = new ScreenViewport(0, 0, gameWidth, gameHeight);
-        LayerViewport = mDefaultLayerViewport;
-
+        //Create the screen objects
         createBoard();
         createScreenBackground();
 
@@ -83,8 +97,11 @@ public class LeaderBoardScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
+        //Draw screen background
         screenBackground.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        //Draw LeaderBoard
         board.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        //Draw screen Buttons
         backButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 
@@ -97,10 +114,10 @@ public class LeaderBoardScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
-        //update buttons displayed on the screen
+        //Update buttons displayed on the screen
         backButton.update(elapsedTime);
 
-        //if back button is pushed then return to the MenuScreen
+        //If backButton is pushed then return to the MenuScreen
         if (backButton.isPushTriggered())
             mGame.getScreenManager().removeScreen(this);
     }
@@ -111,7 +128,6 @@ public class LeaderBoardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     public void loadScreenAssets(){
-        assetManager = getGame().getAssetManager();
         assetManager.loadAssets("txt/assets/LeaderboardScreenAssets.JSON");
         screenBackgroundImage = assetManager.getBitmap("ScreenBackground");
     }
@@ -148,10 +164,6 @@ public class LeaderBoardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void addBackButton() {
-
-        mGame.getAssetManager().loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        mGame.getAssetManager().loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-
         backButton = new PushButton(20.0f, 40.0f,
                 50.0f, 50.0f,
                 "BackArrow", "BackArrowSelected", this);
