@@ -16,6 +16,17 @@ import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
+/**
+ * Defines a PopUp which displays an editable text box
+ * and a list of all the Users to have played the Game.
+ * The User has the choice of selecting a previous User
+ * to continue as or creating a new User by writing
+ * their name in the text box. The User must then select
+ * one of two buttons depending on which choice they made.
+ * This will dismiss the PopUp.
+ *
+ * Created By Niamh McCartney
+ */
 public class FormPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
@@ -66,6 +77,18 @@ public class FormPopUp extends PopUp{
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the FormPopUp object
+     *
+     * @param activity activity the pop up was called in
+     * @param game the Game the PopUp is created in
+     * @param msg message to be displayed by the PopUp
+     * @param imageBackgroundColour Background colour of the PopUp
+     * @param imageID ID of the PopUp image in the drawable folder
+     * @param buttonImageID ID of the button background image in the drawable folder
+     *
+     * Created by Niamh McCartney
+     */
     public FormPopUp(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
         super(activity, msg, R.layout.form_window, imageBackgroundColour);
 

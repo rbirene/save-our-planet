@@ -11,7 +11,7 @@ import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 /**
- * defines the methods and
+ * Defines the methods and
  * properties of a Hero Card
  *
  * Created by Niamh McCartney
@@ -19,12 +19,19 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
 public class HeroCard extends Card {
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
 
     private Bitmap cardBase;
     private Bitmap cardBaseSelected;
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
-     * Constructs the Card object
+     * Constructs the Hero Card object
      *
      * @param x             Centre y location of the platform
      * @param y             Centre x location of the platform
@@ -36,17 +43,50 @@ public class HeroCard extends Card {
      * @param mAttack       Attack value of the Card
      * @param mHealth       Health value of the Card
      * @param portraitYPos  The Y co-ordinate of the Card
+     *
+     * Created by Niamh McCartney
      */
     public HeroCard(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(x, y, gameScreen, mName, cardTypeValue, mCardPortrait, scaleValue, mAttack, mHealth, portraitYPos);
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Draw the Hero Card Object
+     *
+     * @param elapsedTime    Elapsed time information
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
+     */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D,
                      LayerViewport layerViewport, ScreenViewport screenViewport){
         super.draw(elapsedTime, graphics2D, layerViewport, screenViewport);
 
-        // Draw the attack value depending on how many digits it has [Niamh McCartney]
+        //Draw the attack value depending on how many digits it has
+        drawAttackValue(graphics2D, layerViewport, screenViewport);
+
+        //Draw the health value depending on how many digits it has
+        drawHealthValue(graphics2D, layerViewport, screenViewport);
+    }
+
+    /**
+     * Draws the attack value of the Card onto the Card
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
+     */
+    @Override
+    protected void drawAttackValue(IGraphics2D graphics2D,
+                                   LayerViewport layerViewport, ScreenViewport screenViewport){
         //if attack has one digit
         if(attackLength == 1){
             mAttackOffset = mAttackContainerOffset;
@@ -60,16 +100,27 @@ public class HeroCard extends Card {
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(attack).charAt(1)));
-           mAttackOffset = new Vector2(0.69f, -0.18f);
+            mAttackOffset = new Vector2(0.69f, -0.18f);
             drawBitmap(mCardDigits[secondDigit], mAttackOffset, mAttackScale,
                     graphics2D, layerViewport, screenViewport);
         }
+    }
 
-        // Draw the health value[Niamh McCartney]
+    /**
+     * Draws the health value of the Card onto the Card
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
+     */
+    @Override
+    protected void drawHealthValue(IGraphics2D graphics2D,
+                                   LayerViewport layerViewport, ScreenViewport screenViewport){
         //if health has one digit
         if(healthLength == 1){
-           mHealthOffset = mHealthContainerOffset;
-           drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
+            mHealthOffset = mHealthContainerOffset;
+            drawBitmap(mCardDigits[health], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
         }//if health has two digits
         else if(healthLength == 2){
@@ -79,7 +130,7 @@ public class HeroCard extends Card {
                     graphics2D, layerViewport, screenViewport);
 
             int secondDigit = Character.getNumericValue((String.valueOf(health).charAt(1)));
-           mHealthOffset = new Vector2(-0.65f, -0.18f);
+            mHealthOffset = new Vector2(-0.65f, -0.18f);
             drawBitmap(mCardDigits[secondDigit], mHealthOffset, mHealthScale,
                     graphics2D, layerViewport, screenViewport);
         }
@@ -110,8 +161,6 @@ public class HeroCard extends Card {
         mHealthContainer = assetManager.getBitmap("HealthContainer");
         mHealthContainerScale = new Vector2(0.15f, 0.15f);
         mHealthContainerOffset = new Vector2(-0.7f, -0.18f);
-        textXpos = 0.15f;
-
+        textYPosScale = 0.15f;
     }
 }
-

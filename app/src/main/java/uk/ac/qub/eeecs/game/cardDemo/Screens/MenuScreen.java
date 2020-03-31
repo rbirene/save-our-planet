@@ -25,7 +25,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 /**
  * This class creates the MenuScreen
  *
- * @version 1.0
  */
 public class MenuScreen extends GameScreen {
 
@@ -65,11 +64,12 @@ public class MenuScreen extends GameScreen {
     private PushButton settingsButton;//[Niamh McCartney]
     private PushButton playGame; //[Irene Bhuiyan]
     private PushButton exit; //[Irene Bhuiyan]
-    private PushButton leaderBoardsButton; //[Irene Bhuiyan]
+    private PushButton leaderBoardsButton; //[Niamh McCartney]
 
     //Background [Irene Bhuiyan]
     private GameObject menuBackground;
 
+    //define the AssetManager used by the Game
     private AssetManager assetManager;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -142,16 +142,16 @@ public class MenuScreen extends GameScreen {
 
             if (playGame.isPushTriggered()){
                 mGame.getScreenManager().addScreen(new ChooseCardScreen(mGame));
-            }
+            }//If infoButton is selected take User to Instructions Screen [Niamh McCartney]
             else if (infoButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
-            }
+            }//If settingsButton is selected take User to Options Screen [Niamh McCartney]
             else if(settingsButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
             }
             else if(exit.isPushTriggered()) {
                 System.exit(1);
-            }
+            }//If leaderBoardsButton is selected take User to LeaderBoard Screen [Niamh McCartney]
             else if(leaderBoardsButton.isPushTriggered()) {
                 mGame.getScreenManager().addScreen(new LeaderBoardScreen(mGame));
             }
@@ -205,7 +205,6 @@ public class MenuScreen extends GameScreen {
                     Card03 = randCard;
                 }
             }
-
         }
         //create deck with new Cards
         deck = new Deck(Card01, Card02, Card03);

@@ -7,6 +7,17 @@ import android.widget.Button;
 import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
+/**
+ * Defines a PopUp that displays a question to
+ * the user. Includes an image and two buttons
+ * (true and false). The User can answer the
+ * question by selecting one of these buttons.
+ * This action creates an InfoPopUp object to
+ * inform the User of the outcome of their
+ * decision
+ *
+ * Created By Niamh McCartney
+ */
 public class TrueFalseQuestionPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
@@ -31,14 +42,27 @@ public class TrueFalseQuestionPopUp extends PopUp{
     //Define the false button displayed on the Pop-Up
     private Button falseButton;
 
+    //Returns true if the User answers correctly
     private Boolean answerCorrect;
 
+    //Returns true if the User has answered the question
     private Boolean questionAnswered;
 
 // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the TrueFalseQuestionPopUp object
+     *
+     * @param activity activity the pop up was called in
+     * @param questionText question to be displayed
+     * @param answer the answer to the question
+     * @param imageBackgroundColour Background colour of the PopUp
+     * @param imageID ID of the image in the drawable folder
+     *
+     * Created by Niamh McCartney
+     */
     public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer, ColourEnum imageBackgroundColour, int imageID){
         super(activity, questionText, R.layout.question_window, imageBackgroundColour);
 

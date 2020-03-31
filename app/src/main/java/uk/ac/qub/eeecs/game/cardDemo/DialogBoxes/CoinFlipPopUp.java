@@ -1,23 +1,26 @@
 package uk.ac.qub.eeecs.game.cardDemo.DialogBoxes;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
+/**
+ * Defines a PopUp that displays an image of a coin, a button
+ * and a message prompting the User to select the button to
+ * flip the coin. If the button is selected the image will be
+ * replaced by a GIF of a button being flipped and the outcome
+ * of the toss will be displayed to the User. The User must
+ * select the button again to dismiss the PopUp
+ *
+ * Created By Niamh McCartney
+ */
 public class CoinFlipPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
@@ -35,13 +38,25 @@ public class CoinFlipPopUp extends PopUp{
 
     private Runnable mUpdateDialog;
 
+    //Returns true if the user has pressed the button to flip the coin
     private Boolean coinFlipped;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
-    public CoinFlipPopUp(Activity activity, String message, final String firstPlayerName, ColourEnum imageBackgroundColour){
+    /**
+     * Create the CoinFlipPopUp object
+     *
+     * @param activity activity the pop up was called in
+     * @param message the message to be displayed by the PopUp
+     * @param firstPlayerName the name of the player who has been chosen to take the first turn
+     * @param imageBackgroundColour Background colour of the PopUp
+     *
+     * Created by Niamh McCartney
+     */
+    public CoinFlipPopUp(Activity activity, String message, final String firstPlayerName,
+                         ColourEnum imageBackgroundColour){
         super(activity, message, R.layout.coinflip_window, imageBackgroundColour);
 
         //Initialise the classes' properties
@@ -100,7 +115,8 @@ public class CoinFlipPopUp extends PopUp{
             @Override
             public void onClick(View v) {
 
-                // If first turn has not been decided and the button is pressed then execute the following changes
+                // If first turn has not been decided and the button
+                // is pressed then execute the following changes
                 if(text.getText().equals("Flip the coin to decide who goes first")) {
 
                     //change the png image to a gif
@@ -114,7 +130,8 @@ public class CoinFlipPopUp extends PopUp{
                     int time = 2000;
                     handler.postDelayed(mUpdateDialog, time);
 
-                }//When the first turn has been decided and the button is pressed again then cancel the dialog box
+                }//When the first turn has been decided and the button
+                // is pressed again then cancel the dialog box
                 else{
                     setCoinFlipped(true);
                     getDialog().dismiss();

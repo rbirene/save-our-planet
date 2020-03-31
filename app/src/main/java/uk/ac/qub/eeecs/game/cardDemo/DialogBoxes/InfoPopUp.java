@@ -7,6 +7,14 @@ import android.widget.Button;
 import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
+/**
+ * Defines a PopUp that displays an informative
+ * message to the user. Includes an image and a
+ * button which the User must press to dismiss
+ * the PopUp
+ *
+ * Created By Niamh McCartney
+ */
 public class InfoPopUp extends PopUp{
 
     // /////////////////////////////////////////////////////////////////////////
@@ -29,6 +37,18 @@ public class InfoPopUp extends PopUp{
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the InfoPopUp object
+     *
+     * @param activity activity the pop up was called in
+     * @param message the message to be displayed by the PopUp
+     * @param imageBackgroundColour Background colour of the PopUp
+     * @param imageID ID of the PopUp image in the drawable folder
+     * @param buttonText text to be displayed on the PopUp's button
+     * @param buttonImageID ID of the button background image in the drawable folder
+     *
+     * Created by Niamh McCartney
+     */
     public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour, int imageID, String buttonText, int buttonImageID){
         super(activity, message, R.layout.info_window, imageBackgroundColour);
 

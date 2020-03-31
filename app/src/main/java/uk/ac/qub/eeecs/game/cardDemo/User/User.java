@@ -1,33 +1,54 @@
 package uk.ac.qub.eeecs.game.cardDemo.User;
 
+/**
+ * Defines User object to contain information
+ * on Game's Users and provide methods to
+ * access and modify this information. Implements
+ * Comparable interface to provide ability to
+ * compare and rank Users
+ *
+ * Created By Niamh McCartney
+ */
 public class User implements Comparable<User>{
+
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Defines the User's name
+    //Define the User's name
     private String name;
 
-    //Defines the number of games the User has won
+    //Define the number of games the User has won
     private int wins;
-    //Defines the number of games the User has lost
+    //Define the number of games the User has lost
     private int losses;
-    //Defines the number of games the User has played
+    //Define the number of games the User has played
     private int gamesPlayed;
 
-    //Defines the User's WinRateRatio (wins/gamePlayed)
+    //Define the User's WinRateRatio (wins/gamePlayed)
     private double winRateRatio;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the User object
+     *
+     * @param name User's Name
+     * @param numOfWins Number of games User has won
+     * @param numOfLosses Number of games User has lost
+     *
+     * Created by Niamh McCartney
+     */
     public User(String name, int numOfWins, int numOfLosses){
+        //Define the parameters
         this.name = name;
         this.wins = numOfWins;
         this.losses = numOfLosses;
 
-        winRateRatio = 0;
+        //Initialise the LeaderBoard properties
+        this.winRateRatio = 0;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -63,6 +84,12 @@ public class User implements Comparable<User>{
         gamesPlayed = wins + losses;
     }
 
+    /**
+     * Calculates the User's
+     * WinRateRatio
+     *
+     * Created By Niamh McCartney
+     */
     private void calculateWinRateRatio() {
         if(getGamesPlayed() == 0 && wins == 0){
             winRateRatio = 0.0;

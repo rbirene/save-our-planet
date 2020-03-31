@@ -13,7 +13,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
  *
  * Created By Niamh McCartney
  */
-
 public class Deck {
 
     // /////////////////////////////////////////////////////////////////////////
@@ -49,9 +48,12 @@ public class Deck {
      * Created by Niamh McCartney
      */
     public Deck(Card card1, Card card2, Card card3){
+        //Define the parameters
         card01 = card1;
         card02 = card2;
         card03 = card3;
+
+        //Initialise the Deck properties
 
         cardDeck = new ArrayList<>();
 
@@ -63,7 +65,6 @@ public class Deck {
         deckShuffled = false;
         deckCreated = true;
         deckChanged = false;
-
     }
 
     // /////////////////////////////////////////////////////////////////////////

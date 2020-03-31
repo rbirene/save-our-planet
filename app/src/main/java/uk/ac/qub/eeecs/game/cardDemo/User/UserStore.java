@@ -13,6 +13,15 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 
+/**
+ * Contains list of the Game's Users
+ * Provides methods to access User
+ * objects and makes use of Shared
+ * Preferences to load and save Users
+ * and their information
+ *
+ * Created By Niamh McCartney
+ */
 public class UserStore {
 
     // /////////////////////////////////////////////////////////////////////////
@@ -41,6 +50,15 @@ public class UserStore {
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the UserStore object and load
+     * the Users from Shared Preferences
+     *
+     * @param game Game the UserStore object belongs to
+     * @param cxt Context of the Game the UserStore is in
+     *
+     * Created by Niamh McCartney
+     */
     public UserStore(Game game, Context cxt){
         // Define the parameters
         this.context = cxt;
@@ -68,9 +86,13 @@ public class UserStore {
      * Created By Niamh McCartney
      */
     private void loadUserObjects() {
-        // Load in the list of User objects
-        Type type = new TypeToken<List<User>>(){}.getType();
+        // Load in the list of User objects as a JSON object using Shared Preferences
         String loadedUsersList = sp.getString("UserData", "");
+
+        //Get type of object to covert JSON string to
+        Type type = new TypeToken<List<User>>(){}.getType();
+
+        //Convert list of JSON objects to list of User object using GSON
         ArrayList<User> users = gson.fromJson(loadedUsersList, type);
 
         // Add each User to the userList
@@ -99,11 +121,20 @@ public class UserStore {
      * Created By Niamh McCartney
      */
     public void saveUsers(){
-        String accountsJson = gson.toJson(userList);
-        editor.putString("UserData", accountsJson);
+        String userJsonString = gson.toJson(userList);
+        editor.putString("UserData", userJsonString);
         editor.apply();
     }
 
+    /**
+     * Check the UserStore to see if any Users have a
+     * given name. If true return the position of the
+     * User in the UserStore. If false return -1.
+     *
+     * @param userName Name to check UserStore for
+     *
+     * Created By Niamh McCartney
+     */
     public int checkUserStore(String userName){
         for(int i = 0; i<getNumOfUsers(); i++){
             String name = userList.get(i).getName();

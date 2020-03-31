@@ -1,13 +1,38 @@
 package uk.ac.qub.eeecs.game.cardDemo.Colour;
 
+/**
+ * Provides information on
+ * a particular Colour
+ *
+ * Created By Niamh McCartney
+ */
 public class Colour {
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Properties
+    // /////////////////////////////////////////////////////////////////////////
+
+    //Name of Colour
     private ColourEnum colour;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Constructor
+    // /////////////////////////////////////////////////////////////////////////
 
     public Colour(ColourEnum colourName){
         colour = colourName;
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns Colour Code of Colour
+     * used during design of Game objects
+     *
+     * Created By Niamh McCartney
+     */
     public String getColourCode(){
             String colourCode;
 
@@ -34,7 +59,7 @@ public class Colour {
 
                 case ORANGE : colourCode = "#FFA500";
                     break;
-                // below is default statement, used when none of the cases is true.
+                // below is default statement, used when none of the cases are true.
                 default : colourCode = "#FFFFFF";
 
             }

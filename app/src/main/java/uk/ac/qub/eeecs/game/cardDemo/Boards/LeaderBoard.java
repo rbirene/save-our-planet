@@ -18,6 +18,14 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
+/**
+ * Defines LeaderBoard object
+ * to display information on
+ * the Game's Top 5 Users from
+ * best to worst
+ *
+ * Created By Niamh McCartney
+ */
 public class LeaderBoard extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -32,6 +40,7 @@ public class LeaderBoard extends Sprite {
     //Define the LeaderBoard image
     private Bitmap leaderBoardImage;
 
+    //Paint used to draw text on the LeaderBoard
     private Paint mTextPaint;
 
     //Define the list of all the saved Users
@@ -62,14 +71,15 @@ public class LeaderBoard extends Sprite {
      *
      * Created by Niamh McCartney
      */
-    public LeaderBoard(float xPos, float yPos, GameScreen screen, float width, float height, ArrayList<User> userList){
+    public LeaderBoard(float xPos, float yPos, GameScreen screen, float width,
+                       float height, ArrayList<User> userList){
         super(xPos, yPos, width, height, null, screen);
 
         //Define the parameters
         this.aScreen = screen;
         this.aUserList = userList;
 
-        //Initialise the UserStore properties
+        //Initialise the LeaderBoard properties
         this.textWidth = getHeight() * 0.7f;
 
         //Load the images used by the LeaderBoard object
@@ -116,14 +126,16 @@ public class LeaderBoard extends Sprite {
      * position of this game object) and scaling (relative to the size of this game
      * object).
      *
-     * @param text line of text to be drawn on Card
+     * @param text text to be drawn on LeaderBoard
      * @param offset Offset vector
      * @param textWidth distance between characters
      * @param graphics2D Graphics instance
      * @param layerViewport  Game layer viewport
      * @param screenViewport Screen viewport
      *
-     * Code taken from lecture code
+     * Code taken from 'Card.java' in the
+     * 'CardHandAnimationLectureCode.zip' shown
+     * during Week 14 lecture - NO MODIFICATIONS MADE
      *
      */
     private void drawText(String text, Vector2 offset, float textWidth,
@@ -135,8 +147,10 @@ public class LeaderBoard extends Sprite {
                 layerViewport, this.position, screenViewport, textPosition);
 
         //x and y Co-ordinates for text
-        textPosition.x += ViewportHelper.convertXDistanceFromLayerToScreen(offset.x, layerViewport, screenViewport);
-        textPosition.y += ViewportHelper.convertYDistanceFromLayerToScreen(offset.y, layerViewport, screenViewport);
+        textPosition.x += ViewportHelper.convertXDistanceFromLayerToScreen(offset.x,
+                layerViewport, screenViewport);
+        textPosition.y += ViewportHelper.convertYDistanceFromLayerToScreen(offset.y,
+                layerViewport, screenViewport);
 
 
         float targetSize
@@ -166,40 +180,58 @@ public class LeaderBoard extends Sprite {
                            ScreenViewport screenViewport){
         //Iterates through the top 5 users
         for(int i = 0; i<numOfUsers; i++){
+
             //Define the User information to be displayed on the LeaderBoard
             User user = aUserList.get(i);
-            String win = Integer.toString(aUserList.get(i).getWins());
-            String loss = Integer.toString(aUserList.get(i).getLosses());
+            String wins = Integer.toString(aUserList.get(i).getWins());
+            String losses = Integer.toString(aUserList.get(i).getLosses());
             String userName = user.getName();
 
-            //Draw the Users name[Niamh McCartney]
+            //Draw the User's name
             float playerNameXCoordinate = getWidth() * -0.165f;
-            Vector2 playerNameOffset = new Vector2(playerNameXCoordinate, textYCoordinate);
-            drawText(userName, playerNameOffset, textWidth,
-                    graphics2D, layerViewport, screenViewport);
+            drawUserInformation(userName, playerNameXCoordinate, graphics2D,
+                    layerViewport, screenViewport);
 
-
-            //Draw the number of games the User has won[Niamh McCartney]
+            //Draw the number of games the User has won
             float winValueXCoordinate = playerNameXCoordinate * -1.035f;
-            Vector2 winOffset = new Vector2(winValueXCoordinate, textYCoordinate);
-            drawText(win, winOffset, textWidth,
-                    graphics2D, layerViewport, screenViewport);
+            drawUserInformation(wins, winValueXCoordinate, graphics2D,
+                    layerViewport, screenViewport);
 
 
-            //Draw the number of games the User has lost[Niamh McCartney]
+            //Draw the number of games the User has lost
             float lossValueXCoordinate = winValueXCoordinate * 1.705f;
-            Vector2 lossOffset = new Vector2(lossValueXCoordinate, textYCoordinate);
-            drawText(loss, lossOffset, textWidth,
-                    graphics2D, layerViewport, screenViewport);
+            drawUserInformation(losses, lossValueXCoordinate, graphics2D,
+                    layerViewport, screenViewport);
 
             textYCoordinate += getHeight() * 0.12f;
         }
     }
 
     /**
-     * Sets paint properties for card text
+     * Draw User Information
+     *
+     * @param information    information to be displayed
+     * @param xCoordinate    x co-ordinate of information
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
      *
      * Created by Niamh McCartney
+     */
+    private void drawUserInformation(String information, float xCoordinate, IGraphics2D graphics2D,
+                                     LayerViewport layerViewport, ScreenViewport screenViewport){
+
+        Vector2 informationOffset = new Vector2(xCoordinate, textYCoordinate);
+        drawText(information, informationOffset, textWidth,
+                graphics2D, layerViewport, screenViewport);
+    }
+
+    /**
+     * Sets paint properties for LeaderBoard text
+     *
+     * Code taken from 'Card.java' in the
+     * 'CardHandAnimationLectureCode.zip' shown
+     * during Week 14 lecture - PARAMETERS CHANGED
      */
     private void setupTextPaint() {
         mTextPaint = new Paint();
@@ -232,6 +264,5 @@ public class LeaderBoard extends Sprite {
         if(aUserList.size() < 5){
             numOfUsers = aUserList.size();
         }else{ numOfUsers = 5;}
-
     }
 }

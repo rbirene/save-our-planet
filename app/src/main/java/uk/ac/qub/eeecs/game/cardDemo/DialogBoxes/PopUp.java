@@ -14,18 +14,30 @@ import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
+/**
+ * Defines a PopUp that can be used to display information
+ * to the User and allows User interaction/input. All PopUps
+ * include a message, a background and a button for User
+ * input
+ *
+ * Created By Niamh McCartney
+ */
 public abstract class PopUp {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
+    //Background colour of the PopUp object
     private ColourEnum backgroundColour;
 
+    //Activity the pop up was called in
     private Activity activity;
 
+    //Message displayed by the PopUp object
     private String message;
 
+    //Defines dialog object used to display the PopUp on screen
     private Dialog dialog;
 
     private int ui_flags;
@@ -34,6 +46,16 @@ public abstract class PopUp {
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Create the PopUp object
+     *
+     * @param activity activity the pop up was called in
+     * @param msg message to be displayed by the PopUp
+     * @param msg message to be displayed by the PopUp
+     * @param imageBackgroundColour Background colour of the PopUp
+     *
+     * Created by Niamh McCartney
+     */
     public PopUp(Activity activity, String msg, int popUpLayout, ColourEnum imageBackgroundColour){
         //Define the parameters
         this.activity = activity;
@@ -122,8 +144,8 @@ public abstract class PopUp {
      * Created By Niamh McCartney
      */
     protected void setTextProperties(int textID){
-        //Set Dialog message
         TextView text = dialog.findViewById(R.id.text_dialog);
+        //Set PopUp message
         text.setText(message);
     }
 

@@ -5,30 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import uk.ac.qub.eeecs.game.cardDemo.Screens.EndGame;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.SplashScreen;
 import uk.ac.qub.eeecs.gage.Game;
 
 /**
- * Sample demo game that is create within the MainActivity class
+ * Game that is create within the MainActivity class
+ * This class is based off the 'DemoGame' class in
+ * the original Gage code
  *
- * @version 1.0
  */
 public class SaveOurPlanetGame extends Game {
 
     /**
-     * Create a new demo game
+     * Create a new game
      */
     public SaveOurPlanetGame() {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see uk.ac.qub.eeecs.gage.Game#onCreate(android.os.Bundle)
-     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +39,6 @@ public class SaveOurPlanetGame extends Game {
 
         // Call the Game's onCreateView to get the view to be returned.
         View view = super.onCreateView(inflater, container, savedInstanceState);
-
-        // Create and add a stub game screen to the screen manager. We don't
-        // want to do this within the onCreate method as the menu screen
-        // will layout the buttons based on the size of the view.
 
         SplashScreen SplashScreen = new SplashScreen(this);
         mScreenManager.addScreen(SplashScreen);
