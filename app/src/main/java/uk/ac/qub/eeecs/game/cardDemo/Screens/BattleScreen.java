@@ -1,8 +1,6 @@
 package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import android.graphics.Paint;
-import android.os.Handler;
-import android.os.Looper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Player;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
-import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
 import static uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum.*;
 
@@ -47,12 +44,13 @@ public class BattleScreen extends GameScreen {
 
     private boolean paused = false;
 
-    private GameObject pauseMenu, heroAvatarImg, villainAvatarImg;
+    private GameObject pauseMenu;
 
     private Paint paint;
 
     private GameBoard board;
 
+    //Define managers used by the screen
     private AssetManager assetManager = mGame.getAssetManager();
     private ScreenManager screenManager = mGame.getScreenManager();
     private AudioManager audioManager = getGame().getAudioManager();
@@ -67,10 +65,8 @@ public class BattleScreen extends GameScreen {
     private Deck heroDeck = hero.getPlayerDeck();
     private Deck villainDeck = villain.getPlayerDeck();
 
-    private User currentUser = mGame.getCurrentUser();
-
+    //Define the player who takes the first turn[Niamh McCartney]
     private Player firstPlayer;
-    private Player secondPlayer;
 
     //Define Card width and Height[Niamh McCartney]
     private int cardHeight = 72;
@@ -79,6 +75,7 @@ public class BattleScreen extends GameScreen {
     //Define spacing between Cards[Niamh McCartney]
     private int spacing = 50;
 
+    //Define number of bonus questions the user is allowed to answer inn one game [Niamh McCartney]
     private int numOfQuestions = 3;
 
     private float heroCardXPosScale = 0.13f;
@@ -92,17 +89,20 @@ public class BattleScreen extends GameScreen {
     private PushButton endTurnButton;
     private PushButton bonusButton; // [William Oliver]
 
-    //Define up game height and width
+    //Define game height and width
     private int gameHeight;
     private int gameWidth;
 
-    //returns true if the player to take the first turn has been decided[Niamh McCartney]
+    //Returns true if the player to take the first turn has been decided[Niamh McCartney]
     private Boolean firstTurnDecided;
 
+    //Returns true if the User has flipped the coin to decide who plays first[Niamh McCartney]
     private Boolean coinFlipped;
 
+    //Returns true if the User has answered the bonus question correctly[Niamh McCartney]
     private Boolean answerCorrect;
 
+    //Returns true if the User has answered the bonus question[Niamh McCartney]
     private Boolean questionAnswered;
 
     private Boolean gameEnded = false;
@@ -111,11 +111,10 @@ public class BattleScreen extends GameScreen {
 
     private Boolean playerTurn = true;
 
+    //Returns true if the size of the Hero's deck has been increased [Niamh McCartney]
     private Boolean deckEnlarged = false;
 
-    //Handler to access the UI thread
-    private final Handler handler = new Handler(Looper.getMainLooper());
-
+    //Define PopUp objects used by the screen [Niamh McCartney]
     private CoinFlipPopUp coinFlipPopUp;
     private TrueFalseQuestionPopUp questionPopUp;
 
@@ -162,6 +161,8 @@ public class BattleScreen extends GameScreen {
         addInfoButton();
         addSettingsButton();
         addPauseButton();
+
+        //Set Boolean [Niamh McCartney]
         firstTurnDecided = false;
         coinFlipped = false;
         questionAnswered = false;
@@ -233,11 +234,11 @@ public class BattleScreen extends GameScreen {
 
         //if information button is pushed then load the instructions screen [Niamh McCartney]
         if (infoButton.isPushTriggered())
-            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
+            screenManager.addScreen(new InstructionsScreen(mGame, this));
 
         //if settings button is pushed then load the settings screen [Niamh McCartney]
         if (settingsButton.isPushTriggered())
-            mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
+            screenManager.addScreen(new OptionsScreen(mGame));
 
         if(pause.isPushTriggered()){ paused = true;
         }else if(resume.isPushTriggered()){ paused = false;}
@@ -698,15 +699,4 @@ public class BattleScreen extends GameScreen {
         villain.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
 
     }
-
-    /**public int getTurnNumber(int turnnumber) {
-        return turnnumber;
-    }
-
-    public void setTurnNumber(int turnNumber)
-    {
-        this.turnnumber = turnnumber;
-    }
-     **/
-
 }

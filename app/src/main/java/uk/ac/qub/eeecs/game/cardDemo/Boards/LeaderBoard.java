@@ -197,7 +197,6 @@ public class LeaderBoard extends Sprite {
             drawUserInformation(wins, winValueXCoordinate, graphics2D,
                     layerViewport, screenViewport);
 
-
             //Draw the number of games the User has lost
             float lossValueXCoordinate = winValueXCoordinate * 1.705f;
             drawUserInformation(losses, lossValueXCoordinate, graphics2D,

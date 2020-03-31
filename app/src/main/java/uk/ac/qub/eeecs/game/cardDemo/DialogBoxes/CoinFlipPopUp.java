@@ -65,6 +65,7 @@ public class CoinFlipPopUp extends PopUp{
         handler = new Handler(Looper.getMainLooper());
         coinFlipped = false;
 
+        //Set actions for runnable to take when called by the handler
         mUpdateDialog = new Runnable() {
             public void run() {
                 //change text displayed in button
@@ -102,7 +103,6 @@ public class CoinFlipPopUp extends PopUp{
         //Display the PopUp Dialog Box
         displayDialog();
     }
-
 
     /**
      * Dictates what occurs  when the User

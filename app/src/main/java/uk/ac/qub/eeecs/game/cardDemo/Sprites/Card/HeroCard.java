@@ -16,7 +16,6 @@ import uk.ac.qub.eeecs.gage.world.ScreenViewport;
  *
  * Created by Niamh McCartney
  */
-
 public class HeroCard extends Card {
 
     // /////////////////////////////////////////////////////////////////////////

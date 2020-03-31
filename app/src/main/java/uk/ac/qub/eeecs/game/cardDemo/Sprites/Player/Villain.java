@@ -52,15 +52,12 @@ public class Villain extends Player {
                     n = rand.nextInt(containers.size()-1);
                 }
 
-
                 for (int i = 0; i <= containers.size()-1; i++) {
                     if (containers.get(n).isEmpty()) {
                         containers.get(n).AddCardToHolder(playerCards.get(x));
                         containers.get(n).returnCardHeld().setCardFlipped(false);
                         playerCards.remove(x);
-
                     }
-
                 }
             }
         }
@@ -69,18 +66,8 @@ public class Villain extends Player {
     public void setPlayerCards(ArrayList<Card> cards) {
         if(playerCards.size() == 0) {
             playerCards.addAll(cards);
-
-
         }
-
     }
-
-
-
-
-
-
-
 
    /** public void AIAttack(){}{
 
@@ -117,11 +104,8 @@ public class Villain extends Player {
        }
 
    }
-
-
    
     public void AICardSelect() {
-
 
         DifficultyLevels tempdiff;
         tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();
@@ -130,7 +114,6 @@ public class Villain extends Player {
             /**
              * For Easy, play the card with the lowest combined attack and health value.
              */
-
 
             int cardtochoose = 0;
             int temp = 100;
@@ -173,8 +156,6 @@ public class Villain extends Player {
                     cardtochoose = i;
 
                 }
-
-
             }
 
             int random = rand.nextInt(100) + 1;
@@ -190,8 +171,6 @@ public class Villain extends Player {
             /**
              * For Hard, play the card with the highest combined attack and health value.
              */
-
-
             int cardtochoose = 0;
             int temp = 0;
             for (int i = 0; i < playerCards.size()-1;i++) {
@@ -211,21 +190,12 @@ public class Villain extends Player {
         }
     }
 
-    public  void takeFirstTurn(){
-
-    }
-
 
     public void AIattackPhase(int selectedAttackCard, int cardToAttack) {
 
         if(!containers.get(selectedAttackCard).isEmpty() &&
                 !enemyContainers.get(cardToAttack).isEmpty()) {
             Card attackCard = containers.get(selectedAttackCard).returnCardHeld();
-
-
-
-
-
             float heroCardX = enemyContainers.get(cardToAttack).getX();
             float heroCardY = enemyContainers.get(cardToAttack).getY();
             attackCard.setPosition(enemyContainers.get(cardToAttack).position.x,enemyContainers.
@@ -239,8 +209,6 @@ public class Villain extends Player {
                 containers.get(selectedAttackCard).AddCardToHolder(attackCard);
             }
         }
-
-
     }
 
     public void AICardAttack() {
@@ -265,7 +233,6 @@ public class Villain extends Player {
                         cardtochoose = i;
                     }
                 }
-
             }
 
             int cardtochoose1 = 0;
@@ -279,9 +246,7 @@ public class Villain extends Player {
                         cardtochoose1 = i;
                     }
                 }
-
             }
-
             AIattackPhase(cardtochoose1, cardtochoose);
         }
 
@@ -323,15 +288,8 @@ public class Villain extends Player {
                     x = rand.nextInt(enemyContainers.size()-1);
                 }
                 AIattackPhase(n,x);
-
             }
-
-
-
-
         }
-
-
 
         else if(tempdiff == DifficultyLevels.HARD) {
 
@@ -353,7 +311,6 @@ public class Villain extends Player {
                         cardtochoose = i;
                     }
                 }
-
             }
 
             for (int i = 0; i <= enemyContainers.size() - 1; i++) {
@@ -365,10 +322,7 @@ public class Villain extends Player {
                         cardtochoose1 = i;
                     }
                 }
-
             }
-
-
             AIattackPhase(cardtochoose,cardtochoose1);
         }
     }
@@ -376,8 +330,6 @@ public class Villain extends Player {
     public ArrayList<Card> getPlayerCards() {
         return playerCards;
     }
-
-
 
     /**
      * METHOD TAKEN FROM STACK OVERFLOW- NO MODIFICATIONS MADE    -Keith
@@ -393,28 +345,4 @@ public class Villain extends Player {
             runTime = Time1 - Time0;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

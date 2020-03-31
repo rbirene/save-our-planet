@@ -2,7 +2,6 @@ package uk.ac.qub.eeecs.game.cardDemo.Screens;
 
 import java.util.List;
 
-
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
@@ -20,7 +19,6 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-
 
 public class SplashScreen extends GameScreen {
 
@@ -133,6 +131,3 @@ public class SplashScreen extends GameScreen {
             moveLogo.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
         }
     }
-
-
-

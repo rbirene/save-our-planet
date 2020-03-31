@@ -178,6 +178,7 @@ public class OptionsScreen extends GameScreen {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
         }
     }
+
     @Override
     public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
@@ -215,7 +216,6 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
-
     public void setVolume(float vol){
         this.volume = vol;
     }
@@ -225,6 +225,4 @@ public class OptionsScreen extends GameScreen {
     public Bitmap getVolumeBar(){
         return volumeBar.getBitmap();
     }
-
-
 }

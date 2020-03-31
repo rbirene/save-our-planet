@@ -43,4 +43,3 @@ public class AttackAnimation extends Sprite {
         }
     }
 }
-

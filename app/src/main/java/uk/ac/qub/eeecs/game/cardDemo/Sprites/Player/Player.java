@@ -25,7 +25,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
  * Contains traits and behaviours both hero and villain share.
  *
  */
-
 public abstract class Player extends Sprite {
 
     // /////////////////////////////////////////////////////////////////////////
@@ -39,20 +38,17 @@ public abstract class Player extends Sprite {
     // define the player
     protected String playerName;
     protected Deck  playerDeck;
-    protected boolean hasAttacked;
-    protected boolean hasPlayedCard;
 
-    private Boolean yourTurn;
     //boolean returns true if the player assets have been loaded[Niamh McCartney]
     private boolean assetsLoaded;
 
     //returns true if the player has been assigned a deck[Niamh McCartney]
     private boolean deckSet;
 
+    protected boolean cardPlayed = false;
+
     protected GameScreen gameScreen;
     protected GameBoard gameBoard;
-    protected static final int MAX_CARDS_PLAYED = 1;
-    protected boolean cardPlayed = false;
 
     //define the players current Health [Niamh McCartney]
     protected int playerHealth;
@@ -111,7 +107,6 @@ public abstract class Player extends Sprite {
         assetsLoaded = false;
 
         mBitmap = portrait;
-
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -133,16 +128,18 @@ public abstract class Player extends Sprite {
                      LayerViewport layerViewport, ScreenViewport screenViewport, GameScreen aScreen){
 
         gameScreen = aScreen;
+
         //If the deck has been set then update the players health
         if(deckSet){
-            setPlayerHealth(aScreen);
+            calculatePlayerHealth(aScreen);
         }
 
         //load assets if they have not been loaded
         if(!assetsLoaded){
             assetsLoaded = true;
             loadAssets();
-            //The players original health is set here as the loop will only be passed through once once
+            //The players original health is set here as
+            //the loop will only be passed through once
             playerFullHealth = playerHealth;
         }
 
@@ -154,57 +151,19 @@ public abstract class Player extends Sprite {
         drawBitmap(mHealthBar, mHealthBarOffset, mHealthBarScale,
                 graphics2D, layerViewport, screenViewport);
 
+        //Calculate new scalar for the health bar filler
+        calculateHealthBarFillerScale();
 
-        //works out what percentage of the players health is remaining
-        percentage = ((double)playerHealth/(double)playerFullHealth);
-        //uses the percentage to determine the length of the health bar filler
-        float xBarFillerScale = xScale*(float)percentage;
-        mHealthBarFillerScale = new Vector2(xBarFillerScale, yScale);
-
-        //draw health bar filler
+        //Draw health bar filler
         drawBitmap(mHealthBarFiller, mHealthBarFillerOffset, mHealthBarFillerScale,
                 graphics2D, layerViewport, screenViewport);
 
-        //draw health value container
+        //Draw health value container
         drawBitmap(mHealthContainer, mHealthContainerOffset, mHealthContainerScale,
                 graphics2D, layerViewport, screenViewport);
 
-
-        // Draw the health value depending on how many digits it has
-        //if health has one digit
-        if(playerHealthLength == 1){
-            mPlayerHealthOffset = new Vector2(-0.65f, -1.15f);
-            drawBitmap(mHealthDigits[playerHealth], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-        }//if health has two digits
-        else if(playerHealthLength == 2){
-            int firstDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(0)));
-            mPlayerHealthOffset = new Vector2(-0.7f, -1.15f);
-            drawBitmap(mHealthDigits[firstDigit], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-
-            int secondDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
-            mPlayerHealthOffset = new Vector2(-0.55f, -1.15f);
-            drawBitmap(mHealthDigits[secondDigit], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-        }//if health has three digits
-        else if(playerHealthLength == 3){
-            int firstDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(0)));
-            mPlayerHealthOffset = new Vector2(-0.77f, -1.15f);
-            drawBitmap(mHealthDigits[firstDigit], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-
-            int secondDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
-            mPlayerHealthOffset = new Vector2(-0.65f, -1.15f);
-            drawBitmap(mHealthDigits[secondDigit], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-            int thirdDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
-            mPlayerHealthOffset = new Vector2(-0.53f, -1.15f);
-            drawBitmap(mHealthDigits[thirdDigit], mPlayerHealthOffset, mPlayerHealthScale,
-                    graphics2D, layerViewport, screenViewport);
-        }
-
-
+        //Draw the Player's health value depending on how many digits it has
+        drawPlayerHealth(graphics2D, layerViewport, screenViewport);
     }
 
     /**
@@ -257,56 +216,59 @@ public abstract class Player extends Sprite {
         }
     }
 
+    /**
+     * Draws the health value of the Player
+     * depending on how many digits it has
+     *
+     * @param graphics2D     Graphics instance
+     * @param layerViewport  Game layer viewport
+     * @param screenViewport Screen viewport
+     *
+     * Created by Niamh McCartney
+     */
+    private void drawPlayerHealth(IGraphics2D graphics2D,
+                                  LayerViewport layerViewport, ScreenViewport screenViewport){
+        //if health has one digit
+        if(playerHealthLength == 1){
+            mPlayerHealthOffset = new Vector2(-0.65f, -1.15f);
+            drawBitmap(mHealthDigits[playerHealth], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+        }//if health has two digits
+        else if(playerHealthLength == 2){
+            int firstDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(0)));
+            mPlayerHealthOffset = new Vector2(-0.7f, -1.15f);
+            drawBitmap(mHealthDigits[firstDigit], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
 
-    @Override
-    public void update(ElapsedTime elapsedTime){
-        super.update(elapsedTime);
+            int secondDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
+            mPlayerHealthOffset = new Vector2(-0.55f, -1.15f);
+            drawBitmap(mHealthDigits[secondDigit], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+        }//if health has three digits
+        else if(playerHealthLength == 3){
+            int firstDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(0)));
+            mPlayerHealthOffset = new Vector2(-0.77f, -1.15f);
+            drawBitmap(mHealthDigits[firstDigit], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
 
-        this.playerDeck.update();
-
+            int secondDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
+            mPlayerHealthOffset = new Vector2(-0.65f, -1.15f);
+            drawBitmap(mHealthDigits[secondDigit], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+            int thirdDigit = Character.getNumericValue((String.valueOf(playerHealth).charAt(1)));
+            mPlayerHealthOffset = new Vector2(-0.53f, -1.15f);
+            drawBitmap(mHealthDigits[thirdDigit], mPlayerHealthOffset, mPlayerHealthScale,
+                    graphics2D, layerViewport, screenViewport);
+        }
     }
 
-    public void setCardPlayed(boolean cardPlayed){
-        this.cardPlayed = cardPlayed;
-    }
-    public Boolean getCardPlayed(){
-        return cardPlayed;
-    }
-
-
-    //getter to return the players health[Niamh McCartney]
-    public int getPlayerHealth(GameScreen aScreen){
-        setPlayerHealth(aScreen);
-        return playerHealth;}
-
-    public GameBoard getGameBoard(){return gameBoard; }
-
-    // getter to return the player name
-    public String getPlayerName(){ return playerName; }
-
-    // getter to return the player deck
-    public Deck getPlayerDeck() { return playerDeck; }
-
-    public void setGameBoard(GameBoard gameBoard){this.gameBoard = gameBoard;}
-
-    // setter to set the GameScreen the player has been called in
-    public void setGameScreen(GameScreen gameScreen){ this.gameScreen = gameScreen; }
-
-    // setter to set player deck[Niamh McCartney]
-    public void setPlayerDeck(Deck playerDeck) {
-        this.playerDeck = playerDeck;
-        deckSet = true;
-    }
-
-    public void AttackCard(Card attackCard,Card defendCard){
-        int health = defendCard.getHealthValue();
-       health = defendCard.getHealthValue() - attackCard.getAttackValue();
-
-    }
-
-
-    //setter to set the players Health[Niamh McCartney]
-    public void setPlayerHealth(GameScreen aScreen){
+    /**
+     * Calculates the player's health by adding the
+     * health of each of the cards in their deck
+     *
+     * Created By Niamh McCartney
+     */
+    private void calculatePlayerHealth(GameScreen aScreen){
         //the players health is the total health of the cards in the players deck
         int health = 0;
         ArrayList<Card> deck  = getPlayerDeck().getDeck(aScreen);
@@ -318,8 +280,30 @@ public abstract class Player extends Sprite {
         playerHealthLength = String.valueOf(playerHealth).length();
     }
 
-    //loads the assets used by the Player class and assigns them to the relevant variables[Niamh McCartney]
-    public void loadAssets(){
+    /**
+     * Calculate new scalar for the health bar filler
+     * to represent any changes in the players health
+     *
+     * Created By Niamh McCartney
+     */
+    private void calculateHealthBarFillerScale(){
+        //Work out what percentage of the players health is remaining
+        percentage = ((double)playerHealth/(double)playerFullHealth);
+
+        //Use the percentage to determine the new length of the health bar filler
+        float xBarFillerScale = xScale*(float)percentage;
+
+        //Set the new scaled health bar filler
+        mHealthBarFillerScale = new Vector2(xBarFillerScale, yScale);
+    }
+
+    /**
+     * Loads the assets used by the Player class
+     * and assigns them to the relevant variables
+     *
+     * Created By Niamh McCartney
+     */
+    private void loadAssets(){
         if(gameScreen != null) {
             AssetManager assetManager = gameScreen.getGame().getAssetManager();
 
@@ -333,7 +317,70 @@ public abstract class Player extends Sprite {
         }
     }
 
-    public Boolean getYourTurn(){ return yourTurn;}
+    @Override
+    public void update(ElapsedTime elapsedTime){
+        super.update(elapsedTime);
+        this.playerDeck.update();
+    }
 
-    public void setYourTurn(Boolean bool){yourTurn = bool;}
+    // /////////////////////////////////////////////////////////////////////////
+    // Getters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns the player's deck of Cards
+     *
+     * Created By Niamh McCartney
+     */
+    public Deck getPlayerDeck() { return playerDeck;}
+
+    public GameBoard getGameBoard(){return gameBoard;}
+
+    public Boolean getCardPlayed(){
+        return cardPlayed;
+    }
+
+    /**
+     * Returns the player's health
+     *
+     * Created By Niamh McCartney
+     */
+    public int getPlayerHealth(GameScreen aScreen){
+        calculatePlayerHealth(aScreen);
+        return playerHealth;
+    }
+
+    /**
+     * Returns the player's name
+     */
+    public String getPlayerName(){ return playerName;}
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Setters
+    // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Sets the player's deck of Cards
+     * @param playerDeck player's new deck
+     *
+     * Created By Niamh McCartney
+     */
+    public void setPlayerDeck(Deck playerDeck) {
+        this.playerDeck = playerDeck;
+        deckSet = true;
+    }
+
+    /**
+     * Sets the gameBoard the player is displayed in
+     */
+    public void setGameBoard(GameBoard gameBoard){this.gameBoard = gameBoard;}
+
+    public void setCardPlayed(boolean cardPlayed){
+        this.cardPlayed = cardPlayed;
+    }
+
+    /**
+     * Sets the gameScreen the player has been called in
+     */
+    public void setGameScreen(GameScreen gameScreen){ this.gameScreen = gameScreen; }
 }

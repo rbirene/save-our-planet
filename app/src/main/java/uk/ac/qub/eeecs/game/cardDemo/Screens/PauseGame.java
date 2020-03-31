@@ -48,11 +48,8 @@ public class PauseGame extends GameScreen {
 
         if (EventList.size() > 0) {
 
-
         }
-
     }
-
 
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D){
@@ -62,6 +59,3 @@ public class PauseGame extends GameScreen {
         Resume.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
     }
 }
-
-
-
