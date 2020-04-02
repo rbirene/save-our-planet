@@ -167,6 +167,9 @@ public class BattleScreen extends GameScreen {
         coinFlipped = false;
         questionAnswered = false;
 
+        //Set their decks
+        resetDecks();
+
     }
 
 
@@ -605,7 +608,6 @@ public class BattleScreen extends GameScreen {
 
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
-            //Set card to unselected
             card.setSelected(false);
             if(!card.getCardInUse()) {
                 //Set Card Width
@@ -621,6 +623,27 @@ public class BattleScreen extends GameScreen {
             //Draw Card
             card.draw(elapsedTime, graphics2D,
                     mDefaultLayerViewport, mDefaultScreenViewport);
+        }
+    }
+
+    private void resetDecks(){
+        resetVillainDeck(villainDeck);
+        resetHeroDeck(heroDeck);
+    }
+
+    private void resetVillainDeck(Deck aDeck){
+        for(int i = 0; i<aDeck.getDeck(this).size(); i++){
+            Card card = aDeck.getDeck(this).get(i);
+            //Set card to a[[ear turned over
+            card.setCardFlipped(true);
+        }
+    }
+
+    private void resetHeroDeck(Deck aDeck){
+        for(int i = 0; i<aDeck.getDeck(this).size(); i++){
+            Card card = aDeck.getDeck(this).get(i);
+            //Set card to unselected
+            card.setSelected(false);
         }
     }
 

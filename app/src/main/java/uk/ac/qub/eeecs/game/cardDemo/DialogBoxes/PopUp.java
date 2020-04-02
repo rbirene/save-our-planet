@@ -120,7 +120,7 @@ public abstract class PopUp {
     /**
      * Set the properties of the
      * Pop-Up's Image
-     * @param imageID ID of the Image
+     * @param imageID ID of the Image in the drawable folder
      *
      * Created By Niamh McCartney
      */
@@ -138,7 +138,7 @@ public abstract class PopUp {
     /**
      * Set the properties of the
      * Pop-Up's Text View
-     * @param textID ID of the text in the drawable folder
+     * @param textID ID of the text in the xml file
      *
      *
      * Created By Niamh McCartney
@@ -152,7 +152,7 @@ public abstract class PopUp {
     /**
      * Set the properties of a
      * Pop-Up's Button
-     * @param buttonID ID of the Pop-Up's button
+     * @param buttonID ID of the Pop-Up's button in the xml file
      * @param buttonText text on the button
      * @param buttonImageID ID of the button image in the drawable folder
      *
@@ -176,7 +176,6 @@ public abstract class PopUp {
      * display it to the User
      */
     protected abstract void showDialog();
-
 
     // /////////////////////////////////////////////////////////////////////////
     // Getters

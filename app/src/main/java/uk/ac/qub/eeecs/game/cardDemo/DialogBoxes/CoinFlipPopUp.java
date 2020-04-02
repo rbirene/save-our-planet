@@ -36,7 +36,7 @@ public class CoinFlipPopUp extends PopUp{
     //Handler to access the UI thread
     private Handler handler;
 
-    private Runnable mUpdateDialog;
+    private Runnable mUpdatePopUp;
 
     //Returns true if the user has pressed the button to flip the coin
     private Boolean coinFlipped;
@@ -66,7 +66,7 @@ public class CoinFlipPopUp extends PopUp{
         coinFlipped = false;
 
         //Set actions for runnable to take when called by the handler
-        mUpdateDialog = new Runnable() {
+        mUpdatePopUp = new Runnable() {
             public void run() {
                 //change text displayed in button
                 dialogButton.setText("Let's Play!");
@@ -84,10 +84,8 @@ public class CoinFlipPopUp extends PopUp{
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Displays a pop-up box that
-     * allows the user to flip a coin.
-     * When the coin is flipped an
-     * informative message is displayed
+     * Displays a pop-up box that allows the user to flip a coin.
+     * When the coin is flipped an informative message is displayed
      *
      * Created By Niamh McCartney
      */
@@ -124,11 +122,11 @@ public class CoinFlipPopUp extends PopUp{
                     gifView.setImageResource(R.drawable.coinflipgif);
 
                     /*
-                     *After 2 seconds have elapsed then call the mUpdateDialog runnable
+                     *After 2 seconds have elapsed then call the mUpdatePopUp runnable
                      *This time delay allows time for the coin flip gif to update
                      */
                     int time = 2000;
-                    handler.postDelayed(mUpdateDialog, time);
+                    handler.postDelayed(mUpdatePopUp, time);
 
                 }//When the first turn has been decided and the button
                 // is pressed again then cancel the dialog box

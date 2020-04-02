@@ -80,7 +80,7 @@ public class User implements Comparable<User>{
      *
      * Created By Niamh McCartney
      */
-    public void calculateGamesPlayed(){
+    private void calculateGamesPlayed(){
         gamesPlayed = wins + losses;
     }
 
@@ -91,11 +91,11 @@ public class User implements Comparable<User>{
      * Created By Niamh McCartney
      */
     private void calculateWinRateRatio() {
-        if(getGamesPlayed() == 0 && wins == 0){
+        if(getGamesPlayed() == 0){
             winRateRatio = 0.0;
         }
-        else if(getGamesPlayed() == 0) {
-            winRateRatio = 0.0;
+        else if(getWins() == 0) {
+            winRateRatio = getLosses();
         }else{
             winRateRatio = (double)wins/getGamesPlayed();
         }

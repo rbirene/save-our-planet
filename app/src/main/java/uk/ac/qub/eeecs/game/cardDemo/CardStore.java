@@ -286,6 +286,33 @@ public class CardStore {
         return null;
     }
 
+    /**
+     * Renew the health of all the Hero cards
+     *
+     *  Created By Niamh McCartney
+     */
+    public void renewHealthOfHeroCards(){
+        for (Map.Entry<String, Card> entry : this.heroCardPool.entrySet()) {
+            //Define the Card and its key in the cardPool
+            Card card = entry.getValue();
+            card.setCardToOriginalHealth();
+        }
+    }
+
+    /**
+     * Renew the health of all the Villain cards
+     *
+     *  Created By Niamh McCartney
+     */
+    public void renewHealthOfVillainCards(){
+        for (Map.Entry<String, Card> entry : this.villainCardPool.entrySet()) {
+            //Define the Card and its key in the cardPool
+            Card card = entry.getValue();
+            card.setCardToOriginalHealth();
+        }
+    }
+
+
     // /////////////////////////////////////////////////////////////////////////
     // Getters
     // /////////////////////////////////////////////////////////////////////////

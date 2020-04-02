@@ -49,7 +49,8 @@ public class InfoPopUp extends PopUp{
      *
      * Created by Niamh McCartney
      */
-    public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour, int imageID, String buttonText, int buttonImageID){
+    public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour,
+                     int imageID, String buttonText, int buttonImageID){
         super(activity, message, R.layout.info_window, imageBackgroundColour);
 
         //Define the parameters

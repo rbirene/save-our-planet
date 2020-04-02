@@ -46,6 +46,8 @@ public class UserStore {
     // Define the GSON object
     private Gson gson;
 
+    private String dataStorageName;
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
@@ -59,10 +61,11 @@ public class UserStore {
      *
      * Created by Niamh McCartney
      */
-    public UserStore(Game game, Context cxt){
+    public UserStore(Game game, Context cxt, String uniqueStorageName){
         // Define the parameters
         this.context = cxt;
         this.mGame = game;
+        this.dataStorageName = uniqueStorageName;
 
         // Initialise the UserStore properties
         this.userList = new ArrayList<>();
@@ -87,7 +90,7 @@ public class UserStore {
      */
     private void loadUserObjects() {
         // Load in the list of User objects as a JSON object using Shared Preferences
-        String loadedUsersList = sp.getString("UserData", "");
+        String loadedUsersList = sp.getString(dataStorageName, "");
 
         //Get type of object to covert JSON string to
         Type type = new TypeToken<List<User>>(){}.getType();
@@ -111,7 +114,13 @@ public class UserStore {
      * Created By Niamh McCartney
      */
     public void addUser(User user){
-        userList.add(user);
+        if(checkUserStore(user.getName()) == -1){
+            userList.add(user);
+        }else{
+            throw new RuntimeException(
+                    "UserStore.addUser: duplicate User error [" +
+                            "Tried to input User with a name that's already taken" + "]");
+        }
     }
 
     /**
@@ -122,7 +131,7 @@ public class UserStore {
      */
     public void saveUsers(){
         String userJsonString = gson.toJson(userList);
-        editor.putString("UserData", userJsonString);
+        editor.putString(dataStorageName, userJsonString);
         editor.apply();
     }
 

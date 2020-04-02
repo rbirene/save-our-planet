@@ -348,7 +348,7 @@ public abstract class Game extends Fragment {
         mCardStore = new CardStore(this);
 
         //Create the User Store[Niamh McCartney]
-        mUserStore = new UserStore(this, getActivity());
+        mUserStore = new UserStore(this, getActivity(), "UserData");
 
         //Create the Current User[Niamh McCartney]
         mUser = new User(null, 0, 0);

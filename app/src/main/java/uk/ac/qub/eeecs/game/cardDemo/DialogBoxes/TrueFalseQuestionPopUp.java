@@ -63,7 +63,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      *
      * Created by Niamh McCartney
      */
-    public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer, ColourEnum imageBackgroundColour, int imageID){
+    public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer,
+                                  ColourEnum imageBackgroundColour, int imageID){
         super(activity, questionText, R.layout.question_window, imageBackgroundColour);
 
         //Define the parameters
@@ -84,13 +85,10 @@ public class TrueFalseQuestionPopUp extends PopUp{
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Displays a pop-up box with a question
-     * and a true and false button.
-     * Depending on which button is pressed
-     * and whether is corresponds to the
-     * answer parameter given. Another pop-up
-     * box will display informing the user whether
-     * they are correct or incorrect
+     * Displays a pop-up box with a question and a true and false button.
+     * Depending on which button is pressed and whether it corresponds
+     * to the answer parameter given, another pop-up box will display
+     * informing the user whether they are correct or incorrect
      *
      * Created By Niamh McCartney
      */
@@ -118,7 +116,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayIncorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp IncorrectDialog = new InfoPopUp(getActivity(), incorrectMessage, ColourEnum.WHITE ,R.drawable.incorrect_symbol, "OK", R.drawable.green_btn);
+        InfoPopUp IncorrectDialog = new InfoPopUp(getActivity(), incorrectMessage, ColourEnum.WHITE,
+                R.drawable.incorrect_symbol, "OK", R.drawable.green_btn);
         IncorrectDialog.showDialog();
     }
 
@@ -131,7 +130,8 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayCorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp correctDialog = new InfoPopUp(getActivity(), correctMessage, ColourEnum.WHITE ,R.drawable.correct_symbol, "OK", R.drawable.green_btn);
+        InfoPopUp correctDialog = new InfoPopUp(getActivity(), correctMessage, ColourEnum.WHITE,
+                R.drawable.correct_symbol, "OK", R.drawable.green_btn);
         correctDialog.showDialog();
     }
 

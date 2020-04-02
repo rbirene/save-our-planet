@@ -17,6 +17,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.CardStore;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
@@ -46,6 +47,9 @@ public class MenuScreen extends GameScreen {
     private Card Card03;
 
     private Deck deck;
+
+    //Define CardStore used by the Game[Niamh McCartney]
+    private CardStore cardStore;
 
     //Define Hero and Villain used by Game and their Decks [Niamh McCartney]
     private Hero hero = getGame().getHero();
@@ -101,6 +105,7 @@ public class MenuScreen extends GameScreen {
         menuBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, menuBackgroundImg , this);
 
         //Create Player Decks used during Game [Niamh McCartney]
+        cardStore = game.getCardStore();
         createPlayerDecks();
 
         //Add buttons [Niamh McCartney]
@@ -189,7 +194,7 @@ public class MenuScreen extends GameScreen {
         int num = 0;
 
         while(num<numOfCards) {
-            randCard = getGame().getCardStore().getRandCard(cardPool);
+            randCard = cardStore.getRandCard(cardPool);
             String name = randCard.getCardName();
             //If Card has not already been chosen then add to the HashMap
             if(!screenCardPool.containsKey(name)) {
@@ -219,12 +224,14 @@ public class MenuScreen extends GameScreen {
     private void createPlayerDecks(){
         //creates hero deck if deck is not already created
         if(heroDeck == null || !heroDeck.getDeckCreated()) {
+            cardStore.renewHealthOfHeroCards();
             //Create Hero Deck
             createHeroDeck();
         }
 
         //creates villain deck if deck is not already created
         if(villainDeck == null || !villainDeck.getDeckCreated()) {
+            cardStore.renewHealthOfVillainCards();
             //Create villain Deck
             createVillainDeck();
         }

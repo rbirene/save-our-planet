@@ -89,7 +89,8 @@ public class FormPopUp extends PopUp{
      *
      * Created by Niamh McCartney
      */
-    public FormPopUp(Activity activity, final Game game, final String msg, ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
+    public FormPopUp(Activity activity, final Game game, final String msg,
+                     ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
         super(activity, msg, R.layout.form_window, imageBackgroundColour);
 
         //Define the parameters

@@ -133,7 +133,8 @@ public class ChooseCardScreen extends GameScreen {
 
         //set up background [Irene Bhuiyan]
         Bitmap chooseCardBackgroundImg = assetManager.getBitmap("chooseCardBackground");
-        chooseCardBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f, chooseCardBackgroundImg , this);
+        chooseCardBackground = new GameObject(240.0f, 160.0f, 490.0f, 325.0f,
+                chooseCardBackgroundImg , this);
 
         //Add Buttons
         addBackButton();
@@ -141,10 +142,12 @@ public class ChooseCardScreen extends GameScreen {
         addShuffleButton();
         addInfoButton();
         addSettingsButton();
+
+        resetDecks();
     }
 
     // /////////////////////////////////////////////////////////////////////////
-    // Methods
+    // Update Methods
     // /////////////////////////////////////////////////////////////////////////
 
     /**
@@ -210,7 +213,8 @@ public class ChooseCardScreen extends GameScreen {
 
         //if information button is pushed then load the instructions screen
         if (infoButton.isPushTriggered())
-            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame, this));
+            mGame.getScreenManager().addScreen(new InstructionsScreen(mGame,
+                    this));
 
         //if settings button is pushed then load the settings screen
         if (settingsButton.isPushTriggered())
@@ -247,6 +251,10 @@ public class ChooseCardScreen extends GameScreen {
         }
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Draw Methods
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Draw the ChooseCards screen
      *
@@ -260,7 +268,7 @@ public class ChooseCardScreen extends GameScreen {
 
         //Display Sign-In Pop-Up box if it has not already been displayed
         if(!formDisplayed){
-            displayFormDialog();
+            displayFormPopUp();
             formDisplayed = true;
         }
 
@@ -347,10 +355,10 @@ public class ChooseCardScreen extends GameScreen {
     private void updateShuffleButtonEvents(){
         if (shuffleButton.isPushTriggered()){
             if(heroDeck.getDeckShuffled()){
-                displayDialogs("You can only shuffle your deck once");
+                displayInfoPopUp("You can only shuffle your deck once");
             }
             else if(noCardsSelected()){
-                displayDialogs("You must select the cards in your\ndeck you wish to shuffle");
+                displayInfoPopUp("You must select the cards in your\ndeck you wish to shuffle");
             }else{
                 shuffleCards();
             }
@@ -364,9 +372,9 @@ public class ChooseCardScreen extends GameScreen {
      *
      * Created By Niamh McCartney
      */
-    private void displayDialogs(String message){
-            InfoPopUp popUp = new InfoPopUp(getGame().getActivity(), message, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
-            popUp.showDialog();
+    private void displayInfoPopUp(String message){
+        InfoPopUp popUp = new InfoPopUp(getGame().getActivity(), message, ColourEnum.GREEN ,R.drawable.info_symbol, "OK", R.drawable.green_btn);
+        popUp.showDialog();
     }
 
     /**
@@ -376,7 +384,7 @@ public class ChooseCardScreen extends GameScreen {
      *
      * Created By Niamh McCartney
      */
-    private void displayFormDialog(){
+    private void displayFormPopUp(){
         String message = "Choose your name from the list of players below or fill out the form to add your name to the list";
         FormPopUp dialog = new FormPopUp(getGame().getActivity(), getGame(), message ,ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
         dialog.showDialog();
@@ -445,40 +453,9 @@ public class ChooseCardScreen extends GameScreen {
         heroDeck.setDeckShuffled(true);
     }
 
-
-    /**
-     * Return a string that holds the corresponding label for the specified
-     * type of touch event.
-     *
-     * @param type Touch event type
-     * @return Touch event label
-     *
-     * Code taken from 'InputDemoScreen' class in 'miscDemos' folder
-     * of provided gage code - no modifications made
-     *
-     */
-    private String touchEventTypeToString(int type) {
-        switch (type) {
-            case 0:
-                return "TOUCH_DOWN";
-            case 1:
-                return "TOUCH_UP";
-            case 2:
-                return "TOUCH_DRAGGED";
-            case 3:
-                return "TOUCH_SHOW_PRESS";
-            case 4:
-                return "TOUCH_LONG_PRESS";
-            case 5:
-                return "TOUCH_SINGLE_TAP";
-            case 6:
-                return "TOUCH_SCROLL";
-            case 7:
-                return "TOUCH_FLING";
-            default:
-                return "ERROR: Unknown Touch Event Type";
-        }
-    }
+    // /////////////////////////////////////////////////////////////////////////
+    // Button Methods
+    // /////////////////////////////////////////////////////////////////////////
 
     /**
      * Add a Back Button to the screen
@@ -550,6 +527,10 @@ public class ChooseCardScreen extends GameScreen {
         settingsButton.setPlaySounds(true, true);
     }
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Other Methods
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Load Assets used by screen
      *
@@ -558,6 +539,49 @@ public class ChooseCardScreen extends GameScreen {
     private void loadScreenAssets() {
         assetManager.loadAssets("txt/assets/ChooseCardsScreenAssets.JSON");
         assetManager.loadAssets("txt/assets/CardAssets.JSON");
+    }
+
+    private void resetDecks(){
+        for(int i = 0; i<heroDeck.getDeck(this).size(); i++){
+            Card card = heroDeck.getDeck(this).get(i);
+            //Set card to unselected
+            card.setSelected(false);
+
+        }
+    }
+
+    /**
+     * Return a string that holds the corresponding label for the specified
+     * type of touch event.
+     *
+     * @param type Touch event type
+     * @return Touch event label
+     *
+     * Code taken from 'InputDemoScreen' class in 'miscDemos' folder
+     * of provided gage code - no modifications made
+     *
+     */
+    private String touchEventTypeToString(int type) {
+        switch (type) {
+            case 0:
+                return "TOUCH_DOWN";
+            case 1:
+                return "TOUCH_UP";
+            case 2:
+                return "TOUCH_DRAGGED";
+            case 3:
+                return "TOUCH_SHOW_PRESS";
+            case 4:
+                return "TOUCH_LONG_PRESS";
+            case 5:
+                return "TOUCH_SINGLE_TAP";
+            case 6:
+                return "TOUCH_SCROLL";
+            case 7:
+                return "TOUCH_FLING";
+            default:
+                return "ERROR: Unknown Touch Event Type";
+        }
     }
 
 }

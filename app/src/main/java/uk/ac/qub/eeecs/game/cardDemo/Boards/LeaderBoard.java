@@ -165,7 +165,6 @@ public class LeaderBoard extends Sprite {
         graphics2D.drawText(text, textPosition.x, textPosition.y, mTextPaint);
     }
 
-
     /**
      * Draw the Information for Top 5
      * Users on the board

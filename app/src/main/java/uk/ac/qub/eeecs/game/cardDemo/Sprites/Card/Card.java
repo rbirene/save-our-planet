@@ -74,6 +74,7 @@ public abstract class Card extends Sprite {
     // Define the health and attack values
     protected int attack;
     protected int health;
+    private int originalHealth;
 
     //Defines number of digits in the attack and health values
     protected int attackLength;
@@ -148,6 +149,7 @@ public abstract class Card extends Sprite {
         //Initialise the Card properties
         this.mPortraitOffset = new Vector2(0.0f, portraitYPos);
         this.bound = new BoundingBox();
+        this.originalHealth = health;
 
     }
 
@@ -381,6 +383,10 @@ public abstract class Card extends Sprite {
             mCardBaseImage = getCardBase();
         }
         return mCardBaseImage;
+    }
+
+    public void setCardToOriginalHealth(){
+        health = originalHealth;
     }
 
     public void returnToHolder(){
