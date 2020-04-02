@@ -8,6 +8,7 @@ import uk.ac.qub.eeecs.game.cardDemo.CardStore;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
+import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -15,9 +16,7 @@ import android.support.test.InstrumentationRegistry;
 public class TestGame extends Game {
 
     public Context context;
-    private Hero hero;
-    private Villain villain;
-
+    public String uniqueUserStorageName = "TestData";
 
 
     public TestGame(int screenWidth, int screenHeight){
@@ -51,10 +50,7 @@ public class TestGame extends Game {
         // Create the Villain[Niamh McCartney]
         mVillain = new Villain(mAssetManager.getBitmap("villainPortrait"));
 
-
-
-
-
+        mUserStore = new UserStore(this, context, uniqueUserStorageName);
 
         // Store the size of the window we're using
         // Note: If you see an error here remember to update the Game class to

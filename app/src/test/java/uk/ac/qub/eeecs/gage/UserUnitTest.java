@@ -80,6 +80,21 @@ public class UserUnitTest {
     }
 
     @Test
+    public void getWinRateRatio_zeroGamesPlayed_Success(){
+        aUser.setWins(0);
+        aUser.setLosses(0);
+        assertEquals(0.0, aUser.getWinRateRatio(), 0.05);
+    }
+
+    @Test
+    public void getWinRateRatio_zeroWins_moreThanZeroLosses_Success(){
+        int losses = 4;
+        aUser.setWins(0);
+        aUser.setLosses(losses);
+        assertEquals(losses, aUser.getWinRateRatio(), 0.05);
+    }
+
+    @Test
     public void addWin_WinsIncrease_Success(){
         aUser.addWin();
         int newNumOfWins = numOfWins + 1;
@@ -91,6 +106,27 @@ public class UserUnitTest {
         aUser.addLoss();
         int newNumOfLosses = numOfLosses + 1;
         assertEquals(newNumOfLosses, aUser.getLosses());
+    }
+
+    @Test
+    public void compareTo_UserGreaterThanComparison(){
+        User comparisonUser = new User("Kate", 3, 6);
+        int result = aUser.compareTo(comparisonUser);
+        assertEquals(1, result);
+    }
+
+    @Test
+    public void compareTo_UserLessThanComparison(){
+        User comparisonUser = new User("Kate", 6, 6);
+        int result = aUser.compareTo(comparisonUser);
+        assertEquals(-1, result);
+    }
+
+    @Test
+    public void compareTo_UserEqualToComparison(){
+        User comparisonUser = new User("Kate", 4, 6);
+        int result = aUser.compareTo(comparisonUser);
+        assertEquals(0, result);
     }
 
 }
