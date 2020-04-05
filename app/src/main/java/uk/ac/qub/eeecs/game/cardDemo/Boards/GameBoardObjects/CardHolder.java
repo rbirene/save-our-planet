@@ -30,7 +30,7 @@ public class CardHolder extends GameObject {
         this.empty = false;
         card.setPosition(this.getBound().x, this.getBound().y);
         card.setCardHolder(this);
-        card.hasHolder(true);
+        card.cardHasHolder(true);
      }
 
      public void removeCard(){

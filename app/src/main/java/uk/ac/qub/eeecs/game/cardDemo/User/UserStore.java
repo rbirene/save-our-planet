@@ -46,6 +46,7 @@ public class UserStore {
     // Define the GSON object
     private Gson gson;
 
+    //Name used to identify data when it's saved and loaded
     private String dataStorageName;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,7 @@ public class UserStore {
      *
      * @param game Game the UserStore object belongs to
      * @param cxt Context of the Game the UserStore is in
+     * @param uniqueStorageName name to store the data under
      *
      * Created by Niamh McCartney
      */
@@ -108,7 +110,8 @@ public class UserStore {
     }
 
     /**
-     * Add a User to the list of Users
+     * Add a User to the list of Users if User with
+     * the same name does not already exist
      * @param user user to add to list
      *
      * Created By Niamh McCartney

@@ -129,6 +129,21 @@ public class Deck {
        return  cardDeck.size();
     }
 
+    /**
+     * Returns true if no Cards have been selected
+     *
+     * Created By Niamh McCartney
+     */
+    public Boolean noCardsSelected(){
+        for (int i =0; i<getSize(); i++) {
+            Card card = cardDeck.get(i);
+            if(card.cardSelected()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     //Sam
     public void update(){
         for(int i=0;i<cardDeck.size();i++){

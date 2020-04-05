@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
@@ -26,6 +27,9 @@ public abstract class Card extends Sprite {
     // /////////////////////////////////////////////////////////////////////////
     // Properties:
     // /////////////////////////////////////////////////////////////////////////
+
+    //Define the Game this Card is created in
+    private Game game;
 
     //Define the default Card width and height
     private static final int DEFAULT_CARD_WIDTH = 180;
@@ -53,9 +57,9 @@ public abstract class Card extends Sprite {
     //Define the Card digit images
     protected Bitmap[] mCardDigits = new Bitmap[10];
 
-    // Define the offset locations and scaling for the card portrait
-    // card attack and card health values - all measured relative
-    // to the centre of the object as a percentage of object size
+    //Define the offset locations and scaling for the card portrait
+    //card attack and card health values - all measured relative
+    //to the centre of the object as a percentage of object size
     protected Vector2 mAttackOffset;
     protected Vector2 mAttackScale = new Vector2(0.04f, 0.04f);
 
@@ -71,12 +75,15 @@ public abstract class Card extends Sprite {
     protected Vector2 mHealthContainerOffset;
     protected Vector2 mHealthContainerScale;
 
-    // Define the health and attack values
+    //Define the health and attack values
     protected int attack;
     protected int health;
+
+    //original health when Card is created
+    //before any health is deducted/added
     private int originalHealth;
 
-    //Defines number of digits in the attack and health values
+    //Define number of digits in the attack and health values
     protected int attackLength;
     protected int healthLength;
 
@@ -114,6 +121,9 @@ public abstract class Card extends Sprite {
 
     private BoundingBox bound;
 
+    //Define the AssetManger of the Game the Card is in
+    private AssetManager assetManager;
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
@@ -122,21 +132,21 @@ public abstract class Card extends Sprite {
     /**
      * Construct the Card object
      *
-     * @param x             Centre y location of the platform
-     * @param y             Centre x location of the platform
-     * @param gameScreen    Gamescreen to which this platform belongs
-     * @param mName         Name of the Card
-     * @param cardTypeValue Type of the Card
-     * @param mCardPortrait the Bitmap containing the Cards portrait image
-     * @param scaleValue    Vector that determines the Scale of the Card portrait
-     * @param mAttack       Attack value of the Card
-     * @param mHealth       Health value of the Card
-     * @param portraitYPos  The Y co-ordinate of the Card
+     * @param aGame               Game to which this Card belongs
+     * @param mName               Name of the Card
+     * @param cardTypeValue       Type of the Card
+     * @param mCardPortrait       the Bitmap containing the Cards portrait image
+     * @param portraitScaleValue  Vector that determines the Scale of the Card portrait
+     * @param mAttack             Attack value of the Card
+     * @param mHealth             Health value of the Card
+     * @param portraitYPos        The Y co-ordinate of the Card
      *
      * Created by Niamh McCartney
      */
-    public Card(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
-        super(x, y, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null, gameScreen);
+    public Card(Game aGame, String mName, String cardTypeValue, Bitmap mCardPortrait,
+                Vector2 portraitScaleValue, int mAttack, int mHealth, float portraitYPos) {
+        super(0.0f, 0.0f, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null,
+                null);
 
         //Define the parameters
         this.name = mName;
@@ -144,17 +154,21 @@ public abstract class Card extends Sprite {
         this.cardPortrait = mCardPortrait;
         this.attack = mAttack;
         this.health = mHealth;
-        this.mPortraitScale = scaleValue;
+        this.mPortraitScale = portraitScaleValue;
+        this.game = aGame;
 
         //Initialise the Card properties
         this.mPortraitOffset = new Vector2(0.0f, portraitYPos);
         this.bound = new BoundingBox();
         this.originalHealth = health;
+        assetManager = game.getAssetManager();
 
+        //Load images used by the Card
+        loadCardAssets();
     }
 
     // /////////////////////////////////////////////////////////////////////////
-    // Methods
+    // Draw Methods
     // /////////////////////////////////////////////////////////////////////////
 
     /**
@@ -174,7 +188,8 @@ public abstract class Card extends Sprite {
         if(cardFlipped){
             Vector2 cardBackScale = new Vector2(0.7f, 0.7f);
             Vector2 cardBackOffset = new Vector2(0.15f, 0.15f);
-            drawBitmap(cardBack, cardBackOffset, cardBackScale, graphics2D, layerViewport, screenViewport);
+            drawBitmap(cardBack, cardBackOffset, cardBackScale, graphics2D, layerViewport,
+                    screenViewport);
 
         }else {
             // Draw the card base background
@@ -229,8 +244,10 @@ public abstract class Card extends Sprite {
         double rotation = Math.toRadians(-this.orientation);
         float diffX = mBound.halfWidth * offset.x;
         float diffY = mBound.halfHeight * offset.y;
-        float rotatedX = (float)(Math.cos(rotation) * diffX - Math.sin(rotation) * diffY + position.x);
-        float rotatedY = (float)(Math.sin(rotation) * diffX + Math.cos(rotation) * diffY + position.y);
+        float rotatedX = (float)(Math.cos(rotation) * diffX - Math.sin(rotation) *
+                diffY + position.x);
+        float rotatedY = (float)(Math.sin(rotation) * diffX + Math.cos(rotation) *
+                diffY + position.y);
 
         // Calculate a game layer bound for the bitmap to be drawn
         bound.set(rotatedX, rotatedY,
@@ -285,8 +302,10 @@ public abstract class Card extends Sprite {
                 layerViewport, this.position, screenViewport, textPosition);
 
         //x and y Co-ordinates for text
-        textPosition.x += ViewportHelper.convertXDistanceFromLayerToScreen(offset.x, layerViewport, screenViewport);
-        textPosition.y += ViewportHelper.convertYDistanceFromLayerToScreen(offset.y, layerViewport, screenViewport);
+        textPosition.x += ViewportHelper.convertXDistanceFromLayerToScreen(offset.x,
+                layerViewport, screenViewport);
+        textPosition.y += ViewportHelper.convertYDistanceFromLayerToScreen(offset.y,
+                layerViewport, screenViewport);
 
 
         float targetSize
@@ -312,9 +331,12 @@ public abstract class Card extends Sprite {
      */
     private void drawCardText(IGraphics2D graphics2D, LayerViewport layerViewport,
                               ScreenViewport screenViewport){
+        //Define the text and it's co-ordinates in relation to the Card base
         String text = name;
         float textXCoordinate = getWidth() * 0.0f;
         float textYCoordinate = getHeight() * textYPosScale;
+
+        //Draw the text line by line
         for (String line : text.split("\n")) {
             Vector2 offset = new Vector2(textXCoordinate, textYCoordinate);
             drawText(line, offset, getHeight() * 0.7f,
@@ -338,6 +360,11 @@ public abstract class Card extends Sprite {
     protected abstract void drawHealthValue(IGraphics2D graphics2D, LayerViewport layerViewport,
                                             ScreenViewport screenViewport);
 
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Other Methods
+    // /////////////////////////////////////////////////////////////////////////
+
     /**
      * Sets paint properties for LeaderBoard text
      *
@@ -345,7 +372,7 @@ public abstract class Card extends Sprite {
      * 'CardHandAnimationLectureCode.zip' shown
      * during Week 14 lecture - PARAMETERS CHANGED
      *
-     * Set up by Niamh McCartney
+     * Created by Niamh McCartney
      */
     private void setupTextPaint() {
         mTextPaint = new Paint();
@@ -355,27 +382,35 @@ public abstract class Card extends Sprite {
     }
 
     /**
-     * Creates the images used by the Cards
+     * Load Assets used by Card Class
      *
-     * Set up by Niamh McCartney
+     * Created By Niamh McCartney
      */
-    public void createCardImages(){
-        if(gameScreen != null) {
-            AssetManager assetManager = gameScreen.getGame().getAssetManager();
-            //Store each of the attack/health digit images
-            for (int digit = 0; digit <= 9; digit++)
-                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
-            //Create image for the back of the Card
-            cardBack = assetManager.getBitmap("BackOfCard");
-        }
+    private void loadCardAssets() {
+        assetManager.loadAssets("txt/assets/CardAssets.JSON");
     }
 
     /**
-     * Changes the Card Background when card is selected
+     * Creates the images used by the Cards
      *
-     * Set up by Niamh McCartney
+     * Created by Niamh McCartney
      */
-    public Bitmap setCardBackground(){
+    protected void createCardImages(){
+            //Store each of the attack/health digit images
+            for (int digit = 0; digit <= 9; digit++)
+                mCardDigits[digit] = assetManager.getBitmap(String.valueOf(digit));
+
+            //Create image for the back of the Card
+            cardBack = assetManager.getBitmap("BackOfCard");
+    }
+
+    /**
+     * Sets the Card Background of the Card depending
+     * on whether its selected/unselected
+     *
+     * Created by Niamh McCartney
+     */
+    private Bitmap setCardBackground(){
         if(cardSelected()){
             mCardBaseImage = getCardBaseSelected();
         }
@@ -385,25 +420,29 @@ public abstract class Card extends Sprite {
         return mCardBaseImage;
     }
 
+    /**
+     * Sets Card's health equal to its original value
+     *
+     * Created by Niamh McCartney
+     */
     public void setCardToOriginalHealth(){
         health = originalHealth;
     }
 
+    /**
+     * Returns Card to its assigned Card Holder
+     */
     public void returnToHolder(){
-        this.setPosition(mCardHolder.getBound().x,mCardHolder.getBound().y);
-    }
-
-    public Boolean returnHolder(){
-        return hasHolder;
-    }
-
-    public void hasHolder(Boolean holder){
-        hasHolder = holder;
-    }
+        this.setPosition(mCardHolder.getBound().x,mCardHolder.getBound().y);}
 
     // /////////////////////////////////////////////////////////////////////////
     // Getters
     // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Returns hasHolder Boolean
+     */
+    public Boolean cardHasHolder(){ return hasHolder;}
 
     /**
      * Returns the type of the Card
@@ -503,6 +542,18 @@ public abstract class Card extends Sprite {
     // Setters
     // /////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets hasHolder Boolean
+     * @param bool Boolean returns true if Card has been assigned to a Card holder
+     */
+    public void cardHasHolder(Boolean bool){
+        hasHolder = bool;
+    }
+
+    /**
+     * Assign a cardHolder to the Card
+     * @param cardHolder The Card holder that contains a Card
+     */
     public void setCardHolder(CardHolder cardHolder){
         this.mCardHolder = cardHolder;}
 
@@ -533,16 +584,7 @@ public abstract class Card extends Sprite {
      * Created By Niamh McCartney
      */
     public static void setGameScreen(GameScreen aGameScreen){
-        gameScreen = aGameScreen; }
-
-    /**
-     * Assigns Bitmap to represent the card portrait
-     * @param cardPortraitImage Bitmap to be assigned
-     *
-     * Created By Niamh McCartney
-     */
-    public void setCardPortrait(Bitmap cardPortraitImage){
-        cardPortrait = cardPortraitImage;
+        gameScreen = aGameScreen;
     }
 
     /**
@@ -559,10 +601,11 @@ public abstract class Card extends Sprite {
      * Assigns Bitmap to represent the selected background of the Card
      * @param cardBaseSelectedImage Bitmap to be assigned
      *
-     * Created By Niamh McCartney
+     * Created By Niamh McCartney óóó
      */
     public void setCardBaseSelected(Bitmap cardBaseSelectedImage) {
-        this.mCardBaseSelected = cardBaseSelectedImage; }
+        this.mCardBaseSelected = cardBaseSelectedImage;
+    }
 
     /**
      * Sets selected Boolean

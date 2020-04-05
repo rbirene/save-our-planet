@@ -41,7 +41,6 @@ public class UserStoreTest {
         aUserStore = aGame.getUserStore();
         ArrayList<User> users = new ArrayList<>();
         aUserStore.setUserList(users);
-        //aUserStore.setUserList(aUserList);
     }
 
     @Test
@@ -52,6 +51,7 @@ public class UserStoreTest {
 
     @Test
     public void getNumOfUsers_moreThanZeroUsers(){
+        //Add user and see if store size changes
         aUserStore.addUser(user01);
         int size = aUserStore.getNumOfUsers();
         assertEquals(1, size);
@@ -88,11 +88,14 @@ public class UserStoreTest {
 
     @Test
     public void addUser_UserNameNotTaken_UserStoreSizeIncreases(){
+        //Note size of store
         int userStoreSize = aUserStore.getNumOfUsers();
 
+        //Create new User and add them to store
         User newUser = new User("Anthony", 4, 6);
         aUserStore.addUser(newUser);
 
+        //Compare current size to previous size
         int newUserStoreSize = aUserStore.getNumOfUsers();
         assertEquals(userStoreSize+1, newUserStoreSize);
     }
@@ -116,9 +119,12 @@ public class UserStoreTest {
 
     @Test
     public void checkUserStore_NameInStore(){
+        //Add User with known name to UserStore
         String newUserName = "Anthony";
         User newUser = new User(newUserName, 4, 6);
         aUserStore.addUser(newUser);
+
+        //Check users position in store (should be last)
         int expectedPosition = aUserStore.getNumOfUsers()-1;
         int position =  aUserStore.checkUserStore(newUserName);
         assertEquals(expectedPosition, position);
@@ -147,8 +153,9 @@ public class UserStoreTest {
     }
 
     @Test
-    public void loadUsers_NoUsersToLoad_StoreSizeIsZero(){
-        UserStore newUserStore = new UserStore(aGame, aGame.context, "newDataStorage");
+    public void loadUserObjects_NoUsersToLoad_StoreLoadsWithoutError_StoreSizeIsZero(){
+        UserStore newUserStore = new UserStore(aGame, aGame.context,
+                "newDataStorage");
         assertTrue(newUserStore.getNumOfUsers() == 0);
     }
 }

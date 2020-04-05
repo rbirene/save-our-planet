@@ -70,7 +70,8 @@ public class UserUnitTest {
         int losses = 3;
         User newUser = new User(name, wins , losses);
         aUser.setUser(newUser);
-        Boolean correctProperties = aUser.getName() == name && aUser.getWins() == 2 && aUser.getLosses() == 3;
+        Boolean correctProperties = aUser.getName() == name &&
+                aUser.getWins() == 2 && aUser.getLosses() == 3;
         assertTrue(correctProperties);
     }
 

@@ -2,11 +2,11 @@ package uk.ac.qub.eeecs.game.cardDemo.Sprites.Card;
 
 import android.graphics.Bitmap;
 
+import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 
@@ -22,7 +22,12 @@ public class HeroCard extends Card {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
+    //Define the Game the Card is created in
+    private Game game;
+
+    //Define common Card background
     private Bitmap cardBase;
+    //Define selected Card background
     private Bitmap cardBaseSelected;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -32,11 +37,8 @@ public class HeroCard extends Card {
     /**
      * Constructs the Hero Card object
      *
-     * @param x             Centre y location of the platform
-     * @param y             Centre x location of the platform
-     * @param gameScreen    Gamescreen to which this platform belongs
+     * @param aGame         Game to which this Card belongs
      * @param mName         Name of the Card
-     * @param cardTypeValue Type of the Card
      * @param mCardPortrait the Bitmap containing the Cards portrait image
      * @param scaleValue    Vector that determines the Scale of the Card portrait
      * @param mAttack       Attack value of the Card
@@ -45,8 +47,16 @@ public class HeroCard extends Card {
      *
      * Created by Niamh McCartney
      */
-    public HeroCard(float x, float y, GameScreen gameScreen, String mName, String cardTypeValue, Bitmap mCardPortrait, Vector2 scaleValue, int mAttack, int mHealth, float portraitYPos) {
-        super(x, y, gameScreen, mName, cardTypeValue, mCardPortrait, scaleValue, mAttack, mHealth, portraitYPos);
+    public HeroCard(Game aGame, String mName, Bitmap mCardPortrait, Vector2 scaleValue,
+                    int mAttack, int mHealth, float portraitYPos) {
+        super(aGame, mName, "heroCard", mCardPortrait, scaleValue, mAttack, mHealth,
+                portraitYPos);
+
+        //Define the parameters
+        this.game = aGame;
+
+        //Set up the Cards images
+        createCardImages();
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -144,19 +154,22 @@ public class HeroCard extends Card {
     @Override
     public void createCardImages(){
        super.createCardImages();
-       AssetManager assetManager = gameScreen.getGame().getAssetManager();
+       AssetManager assetManager = game.getAssetManager();
 
-        // Store the common card base image
+        //Store the common Card base image
         cardBase = assetManager.getBitmap("HeroCardBackground");
         setCardBase(cardBase);
+        //Store the selected Card image
         cardBaseSelected = assetManager.getBitmap("HeroCardBackgroundSelected");
         setCardBaseSelected(cardBaseSelected);
         mCardBaseImage = mCardBase;
 
+        //Store attack container image
         mAttackContainer = assetManager.getBitmap("HeroAttackContainer");
         mAttackContainerScale = new Vector2(0.25f, 0.25f);
         mAttackContainerOffset = new Vector2(0.6f, -0.15f);
 
+        //Store health container image
         mHealthContainer = assetManager.getBitmap("HealthContainer");
         mHealthContainerScale = new Vector2(0.15f, 0.15f);
         mHealthContainerOffset = new Vector2(-0.7f, -0.18f);

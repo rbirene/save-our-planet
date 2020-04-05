@@ -72,7 +72,7 @@ public class Hero extends Player {
                         cardSelected.returnToHolder();
                         cardSelected = null;
                         cardPlayed = true;
-                    } else if (cardSelected.returnHolder()) {
+                    } else if (cardSelected.cardHasHolder()) {
                         cardSelected.returnToHolder();
                     } else {
                         cardSelected.setPosition(cardSelected.getStartPosX(), cardSelected.getStartPosY());
