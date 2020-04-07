@@ -22,8 +22,9 @@ import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.FormPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
@@ -48,9 +49,6 @@ public class ChooseCardScreen extends GameScreen {
 
     //Define the Game the screen is created in
     private Game aGame;
-
-    //Defines HashMap which contains all hero cards
-    private HashMap<String, Card> heroCardPool;
 
     //Define Player and Player's Deck
     private Hero hero;
@@ -111,8 +109,6 @@ public class ChooseCardScreen extends GameScreen {
         audioManager = aGame.getAudioManager();
         assetManager = aGame.getAssetManager();
         cardStore = aGame.getCardStore();
-
-        heroCardPool = cardStore.getAllHeroCards(this);
 
         hero = aGame.getHero();
         heroDeck = hero.getPlayerDeck();
@@ -355,7 +351,7 @@ public class ChooseCardScreen extends GameScreen {
      * Created By Niamh McCartney
      */
     private void drawInfoPopUp(String message){
-        InfoPopUp popUp = new InfoPopUp(getGame().getActivity(), message, ColourEnum.GREEN,
+        InfoPopUp popUp = new InfoPopUp(getGame().getActivity(), message, Colour.GREEN,
                 R.drawable.info_symbol, "OK", R.drawable.green_btn);
         popUp.showDialog();
     }
@@ -370,7 +366,7 @@ public class ChooseCardScreen extends GameScreen {
         String message = "Choose your name from the list of players below or fill out" +
                 " the form to add your name to the list";
         FormPopUp popUp = new FormPopUp(getGame().getActivity(), getGame(), message,
-                ColourEnum.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
+                Colour.WHITE, R.drawable.profile_icon, R.drawable.green_btn);
         popUp.showDialog();
     }
 
@@ -473,7 +469,7 @@ public class ChooseCardScreen extends GameScreen {
                 Boolean cardFound = false;
                 //Finds a new random card that isn't in the old deck or the new deck
                 while (!cardFound) {
-                    Card randCard = cardStore.getRandCard(heroCardPool);
+                    Card randCard = cardStore.getRandCard(CardType.HERO_CARD);
                     String name = randCard.getCardName();
 
                     //If Card has not already been chosen then add to temporary list

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 
 /**
  * Defines a PopUp that displays an informative
@@ -49,7 +49,7 @@ public class InfoPopUp extends PopUp{
      *
      * Created by Niamh McCartney
      */
-    public InfoPopUp(Activity activity, String message, ColourEnum imageBackgroundColour,
+    public InfoPopUp(Activity activity, String message, Colour imageBackgroundColour,
                      int imageID, String buttonText, int buttonImageID){
         super(activity, message, R.layout.info_window, imageBackgroundColour);
 

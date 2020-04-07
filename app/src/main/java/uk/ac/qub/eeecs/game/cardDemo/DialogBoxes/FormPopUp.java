@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 
 /**
@@ -90,7 +90,7 @@ public class FormPopUp extends PopUp{
      * Created by Niamh McCartney
      */
     public FormPopUp(Activity activity, final Game game, final String msg,
-                     ColourEnum imageBackgroundColour, int imageID, int buttonImageID){
+                     Colour imageBackgroundColour, int imageID, int buttonImageID){
         super(activity, msg, R.layout.form_window, imageBackgroundColour);
 
         //Define the parameters

@@ -22,8 +22,8 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUp;
-import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.gameResultPopUpDialog;
 import uk.ac.qub.eeecs.game.cardDemo.Question.Question;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
@@ -32,9 +32,6 @@ import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Player;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
-
-import static uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum.*;
-
 
 public class BattleScreen extends GameScreen {
 
@@ -130,8 +127,8 @@ public class BattleScreen extends GameScreen {
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
-        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"),this);
-        endTurnButton = new PushButton(335.0f, 300.0f,83.0f, 30.0f, "endTurn", "endTurnPush", this);
+        board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"), this);
+        endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurnPush", this);
 
         paint = new Paint();
         paint.setTextSize(180.0f);
@@ -147,12 +144,14 @@ public class BattleScreen extends GameScreen {
         villain.setPlayerCards(villainDeck.getDeck(this));
 
         //set start positions of hero and villain Decks[Niamh McCartney]
-        updateCardPositions(heroDeck.getDeck(this), 0.13f, 0.03f, 50);
-        updateCardPositions(villainDeck.getDeck(this), 0.07f, 0.235f, 45);
+        updateCardPositions(heroDeck.getDeck(this), 0.13f,
+                0.03f, 50);
+        updateCardPositions(villainDeck.getDeck(this), 0.07f,
+                0.235f, 45);
 
         setupPause();
-		
-		// [William Oliver]
+
+        // [William Oliver]
         addBonusButton();
         setupMusic();
         playBattleMusic();
@@ -172,19 +171,6 @@ public class BattleScreen extends GameScreen {
 
     }
 
-
-    public void gameLoop(){
-        if(hero.getPlayerHealth(this)<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You lost! " + villain.getPlayerName() + " has destroyed the planet!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.sad_earth);
-        }if(villain.getPlayerHealth(this)<1){
-            gameResultPopUpDialog popUp = new gameResultPopUpDialog();
-            String message = "You Won! You've saved the planet from destruction!";
-            popUp.showDialog(getGame().getActivity(), message, R.drawable.happy_earth);
-        }
-    }
-
     public void checkEndGame(){
         if(hero.getPlayerHealth(this) <= 0){
             mGame.getScreenManager().addScreen(new EndGame(mGame, false));
@@ -192,7 +178,6 @@ public class BattleScreen extends GameScreen {
             mGame.getScreenManager().addScreen(new EndGame(mGame, true));
         }
     }
-
 
     @Override
     public void update(ElapsedTime elapsedTime) {
@@ -286,21 +271,24 @@ public class BattleScreen extends GameScreen {
         for (int i = 0; i < touchEvents.size(); i++) {
             TouchEvent event = touchEvents.get(i);
             Vector2 layerTouch = new Vector2();
-            ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(), event.x, event.y,
+            ViewportHelper.convertScreenPosIntoLayer(this.getDefaultScreenViewport(),
+                    event.x, event.y,
                     this.getDefaultLayerViewport(), layerTouch);
 
             //If a card is touched change the background of the touched card
             for (int pointerIdx = 0; pointerIdx < touchEvents.size(); pointerIdx++) {
                 for (int j = 0; j < heroDeck.getDeck(this).size(); j++) {
                     Card card = heroDeck.getDeck(this).get(j);
-                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0 && !card.getCardInUse()) {
+                    if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0
+                            && !card.getCardInUse()) {
                         card.setCardInUse(false);
                         if(deckEnlarged) {
                             setDeckEnlargedProperties();
                         }else{
                             setDeckReducedProperties();
                         }
-                        audioManager.play(getGame().getAssetManager().getSound("CardSelect"));
+                        audioManager.play(getGame().getAssetManager().
+                                getSound("CardSelect"));
                     }
                 }
             }
@@ -313,7 +301,8 @@ public class BattleScreen extends GameScreen {
      *
      *  Created By Niamh McCartney
      */
-    public void updateCardPositions(ArrayList<Card> cards, float xPosScale, float yPosScale, int spacing){
+    public void updateCardPositions(ArrayList<Card> cards, float xPosScale, float yPosScale,
+                                    int spacing){
         //defines the spacing between the cards
         int cardSpacing;
 
@@ -465,7 +454,6 @@ public class BattleScreen extends GameScreen {
         }
     }
 
-
     public void setupPause(){
 
         pauseMenu = new GameObject(240.0f,170.0f ,
@@ -490,8 +478,8 @@ public class BattleScreen extends GameScreen {
 
         board.draw(elapsedTime, graphics2D,LayerViewport, ScreenViewport);
         //Add Player Decks to Screen [Niamh McCartney]
-        drawPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight, false);
-        drawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72, true);
+        drawPlayerDecks(elapsedTime, graphics2D, heroDeck, cardWidth, cardHeight);
+        drawPlayerDecks(elapsedTime, graphics2D, villainDeck, 54, 72);
 
         // [William Oliver]
 		if (bonusButton.isPushTriggered() && numOfQuestions >0)
@@ -541,12 +529,12 @@ public class BattleScreen extends GameScreen {
         switch ((int) randQuestionIndex) {
 
             case 1:
-                questionPopUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), GREEN, R.drawable.question_symbol);
+                questionPopUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q1.getQuestion(), Q1.getAnswer(), Colour.GREEN, R.drawable.question_symbol);
                 questionPopUp.showDialog();
                 break;
 
             default:
-                questionPopUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), GREEN, R.drawable.question_symbol);
+                questionPopUp = new TrueFalseQuestionPopUp(getGame().getActivity(), Q2.getQuestion(), Q2.getAnswer(), Colour.GREEN, R.drawable.question_symbol);
                 questionPopUp.showDialog();
 
         }
@@ -576,7 +564,8 @@ public class BattleScreen extends GameScreen {
 
         //iterate through the array list
         for(int i = min; i< players.size(); i++){
-            //if the players position in the array list is equal to the random number they will go first
+            //if the players position in the array list is equal
+            // to the random number they will go first
             if(i == randomNum){
                 firstPlayer = players.get(i);
             }
@@ -588,8 +577,10 @@ public class BattleScreen extends GameScreen {
             playerTurn = true;
         }else{playerTurn = false;}
 
-        // create a pop-up coinFlipPopUp box, passing in the players name so the outcome can be displayed to the user
-        coinFlipPopUp = new CoinFlipPopUp(getGame().getActivity(), "Flip the coin to decide who goes first", firstPlayerName, GREEN);
+        // create a pop-up coinFlipPopUp box, passing in the players
+        // name so the outcome can be displayed to the user
+        coinFlipPopUp = new CoinFlipPopUp(getGame().getActivity(),
+                "Flip the coin to decide who goes first", firstPlayerName, Colour.GREEN);
         coinFlipPopUp.showDialog();
 
         firstTurnDecided = true;
@@ -604,7 +595,8 @@ public class BattleScreen extends GameScreen {
      *
      *  {Created By Niamh McCartney}
      */
-    private void drawPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck, int width, int height, Boolean cardFlipped){
+    private void drawPlayerDecks(ElapsedTime elapsedTime, IGraphics2D graphics2D, Deck aDeck,
+                                 int width, int height){
 
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
@@ -692,7 +684,8 @@ public class BattleScreen extends GameScreen {
     private void addPauseButton() {
 
         pause = new PushButton(465.0f, 300.0f,
-                30.0f, 30.0f, "pauseBtn", "pauseBtn", this);
+                30.0f, 30.0f, "pauseBtn",
+                "pauseBtn", this);
     }
 
     /**
@@ -702,7 +695,8 @@ public class BattleScreen extends GameScreen {
      */
     private void loadScreenAssets() {
         // Load the various images used by the cards
-        mGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        mGame.getAssetManager().loadAssets(
+                "txt/assets/CardDemoScreenAssets.JSON");
     }
 
     /**

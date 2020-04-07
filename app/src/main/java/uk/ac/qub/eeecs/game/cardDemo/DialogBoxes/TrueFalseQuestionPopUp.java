@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 
 /**
  * Defines a PopUp that displays a question to
@@ -64,7 +64,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      * Created by Niamh McCartney
      */
     public TrueFalseQuestionPopUp(Activity activity, String questionText, String answer,
-                                  ColourEnum imageBackgroundColour, int imageID){
+                                  Colour imageBackgroundColour, int imageID){
         super(activity, questionText, R.layout.question_window, imageBackgroundColour);
 
         //Define the parameters
@@ -116,7 +116,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayIncorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp IncorrectDialog = new InfoPopUp(getActivity(), incorrectMessage, ColourEnum.WHITE,
+        InfoPopUp IncorrectDialog = new InfoPopUp(getActivity(), incorrectMessage, Colour.WHITE,
                 R.drawable.incorrect_symbol, "OK", R.drawable.green_btn);
         IncorrectDialog.showDialog();
     }
@@ -130,7 +130,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
      */
     private void displayCorrectDialog(){
         getDialog().dismiss();
-        InfoPopUp correctDialog = new InfoPopUp(getActivity(), correctMessage, ColourEnum.WHITE,
+        InfoPopUp correctDialog = new InfoPopUp(getActivity(), correctMessage, Colour.WHITE,
                 R.drawable.correct_symbol, "OK", R.drawable.green_btn);
         correctDialog.showDialog();
     }

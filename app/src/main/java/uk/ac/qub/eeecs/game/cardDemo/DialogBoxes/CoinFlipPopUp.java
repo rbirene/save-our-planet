@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
+import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
 
 /**
  * Defines a PopUp that displays an image of a coin, a button
@@ -56,7 +56,7 @@ public class CoinFlipPopUp extends PopUp{
      * Created by Niamh McCartney
      */
     public CoinFlipPopUp(Activity activity, String message, final String firstPlayerName,
-                         ColourEnum imageBackgroundColour){
+                         Colour imageBackgroundColour){
         super(activity, message, R.layout.coinflip_window, imageBackgroundColour);
 
         //Initialise the classes' properties
@@ -73,7 +73,6 @@ public class CoinFlipPopUp extends PopUp{
 
                 //Set Dialog message displaying who takes the first turn
                 text.setText(firstPlayerName + " gets to go first!");
-
             }
 
         };
@@ -134,7 +133,6 @@ public class CoinFlipPopUp extends PopUp{
                     setCoinFlipped(true);
                     getDialog().dismiss();
                 }
-
             }
         });
     }

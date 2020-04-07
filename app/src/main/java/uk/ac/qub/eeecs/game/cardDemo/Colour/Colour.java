@@ -1,26 +1,32 @@
 package uk.ac.qub.eeecs.game.cardDemo.Colour;
 
 /**
- * Provides information on
- * a particular Colour
+ * Define list of Colours
  *
  * Created By Niamh McCartney
  */
-public class Colour {
+public enum Colour {
+    WHITE(1),
+    BLACK(2),
+    GREEN(3),
+    BLUE(4),
+    RED(5),
+    YELLOW(6),
+    ORANGE(7);
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Name of Colour
-    private ColourEnum colour;
+    //Define the ID that represents a certain Colour
+    private int colourID;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 
-    public Colour(ColourEnum colourName){
-        colour = colourName;
+    Colour(int colourID){
+        this.colourID = colourID;
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -28,42 +34,42 @@ public class Colour {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Returns Colour Code of Colour
-     * used during design of Game objects
+     * Returns Colour Code of Colour Enum that calls the method.
+     * Used during design of Game objects
      *
      * Created By Niamh McCartney
      */
     public String getColourCode(){
-            String colourCode;
+        String colourCode;
 
-            switch(colour)
-            {
-                // case statements
-                case WHITE : colourCode = "#FFFFFF";
-                    break;
+        switch(colourID)
+        {
+            // case statements
+            case 1 : colourCode = "#FFFFFF";
+                break;
 
-                case BLACK : colourCode = "#000000";
-                    break;
+            case 2 : colourCode = "#000000";
+                break;
 
-                case GREEN : colourCode = "#a4c639";
-                    break;
+            case 3 : colourCode = "#a4c639";
+                break;
 
-                case BLUE : colourCode = "#0000FF";
-                    break;
+            case 4 : colourCode = "#0000FF";
+                break;
 
-                case RED : colourCode = "#FF0000";
-                    break;
+            case 5 : colourCode = "#FF0000";
+                break;
 
-                case YELLOW : colourCode = "#FFFF00";
-                    break;
+            case 6 : colourCode = "#FFFF00";
+                break;
 
-                case ORANGE : colourCode = "#FFA500";
-                    break;
-                // below is default statement, used when none of the cases are true.
-                default : colourCode = "#FFFFFF";
+            case 7 : colourCode = "#FFA500";
+                break;
+            // below is default statement, used when none of the cases are true.
+            default : colourCode = "#FFFFFF";
 
-            }
+        }
 
-            return colourCode;
+        return colourCode;
     }
 }

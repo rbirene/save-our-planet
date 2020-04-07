@@ -16,6 +16,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
+import uk.ac.qub.eeecs.game.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 
 /**
@@ -97,7 +98,7 @@ public abstract class Card extends Sprite {
 
     //Define the Card Name and Type
     private String name;
-    private String cardType;
+    private CardType cardType;
 
     //Define the GameScreen the Card is displayed in
     protected static GameScreen gameScreen;
@@ -143,7 +144,7 @@ public abstract class Card extends Sprite {
      *
      * Created by Niamh McCartney
      */
-    public Card(Game aGame, String mName, String cardTypeValue, Bitmap mCardPortrait,
+    public Card(Game aGame, String mName, CardType cardTypeValue, Bitmap mCardPortrait,
                 Vector2 portraitScaleValue, int mAttack, int mHealth, float portraitYPos) {
         super(0.0f, 0.0f, DEFAULT_CARD_WIDTH, DEFAULT_CARD_HEIGHT, null,
                 null);
@@ -449,9 +450,7 @@ public abstract class Card extends Sprite {
      *
      * Created By Niamh McCartney
      */
-    public String getCardType(){
-        return cardType;
-    }
+    public CardType getCardType(){ return cardType; }
 
     /**
      * Returns the name of the Card

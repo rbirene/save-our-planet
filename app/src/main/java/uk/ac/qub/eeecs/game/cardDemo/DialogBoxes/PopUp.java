@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
 import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.ColourEnum;
 
 /**
  * Defines a PopUp that can be used to display information
@@ -29,7 +28,7 @@ public abstract class PopUp {
     // /////////////////////////////////////////////////////////////////////////
 
     //Background colour of the PopUp object
-    private ColourEnum backgroundColour;
+    private Colour backgroundColour;
 
     //Activity the pop up was called in
     private Activity activity;
@@ -56,7 +55,7 @@ public abstract class PopUp {
      *
      * Created by Niamh McCartney
      */
-    public PopUp(Activity activity, String msg, int popUpLayout, ColourEnum imageBackgroundColour){
+    public PopUp(Activity activity, String msg, int popUpLayout, Colour imageBackgroundColour){
         //Define the parameters
         this.activity = activity;
         this.message = msg;
@@ -126,9 +125,8 @@ public abstract class PopUp {
      */
     protected void setImageProperties(int imageID){
         ImageView image = dialog.findViewById(R.id.a);
-        //Get colour inputted by user and get its code
-        Colour colour01 = new Colour(backgroundColour);
-        String colourCode = colour01.getColourCode();
+        //Get colour inputted by user and its code
+        String colourCode = backgroundColour.getColourCode();
         //Use colour code to set background
         image.setBackgroundColor(Color.parseColor(colourCode));
         //Set dialog image

@@ -9,6 +9,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.CardType;
 
 /**
  * Defines the methods and
@@ -49,7 +50,7 @@ public class HeroCard extends Card {
      */
     public HeroCard(Game aGame, String mName, Bitmap mCardPortrait, Vector2 scaleValue,
                     int mAttack, int mHealth, float portraitYPos) {
-        super(aGame, mName, "heroCard", mCardPortrait, scaleValue, mAttack, mHealth,
+        super(aGame, mName, CardType.HERO_CARD, mCardPortrait, scaleValue, mAttack, mHealth,
                 portraitYPos);
 
         //Define the parameters

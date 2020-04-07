@@ -15,7 +15,7 @@ import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.VillainCard;
@@ -58,7 +58,7 @@ public class CardStore {
     private float portraitYPos;
 
     //Define the Card Type
-    private String cardType;
+    private CardType cardType;
 
     //Define the Card portrait image
     private Bitmap cardPortrait;
@@ -66,11 +66,9 @@ public class CardStore {
     //Define the HashMap to contain all the Cards
     private HashMap<String, Card> cardPool = new HashMap<>();
 
-    //Define the HashMap to contain the Hero Cards
-    private HashMap<String, Card> heroCardPool;
-
-    //Define the HashMap to contain the Villain Cards
-    private HashMap<String, Card> villainCardPool;
+    //Define the HashMap to contain all the collections
+    //of Cards divided by CardType
+    private HashMap<CardType, HashMap<String, Card>> cardPoolCollection;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructor
@@ -89,8 +87,7 @@ public class CardStore {
         //Initialise the UserStore properties
         this.mFileIO = mGame.getFileIO();
         this.assetManager = mGame.getAssetManager();
-        this.heroCardPool = new HashMap<>();
-        this.villainCardPool = new HashMap<>();
+        this.cardPoolCollection = new HashMap<>();
 
         //Load the assets used by the Cards
         loadCardAssets();
@@ -99,8 +96,7 @@ public class CardStore {
         loadCardObjects("txt/assets/Card.JSON");
 
         //Separate the Cards by CardType and add them to the relevant HashMaps
-        separateByCardType("heroCard", heroCardPool);
-        separateByCardType("villainCard", villainCardPool);
+        separateByCardType();
     }
    /**
      * The JSON file is in the following format:
@@ -108,13 +104,12 @@ public class CardStore {
      {
      "assets": [
      {
-     "id": string,
      "name": string,
-     "portraitScaleValueX": float,
-     "portraitScaleValueY": float,
+     "type" string
+     "scaleValueX": float,
+     "scaleValueY": float,
      "portraitYPos": float
      },
-
      ]
      }
      *
@@ -147,7 +142,7 @@ public class CardStore {
 
                 //get values from JSON file
                 name = assets.getJSONObject(idx).getString("name");
-                cardType = assets.getJSONObject(idx).getString("type");
+                cardType = CardType.valueOf(assets.getJSONObject(idx).getString("type"));
                 portraitScaleValueX = assets.getJSONObject(idx)
                         .getString("scaleValuex");
                 portraitScaleValueY = assets.getJSONObject(idx)
@@ -162,13 +157,13 @@ public class CardStore {
                 healthValue = getRandNum(40, 99);
 
                 //Get the Card's portrait
-                getCardPortraitBitmap(name);
+                cardPortrait = assetManager.getBitmap(name);
 
                 //create card object
                 if(!cardPool.containsKey(name)) {
                     createCard();
                 }else{ throw new RuntimeException(
-                        "CardStore.constructor: JSON parsing error " +
+                        "CardStore.constructor: Card appears multiple times in store " +
                                 "["+"Multiple Cards in text file with same name"+"]");}
             }
 
@@ -179,100 +174,64 @@ public class CardStore {
     }
 
     /**
-     * Creates a HeroCard or VillainCard
-     * object depending on the cardType
-     *
+     * Creates a Card object depending on the cardType
      *  Created By Niamh McCartney
      */
     private void createCard(){
-        Card card = null;
-        if (cardType.equals("villainCard")) {
-            card = new VillainCard(mGame, name, cardPortrait, portraitScaleValue,
-                    attackValue, healthValue, portraitYPos);
+        //Create the new Card object
+        Card card = cardType.getCardObjectType(mGame, name, cardPortrait, portraitScaleValue,
+                attackValue, healthValue, portraitYPos);
 
-        }else if(cardType.equals("heroCard")){
-            card = new HeroCard(mGame, name, cardPortrait, portraitScaleValue,
-                    attackValue, healthValue, portraitYPos);
-        }
-        //add the Card to the cardPool
+        //Add the Card to the cardPool
         cardPool.put(name, card);
     }
 
     /**
-     * Get all Cards of a given type in the
-     * CardStore and store them in the
-     * provided HashMap
-     *
-     * @param cardType Type of Card to store
-     * @param cardTypePool HashMap to store Cards in
+     * Separate all Cards in the store into HashMaps
+     * depending on their type. Then add all the HashMaps
+     * to another HashMap where they can be stored to be
+     * accessed when needed
      *
      *  Created By Niamh McCartney
      */
-    private void separateByCardType(String cardType, HashMap<String, Card> cardTypePool){
-        for (Map.Entry<String, Card> entry : this.cardPool.entrySet()) {
-            //Define the Card and its key in the cardPool
-            String key = entry.getKey();
-            Card card = entry.getValue();
+    private void separateByCardType(){
+       for(CardType type : CardType.values()) {
+           HashMap<String, Card> cardTypePool = new HashMap<>();
 
-            if(card.getCardType().equals(cardType)){
-                cardTypePool.put(key, card);
-            }
-        }
-    }
+           for (Map.Entry<String, Card> entry : this.cardPool.entrySet()) {
+               //Define the Card and its key in the cardPool
+               String key = entry.getKey();
+               Card card = entry.getValue();
 
-    /**
-     * Get the Bitmap whose name matches
-     * the name of the Card inputted
-     *
-     * @param name Name of the Card
-     *
-     *  Created By Niamh McCartney
-     */
-    private void getCardPortraitBitmap(String name){
-        try {
-            cardPortrait = assetManager.getBitmap(name);
-        }catch(Exception e){
-            throw new RuntimeException(
-                    "CardStore.getCardPortraitBitmap: Bitmap search error ["
-                            + e.getMessage() + "]");
-        }
-    }
-
-    /**
-     * Renew the health of all the Hero cards
-     *
-     *  Created By Niamh McCartney
-     */
-    public void renewHealthOfHeroCards(){
-        for (Map.Entry<String, Card> entry : this.heroCardPool.entrySet()) {
-            //Define the Card and its key in the cardPool
-            Card card = entry.getValue();
-            card.setCardToOriginalHealth();
-        }
-    }
-
-    /**
-     * Renew the health of all the Villain cards
-     *
-     *  Created By Niamh McCartney
-     */
-    public void renewHealthOfVillainCards(){
-        for (Map.Entry<String, Card> entry : this.villainCardPool.entrySet()) {
-            //Define the Card and its key in the cardPool
-            Card card = entry.getValue();
-            card.setCardToOriginalHealth();
-        }
+               if (card.getCardType() == type) {
+                   cardTypePool.put(key, card);
+               }
+           }
+           cardPoolCollection.put(type, cardTypePool);
+       }
     }
 
     /**
      * Load Assets used by screen
-     *
      * Created By Niamh McCartney
      */
     private void loadCardAssets() {
         assetManager.loadAssets("txt/assets/CardAssets.JSON");
     }
 
+    /**
+     * Renew the health of all cards of a specific type
+     *  Created By Niamh McCartney
+     */
+    public void renewHealthOfCards(CardType cardTypeEnum){
+        HashMap<String, Card> aCardPool = getAllCardsOfType(cardTypeEnum);
+
+        for (Map.Entry<String, Card> entry : aCardPool.entrySet()) {
+            //Define the Card and its key in the cardPool
+            Card card = entry.getValue();
+            card.setCardToOriginalHealth();
+        }
+    }
 
     // /////////////////////////////////////////////////////////////////////////
     // Getters
@@ -295,46 +254,31 @@ public class CardStore {
     }
 
     /**
-     * Return all the hero cards in the CardStore
-     * @param gameScreen game Screen the cards have been called by
+     * Returns a HashMap containing all Cards of a specified type
+     * @param cardTypeEnum Type of Cards to be returned in HashMap
      *
-     *  Created By Niamh McCartney
+     * Created By Niamh McCartney
      */
-    public HashMap<String, Card> getAllHeroCards(GameScreen gameScreen){
-        for (Map.Entry<String, Card> entry : heroCardPool.entrySet()) {
-            //Define the Card from the cardPool
-            Card card = entry.getValue();
-            card.setGameScreen(gameScreen);
-        }
-        return heroCardPool;
-    }
-
-    /**
-     * Return all the villain cards in the CardStore
-     * @param gameScreen game Screen the cards have been called by
-     *
-     *  Created By Niamh McCartney
-     */
-    public HashMap<String, Card> getAllVillainCards(GameScreen gameScreen){
-
-        for (Map.Entry<String, Card> entry : villainCardPool.entrySet()) {
-            //Define the Card from the cardPool
-            Card card = entry.getValue();
-            card.setGameScreen(gameScreen);
-        }
-        return villainCardPool;
+    public HashMap<String, Card> getAllCardsOfType(CardType cardTypeEnum){
+        try{
+            return cardPoolCollection.get(cardTypeEnum);
+        }catch(IllegalArgumentException e){
+            throw new IllegalArgumentException(
+                "CardStore.getAllCardsOfType: No Cards of type inputted exist ["
+                        + e.getMessage() + "]");}
     }
 
     /**
      * Return a random Card `value` from a given HashMap
-     * @param cardPool HashMap containing Cards that the
-     *                 random Card will be chosen from
+     * @param cardTypeEnum Type of random Card returned
      *
      *  Created By Niamh McCartney
      */
-    public Card getRandCard(HashMap<String, Card> cardPool) {
+    public Card getRandCard(CardType cardTypeEnum) {
+        HashMap<String, Card> aCardPool = getAllCardsOfType(cardTypeEnum);
+
         //Number of Cards in the cardPool
-        int numOfCards = cardPool.size();
+        int numOfCards = aCardPool.size();
 
         //generate a random number that equals the position of a Card in the cardPool
         int randNum = getRandNum(0, numOfCards-1);
@@ -344,13 +288,13 @@ public class CardStore {
 
         //Find and return the Card in the CardPool whose position
         //corresponds to the random number generated above
-        for (Map.Entry<String, Card> entry : cardPool.entrySet()) {
+        for (Map.Entry<String, Card> entry : aCardPool.entrySet()) {
             if(num == randNum){
                 randCard = entry.getValue();
                 return randCard;
             }
             num++;
         }
-        return null;
+        return randCard;
     }
 }

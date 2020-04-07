@@ -17,6 +17,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
@@ -33,14 +34,10 @@ public class MenuScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    //Define HashMap to contain all hero cards[Niamh McCartney]
-    private HashMap<String, Card> heroCardPool;
-    //Define HashMap to contain all villain cards[Niamh McCartney]
-    private HashMap<String, Card> villainCardPool = new HashMap<>();
-    private HashMap<String, Card> screenCardPool = new HashMap<>();
+   // private HashMap<String, Card> screenCardPool = new HashMap<>();
 
     //Define card and deck objects used during
-    // generation of the player decks [Niamh McCartney]
+    //generation of the player decks [Niamh McCartney]
     private Card randCard;
     private Card Card01;
     private Card Card02;
@@ -185,20 +182,20 @@ public class MenuScreen extends GameScreen {
      * generates random cards for the player decks
      *
      * @param numOfCards the number of cards to be generated
-     * @param cardPool group of cards the deck will be chosen from
+     * @param cardTypeEnum Type of Cards to be generated
      *
      *  Created By Niamh McCartney
      */
-    private Deck generateRandCards(int numOfCards, HashMap<String, Card> cardPool){
-        screenCardPool = new HashMap<>();
+    private Deck generateRandCards(int numOfCards, CardType cardTypeEnum){
+        HashMap<String, Card> cardPool = new HashMap<>();
         int num = 0;
 
         while(num<numOfCards) {
-            randCard = cardStore.getRandCard(cardPool);
+            randCard = cardStore.getRandCard(cardTypeEnum);
             String name = randCard.getCardName();
             //If Card has not already been chosen then add to the HashMap
-            if(!screenCardPool.containsKey(name)) {
-                screenCardPool.put(name, randCard);
+            if(!cardPool.containsKey(name)) {
+                cardPool.put(name, randCard);
                 num++;
                 if (num == 1) {
                     Card01 = randCard;
@@ -224,14 +221,14 @@ public class MenuScreen extends GameScreen {
     private void createPlayerDecks(){
         //creates hero deck if deck is not already created
         if(heroDeck == null || !heroDeck.getDeckCreated()) {
-            cardStore.renewHealthOfHeroCards();
+            cardStore.renewHealthOfCards(CardType.HERO_CARD);
             //Create Hero Deck
             createHeroDeck();
         }
 
         //creates villain deck if deck is not already created
         if(villainDeck == null || !villainDeck.getDeckCreated()) {
-            cardStore.renewHealthOfVillainCards();
+            cardStore.renewHealthOfCards(CardType.VILLAIN_CARD);
             //Create villain Deck
             createVillainDeck();
         }
@@ -243,10 +240,8 @@ public class MenuScreen extends GameScreen {
      *  Created By Niamh McCartney
      */
     private void createHeroDeck(){
-        // get all the cards of type hero
-        heroCardPool = getGame().getCardStore().getAllHeroCards(this);
         //create a deck with 3 randomly generated cards
-        deck = generateRandCards(3, heroCardPool);
+        deck = generateRandCards(3, CardType.HERO_CARD);
         //set this deck as the hero's deck
         hero.setPlayerDeck(deck);
     }
@@ -257,10 +252,8 @@ public class MenuScreen extends GameScreen {
      *  Created By Niamh McCartney
      */
     private void createVillainDeck(){
-        // get all the cards of type hero
-        villainCardPool = getGame().getCardStore().getAllVillainCards(this);
         //create a deck with 3 randomly generated cards
-        deck = generateRandCards(3, villainCardPool);
+        deck = generateRandCards(3, CardType.VILLAIN_CARD);
         //set this deck as the hero's deck
         villain.setPlayerDeck(deck);
     }
