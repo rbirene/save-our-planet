@@ -9,7 +9,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.CardType;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 
 /**
  * Defines the methods and

@@ -15,10 +15,8 @@ import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.game.CardType;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
-import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.VillainCard;
 
 /**
  * Loads and Creates the Game Cards and
@@ -84,7 +82,7 @@ public class CardStore {
         //Define the parameters
         this.mGame = game;
 
-        //Initialise the UserStore properties
+        //Initialise the CardStore properties
         this.mFileIO = mGame.getFileIO();
         this.assetManager = mGame.getAssetManager();
         this.cardPoolCollection = new HashMap<>();
@@ -98,6 +96,11 @@ public class CardStore {
         //Separate the Cards by CardType and add them to the relevant HashMaps
         separateByCardType();
     }
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
    /**
      * The JSON file is in the following format:
      *

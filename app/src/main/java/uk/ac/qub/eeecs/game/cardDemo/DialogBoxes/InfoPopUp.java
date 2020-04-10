@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 
 /**
  * Defines a PopUp that displays an informative

@@ -10,7 +10,7 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
-import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;

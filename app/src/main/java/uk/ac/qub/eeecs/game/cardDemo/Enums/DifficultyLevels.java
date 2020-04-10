@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.cardDemo.Enums;
 
 public enum DifficultyLevels {
     // These are difficulty levels that will impact the AI of the villain, this is changeable in the settings screen

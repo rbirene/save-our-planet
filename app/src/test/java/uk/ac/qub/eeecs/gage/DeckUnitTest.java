@@ -1,8 +1,3 @@
-
-/**
- * Created by Niamh McCartney
- */
-
 package uk.ac.qub.eeecs.gage;
 
 import org.junit.Before;
@@ -22,6 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for Deck Class
+ * Created by Niamh McCartney
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DeckUnitTest {
 

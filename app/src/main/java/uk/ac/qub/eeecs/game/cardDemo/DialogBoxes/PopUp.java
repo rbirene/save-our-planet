@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 
 /**
  * Defines a PopUp that can be used to display information

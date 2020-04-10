@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 
 /**
  * Defines a PopUp that displays a question to
@@ -48,7 +48,7 @@ public class TrueFalseQuestionPopUp extends PopUp{
     //Returns true if the User has answered the question
     private Boolean questionAnswered;
 
-// /////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////
     // Constructor
     // /////////////////////////////////////////////////////////////////////////
 

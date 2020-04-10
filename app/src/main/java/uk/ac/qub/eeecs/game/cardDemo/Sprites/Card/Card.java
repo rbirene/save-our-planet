@@ -16,7 +16,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
-import uk.ac.qub.eeecs.game.CardType;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 
 /**

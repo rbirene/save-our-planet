@@ -10,6 +10,10 @@ import uk.ac.qub.eeecs.game.cardDemo.User.User;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for User Class
+ * Created by Niamh McCartney
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class UserUnitTest {
 
