@@ -137,7 +137,7 @@ public class Deck {
     public Boolean noCardsSelected(){
         for (int i =0; i<getSize(); i++) {
             Card card = cardDeck.get(i);
-            if(card.cardSelected()){
+            if(card.getCardSelected()){
                 return false;
             }
         }

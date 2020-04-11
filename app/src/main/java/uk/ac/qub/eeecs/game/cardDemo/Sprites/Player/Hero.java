@@ -48,7 +48,7 @@ public class Hero extends Player {
 
             if (cardSelected != null) {
 
-                //if (cardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
+                //if (getCardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
                 cardSelected.setCardDragged(true);
                 //}
                 if (t.type == 2 && cardSelected.getCardDragged()) {
@@ -57,7 +57,7 @@ public class Hero extends Player {
                     cardSelected.setCardInUse(true);
 
                 }
-                if (t.type == 1 && cardSelected.cardSelected()) {
+                if (t.type == 1 && cardSelected.getCardSelected()) {
                     cardSelected.setSelected(false);
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);

@@ -412,7 +412,7 @@ public abstract class Card extends Sprite {
      * Created by Niamh McCartney
      */
     private Bitmap setCardBackground(){
-        if(cardSelected()){
+        if(getCardSelected()){
             mCardBaseImage = getCardBaseSelected();
         }
         else {
@@ -511,7 +511,7 @@ public abstract class Card extends Sprite {
      *
      *  {Created By Niamh McCartney}
      */
-    public Boolean cardSelected(){ return selected;}
+    public Boolean getCardSelected(){ return selected;}
 
     /**
      * Returns cardDragged Boolean
@@ -600,7 +600,7 @@ public abstract class Card extends Sprite {
      * Assigns Bitmap to represent the selected background of the Card
      * @param cardBaseSelectedImage Bitmap to be assigned
      *
-     * Created By Niamh McCartney óóó
+     * Created By Niamh McCartney
      */
     public void setCardBaseSelected(Bitmap cardBaseSelectedImage) {
         this.mCardBaseSelected = cardBaseSelectedImage;

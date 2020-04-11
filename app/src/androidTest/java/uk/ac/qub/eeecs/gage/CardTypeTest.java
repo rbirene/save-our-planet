@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.VillainCard;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -32,7 +34,7 @@ public class CardTypeTest {
         Card cardObject = heroCardType.getCardObjectType(aGame, "testCard",
                 null, null, 20, 40, 0.0f);
 
-        assertTrue(cardObject instanceof Card);
+        assertTrue(cardObject instanceof HeroCard);
     }
 
     @Test
@@ -59,7 +61,7 @@ public class CardTypeTest {
         Card cardObject = villainCardType.getCardObjectType(aGame, "testCard",
                 null, null, 20, 40, 0.0f);
 
-        assertTrue(cardObject instanceof Card);
+        assertTrue(cardObject instanceof VillainCard);
     }
 
     @Test
