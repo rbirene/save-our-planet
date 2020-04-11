@@ -1,8 +1,9 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.EnumTests;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
@@ -23,7 +24,7 @@ public class CardTypeTest {
     @Before
     public void cardType_SetUp() {
         aGame = new TestGame(420, 360);
-        aGame.mAssetManager.loadAssets("txt/assets/CardAssets.JSON");
+        aGame.getAssetManager().loadAssets("txt/assets/CardAssets.JSON");
 
         heroCardType = CardType.HERO_CARD;
         villainCardType = CardType.VILLAIN_CARD;

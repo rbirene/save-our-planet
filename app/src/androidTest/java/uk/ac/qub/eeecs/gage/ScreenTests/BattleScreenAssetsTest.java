@@ -1,10 +1,12 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.ScreenTests;
 
 import android.graphics.Bitmap;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.qub.eeecs.gage.TestGame;
+import uk.ac.qub.eeecs.gage.TestGameScreen;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 
 public class BattleScreenAssetsTest {

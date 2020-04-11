@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.cardDemo;
+package uk.ac.qub.eeecs.gage.ScreenTests;
 
 
 import android.graphics.Bitmap;
@@ -14,7 +14,7 @@ import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
-import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.OptionsScreen;
 
 import static junit.framework.Assert.assertTrue;
@@ -48,10 +48,6 @@ public class OptionsScreenTest {
         assertTrue(Game.mDifficultyLevel == DifficultyLevels.EASY);
     }
 
-
-
-
-
     @Test
     public void DifficultyBetweenScreens() {
         optionDemo = new OptionsScreen(Game);
@@ -67,11 +63,6 @@ public class OptionsScreenTest {
         String test = "Difficulty is " + Game.mDifficultyLevel;
         Assert.assertEquals(test,test);
         assertTrue(Game.mDifficultyLevel == DifficultyLevels.NORMAL);
-
-
-
-
-
     }
 
     @Test
@@ -88,9 +79,6 @@ public class OptionsScreenTest {
         Bitmap diffEasy = difficulty.getBitmap();
         assertTrue(Game.getAssetManager().getBitmap("diffEasy") == diffEasy);
     }
-
-
-
 
     @Test
     public void VolumeGetSetTest() {

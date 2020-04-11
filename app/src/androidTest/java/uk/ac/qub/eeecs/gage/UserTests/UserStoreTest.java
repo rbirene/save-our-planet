@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.UserTests;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
