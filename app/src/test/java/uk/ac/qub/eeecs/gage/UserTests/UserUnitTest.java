@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.UserTests;
 
 import org.junit.Before;
 import org.junit.Test;

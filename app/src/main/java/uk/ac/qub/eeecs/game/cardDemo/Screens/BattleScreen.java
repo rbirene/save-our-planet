@@ -580,7 +580,10 @@ public class BattleScreen extends GameScreen {
         // create a pop-up coinFlipPopUp box, passing in the players
         // name so the outcome can be displayed to the user
         coinFlipPopUp = new CoinFlipPopUp(getGame().getActivity(),
-                "Flip the coin to decide who goes first", firstPlayerName, Colour.GREEN);
+                "Flip the coin to decide who goes first",
+                firstPlayerName + " gets to go first!",
+                "Flip Coin", "Let's Play",
+                Colour.GREEN);
         coinFlipPopUp.showDialog();
 
         firstTurnDecided = true;
