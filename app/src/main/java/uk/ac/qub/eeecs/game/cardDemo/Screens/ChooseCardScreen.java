@@ -22,9 +22,9 @@ import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.CardType;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.FormPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Deck;
@@ -222,7 +222,7 @@ public class ChooseCardScreen extends GameScreen {
                 //If card is touched set the card to
                 // selected/unselected depending on its current state
                 if (card.getBound().contains(layerTouch.x, layerTouch.y) && event.type == 0) {
-                    if(card.cardSelected()){
+                    if(card.getCardSelected()){
                         card.setSelected(false);}
                     else{card.setSelected(true);}
                     audioManager.play(assetManager.getSound("CardSelect"));
@@ -465,7 +465,7 @@ public class ChooseCardScreen extends GameScreen {
             Card card = heroDeck.getDeck(this).get(i);
 
             //Checks for selected cards
-            if (card.cardSelected()) {
+            if (card.getCardSelected()) {
                 Boolean cardFound = false;
                 //Finds a new random card that isn't in the old deck or the new deck
                 while (!cardFound) {

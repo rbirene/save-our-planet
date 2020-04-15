@@ -5,7 +5,6 @@ import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.io.FileIO;
 import uk.ac.qub.eeecs.game.cardDemo.CardStore;
-import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
@@ -44,10 +43,10 @@ public class TestGame extends Game {
         //create the card store
         mCardStore = new CardStore(this);
 
-        // Create the Hero[Niamh McCartney]
+        // Create the Hero
         mHero = new Hero(mAssetManager.getBitmap("heroPortrait"));
 
-        // Create the Villain[Niamh McCartney]
+        // Create the Villain
         mVillain = new Villain(mAssetManager.getBitmap("villainPortrait"));
 
         mUserStore = new UserStore(this, context, uniqueUserStorageName);

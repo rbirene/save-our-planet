@@ -1,14 +1,12 @@
 package uk.ac.qub.eeecs.game.cardDemo.Sprites.Player;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
-import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.DifficultyLevels;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-import java.util.concurrent.TimeUnit;
 
 /**
  *

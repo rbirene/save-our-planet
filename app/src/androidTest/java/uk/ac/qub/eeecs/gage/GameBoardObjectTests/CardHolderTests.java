@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.cardDemo;
+package uk.ac.qub.eeecs.gage.GameBoardObjectTests;
 
 import android.graphics.Bitmap;
 import android.support.test.runner.AndroidJUnit4;

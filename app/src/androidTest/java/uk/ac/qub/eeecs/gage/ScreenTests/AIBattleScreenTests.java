@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.cardDemo;
+package uk.ac.qub.eeecs.gage.ScreenTests;
 
 
 import android.graphics.Bitmap;
@@ -21,7 +21,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
-import uk.ac.qub.eeecs.game.cardDemo.DifficultyLevels;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.DifficultyLevels;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import static junit.framework.Assert.assertTrue;
 
@@ -90,19 +90,6 @@ public class AIBattleScreenTests {
         playerCards.add(aCard2);
         playerCards.add(aCard3);
         villain.setPlayerCards(playerCards);
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -182,6 +169,5 @@ public class AIBattleScreenTests {
         Assert.assertTrue("Passed",enemyContainers.get(2).returnCardHeld().getHealthValue() == -11);
 
     }
-
 
 }

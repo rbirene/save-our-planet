@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.UserTests;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -8,12 +8,17 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for CardStore Class
+ * Created by Niamh McCartney
+ */
 @RunWith(AndroidJUnit4.class)
 public class UserStoreTest {
 
@@ -44,13 +49,13 @@ public class UserStoreTest {
     }
 
     @Test
-    public void getNumOfUsers_zeroUsers(){
+    public void userStore_getNumOfUsers_zeroUsers(){
         int size = aUserStore.getNumOfUsers();
         assertEquals(0, size);
     }
 
     @Test
-    public void getNumOfUsers_moreThanZeroUsers(){
+    public void userStore_getNumOfUsers_moreThanZeroUsers(){
         //Add user and see if store size changes
         aUserStore.addUser(user01);
         int size = aUserStore.getNumOfUsers();
@@ -58,7 +63,7 @@ public class UserStoreTest {
     }
 
     @Test
-    public void getUserList_ContainsCorrectUsers(){
+    public void userStore_getUserList_ContainsCorrectUsers(){
         aUserStore.addUser(user01);
         aUserStore.addUser(user02);
         aUserStore.addUser(user03);
@@ -73,7 +78,7 @@ public class UserStoreTest {
     }
 
     @Test
-    public void setUserList_ContainsCorrectUsers(){
+    public void userStore_setUserList_ContainsCorrectUsers(){
         aUserStore.setUserList(aUserList);
 
         Boolean containsCorrectUsers = true;
@@ -87,7 +92,7 @@ public class UserStoreTest {
     }
 
     @Test
-    public void addUser_UserNameNotTaken_UserStoreSizeIncreases(){
+    public void userStore_addUser_UserNameNotTaken_UserStoreSizeIncreases(){
         //Note size of store
         int userStoreSize = aUserStore.getNumOfUsers();
 
@@ -101,7 +106,7 @@ public class UserStoreTest {
     }
 
     @Test(expected = java.lang.RuntimeException.class)
-    public void addUser_UserNameTaken_ExceptionThrown(){
+    public void userStore_addUser_UserNameTaken_ExceptionThrown(){
         //Create new User and add them to store
         User newUser = new User("Anthony", 4, 6);
         aUserStore.addUser(newUser);
@@ -111,14 +116,14 @@ public class UserStoreTest {
     }
 
     @Test
-    public void checkUserStore_NameNotInStore(){
+    public void userStore_checkUserStore_NameNotInStore(){
         String newUserName = "randomName123";
         int position = aUserStore.checkUserStore(newUserName);
         assertEquals(-1, position);
     }
 
     @Test
-    public void checkUserStore_NameInStore(){
+    public void userStore_checkUserStore_NameInStore(){
         //Add User with known name to UserStore
         String newUserName = "Anthony";
         User newUser = new User(newUserName, 4, 6);
@@ -131,7 +136,7 @@ public class UserStoreTest {
     }
 
     @Test
-    public void saveUsersLoadUsers_NewStoreContainsCorrectUsers(){
+    public void userStore_saveUsersLoadUsers_NewStoreContainsCorrectUsers(){
         //Set and save contents of UserStore
         aUserStore.setUserList(aUserList);
         aUserStore.saveUsers();
@@ -153,7 +158,7 @@ public class UserStoreTest {
     }
 
     @Test
-    public void loadUserObjects_NoUsersToLoad_StoreLoadsWithoutError_StoreSizeIsZero(){
+    public void userStore_loadUserObjects_NoUsersToLoad_StoreLoadsWithoutError_StoreSizeIsZero(){
         UserStore newUserStore = new UserStore(aGame, aGame.context,
                 "newDataStorage");
         assertTrue(newUserStore.getNumOfUsers() == 0);

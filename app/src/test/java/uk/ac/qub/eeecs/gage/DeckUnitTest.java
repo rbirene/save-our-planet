@@ -1,8 +1,3 @@
-
-/**
- * Created by Niamh McCartney
- */
-
 package uk.ac.qub.eeecs.gage;
 
 import org.junit.Before;
@@ -22,6 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for Deck Class
+ * Created by Niamh McCartney
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DeckUnitTest {
 
@@ -136,22 +135,6 @@ public class DeckUnitTest {
         assertEquals(-1, aDeck.checkDeck(Card05));
         assertEquals(-1, aDeck.checkDeck(Card06));
     }
-
-//    @Test
-//    public void Deck_ChangeDeckSize_DeckSizChanged_Success(){
-//        int width = 250;
-//        int height = 300;
-//        aDeck.changeDeckSize(width, height);
-//        Boolean deckSizeChanged = true;
-//        for(int i = 0; i< aDeck.getSize(); i++){
-//            Card card = aDeck.getDeck(aScreen).get(i);
-//            if(card.getWidth() != width || card.getHeight() != height){
-//                deckSizeChanged = false;
-//            }
-//        }
-//
-//        assertTrue(deckSizeChanged);
-//    }
 
     @Test
     public void Deck_removeCard_CardInDeck_DeckSizeDecreased_Success(){

@@ -1,9 +1,11 @@
-package uk.ac.qub.eeecs.gage;
+package uk.ac.qub.eeecs.gage.SpriteTests.PlayerTests;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import uk.ac.qub.eeecs.gage.TestGame;
+import uk.ac.qub.eeecs.gage.TestGameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
@@ -18,7 +20,7 @@ public class PlayerUnitTest {
     public void playerTestSetup(){
         aGame = new TestGame(420, 360);
 
-        aGame.mAssetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        aGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
 
         aScreen = new TestGameScreen(aGame){};
 

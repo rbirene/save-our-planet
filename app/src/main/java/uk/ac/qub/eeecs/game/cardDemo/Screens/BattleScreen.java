@@ -22,7 +22,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.TrueFalseQuestionPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Question.Question;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
@@ -578,7 +578,10 @@ public class BattleScreen extends GameScreen {
         // create a pop-up coinFlipPopUp box, passing in the players
         // name so the outcome can be displayed to the user
         coinFlipPopUp = new CoinFlipPopUp(getGame().getActivity(),
-                "Flip the coin to decide who goes first", firstPlayerName, Colour.GREEN);
+                "Flip the coin to decide who goes first",
+                firstPlayerName + " gets to go first!",
+                "Flip Coin", "Let's Play",
+                Colour.GREEN);
         coinFlipPopUp.showDialog();
 
         firstTurnDecided = true;

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.ac.qub.eeecs.gage.R;
-import uk.ac.qub.eeecs.game.cardDemo.Colour.Colour;
+import uk.ac.qub.eeecs.game.cardDemo.Enums.Colour;
 
 /**
  * Defines a PopUp that can be used to display information
@@ -142,7 +142,7 @@ public abstract class PopUp {
      * Created By Niamh McCartney
      */
     protected void setTextProperties(int textID){
-        TextView text = dialog.findViewById(R.id.text_dialog);
+        TextView text = dialog.findViewById(textID);
         //Set PopUp message
         text.setText(message);
     }
@@ -215,7 +215,8 @@ public abstract class PopUp {
      *
      * Created By Niamh McCartney
      */
-    public void setMessage(String message) {
+    public void setMessage(String message, int textID) {
         this.message = message;
+        setTextProperties(textID);
     }
 }

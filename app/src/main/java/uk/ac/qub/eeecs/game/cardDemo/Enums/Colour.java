@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo.Colour;
+package uk.ac.qub.eeecs.game.cardDemo.Enums;
 
 /**
  * Define list of Colours
