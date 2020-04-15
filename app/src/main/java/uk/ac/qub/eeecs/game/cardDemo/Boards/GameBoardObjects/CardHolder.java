@@ -3,7 +3,7 @@ package uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
-
+//Sam Harper
 public class CardHolder extends GameObject {
 
     private Card card;

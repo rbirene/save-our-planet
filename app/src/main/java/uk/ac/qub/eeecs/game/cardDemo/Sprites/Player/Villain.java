@@ -25,8 +25,6 @@ public class Villain extends Player {
     private ArrayList<Card> playerCards = new ArrayList<>();
     private ArrayList<CardHolder> containers = new ArrayList<>();
     private ArrayList<CardHolder> enemyContainers = new ArrayList<>();
-    private  Card targetCard;
-    private Card attackCard;
     private Random rand = new Random();
 
     /**
@@ -39,6 +37,7 @@ public class Villain extends Player {
         super(0.0f, 0.0f, "Ronald Rump", null, portrait);
     }
 
+    //Sam Harper
     public void playAI(int x) {
 
         Random rand = new Random();

@@ -19,7 +19,7 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-
+//Sam Harper
 public class SplashScreen extends GameScreen {
 
     private ScreenViewport ScreenViewport;

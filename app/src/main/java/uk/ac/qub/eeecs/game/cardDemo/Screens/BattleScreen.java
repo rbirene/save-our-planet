@@ -35,17 +35,20 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
 public class BattleScreen extends GameScreen {
 
-    //Viewports{Niamh McCartney}
+    //Sam Harper
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
-
     private boolean paused = false;
-
     private GameObject pauseMenu;
-
     private Paint paint;
-
     private GameBoard board;
+    private int gameHeight;
+    private int gameWidth;
+    private PushButton pause;
+    private PushButton resume;
+    private PushButton exit;
+    private PushButton endTurnButton;
+
 
     //Define managers used by the screen
     private AssetManager assetManager = mGame.getAssetManager();
@@ -80,15 +83,8 @@ public class BattleScreen extends GameScreen {
     //Buttons
     private PushButton infoButton; // [Niamh McCartney]
     private PushButton settingsButton;// [Niamh McCartney]
-    private PushButton pause;
-    private PushButton resume;
-    private PushButton exit;
-    private PushButton endTurnButton;
     private PushButton bonusButton; // [William Oliver]
 
-    //Define game height and width
-    private int gameHeight;
-    private int gameWidth;
 
     //Returns true if the player to take the first turn has been decided[Niamh McCartney]
     private Boolean firstTurnDecided;
@@ -117,7 +113,7 @@ public class BattleScreen extends GameScreen {
 
     public BattleScreen(Game game) {
         super("Battle", game);
-
+        //Sam Harper
         gameHeight = mGame.getScreenHeight();
         gameWidth = mGame.getScreenWidth();
 
@@ -127,6 +123,7 @@ public class BattleScreen extends GameScreen {
         //Load the assets to be used by the screen[Niamh McCartney]
         loadScreenAssets();
 
+        //Sam Harper
         board = new GameBoard(220.0f, 160.0f, 520.0f, 325.0f, assetManager.getBitmap("battleBackground"), this);
         endTurnButton = new PushButton(335.0f, 300.0f, 83.0f, 30.0f, "endTurn", "endTurnPush", this);
 
@@ -135,7 +132,7 @@ public class BattleScreen extends GameScreen {
         paint.setARGB(255, 255, 255, 255);
         paint.setUnderlineText(true);
 
-
+        //Sam Harper
         hero.setGameScreen(this);
         hero.setGameBoard(board);
 
@@ -171,14 +168,29 @@ public class BattleScreen extends GameScreen {
 
     }
 
-    public void checkEndGame(){
-        if(hero.getPlayerHealth(this) <= 0){
+    //Sam Harper
+    public void checkEndGame() {
+        if (hero.getPlayerHealth(this) <= 0) {
             mGame.getScreenManager().addScreen(new EndGame(mGame, false));
-        }else if(villain.getPlayerHealth(this) <=0){
+        } else if (villain.getPlayerHealth(this) <= 0) {
             mGame.getScreenManager().addScreen(new EndGame(mGame, true));
         }
     }
 
+    //Sam Harper
+    public void gameLoop( List<TouchEvent> touchEvents) {
+
+        if(!paused &&coinFlipped) {
+        if (playerTurn) {
+            if (!hero.getCardPlayed()) {
+                hero.ProcessTouchInput(touchEvents);
+            }
+        } else {
+            villain.AI();
+            playerTurn = true;
+        }
+    }
+}
     @Override
     public void update(ElapsedTime elapsedTime) {
         Input input = mGame.getInput();
@@ -187,16 +199,7 @@ public class BattleScreen extends GameScreen {
         //Checks if User has flipped coin [Niamh McCartney]
         checkCoinFlipped();
 
-        if (!paused && coinFlipped) {
-            if (playerTurn) {
-                if (!hero.getCardPlayed()) {
-                    hero.ProcessTouchInput(touchEvents);
-                }
-            } else {
-                villain.AI();
-                playerTurn = true;
-            }
-        }
+        gameLoop(touchEvents);
 
         //Checks if User has answered the Question [Niamh McCartney]
         checkQuestionAnswered();
@@ -240,6 +243,7 @@ public class BattleScreen extends GameScreen {
      *  Created By Niamh McCartney
      */
     private void updateScreenObjects(ElapsedTime elapsedTime){
+        //Sam Harper
         hero.update(elapsedTime);
         villain.update(elapsedTime);
         pause.update(elapsedTime);
@@ -251,13 +255,6 @@ public class BattleScreen extends GameScreen {
         villainDeck.update();
         heroDeck.update();
 
-        for (Card c:heroDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
-
-        for (Card c:villainDeck.getDeck(this)) {
-            c.update(elapsedTime);
-        }
     }
 
     /**
@@ -438,7 +435,7 @@ public class BattleScreen extends GameScreen {
             hero.setHeroPenaltyHealth(this);
         }
     }
-
+    //Sam Harper
     private void pauseUpdate(ElapsedTime elapsedTime) {
 
         pauseMenu.update(elapsedTime);
@@ -453,7 +450,7 @@ public class BattleScreen extends GameScreen {
             mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
     }
-
+    //Sam Harper
     public void setupPause(){
 
         pauseMenu = new GameObject(240.0f,170.0f ,
@@ -465,7 +462,7 @@ public class BattleScreen extends GameScreen {
         exit = new PushButton(240.0f, 115.0f,
                 142.0f, 50.0f, "menuBtn", "menu2Btn", this);
     }
-
+    //Sam Harper
     public void drawPause(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
@@ -485,6 +482,7 @@ public class BattleScreen extends GameScreen {
 		if (bonusButton.isPushTriggered() && numOfQuestions >0)
             showBonusDialog();
 
+        //Sam Harper
         if(paused){
             drawPause(elapsedTime, graphics2D);
             pauseUpdate(elapsedTime);
