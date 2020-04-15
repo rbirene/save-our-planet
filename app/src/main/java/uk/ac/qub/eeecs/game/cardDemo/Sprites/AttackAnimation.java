@@ -7,7 +7,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
 import uk.ac.qub.eeecs.gage.world.Sprite;
-
+//Sam Harper
 public class AttackAnimation extends Sprite {
 
     private AnimationManager mAnimationManager;

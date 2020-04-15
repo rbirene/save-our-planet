@@ -18,7 +18,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
  * This class represents a hero in the game (using traits and behaviours from Player).
  *
  */
-
+//Sam Harper
 public class Hero extends Player {
 
     // /////////////////////////////////////////////////////////////////////////
@@ -47,28 +47,25 @@ public class Hero extends Player {
                     gameScreen.getDefaultLayerViewport(), layerTouch);
 
             if (cardSelected != null) {
-
-                //if (getCardSelected.getBound().contains(layerTouch.x, layerTouch.y) && t.type == 0) {
                 cardSelected.setCardDragged(true);
-                //}
+
                 if (t.type == 2 && cardSelected.getCardDragged()) {
                     cardSelected.setPosition(layerTouch.x, layerTouch.y);
                     cardSelected.setCardDragged(true);
                     cardSelected.setCardInUse(true);
-
                 }
-                if (t.type == 1 && cardSelected.getCardSelected()) {
+
+                if (t.type == 1 && cardSelected.cardSelected()) {
                     cardSelected.setSelected(false);
+
                     if (checkDropLocationContainer()) {
                         tempContainer.AddCardToHolder(cardSelected);
                         cardSelected.setCardInUse(true);
                         getPlayerDeck().setDeckChanged(true);
-                        // tempContainer = null;
                         cardSelected = null;
                         cardPlayed = true;
                     } else if (checkDropLocationAttack()) {
                         attackPhase();
-                        //  tempContainer.returnCardToHolder();
                         cardSelected.returnToHolder();
                         cardSelected = null;
                         cardPlayed = true;

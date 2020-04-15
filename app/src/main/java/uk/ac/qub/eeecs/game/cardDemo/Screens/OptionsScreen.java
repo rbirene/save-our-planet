@@ -26,12 +26,12 @@ public class OptionsScreen extends GameScreen {
     //paints for text [Irene Bhuiyan]
     private Paint textPaint;
 
-    private GameObject optionsBackground, optionsTitle, volumeBar;
-
-    private PushButton backButton, menuButton, muteToggle, volumeUp, volumeDown, changeDifficulty;
-
     private DifficultyLevels diff = DifficultyLevels.EASY;
     private Paint paint;
+
+    //Sam Harper
+    private GameObject optionsBackground, optionsTitle, volumeBar;
+    private PushButton backButton, menuButton, muteToggle, volumeUp, volumeDown, changeDifficulty;
 
     private ScreenViewport ScreenViewport;
     private LayerViewport LayerViewport;
@@ -70,20 +70,15 @@ public class OptionsScreen extends GameScreen {
         Bitmap optionsTitleImg = assetManager.getBitmap("settings");
         optionsTitle = new GameObject(240.0f, 270.0f, 143.2f, 39.0f, optionsTitleImg, this);
 
-        //set up back button[Niamh McCartney]
-        backButton = new PushButton(30.0f, 30.0f, 50.0f, 50.0f, "BackArrow", "BackArrowSelected", this);
-
         //set up menu button [Irene Bhuiyan]
         menuButton = new PushButton(420.0f, 30.0f, 80.0f, 28.0f, "menuBtn", "menuBtn", this);
 
+        //Sam Harper
+        backButton = new PushButton(30.0f, 30.0f, 50.0f, 50.0f, "BackArrow", "BackArrowSelected", this);
         muteToggle = new PushButton(110.0f, 220.0f, 60.0f, 60.0f, "muteOff","muteOff",this );
-
         volumeDown = new PushButton(100.0f, 140.0f, 60.0f, 60.0f, "volDown","volDown",this );
-
         volumeUp = new PushButton(375.0f, 140.0f, 60.0f, 60.0f, "volUp","volUp",this );
-
         volumeBar = new GameObject(235.0f, 140.0f, 200.0f, 38.8f, this.getGame().getAssetManager().getBitmap("soundBar0"), this);
-
         changeDifficulty = new PushButton(100.0f, 70.0f, 60.0f, 21.1f, "diffEasy","diffNormal",this );
 
         volChecker();
@@ -94,7 +89,7 @@ public class OptionsScreen extends GameScreen {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOn"));
         }
     }
-
+    //Sam Harper
     public void volChecker(){
 
         if(volume >=0.80f && volume <=1.0f){
@@ -126,7 +121,7 @@ public class OptionsScreen extends GameScreen {
         volumeBar.update(elapsedTime);
         volChecker();
     }
-
+    //Sam Harper
     @Override
     public void update(ElapsedTime elapsedTime) {
 
@@ -168,7 +163,7 @@ public class OptionsScreen extends GameScreen {
             diffChecker(mGame.mDifficultyLevel,changeDifficulty);
         }
     }
-
+    //Sam Harper
     public void muteButton(){
         if(audioManager.isMusicPlaying()){
             audioManager.pauseMusic();
@@ -178,7 +173,7 @@ public class OptionsScreen extends GameScreen {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
         }
     }
-
+    //Sam Harper
     @Override
     public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
