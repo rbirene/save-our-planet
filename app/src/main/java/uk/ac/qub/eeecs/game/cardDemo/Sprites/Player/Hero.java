@@ -55,7 +55,7 @@ public class Hero extends Player {
                     cardSelected.setCardInUse(true);
                 }
 
-                if (t.type == 1 && cardSelected.cardSelected()) {
+                if (t.type == 1 && cardSelected.getCardSelected()) {
                     cardSelected.setSelected(false);
 
                     if (checkDropLocationContainer()) {

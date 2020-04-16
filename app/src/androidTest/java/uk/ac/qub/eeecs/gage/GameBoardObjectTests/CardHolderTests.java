@@ -1,6 +1,5 @@
 package uk.ac.qub.eeecs.gage.GameBoardObjectTests;
 
-import android.graphics.Bitmap;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
@@ -8,11 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.game.CardType;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.MenuScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoardObjects.CardHolder;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.BattleScreen;
@@ -79,4 +75,3 @@ public class CardHolderTests {
         Assert.assertFalse(holder.isEmpty());
     }
 }
-
