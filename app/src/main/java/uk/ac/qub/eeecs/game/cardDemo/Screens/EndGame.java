@@ -28,10 +28,10 @@ public class EndGame extends GameScreen {
 
     private Boolean winner;
 
-    //Define the Game's UserStore[Niamh McCartney]
+    //Define the Game's UserStore
     private UserStore userStore;
 
-    //Define the Game's Current User[Niamh McCartney]
+    //Define the Game's Current User
     private User currentUser;
 
     //Define player decks used by the Game

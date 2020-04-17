@@ -34,8 +34,6 @@ public class MenuScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-   // private HashMap<String, Card> screenCardPool = new HashMap<>();
-
     //Define card and deck objects used during
     //generation of the player decks [Niamh McCartney]
     private Card randCard;
@@ -53,7 +51,6 @@ public class MenuScreen extends GameScreen {
     private Villain villain = getGame().getVillain();
     private Deck heroDeck = getGame().getHero().getPlayerDeck();
     private Deck villainDeck = getGame().getVillain().getPlayerDeck();
-
 
     //Define game dimensions and viewports [Irene Bhuiyan]
     private ScreenViewport ScreenViewport;

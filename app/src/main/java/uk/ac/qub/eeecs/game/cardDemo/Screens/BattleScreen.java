@@ -49,7 +49,6 @@ public class BattleScreen extends GameScreen {
     private PushButton exit;
     private PushButton endTurnButton;
 
-
     //Define managers used by the screen
     private AssetManager assetManager = mGame.getAssetManager();
     private ScreenManager screenManager = mGame.getScreenManager();
@@ -233,8 +232,6 @@ public class BattleScreen extends GameScreen {
 
         if(pause.isPushTriggered()){ paused = true;
         }else if(resume.isPushTriggered()){ paused = false;}
-
-
     }
 
     /**
@@ -243,18 +240,17 @@ public class BattleScreen extends GameScreen {
      *  Created By Niamh McCartney
      */
     private void updateScreenObjects(ElapsedTime elapsedTime){
+        infoButton.update(elapsedTime);
+        settingsButton.update(elapsedTime);
+        bonusButton.update(elapsedTime); // [William Oliver]
         //Sam Harper
         hero.update(elapsedTime);
         villain.update(elapsedTime);
         pause.update(elapsedTime);
-        infoButton.update(elapsedTime);
-        settingsButton.update(elapsedTime);
         board.update(elapsedTime);
         endTurnButton.update(elapsedTime);
-        bonusButton.update(elapsedTime); // [William Oliver]
         villainDeck.update();
         heroDeck.update();
-
     }
 
     /**
@@ -435,6 +431,7 @@ public class BattleScreen extends GameScreen {
             hero.setHeroPenaltyHealth(this);
         }
     }
+
     //Sam Harper
     private void pauseUpdate(ElapsedTime elapsedTime) {
 
@@ -467,7 +464,6 @@ public class BattleScreen extends GameScreen {
         pauseMenu.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         resume.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
         exit.draw(elapsedTime,graphics2D,LayerViewport,ScreenViewport);
-
     }
 
     @Override
@@ -619,19 +615,35 @@ public class BattleScreen extends GameScreen {
         }
     }
 
+    /**
+     * Reset the properties of each Players decks
+     * Created By Niamh McCartney
+     */
     private void resetDecks(){
         resetVillainDeck(villainDeck);
         resetHeroDeck(heroDeck);
     }
 
+    /**
+     * Set properties of Villain Cards equal to
+     * properties when screen is first accessed
+     *
+     * Created By Niamh McCartney
+     */
     private void resetVillainDeck(Deck aDeck){
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
-            //Set card to a[[ear turned over
+            //Set card to appear turned over
             card.setCardFlipped(true);
         }
     }
 
+    /**
+     * Set properties of Hero Cards equal to
+     * properties when screen is first accessed
+     *
+     * Created By Niamh McCartney
+     */
     private void resetHeroDeck(Deck aDeck){
         for(int i = 0; i<aDeck.getDeck(this).size(); i++){
             Card card = aDeck.getDeck(this).get(i);
@@ -691,7 +703,6 @@ public class BattleScreen extends GameScreen {
 
     /**
      * Load Assets used by screen
-     *
      * Created By Niamh McCartney
      */
     private void loadScreenAssets() {
@@ -701,10 +712,8 @@ public class BattleScreen extends GameScreen {
     }
 
     /**
-     *
      * Created by [Irene Bhuiyan]
      * Displays hero and villain on screen.
-     *
      */
     private void displayPlayers(ElapsedTime elapsedTime, IGraphics2D graphics2D){
 
