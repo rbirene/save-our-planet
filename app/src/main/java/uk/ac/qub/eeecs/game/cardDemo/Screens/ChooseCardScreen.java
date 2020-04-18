@@ -3,8 +3,6 @@ package uk.ac.qub.eeecs.game.cardDemo.Screens;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import uk.ac.qub.eeecs.gage.Game;
@@ -32,14 +30,11 @@ import uk.ac.qub.eeecs.game.cardDemo.DialogBoxes.InfoPopUp;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 
 /**
- * Screen displays the players deck and gives
- * the player the option to swap out cards in
- * their deck for new random cards. Once the
- * player has chosen their cards they can
- * proceed to the BattleScreen
+ * Screen displays the players deck and gives the player the option
+ * to swap out cards in their deck for new random cards. Once the
+ * player has chosen their cards they can proceed to the BattleScreen
  *
  * Created by Niamh McCartney
- *
  */
 public class ChooseCardScreen extends GameScreen {
 
@@ -175,9 +170,8 @@ public class ChooseCardScreen extends GameScreen {
     }
 
     /**
-     * Updates the ChooseCards screen button events
-     * and provides information on actions to be
-     * performed when a button event occurs
+     * Updates the ChooseCards screen button events and provides
+     * information on actions to be performed when a button event occurs
      *
      * Created By Niamh McCartney
      */
@@ -201,9 +195,8 @@ public class ChooseCardScreen extends GameScreen {
     }
 
     /**
-     * Reacts to touch events on Cards displayed
-     * on the screen by updating the background
-     * of the relevant Card/s
+     * Reacts to touch events on Cards displayed on the screen
+     * by updating the background of the relevant Card/s
      * @param event touch event to be processed
      *
      * Created By Niamh McCartney
@@ -376,7 +369,6 @@ public class ChooseCardScreen extends GameScreen {
 
     /**
      * Sets the properties for each of the Screen's Buttons
-     *
      * Created By Niamh McCartney
      */
     private void setButtonProperties(){
@@ -428,7 +420,6 @@ public class ChooseCardScreen extends GameScreen {
 
     /**
      * Load Assets used by screen
-     *
      * Created By Niamh McCartney
      */
     private void loadScreenAssets() {
@@ -458,7 +449,7 @@ public class ChooseCardScreen extends GameScreen {
      */
     private void shuffleCards() {
         //Temporary list of Cards to contain new card deck
-        HashMap<String, Card> tempCardPool = new HashMap<>();
+        ArrayList<Card> tempCardPool = new ArrayList<>();
 
         //Iterates through the players current deck of cards
         for (int i = 0; i < heroDeck.getDeck(this).size(); i++) {
@@ -473,20 +464,18 @@ public class ChooseCardScreen extends GameScreen {
                     String name = randCard.getCardName();
 
                     //If Card has not already been chosen then add to temporary list
-                    if (!tempCardPool.containsKey(name) && heroDeck.checkDeck(randCard) == -1) {
-                        tempCardPool.put(randCard.getCardName(), randCard);
+                    if (!tempCardPool.contains(name) && heroDeck.checkDeck(randCard) == -1) {
+                        tempCardPool.add(i, randCard);
                         cardFound = true;
                     }
                 }
                 //Add Card to temporary HashMap if Card is not selected
             } else {
-                tempCardPool.put(card.getCardName(), card);
+                tempCardPool.add(i, card);
             }
         }
-        //Get Cards from HashMap
-        Collection<Card> newCards = tempCardPool.values();
         //Assigns new deck to the player
-        heroDeck.setDeck(new ArrayList<>(newCards));
+        heroDeck.setDeck(tempCardPool);
         //Deck has now been shuffled
         heroDeck.setDeckShuffled(true);
     }
