@@ -74,6 +74,7 @@ public class OptionsScreen extends GameScreen {
         menuButton = new PushButton(420.0f, 30.0f, 80.0f, 28.0f, "menuBtn", "menuBtn", this);
 
         //Sam Harper
+        //Creation of on screen objects
         backButton = new PushButton(30.0f, 30.0f, 50.0f, 50.0f, "BackArrow", "BackArrowSelected", this);
         muteToggle = new PushButton(110.0f, 220.0f, 60.0f, 60.0f, "muteOff","muteOff",this );
         volumeDown = new PushButton(100.0f, 140.0f, 60.0f, 60.0f, "volDown","volDown",this );
@@ -81,6 +82,7 @@ public class OptionsScreen extends GameScreen {
         volumeBar = new GameObject(235.0f, 140.0f, 200.0f, 38.8f, this.getGame().getAssetManager().getBitmap("soundBar0"), this);
         changeDifficulty = new PushButton(100.0f, 70.0f, 60.0f, 21.1f, "diffEasy","diffNormal",this );
 
+        //Updates volume slider depending on volume level
         volChecker();
 
         if (audioManager.isMusicPlaying()) {
@@ -163,7 +165,7 @@ public class OptionsScreen extends GameScreen {
             diffChecker(mGame.mDifficultyLevel,changeDifficulty);
         }
     }
-    //Sam Harper
+    //Updates mute toggle button
     public void muteButton(){
         if(audioManager.isMusicPlaying()){
             audioManager.pauseMusic();
@@ -173,7 +175,7 @@ public class OptionsScreen extends GameScreen {
             muteToggle.setBitmap(mGame.getAssetManager().getBitmap("muteOff"));
         }
     }
-    //Sam Harper
+    //Draws all objects to screen.
     @Override
     public void draw (ElapsedTime elapsedTime, IGraphics2D graphics2D){
 

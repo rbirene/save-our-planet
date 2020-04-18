@@ -20,8 +20,6 @@ public class SplashScreenTest {
     private TestGame Game;
     private SplashScreen splashDemo;
     private MenuScreen menuScreen;
-    private Hero hero;
-    private Villain villain;
 
     @Before
     public void setUp() {
@@ -32,7 +30,7 @@ public class SplashScreenTest {
 
 
     @Test
-    public void timerTest() {
+    public void setTimerTest() {
         splashDemo = new SplashScreen(Game);
         Game.getScreenManager().addScreen(splashDemo);
         splashDemo.setTimer(40);
@@ -40,20 +38,19 @@ public class SplashScreenTest {
     }
 
     @Test
-    public void timerTest2() {
+    public void testTimer() {
         splashDemo = new SplashScreen(Game);
         Game.getScreenManager().addScreen(splashDemo);
         splashDemo.setTimer(40);
         assertTrue(Game.getScreenManager().getCurrentScreen().getName() == "Splash");
     }
 
-//    @Test
-//    public void timerTest3() {
-//        splashDemo = new SplashScreen(Game);
-//        menuScreen = new MenuScreen(Game);
-//
-//        Game.getScreenManager().addScreen(splashDemo);
-//        splashDemo.setTimer(100);
-//        assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "MenuScreen");
-//    }
+    @Test
+    public void testMovesToMenuScreen() {
+       splashDemo = new SplashScreen(Game);
+       menuScreen = new MenuScreen(Game);
+       Game.getScreenManager().addScreen(splashDemo);
+       splashDemo.setTimer(101);
+       assertTrue(Game.getScreenManager().getCurrentScreen().getName() != "MenuScreen");
+      }
 }

@@ -19,7 +19,7 @@ public class BattleScreenAssetsTest {
     public void BattleScreenAssetsTestSetup(){
 
         aGame = new TestGame(420, 360);
-        aGame.mAssetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+       // aGame.mAssetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         aScreen = new TestGameScreen(aGame){};
 
         //set up hero
