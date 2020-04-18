@@ -9,7 +9,14 @@ import uk.ac.qub.eeecs.gage.TestGameScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 
-public class PlayerUnitTest {
+/**
+ * Unit tests for hero and villain.
+ *
+ * Created by [Irene Bhuiyan]
+ *
+ */
+
+public class HeroVillainTest {
 
     private TestGameScreen aScreen;
     private TestGame aGame;

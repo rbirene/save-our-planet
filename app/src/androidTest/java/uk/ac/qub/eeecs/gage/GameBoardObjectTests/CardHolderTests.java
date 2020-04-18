@@ -38,7 +38,6 @@ public class CardHolderTests {
     }
 
 
-
     @Test
     public void testHolderCreation(){
         CardHolder testHolder = new CardHolder(140.0f, 130.0f,battleDemo);

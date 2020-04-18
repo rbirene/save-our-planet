@@ -76,12 +76,12 @@ public class AIBattleScreenTests {
 
         cardType = "cardType";
         cardName = "cardName";
-        aCard = new Card(5, 8, battleDemo, cardName, cardType , null, null, 20, 30, 0.3f);
-        aCard2 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
-        aCard3 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 15, 20, 0.3f);
-        aCard4 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 20, 0.3f);
-        aCard5 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 15, 0.3f);
-        aCard6 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
+        //aCard = new Card(5, 8, battleDemo, cardName, cardType , null, null, 20, 30, 0.3f);
+        //aCard2 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
+        //aCard3 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 15, 20, 0.3f);
+        //aCard4 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 20, 0.3f);
+        //aCard5 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 15, 0.3f);
+        //aCard6 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
 
 
         villain.setGameBoard(gameBoard);
