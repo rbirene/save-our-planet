@@ -56,6 +56,7 @@ public class EndGame extends GameScreen {
         heroDeck = game.getHero().getPlayerDeck();
         villainDeck = getGame().getVillain().getPlayerDeck();
 
+        //Load screen assets [Niamh McCartney]
         loadScreenAssets();
 
         String resultString;
@@ -96,6 +97,10 @@ public class EndGame extends GameScreen {
         }
     }
 
+    /**
+     * Loads the images used by the screen
+     * Created by Niamh McCartney
+     */
     private void loadScreenAssets(){
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAssets("txt/assets/EndGameScreenAssets.JSON");
