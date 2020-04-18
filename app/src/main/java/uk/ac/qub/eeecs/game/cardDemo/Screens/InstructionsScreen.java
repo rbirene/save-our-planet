@@ -95,7 +95,6 @@ public class InstructionsScreen extends GameScreen {
         textPaint.setARGB(255, 0, 0, 0);
     }
 
-
     @Override
     public void update(ElapsedTime elapsedTime) {
 

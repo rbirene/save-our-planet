@@ -9,6 +9,13 @@ import uk.ac.qub.eeecs.gage.TestGame;
 import uk.ac.qub.eeecs.gage.TestGameScreen;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 
+/**
+ * Tests for players in Battle Screen.
+ *
+ * Created by [Irene Bhuiyan]
+ *
+ */
+
 public class BattleScreenAssetsTest {
 
     private GameObject heroAvatarImg, villainAvatarImg;
@@ -19,7 +26,7 @@ public class BattleScreenAssetsTest {
     public void BattleScreenAssetsTestSetup(){
 
         aGame = new TestGame(420, 360);
-       // aGame.mAssetManager.loadAssets("txt/assets/CardDemoScreenAssets.JSON");
+        aGame.getAssetManager().loadAssets("txt/assets/CardDemoScreenAssets.JSON");
         aScreen = new TestGameScreen(aGame){};
 
         //set up hero
