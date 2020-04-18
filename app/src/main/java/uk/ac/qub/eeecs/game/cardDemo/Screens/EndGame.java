@@ -13,7 +13,7 @@ import uk.ac.qub.eeecs.game.cardDemo.Deck;
 import uk.ac.qub.eeecs.game.cardDemo.User.User;
 import uk.ac.qub.eeecs.game.cardDemo.User.UserStore;
 
-
+//EndGame class by Gareth Scott
 public class EndGame extends GameScreen {
 
     private PushButton menuButton;
@@ -56,7 +56,6 @@ public class EndGame extends GameScreen {
         heroDeck = game.getHero().getPlayerDeck();
         villainDeck = getGame().getVillain().getPlayerDeck();
 
-        //Loads the assets used by the screen [Niamh McCartney]
         loadScreenAssets();
 
         String resultString;
@@ -97,11 +96,6 @@ public class EndGame extends GameScreen {
         }
     }
 
-    /**
-     * Load Assets used by screen
-     *
-     * Created By Niamh McCartney
-     */
     private void loadScreenAssets(){
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAssets("txt/assets/EndGameScreenAssets.JSON");
