@@ -42,7 +42,6 @@ public class SaveOurPlanetGame extends Game {
 
         SplashScreen SplashScreen = new SplashScreen(this);
         mScreenManager.addScreen(SplashScreen);
-
         return view;
     }
 

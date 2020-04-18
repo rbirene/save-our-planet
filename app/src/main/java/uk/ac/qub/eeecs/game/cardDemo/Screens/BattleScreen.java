@@ -168,6 +168,7 @@ public class BattleScreen extends GameScreen {
     }
 
     //Sam Harper
+    //Checks if game is over and takes appropriate action
     public void checkEndGame() {
         if (hero.getPlayerHealth(this) <= 0) {
             mGame.getScreenManager().addScreen(new EndGame(mGame, false));
@@ -177,6 +178,7 @@ public class BattleScreen extends GameScreen {
     }
 
     //Sam Harper
+    //Ensures players input is processed when its the users turn
     public void gameLoop( List<TouchEvent> touchEvents) {
 
         if(!paused &&coinFlipped) {
