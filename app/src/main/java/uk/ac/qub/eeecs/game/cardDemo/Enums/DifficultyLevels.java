@@ -15,7 +15,7 @@ public enum DifficultyLevels {
      *  Keith Tennyson
       */
 
-    
+
 
 
     private DifficultyLevels(int difficultyvalue) {

@@ -66,25 +66,6 @@ public class Villain extends Player {
         }
     }
 
-   /** public void AIAttack(){}{
-
-     //   containers.addAll(gameBoard.getVillianContainers());
-       // enemyContainers.addAll(gameBoard.getHeroContainers());
-        Random rand = new Random();
-
-            for(int i=0;i<enemyContainers.size();i++){
-                if(!enemyContainers.get(i).isEmpty()){
-                    targetCard = enemyContainers.get(i).returnCardHeld();
-                    int n = rand.nextInt(containers.size()-1);
-                    attackCard = containers.get(n).returnCardHeld();
-                    targetCard.setHealthValue(targetCard.getHealthValue() - attackCard.getAttackValue());
-                    gameBoard.playAttackAnimation(enemyContainers.get(i));
-
-                }
-            }
-        }
-    **/
-
     /**
      * If no cards have been played on the field (3 cards in the villains deck) play a card.
      * If theres no cards in the deck (playerCards.size == 0) you must attack.
