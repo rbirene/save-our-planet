@@ -57,12 +57,13 @@ public class MenuScreen extends GameScreen {
     private LayerViewport LayerViewport;
     private int gameHeight, gameWidth;
 
-    //Define buttons
-    private PushButton infoButton; //[Niamh McCartney]
-    private PushButton settingsButton;//[Niamh McCartney]
-    private PushButton playGame; //[Irene Bhuiyan]
-    private PushButton exit; //[Irene Bhuiyan]
-    private PushButton leaderBoardsButton; //[Niamh McCartney]
+    //Define buttons[Niamh McCartney]
+    private PushButton infoButton;
+    private PushButton settingsButton;
+    private PushButton leaderBoardsButton;
+    //Define buttons//[Irene Bhuiyan]
+    private PushButton playGame;
+    private PushButton exit;
 
     //Background [Irene Bhuiyan]
     private GameObject menuBackground;
@@ -125,7 +126,6 @@ public class MenuScreen extends GameScreen {
      */
     @Override
     public void update(ElapsedTime elapsedTime) {
-
         // Process any touch events occurring since the update
         Input input = mGame.getInput();
 
@@ -168,10 +168,11 @@ public class MenuScreen extends GameScreen {
         // draw background and buttons [Irene Bhuiyan]
         graphics2D.clear(Color.WHITE);
         menuBackground.draw(elapsedTime, graphics2D,LayerViewport,ScreenViewport);
-        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
-        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         playGame.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
         exit.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
+        //Draw Buttons [Niamh McCartney]
+        infoButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
+        settingsButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         leaderBoardsButton.draw(elapsedTime,graphics2D,mDefaultLayerViewport,mDefaultScreenViewport);
     }
 

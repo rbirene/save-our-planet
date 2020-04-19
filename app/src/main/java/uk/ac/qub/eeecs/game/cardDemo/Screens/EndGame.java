@@ -85,7 +85,6 @@ public class EndGame extends GameScreen {
         background.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         result.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
         menuButton.draw(elapsedTime, graphics2D, LayerViewport, ScreenViewport);
-
     }
 
     @Override

@@ -180,7 +180,6 @@ public class BattleScreen extends GameScreen {
     //Sam Harper
     //Ensures players input is processed when its the users turn
     public void gameLoop( List<TouchEvent> touchEvents) {
-
         if(!paused &&coinFlipped) {
         if (playerTurn) {
             if (!hero.getCardPlayed()) {
@@ -238,13 +237,13 @@ public class BattleScreen extends GameScreen {
 
     /**
      * Updates the screen objects
-     *
-     *  Created By Niamh McCartney
      */
     private void updateScreenObjects(ElapsedTime elapsedTime){
+        //[Niamh McCartney]
         infoButton.update(elapsedTime);
         settingsButton.update(elapsedTime);
-        bonusButton.update(elapsedTime); // [William Oliver]
+        //[William Oliver]
+        bonusButton.update(elapsedTime);
         //Sam Harper
         hero.update(elapsedTime);
         villain.update(elapsedTime);
@@ -539,10 +538,9 @@ public class BattleScreen extends GameScreen {
     }
 
     /**
-     * Creates a Pop-Up Dialog box which allows
-     * the player to flip a coin to determine
-     * who takes the first turn. The outcome
-     * is then displayed to the player
+     * Creates a Pop-Up Dialog box which allows the player to flip a
+     * coin to determine who takes the first turn. The outcome is
+     * then displayed to the player
      *
      *  {Created By Niamh McCartney}
      */
@@ -694,10 +692,8 @@ public class BattleScreen extends GameScreen {
     /**
      * Add a pause Button to the screen
      * that brings up a pause screen
-     *
      */
     private void addPauseButton() {
-
         pause = new PushButton(465.0f, 300.0f,
                 30.0f, 30.0f, "pauseBtn",
                 "pauseBtn", this);
@@ -718,7 +714,6 @@ public class BattleScreen extends GameScreen {
      * Displays hero and villain on screen.
      */
     private void displayPlayers(ElapsedTime elapsedTime, IGraphics2D graphics2D){
-
         //display hero
         hero.setPosition(442.0f, 73.0f);
         hero.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
@@ -726,6 +721,5 @@ public class BattleScreen extends GameScreen {
         //display villain
         villain.setPosition(36.0f, 271.0f);
         villain.Draw(elapsedTime, graphics2D,getDefaultLayerViewport(),getDefaultScreenViewport(), this);
-
     }
 }
