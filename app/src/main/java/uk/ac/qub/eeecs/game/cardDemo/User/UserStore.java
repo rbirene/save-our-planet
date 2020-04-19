@@ -104,7 +104,7 @@ public class UserStore {
         if(users != null) {
             for (int idx = 0; idx < users.size(); idx++) {
                 User user = users.get(idx);
-                // addUser(user);
+                 addUser(user);
             }
         }
     }
