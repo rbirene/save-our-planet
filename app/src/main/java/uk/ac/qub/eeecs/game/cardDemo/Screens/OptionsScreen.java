@@ -107,6 +107,11 @@ public class OptionsScreen extends GameScreen {
         }
     }
 
+    /**
+     * Checks the difficulty of the game, if it is equal to a predetermined enum values
+     * update the bitmap of the difficulty button
+     * Keith Tennyson
+     */
     public void diffChecker(DifficultyLevels diff ,PushButton changeDifficulty) {
         if(mGame.mDifficultyLevel == DifficultyLevels.EASY) {
             changeDifficulty.setBitmap(mGame.getAssetManager().getBitmap("diffEasy"));
@@ -201,6 +206,11 @@ public class OptionsScreen extends GameScreen {
 
     }
 
+    /**
+     * If the difficulty button is pushed, increment the value by one
+     * If difficulty is at max value (Hard) set to lowest if pushed (Easy)
+     * Keith Tennyson.
+     */
     public void DifficultyChange(DifficultyLevels diff, PushButton changeDifficulty) {
         if (changeDifficulty.isPushTriggered()) {
             if (mGame.mDifficultyLevel.equals(DifficultyLevels.EASY)) {

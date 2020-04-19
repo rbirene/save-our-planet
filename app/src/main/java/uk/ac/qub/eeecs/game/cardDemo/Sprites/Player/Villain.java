@@ -85,6 +85,13 @@ public class Villain extends Player {
         }
     **/
 
+    /**
+     * If no cards have been played on the field (3 cards in the villains deck) play a card.
+     * If theres no cards in the deck (playerCards.size == 0) you must attack.
+     * Else, the AI will use the below methods of deciding actions based on the difficulty
+     * Roll a random number to decide to attack or play a card this turn.
+     * Keith Tennyson
+     */
    public void AI() {
        if(playerCards.size() == 3) {
            AICardSelect();
@@ -110,6 +117,7 @@ public class Villain extends Player {
         if (tempdiff == DifficultyLevels.EASY) {
             /**
              * For Easy, play the card with the lowest combined attack and health value.
+             * Keith Tennyson
              */
 
             int cardtochoose = 0;
@@ -132,6 +140,7 @@ public class Villain extends Player {
         }else if (tempdiff == DifficultyLevels.NORMAL) {
             /**
              * For normal, find the two best cards, and random roll on either to play the best card, or second to best card.
+             * Keith Tennyson
              */
             Random rand = new Random();
 
@@ -187,6 +196,12 @@ public class Villain extends Player {
         }
     }
 
+    /**
+     * Move the selected villain card to the position of the player's card
+     * If they intersect bounding boxes, play the attack animation, take the correct amount of
+     * health off the card, and move the card back to the villain's card slot.
+     * Keith Tennyson
+     */
 
     public void AIattackPhase(int selectedAttackCard, int cardToAttack) {
 
@@ -212,7 +227,7 @@ public class Villain extends Player {
         DifficultyLevels tempdiff;
         tempdiff = getGameBoard().getGameScreen().getGame().getDifficultyLevel();
         if (tempdiff == DifficultyLevels.EASY) {
-            // If easy, attack card with highest health with lowest attack.
+            // If easy, attack card with highest health with lowest attack card - Keith
 
             containers.addAll(gameBoard.getVillianContainers());
             enemyContainers.addAll(gameBoard.getHeroContainers());
@@ -250,6 +265,11 @@ public class Villain extends Player {
 
         else if(tempdiff == DifficultyLevels.NORMAL) {
 
+            /**
+             * On Normal, attack the highest player card (Attack+ Health value) with a random card.
+             * If a random roll below 51 occurs, instead attack random card with a random villain card
+             * Keith Tennyson
+             */
             playerCards.trimToSize();
             containers.addAll(gameBoard.getVillianContainers());
             enemyContainers.addAll(gameBoard.getHeroContainers());
@@ -289,6 +309,10 @@ public class Villain extends Player {
         }
 
         else if(tempdiff == DifficultyLevels.HARD) {
+            /**
+             * On Hard, attack the highest player card (Attack+ Health value) with the Highest Villain Card
+             * Keith Tennyson
+             */
 
             containers.addAll(gameBoard.getVillianContainers());
             enemyContainers.addAll(gameBoard.getHeroContainers());
