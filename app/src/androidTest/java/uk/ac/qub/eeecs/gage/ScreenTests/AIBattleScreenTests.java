@@ -19,6 +19,8 @@ import uk.ac.qub.eeecs.game.cardDemo.Screens.BattleScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Screens.ChooseCardScreen;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.Card;
 import uk.ac.qub.eeecs.game.cardDemo.Boards.GameBoard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.HeroCard;
+import uk.ac.qub.eeecs.game.cardDemo.Sprites.Card.VillainCard;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Hero;
 import uk.ac.qub.eeecs.game.cardDemo.Sprites.Player.Villain;
 import uk.ac.qub.eeecs.game.cardDemo.Enums.DifficultyLevels;
@@ -76,12 +78,12 @@ public class AIBattleScreenTests {
 
         cardType = "cardType";
         cardName = "cardName";
-        //aCard = new Card(5, 8, battleDemo, cardName, cardType , null, null, 20, 30, 0.3f);
-        //aCard2 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
-        //aCard3 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 15, 20, 0.3f);
-        //aCard4 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 20, 0.3f);
-        //aCard5 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 15, 0.3f);
-        //aCard6 = new Card(5, 8, battleDemo, cardName, cardType , null, null, 5, 9, 0.3f);
+        aCard = new VillainCard(Game, cardName,null, null, 20, 30, 0.3f);
+        aCard2 = new VillainCard(Game, cardName,null, null, 5, 9, 0.3f);
+        aCard3 = new VillainCard(Game, cardName,null, null, 15, 20, 0.3f);
+        aCard4 = new HeroCard(Game, cardName,null, null, 5, 20, 0.3f);
+        aCard5 = new HeroCard(Game, cardName,null, null, 5, 15, 0.3f);
+        aCard6 = new HeroCard(Game, cardName,null, null, 5, 9, 0.3f);
 
 
         villain.setGameBoard(gameBoard);
